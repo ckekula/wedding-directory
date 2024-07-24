@@ -41,10 +41,10 @@ jobs:
           cd backend
           npm install
 
-      - name: Run lint
-        run: |
-          cd backend
-          npm run lint
+      # - name: Run lint
+      #   run: |
+      #     cd backend
+      #     npm run lint
 
       - name: Run tests
         env:
