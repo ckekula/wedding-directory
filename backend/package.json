@@ -6,7 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
-    "prebuild": "chmod +x node_modules/.bin/eslint",
+    "prebuild": "chmod +x node_modules/.bin/eslint node_modules/.bin/jest node_modules/.bin/nest",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",

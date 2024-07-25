@@ -44,7 +44,7 @@ jobs:
       - name: Set executable permissions
         run: |
           cd backend
-          chmod +x node_modules/.bin/eslint
+          chmod +x node_modules/.bin/eslint node_modules/.bin/jest
 
       - name: Run lint
         run: |
