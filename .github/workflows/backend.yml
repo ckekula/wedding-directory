@@ -41,10 +41,15 @@ jobs:
           cd backend
           npm install
 
-      # - name: Run lint
-      #   run: |
-      #     cd backend
-      #     npm run lint
+      - name: Set executable permissions
+        run: |
+          cd backend
+          chmod +x node_modules/.bin/eslint
+
+      - name: Run lint
+        run: |
+          cd backend
+          npm run lint
 
       - name: Run tests
         env:
@@ -62,8 +67,8 @@ jobs:
           cd backend
           npm run build
 
-      - name: Deploy to Render
+      - name: Deploy to Railway
         env:
-          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+          _API_KEY: ${{ secrets.RENDER_API_KEY }}
         run: |
           curl -X POST -H "Accept: application/json" -H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" -d '' https://api.render.com/deploy/srv-xxxxxxxxxxxxxxxxxx
