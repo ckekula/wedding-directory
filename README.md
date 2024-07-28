@@ -78,14 +78,24 @@ Here's a blank template to get started: To avoid retyping too much info. Do a se
 
 ### Built With
 
+
 * [![Next][Next.js]][Next-url]
 * [![React][React.js]][React-url]
-* [![Vue][Vue.js]][Vue-url]
-* [![Angular][Angular.io]][Angular-url]
-* [![Svelte][Svelte.dev]][Svelte-url]
-* [![Laravel][Laravel.com]][Laravel-url]
-* [![Bootstrap][Bootstrap.com]][Bootstrap-url]
-* [![JQuery][JQuery.com]][JQuery-url]
+* [![TailwindCSS][TailwindCSS]][TailwindCSS-url]
+* [![NestJS][NestJS]][NestJS-url]
+* [![Apollo-GraphQL][Apollo-GraphQL]][Apollo-GraphQL-url]
+* [![Redis][Redis]][Redis-url]
+* [![JWT][JWT]][JWT-url]
+* [![Postgres][Postgres]][Postgres-url]
+* [![MongoDB][MongoDB]][MongoDB-url]
+* [![Docker][Docker]][Docker-url]
+* [![Jest][Jest]][Jest-url]
+* [![Selenium][Selenium]][Selenium-url]
+
+
+
+
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -107,34 +117,36 @@ This is an example of how to list things you need to use the software and how to
 
 ### Installation
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clone the repo
    ```sh
    git clone https://github.com/ckekula/wedding-directory.git
    ```
-3. Install NPM packages
+2. Install NPM packages
    ```sh
    npm install
    ```
-4. Enter your API in `config.js`
+3. Navigate to the directory `frontend`
    ```js
-   const API_KEY = 'ENTER YOUR API';
+   cd frontend
+   ```
+4. Start the local Next.js server
+   ```sh
+   npm run dev
+   ```
+5. Open a new terminal and navigate to the backend directory
+   ```js
+   cd backend
+   ```
+6. Install NPM packages for the `backend`
+   ```sh
+   npm install
+   ```
+7. Start the backend server locally
+   ```sh
+   npm run start
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- USAGE EXAMPLES -->
-## Usage
-
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 <!-- ROADMAP -->
 ## Roadmap
@@ -180,7 +192,10 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - email@email_client.com
+Hansika Karunathilake - [LinkedIn](https://www.linkedin.com/in/hansika-karunathilake-520a03218/)  
+KRC Skekulawala - [LinkedIn](https://www.linkedin.com/in/krcskekulawala)  
+Janitha Karunarathna - [LinkedIn](https://www.linkedin.com/in/janitha-karunarathna/)  
+Keshara Gunathilaka - [LinkedIn](https://www.linkedin.com/in/keshara-gunathilaka/)
 
 Project Link: [https://github.com/ckekula/wedding-directory](https://github.com/ckekula/wedding-directory)
 
@@ -191,9 +206,8 @@ Project Link: [https://github.com/ckekula/wedding-directory](https://github.com/
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-* []()
-* []()
-* []()
+We would like to express our gratitude to our client, Dr. Kushan Sudheera, for his guidance and support throughout the project.
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -218,8 +232,23 @@ Project Link: [https://github.com/ckekula/wedding-directory](https://github.com/
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
 [React-url]: https://reactjs.org/
-![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+[TailwindCSS]: https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white
 [TailwindCSS-url]: https://tailwindcss.com/
-
-
-
+[NestJS]: https://img.shields.io/badge/nestjs-%23E0234E.svg?style=for-the-badge&logo=nestjs&logoColor=white
+[NestJS-url]: https://nestjs.com/
+[Apollo-GraphQL]: https://img.shields.io/badge/-ApolloGraphQL-311C87?style=for-the-badge&logo=apollo-graphql
+[Apollo-GraphQL-url]: https://www.apollographql.com/
+[Redis]: https://img.shields.io/badge/redis-%23DD0031.svg?style=for-the-badge&logo=redis&logoColor=white
+[Redis-url]: https://redis.io/
+[JWT]: https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens
+[JWT-url]: https://jwt.io/
+[Postgres]: https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white
+[Postgres-url]: https://www.postgresql.org/
+[MongoDB]: https://img.shields.io/badge/MongoDB-%234ea94b.svg?style=for-the-badge&logo=mongodb&logoColor=white
+[MongoDB-url]: https://www.mongodb.com/
+[Docker]: https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white
+[Docker-url]: https://www.docker.com/
+[Jest]: https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white
+[Jest-url]: https://jestjs.io/
+[Selenium]: https://img.shields.io/badge/-selenium-%43B02A?style=for-the-badge&logo=selenium&logoColor=white
+[Selenium-url]: https://www.selenium.dev/
