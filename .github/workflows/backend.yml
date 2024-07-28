@@ -4,9 +4,14 @@ on:
   push:
     branches:
       - main
+      - develop
   pull_request:
     branches:
       - main
+      - develop
+      - feature/*
+      - release/*
+      - hotfix/*
 
 jobs:
   build:
@@ -77,6 +82,7 @@ jobs:
           docker push ${{ secrets.DOCKER_USERNAME }}/backend:latest
 
       - name: Deploy to Railway
+        if: github.ref == 'refs/heads/main'
         env:
           _API_KEY: ${{ secrets.RENDER_API_KEY }}
         run: |
