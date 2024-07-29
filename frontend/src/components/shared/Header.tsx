@@ -1,35 +1,32 @@
-"use client";
-
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { Button } from "../ui/button";
 
-const Links = [
-  { name: "Home", path: "/" },
-  { name: "Plan it", path: "/plan-it" },
-  { name: "About", path: "/about" },
-  { name: "Contact", path: "/contact" },
-  { name: "Help", path: "/help" },
-];
+//components
+import Nav from "../shared/Nav";
+
 const Header = () => {
-  const pathname = usePathname();
-
-  return <header>
-    <nav className="flex gap-8">
-    {Links.map((link, index) => {
-        return (
-          <Link
-            href={link.path}
-            key={index}
-            className={`${
-              link.path === pathname && "text-accent border-b-2 border-accent"
-            } capitalize font-medium hover:text-accent transition-all`}
-          >
-            {link.name}
+  return (
+    <header className="py-8 xl:py-12 text-accent">
+      <div className="container mx-auto flex justify-between items-center ">
+        {/* Logo */}
+        <Link href="/>">
+          <h1 className=" text-4xl font-semibold text-accent font-title">
+            Say I Do
+          </h1>
+        </Link>
+        {/*desktop nav */}
+        <div className="hidden xl:flex items-center gap-8">
+          <Nav />
+          <Link href="/login">
+            <Button>Login</Button>
           </Link>
-        );
-      })}
-    </nav>
-  </header>;
+          <Link href="/sign-up">
+            <Button>signup</Button>
+          </Link>
+        </div>
+      </div>
+    </header>
+  );
 };
 
 export default Header;

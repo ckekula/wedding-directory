@@ -1,25 +1,37 @@
-import type { Config } from "tailwindcss";
+import type { Config } from "tailwindcss"
 
 const config = {
   darkMode: ["class"],
   content: [
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-
-    // Or if using `src` directory:
-    "./src/**/*.{js,ts,jsx,tsx,mdx}",
+    './pages/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+    './app/**/*.{ts,tsx}',
+    './src/**/*.{ts,tsx}',
   ],
   prefix: "",
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      padding: "15px",
       screens: {
-        "2xl": "1400px",
+        sm: "640px",
+        md: "768px",
+        lg: "960px",
+        xl: "1200px",
       },
     },
     extend: {
+      colors: {
+        primary: "#F1B4B4",
+        secondary: "#FFDCDC",
+        accent: "#1F417F",
+        background: "#E2E7EF",
+        text: "#132043",
+      },
+      fontFamily: {
+        body: ["montserrat", "sans-serif"],
+        title: ["merriweather", "serif"],
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
@@ -37,6 +49,6 @@ const config = {
     },
   },
   plugins: [require("tailwindcss-animate")],
-} satisfies Config;
+} satisfies Config
 
-export default config;
+export default config
