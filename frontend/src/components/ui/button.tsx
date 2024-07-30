@@ -21,9 +21,9 @@ const buttonVariants = cva(
           "hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-50",
         link: "text-slate-900 underline-offset-4 hover:underline dark:text-slate-50",
         login:
-          " bg-secondary font-title text-accent hover:bg-FFDCDC/90 dark:bg-FFDCDC dark:text-slate-900 dark:hover:bg-FFDCDC/90",
+          " bg-secondary font-title text-accent text-xl hover:bg-FFDCDC/90 dark:bg-FFDCDC dark:text-slate-900 dark:hover:bg-FFDCDC/90",
         signup:
-          "bg-primary font-title  text-accent hover:bg-F1B4B4/90 dark:bg-F1B4B4 dark:text-slate-900 dark:hover:bg-F1B4B4/90",
+          "bg-primary font-title  text-accent text-xl hover:bg-F1B4B4/90 dark:bg-F1B4B4 dark:text-slate-900 dark:hover:bg-F1B4B4/90",
       },
       size: {
         default: "h-10 px-4 py-2",

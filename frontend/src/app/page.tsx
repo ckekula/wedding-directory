@@ -12,7 +12,7 @@ import Footer from "@/components/shared/Footer";
 
 export default function Page() {
   return (
-    <div className="bg-background">
+    <div >
       <Header />
       <Hero />
       <MasonaryGrid/>
