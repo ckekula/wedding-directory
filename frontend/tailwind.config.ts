@@ -29,7 +29,7 @@ const config = {
         text: "#132043",
       },
       fontFamily: {
-        body: ["montserrat", "sans-serif"],
+        body: ["montserrat", "serif"],
         title: ["merriweather", "serif"],
       },
       keyframes: {

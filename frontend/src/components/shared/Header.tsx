@@ -6,7 +6,7 @@ import Nav from "../shared/Nav";
 
 const Header = () => {
   return (
-    <header className="py-8 xl:py-12 text-accent bg-background">
+    <header className="py-6 xl:py-6 text-accent bg-background">
       <div className="container mx-auto flex justify-between items-center ">
         {/* Logo */}
         <Link href="/>">
