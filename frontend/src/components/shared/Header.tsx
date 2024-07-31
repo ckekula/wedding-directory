@@ -19,15 +19,15 @@ const Header = () => {
           <Nav />
         </div>
         <div className=" text-xl flex items-center justify-center gap-8">
-        <Link href="help" className="font-title">
-          Help
-        </Link>
-        <Link href="/login">
-          <Button variant="login">Login</Button>
-        </Link>
-        <Link href="/sign-up">
-          <Button variant="signup">Sign Up</Button>
-        </Link>
+          <Link href="help" className="font-title">
+            Help
+          </Link>
+          <Link href="/login">
+            <Button variant="login">Login</Button>
+          </Link>
+          <Link href="/sign-up">
+            <Button variant="signup">Sign Up</Button>
+          </Link>
         </div>
       </div>
     </header>
