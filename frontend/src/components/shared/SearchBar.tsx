@@ -7,11 +7,10 @@ const SearchBar = () => {
       <div className="relative">
         <input
           type="text"
-          className="p-2 pl-10 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent"
-          
+          className="p-2 pl-10 rounded-full border border-gray-300 focus:outline-none focus:ring-1 focus:ring-black focus:border-transparent"
         />
         <div className=" absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-          <MdSearch className="w-5 h-5 text-gray-400" />
+          <MdSearch className="w-[25px] h-[25px] text-black" />
         </div>
       </div>
     </div>

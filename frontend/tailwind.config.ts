@@ -12,7 +12,7 @@ const config = {
   theme: {
     container: {
       center: true,
-      padding: "15px",
+      padding: "35px",
       screens: {
         sm: "640px",
         md: "768px",
@@ -29,7 +29,7 @@ const config = {
         text: "#132043",
       },
       fontFamily: {
-        body: ["montserrat", "sans-serif"],
+        body: ["montserrat", "serif"],
         title: ["merriweather", "serif"],
       },
       keyframes: {
