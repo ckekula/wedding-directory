@@ -18,11 +18,11 @@ const Header = () => {
         <div className="hidden xl:flex items-center gap-8">
           <Nav />
         </div>
-        <div className=" text-xl flex items-center justify-center gap-8">
-          <Link href="help" className="font-title">
+        <div className=" text-xl flex items-center justify-center gap-8 font-bold">
+          <Link href="help" className="font-title font-bold">
             Help
           </Link>
-          <Link href="/login">
+          <Link href="/login" >
             <Button variant="login">Login</Button>
           </Link>
           <Link href="/sign-up">
