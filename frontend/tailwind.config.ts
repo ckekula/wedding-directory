@@ -31,6 +31,7 @@ const config = {
       fontFamily: {
         body: ["montserrat", "serif"],
         title: ["merriweather", "serif"],
+        montez: ["montez", "cursive"],
       },
       keyframes: {
         "accordion-down": {
