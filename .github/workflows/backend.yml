@@ -50,11 +50,11 @@ jobs:
 
       - name: Run tests
         env:
-          DATABASE_HOST: 127.0.0.1
-          DATABASE_PORT: 5432
-          DATABASE_USER: postgres
-          DATABASE_PASSWORD: postgres
-          DATABASE_NAME: test_db
+          DATABASE_HOST: ${{ secrets.DATABASE_HOST }}
+          DATABASE_PORT: ${{ secrets.DATABASE_PORT }}
+          DATABASE_USER: ${{ secrets.DATABASE_USER }}
+          DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+          DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
         run: |
           cd backend
           npm test
@@ -73,7 +73,7 @@ jobs:
         run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/backend:latest
 
-      - name: Deploy to Railway
+      - name: Deploy to Render
         if: github.ref == 'refs/heads/main'
         env:
           _API_KEY: ${{ secrets.RENDER_API_KEY }}
