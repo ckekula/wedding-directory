@@ -37,7 +37,7 @@ const Testimonials = () => {
   return (
     <section className="flex justify-center py-16 bg-white">
       <div className="container mx-auto ">
-        <h2 className="text-4xl font-bold font-title text-center mb-8">
+        <h2 className="text-5xl font-bold font-title text-center mb-8">
           What other couples say about us
         </h2>
         <div className=" flex items-center justify-center w-auto">

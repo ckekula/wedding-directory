@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
-import { Montserrat, Merriweather,Montez } from "next/font/google";
+import { Montserrat, Merriweather, Montez } from "next/font/google";
+import Head from "next/head";
 import "./globals.css";
+
+import PageTransition from "@/components/PageTransition";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -15,11 +18,10 @@ const merriweather = Merriweather({
 });
 
 const montez = Montez({
-  
   subsets: ["latin"],
   weight: ["400"],
   variable: "--font-montez",
-})
+});
 
 export const metadata: Metadata = {
   title: "Say I Do",
@@ -33,7 +35,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${montserrat.variable} ${merriweather.variable} ${montez.variable}` }>{children}</body>
+      <Head>
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+      </Head>
+      <body
+        className={`${montserrat.variable} ${merriweather.variable} ${montez.variable}`}
+      >
+        {children}
+       
+      </body>
     </html>
   );
 }
