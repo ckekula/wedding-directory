@@ -16,7 +16,7 @@ export default function Page() {
       <Header />
       <Hero />
       <MasonaryGrid/>
-      <VendorCategories/>
+     
       <PlanningSteps/>
       <Testimonials/>
       <Subscribe/>
