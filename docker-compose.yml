@@ -15,7 +15,7 @@ services:
     ports:
       - "4000:4000"
     env_file:
-      - .env
+      - backend/.env
     environment:
       - NODE_ENV=development
     depends_on:
@@ -24,7 +24,7 @@ services:
   db:
     image: postgres:13
     env_file:
-      - .env
+      - backend/.env
     ports:
       - "5432:5432"
     volumes:
@@ -33,7 +33,7 @@ services:
   pgadmin:
     image: dpage/pgadmin4
     env_file:
-      - .env
+      - backend/.env
     ports:
       - "8080:80"
     depends_on:

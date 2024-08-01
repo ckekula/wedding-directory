@@ -1,4 +1,4 @@
-import { Column, Entity, PrimaryGeneratedColumn, OneToOne } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
 import { UserEntity } from './user.entity';
 
 @Entity()
@@ -16,5 +16,6 @@ export class UserSettingEntity {
   receiveEmails: boolean;
 
   @OneToOne(() => UserEntity, (user) => user.settings)
-  user: UserEntity;
+  @JoinColumn({ name: 'userId' })
+   user: UserEntity;
 }

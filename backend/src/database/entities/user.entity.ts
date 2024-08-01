@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
-import { UserSettingModel } from 'src/graphql/models/userSetting.model';
+import { UserSettingEntity } from './userSetting.entity';
 
 @Entity({ name: 'users' })
 export class UserEntity {
@@ -12,7 +12,7 @@ export class UserEntity {
   @Column({ nullable: true })
   displayName?: string;
 
-  @OneToOne(() => UserSettingModel)
+  @OneToOne(() => UserSettingEntity)
   @JoinColumn()
-  settings?: UserSettingModel;
+  settings?: UserSettingEntity;
 }
