@@ -8,16 +8,28 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserModule = void 0;
 const common_1 = require("@nestjs/common");
-const user_resolver_1 = require("./user.resolver");
+const typeorm_1 = require("@nestjs/typeorm");
+const user_service_1 = require("./user.service");
+const user_resolver_1 = require("../../graphql/resolvers/user.resolver");
+const user_repository_1 = require("../../database/repositories/user.repository");
+const userSetting_service_1 = require("./userSetting.service");
+const userSetting_repository_1 = require("../../database/repositories/userSetting.repository");
+const userSettings_resolver_1 = require("../../graphql/resolvers/userSettings.resolver");
+const user_entity_1 = require("../../database/entities/user.entity");
+const userSetting_entity_1 = require("../../database/entities/userSetting.entity");
 let UserModule = class UserModule {
 };
 exports.UserModule = UserModule;
 exports.UserModule = UserModule = __decorate([
     (0, common_1.Module)({
-        imports: [],
-        controllers: [],
+        imports: [typeorm_1.TypeOrmModule.forFeature([user_entity_1.UserEntity, userSetting_entity_1.UserSettingEntity])],
         providers: [
-            user_resolver_1.UserResolver
+            user_service_1.UserService,
+            user_resolver_1.UserResolver,
+            userSetting_service_1.UserSettingService,
+            userSettings_resolver_1.UserSettingsResolver,
+            user_repository_1.UserRepository,
+            userSetting_repository_1.UserSettingRepository,
         ],
     })
 ], UserModule);
