@@ -37,13 +37,11 @@ export default function RootLayout({
     <html lang="en">
       <Head>
         <link rel="icon" href="/favicon.ico" />
-        <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
       </Head>
       <body
         className={`${montserrat.variable} ${merriweather.variable} ${montez.variable}`}
       >
         {children}
-       
       </body>
     </html>
   );
