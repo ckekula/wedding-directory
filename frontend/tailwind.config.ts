@@ -27,10 +27,12 @@ const config = {
         accent: "#1F417F",
         background: "#E2E7EF",
         text: "#132043",
+        brown: "#271300",
       },
       fontFamily: {
         body: ["montserrat", "serif"],
         title: ["merriweather", "serif"],
+        montez: ["montez", "cursive"],
       },
       keyframes: {
         "accordion-down": {

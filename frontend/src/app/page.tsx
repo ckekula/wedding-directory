@@ -12,15 +12,14 @@ import Footer from "@/components/shared/Footer";
 
 export default function Page() {
   return (
-    <div >
+    <div>
       <Header />
       <Hero />
-      <MasonaryGrid/>
-      <VendorCategories/>
-      <PlanningSteps/>
-      <Testimonials/>
-      <Subscribe/>
-      <Footer/>
+      <MasonaryGrid />
+      <PlanningSteps />
+      <Testimonials />
+      <Subscribe />
+      <Footer />
     </div>
   );
 }
