@@ -19,22 +19,22 @@ const page = () => {
     <div>
       <Header />
 
-      <div className="relative z-10 w-full h-[400px] md:h-[800px]">
+      <div className="relative z-10 w-full h-[1000px] md:h-[800px]">
         <Image
           src="/login-signup.jpg"
           layout="fill"
           objectFit="cover"
           alt="sign image"
         />
-        <div className="absolute inset-0">
+        <div className="absolute inset-0 font-body">
           <div className='flex flex-col justify-center items-center text-center'>
             <div><p className="mt-8 w-full">tag line</p></div>
             <div><h1 className="font-title font-bold text-3xl w-full ">Welcome Vendors</h1></div>
-            <div className='bg-white bg-opacity-70 mt-6 w-[600px] border-solid border-black border-2 border-opacity-60 rounded-md p-8' >
-              <h1 className='text-indigo-950 mx-[90px] text-2xl font-bold text-center font-title'>Connect with couples to make their dream wedding come true!</h1>
+            <div className='bg-white bg-opacity-70 mt-6 w-[350px] md:w-[600px] border-solid border-black border-2 border-opacity-60 rounded-md p-8' >
+              <h1 className='text-indigo-950 mx-[30px] md:mx-[90px] text-2xl font-bold text-center font-title'>Connect with couples to make their dream wedding come true!</h1>
               <form>
 
-                <div className="mt-6 grid grid-cols-2 w-full items-center gap-x-12 gap-y-5">
+                <div className="mt-6 grid grid-cols-1 md:grid-cols-2 w-full items-center gap-x-12 gap-y-5">
                   <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
                     <Input className="h-8" id="fname" placeholder="First Name" />
                   </div>
@@ -58,7 +58,7 @@ const page = () => {
                     <Input className="h-8" id="phone" placeholder="Phone" />
                   </div>
                   <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
-                    <Input className="h-8" id="email" placeholder="Email" />
+                    <Input className="h-8" type="email" id="email" placeholder="Email" />
                   </div>
                   <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
                     <Select>
@@ -74,10 +74,10 @@ const page = () => {
                     <Input className="h-8" id="postalcode" placeholder="Postal Code" />
                   </div>
                   <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
-                    <Input className="h-8" id="password" placeholder="Password" />
+                    <Input className="h-8" type="password" id="password" placeholder="Password" />
                   </div>
                   <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
-                    <Input className="h-8" id="rpassword" placeholder="Retype Password" />
+                    <Input className="h-8" type="password" id="rpassword" placeholder="Retype Password" />
                   </div>
                 </div>
                 <div className="mt-6 flex space-x-2">
@@ -85,8 +85,8 @@ const page = () => {
                   <label
                     htmlFor="terms"
                     className="text-sm text-left leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                     By submitting and sharing your information, you agree to the{' '}
-                     <Link href="/" className="underline">
+                    By submitting and sharing your information, you agree to the{' '}
+                    <Link href="/" className="underline">
                       terms of use
                     </Link>{' '}
                     and{' '}
