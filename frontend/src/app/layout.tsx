@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
-import { Montserrat, Merriweather } from "next/font/google";
+import { Montserrat, Merriweather, Montez } from "next/font/google";
+import Head from "next/head";
 import "./globals.css";
+
+import PageTransition from "@/components/PageTransition";
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -12,6 +15,12 @@ const merriweather = Merriweather({
   subsets: ["latin"],
   weight: ["300", "400", "700", "900"],
   variable: "--font-merriweather",
+});
+
+const montez = Montez({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-montez",
 });
 
 export const metadata: Metadata = {
@@ -26,7 +35,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${montserrat.variable} ${merriweather.variable}`}>{children}</body>
+      <Head>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <body
+        className={`${montserrat.variable} ${merriweather.variable} ${montez.variable}`}
+      >
+        {children}
+      </body>
     </html>
   );
 }
