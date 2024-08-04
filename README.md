@@ -27,7 +27,7 @@
     <a href="https://github.com/ckekula/wedding-directory"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/ckekula/wedding-directory">View Demo</a>
+    <a href="https://github.com/ckekula/wedding-directory">View Test</a>
     ·
     <a href="https://github.com/ckekula/wedding-directory/issues/new?labels=bug&template=bug-report---.md">Report Bug</a>
     ·
