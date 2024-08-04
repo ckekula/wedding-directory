@@ -18,7 +18,7 @@
   <a href="https://github.com/ckekula/wedding-directory">
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
-
+<p>test</p>
 <h3 align="center">Subscription-Based Online Directory for Wedding Service Providers</h3>
 
   <p align="center">
