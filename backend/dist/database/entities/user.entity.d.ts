@@ -1,7 +1,7 @@
-import { UserSettingModel } from 'src/graphql/models/userSetting.model';
+import { UserSettingEntity } from './userSetting.entity';
 export declare class UserEntity {
     id: number;
     username: string;
     displayName?: string;
-    settings?: UserSettingModel;
+    settings?: UserSettingEntity;
 }

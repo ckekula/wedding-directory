@@ -7,7 +7,7 @@ import { UserSettingRepository } from 'src/database/repositories/userSetting.rep
 export class UserSettingService {
   constructor(private userSettingRepository: UserSettingRepository) {}
 
-  async getUserSettingById(userId: number): Promise<UserSettingEntity> {
+  async findUserSettingById(userId: number): Promise<UserSettingEntity> {
     return this.userSettingRepository.findByUserId(userId);
   }
 

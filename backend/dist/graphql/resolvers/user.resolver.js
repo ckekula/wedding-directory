@@ -27,13 +27,13 @@ let UserResolver = class UserResolver {
     getUserById(id) {
         return this.userService.getUserById(id);
     }
-    getAllUsers() {
+    async getAllUsers() {
         return this.userService.getAllUsers();
     }
     getUserSettings(user) {
         return this.userSettingService.getUserSettingById(user.id);
     }
-    createUser(createUserData) {
+    async createUser(createUserData) {
         return this.userService.createUser(createUserData);
     }
 };
@@ -49,7 +49,7 @@ __decorate([
     (0, graphql_1.Query)(() => [user_model_1.UserModel]),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], UserResolver.prototype, "getAllUsers", null);
 __decorate([
     (0, graphql_1.ResolveField)(() => userSetting_model_1.UserSettingModel, { name: 'settings', nullable: true }),
@@ -63,7 +63,7 @@ __decorate([
     __param(0, (0, graphql_1.Args)('createUserData')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [createUser_1.CreateUserInput]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], UserResolver.prototype, "createUser", null);
 exports.UserResolver = UserResolver = __decorate([
     (0, graphql_1.Resolver)(() => user_model_1.UserModel),

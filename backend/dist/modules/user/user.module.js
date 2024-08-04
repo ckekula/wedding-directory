@@ -22,14 +22,14 @@ let UserModule = class UserModule {
 exports.UserModule = UserModule;
 exports.UserModule = UserModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([user_entity_1.UserEntity, userSetting_entity_1.UserSettingEntity])],
+        imports: [typeorm_1.TypeOrmModule.forFeature([
+                user_entity_1.UserEntity, userSetting_entity_1.UserSettingEntity, user_repository_1.UserRepository, userSetting_repository_1.UserSettingRepository
+            ])],
         providers: [
             user_service_1.UserService,
             user_resolver_1.UserResolver,
             userSetting_service_1.UserSettingService,
-            userSettings_resolver_1.UserSettingsResolver,
-            user_repository_1.UserRepository,
-            userSetting_repository_1.UserSettingRepository,
+            userSettings_resolver_1.UserSettingsResolver
         ],
     })
 ], UserModule);
