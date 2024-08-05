@@ -33,6 +33,7 @@ __decorate([
 ], UserSettingEntity.prototype, "receiveEmails", void 0);
 __decorate([
     (0, typeorm_1.OneToOne)(() => user_entity_1.UserEntity, (user) => user.settings),
+    (0, typeorm_1.JoinColumn)({ name: 'userId' }),
     __metadata("design:type", user_entity_1.UserEntity)
 ], UserSettingEntity.prototype, "user", void 0);
 exports.UserSettingEntity = UserSettingEntity = __decorate([

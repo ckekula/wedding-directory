@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserEntity = void 0;
 const typeorm_1 = require("typeorm");
-const userSetting_model_1 = require("../../graphql/models/userSetting.model");
+const userSetting_entity_1 = require("./userSetting.entity");
 let UserEntity = class UserEntity {
 };
 exports.UserEntity = UserEntity;
@@ -28,9 +28,9 @@ __decorate([
     __metadata("design:type", String)
 ], UserEntity.prototype, "displayName", void 0);
 __decorate([
-    (0, typeorm_1.OneToOne)(() => userSetting_model_1.UserSettingModel),
+    (0, typeorm_1.OneToOne)(() => userSetting_entity_1.UserSettingEntity),
     (0, typeorm_1.JoinColumn)(),
-    __metadata("design:type", userSetting_model_1.UserSettingModel)
+    __metadata("design:type", userSetting_entity_1.UserSettingEntity)
 ], UserEntity.prototype, "settings", void 0);
 exports.UserEntity = UserEntity = __decorate([
     (0, typeorm_1.Entity)({ name: 'users' })

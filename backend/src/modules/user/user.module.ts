@@ -12,14 +12,14 @@ import { UserEntity } from 'src/database/entities/user.entity';
 import { UserSettingEntity } from 'src/database/entities/userSetting.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UserEntity, UserSettingEntity])],
+  imports: [TypeOrmModule.forFeature([
+    UserEntity, UserSettingEntity, UserRepository, UserSettingRepository
+  ])],
   providers: [
     UserService,
     UserResolver,
     UserSettingService,
-    UserSettingsResolver,
-    UserRepository,
-    UserSettingRepository,
+    UserSettingsResolver
   ],
 })
 export class UserModule {}
