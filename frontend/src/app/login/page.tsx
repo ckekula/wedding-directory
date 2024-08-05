@@ -19,9 +19,9 @@ const page = () => {
           alt="sign image"
         />
         <div className="absolute inset-0 font-body">
-          <div className="flex flex-col justify-center items-center text-center">
-            <div className="bg-white bg-opacity-70 my-8 md:mt-20 w-[350px] md:w-[400px] border-solid border-black border-2 border-opacity-60 rounded-md p-8">
-              <h1 className="text-indigo-950 mx-[20px] text-3xl font-bold text-center font-title">
+          <div className='flex flex-col justify-center items-center text-center'>
+            <div className='bg-white bg-opacity-70 my-8 md:mt-20 w-[350px] md:w-[400px] border-solid border-black border-2 border-opacity-60 rounded-md p-8' >
+              <h1 className='text-text mx-[20px] text-3xl font-bold text-center font-title'>
                 Login to your account
               </h1>
               <form>
@@ -51,8 +51,8 @@ const page = () => {
                     />
                   </div>
                 </div>
-                <div className=" border-black rounded-md border-2 mt-6 flex flex-col w-full border-solid  bg-rose-300 ">
-                  <Button className="rounded-none text-black font-bold hover:bg-rose-300 bg-rose-300 text-xl">
+                <div className=" border-black rounded-md border-2 mt-6 flex flex-col w-full border-solid  bg-primary ">
+                  <Button className="rounded-none text-black font-bold hover:bg-primary bg-primary text-xl">
                     Login
                   </Button>
                 </div>

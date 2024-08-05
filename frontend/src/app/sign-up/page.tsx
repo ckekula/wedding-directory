@@ -31,7 +31,7 @@ const page = () => {
             <div><p className="mt-8 w-full">tag line</p></div>
             <div><h1 className="font-title font-bold text-3xl w-full ">Welcome Vendors</h1></div>
             <div className='bg-white bg-opacity-70 mt-6 w-[350px] md:w-[600px] border-solid border-black border-2 border-opacity-60 rounded-md p-8' >
-              <h1 className='text-indigo-950 mx-[30px] md:mx-[90px] text-2xl font-bold text-center font-title'>Connect with couples to make their dream wedding come true!</h1>
+              <h1 className='text-text mx-[30px] md:mx-[90px] text-2xl font-bold text-center font-title'>Connect with couples to make their dream wedding come true!</h1>
               <form>
 
                 <div className="mt-6 grid grid-cols-1 md:grid-cols-2 w-full items-center gap-x-12 gap-y-5">
@@ -96,8 +96,8 @@ const page = () => {
                     of Say I Do.
                   </label>
                 </div>
-                <div className=" border-black rounded-md border-2 mt-6 flex flex-col w-full border-solid  bg-rose-300 ">
-                  <Button className="rounded-none text-black font-bold hover:bg-rose-300 bg-rose-300 text-xl">Register Now</Button>
+                <div className=" border-black rounded-md border-2 mt-6 flex flex-col w-full border-solid  bg-primary ">
+                  <Button className="rounded-none text-black font-bold hover:bg-primary bg-primary text-xl">Register Now</Button>
                 </div>
               </form>
             </div>
