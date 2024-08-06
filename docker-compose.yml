@@ -29,13 +29,14 @@ services:
       - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+      - init.sql:/docker-entrypoint-initdb.d
 
   pgadmin:
     image: dpage/pgadmin4
     env_file:
       - backend/.env
     ports:
-      - "8080:80"
+      - "8081:8081"
     depends_on:
       - db
 

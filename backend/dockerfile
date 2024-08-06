@@ -7,8 +7,6 @@ COPY package*.json ./
 
 RUN npm install
 
-RUN chmod +x node_modules/.bin/eslint node_modules/.bin/jest node_modules/.bin/nest
-
 COPY . .
 
 RUN npm run build
