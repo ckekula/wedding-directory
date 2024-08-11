@@ -28,6 +28,10 @@ const Header = () => {
           <Link href="/sign-up">
             <Button variant="signup">Sign Up</Button>
           </Link>
+          {/*Testing visitor profile page*/}
+          <Link href="/visitor-profile">
+            <Button variant="signup">Visitor profile</Button>
+          </Link>
         </div>
       </div>
     </header>
