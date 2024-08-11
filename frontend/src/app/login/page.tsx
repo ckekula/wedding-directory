@@ -49,7 +49,7 @@ const page = () => {
               </div>
               <div className="mt-6 flex space-x-2 justify-center">
                 <label htmlFor="terms" className="text-sm  leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                  Don't have an account?{' '}
+                  Dona&apos;t have an account?
                   <Link href="/sign-up" className="underline ">
                     Register Here
                   </Link>
