@@ -22,15 +22,11 @@ const Header = () => {
           <Link href="help" className="font-title font-bold">
             Help
           </Link>
-          <Link href="/login" >
+          <Link href="/login">
             <Button variant="login">Login</Button>
           </Link>
           <Link href="/sign-up">
             <Button variant="signup">Sign Up</Button>
-          </Link>
-          {/*Testing visitor profile page*/}
-          <Link href="/visitor-profile">
-            <Button variant="signup">Visitor profile</Button>
           </Link>
         </div>
       </div>
