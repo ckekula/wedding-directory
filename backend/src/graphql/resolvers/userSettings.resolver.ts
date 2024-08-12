@@ -12,8 +12,6 @@ export class UserSettingsResolver {
     @Args('createUserSettingsData')
     createUserSettingsData: CreateUserSettingsInput,
   ): Promise<UserSettingModel> {
-    return this.userSettingsService.createUserSettings(
-      createUserSettingsData,
-    );
+    return this.userSettingsService.createUserSettings(createUserSettingsData);
   }
 }
