@@ -1,8 +1,11 @@
-import { useState, useEffect } from "react";
+"use client";
+import { useState } from "react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
-import { Calendar } from "./ui/calendar"
-
+import { Calendar } from "./ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { Calendar as CalendarIcon } from "lucide-react";
+import { format } from "date-fns";
 
 interface EditProfileModalProps {
   isOpen: boolean;
@@ -12,7 +15,6 @@ interface EditProfileModalProps {
     lastName: string;
     partnerFirstName: string;
     partnerLastName: string;
-
     engagementDate: Date;
     weddingDate: Date;
     weddingVenue: string;
@@ -34,11 +36,10 @@ const EditProfileModal = ({
     weddingDate: new Date(profileData.weddingDate),
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+  const handleChange = (name: string, value: Date) => {
     setFormData((prevData) => ({
       ...prevData,
-      [name]: name.includes("Date") ? new Date(value) : value,
+      [name]: value,
     }));
   };
 
@@ -66,14 +67,17 @@ const EditProfileModal = ({
         </h2>
         <form className="my-20">
           <div className="grid grid-cols-2 gap-4 font-body ">
-            <div className="col-span-2 sm:col-span-1 border-black border-solid">
+            <div className="col-span-2 sm:col-span-1">
               <Input
                 name="firstName"
                 type="string"
                 placeholder="First Name"
                 value={formData.firstName}
-                onChange={handleChange}
-                className="text-black font-semibold"
+                onChange={(e) =>
+                  handleChange("firstName", e.target.value as unknown as Date)
+                }
+                variant="outline"
+                
               />
             </div>
             <div className="col-span-2 sm:col-span-1">
@@ -82,8 +86,11 @@ const EditProfileModal = ({
                 type="string"
                 placeholder="Last Name"
                 value={formData.lastName}
-                onChange={handleChange}
-                className="text-black font-semibold"
+                onChange={(e) =>
+                  handleChange("lastName", e.target.value as unknown as Date)
+                }
+                variant="outline"
+                
               />
             </div>
             <div className="col-span-2 sm:col-span-1">
@@ -92,8 +99,14 @@ const EditProfileModal = ({
                 type="string"
                 placeholder="Partner's First Name"
                 value={formData.partnerFirstName}
-                onChange={handleChange}
-                className="text-black font-semibold"
+                onChange={(e) =>
+                  handleChange(
+                    "partnerFirstName",
+                    e.target.value as unknown as Date
+                  )
+                }
+                variant="outline"
+                
               />
             </div>
             <div className="col-span-2 sm:col-span-1">
@@ -102,29 +115,64 @@ const EditProfileModal = ({
                 placeholder="Partner's Last Name"
                 type="string"
                 value={formData.partnerLastName}
-                onChange={handleChange}
-                className="text-black font-semibold"
+                onChange={(e) =>
+                  handleChange(
+                    "partnerLastName",
+                    e.target.value as unknown as Date
+                  )
+                }
+                variant="outline"
               />
             </div>
             <div className="col-span-2">
-              <Input
-                name="engagementDate"
-                type="date"
-                placeholder="Engagement Date"
-                value={formData.engagementDate.toISOString().split("T")[0]}
-                onChange={handleChange}
-                className="text-black font-semibold"
-              />
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant={"outline"}
+                    className="w-full justify-start text-left font-normal"
+                  >
+                    <CalendarIcon className="mr-2 h-4 w-4" />
+                    {formData.engagementDate
+                      ? format(formData.engagementDate, "PPP")
+                      : "Pick a date"}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0">
+                  <Calendar
+                    mode="single"
+                    selected={formData.engagementDate}
+                    onSelect={(date) =>
+                      handleChange("engagementDate", date as Date)
+                    }
+                    initialFocus
+                  />
+                </PopoverContent>
+              </Popover>
             </div>
             <div className="col-span-2">
-              <Input
-                name="weddingDate"
-                placeholder="Wedding Date"
-                type="date"
-                value={formData.weddingDate.toISOString().split("T")[0]}
-                onChange={handleChange}
-                className="text-black font-semibold"
-              />
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant={"outline"}
+                    className="w-full justify-start text-left font-normal"
+                  >
+                    <CalendarIcon className="mr-2 h-4 w-4" />
+                    {formData.weddingDate
+                      ? format(formData.weddingDate, "PPP")
+                      : "Pick a date"}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0">
+                  <Calendar
+                    mode="single"
+                    selected={formData.weddingDate}
+                    onSelect={(date) =>
+                      handleChange("weddingDate", date as Date)
+                    }
+                    initialFocus
+                  />
+                </PopoverContent>
+              </Popover>
             </div>
             <div className="col-span-2">
               <Input
@@ -132,8 +180,13 @@ const EditProfileModal = ({
                 type="string"
                 placeholder="Wedding Venue"
                 value={formData.weddingVenue}
-                onChange={handleChange}
-                className="text-black font-semibold"
+                onChange={(e) =>
+                  handleChange(
+                    "weddingVenue",
+                    e.target.value as unknown as Date
+                  )
+                }
+                variant="outline"
               />
             </div>
             <div className="col-span-2">
@@ -141,8 +194,10 @@ const EditProfileModal = ({
                 name="email"
                 placeholder="Email"
                 value={formData.email}
-                onChange={handleChange}
-                className="text-black font-semibold"
+                onChange={(e) =>
+                  handleChange("email", e.target.value as unknown as Date)
+                }
+                variant="outline"
               />
             </div>
             <div className="col-span-2">
@@ -151,17 +206,27 @@ const EditProfileModal = ({
                 name="password"
                 placeholder="Password"
                 value={formData.password}
-                onChange={handleChange}
-                className="text-black font-semibold"
+                onChange={(e) =>
+                  handleChange("password", e.target.value as unknown as Date)
+                }
+                variant="outline"
               />
             </div>
           </div>
         </form>
-        <div className=" flex justify-between mt-4 gap-2">
-          <Button  onClick={onClose} className="m-auto w-[210px] bg-accent font-body">
+        <div className="flex justify-between mt-4 gap-2">
+          <Button
+            onClick={onClose}
+            className="m-auto w-[210px] bg-accent font-body text-xl hover:bg-white hover:border-accent border-[1px] hover:text-accent"
+          >
             Cancel
           </Button>
-          <Button onClick={handleSave}  className="m-auto w-[210px] bg-accent font-body" >Save</Button>
+          <Button
+            onClick={handleSave}
+             className="m-auto w-[210px] bg-accent font-body text-xl hover:bg-white hover:border-accent border-[1px] hover:text-accent"
+          >
+            Save
+          </Button>
         </div>
       </div>
     </>
