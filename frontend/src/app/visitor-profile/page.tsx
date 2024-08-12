@@ -9,7 +9,9 @@ const page = () => {
   return (
     <div>
       <Header />
+
       <ProfileSetting />
+
       <Footer />
     </div>
   );
