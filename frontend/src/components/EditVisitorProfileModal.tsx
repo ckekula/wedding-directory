@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
+import { Calendar } from "./ui/calendar"
+
 
 interface EditProfileModalProps {
   isOpen: boolean;
