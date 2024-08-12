@@ -1,6 +1,13 @@
-# dependencies
-/node_modules
+# Node modules
+node_modules/
 
-# local env files
-.env*.local
+# Environment variables
+.env
 
+# Logs
+logs/
+*.log
+
+# Other common exclusions
+dist/
+coverage/
