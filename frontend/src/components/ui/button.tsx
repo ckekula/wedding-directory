@@ -24,6 +24,8 @@ const buttonVariants = cva(
           " bg-secondary font-title font-bold text-accent text-xl hover:bg-FFDCDC/90 dark:bg-FFDCDC dark:text-slate-900 dark:hover:bg-FFDCDC/90",
         signup:
           "bg-primary font-title font-bold text-accent text-xl hover:bg-F1B4B4/90 dark:bg-F1B4B4 dark:text-slate-900 dark:hover:bg-F1B4B4/90",
+        
+          
       },
       size: {
         default: "h-10 px-4 py-2",
