@@ -3,7 +3,7 @@ import { VendorModel } from "../models/vendor.model";
 import { VendorEntity } from "src/database/entities/vendor.entity";
 import { VendorService } from "src/modules/vendor/vendor.service";
 import { VendorFilterInput } from "../inputs/vendorFilter";
-import { CreateVendorInput } from "../inputs/createVendorInput";
+import { CreateVendorInput } from "../inputs/create-vendor.input";
 
 @Resolver(() => VendorModel)
 export class VendorResolver {
