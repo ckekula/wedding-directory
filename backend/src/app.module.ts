@@ -4,7 +4,6 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { ConfigService, ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
-import { UserModule } from './modules/user/user.module';
 import { VendorModule } from './modules/vendor/vendor.module';
 
 @Module({
@@ -32,7 +31,6 @@ import { VendorModule } from './modules/vendor/vendor.module';
       playground: true
     }),
 
-    UserModule,
     VendorModule
   ],
 
