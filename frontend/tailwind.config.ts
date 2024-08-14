@@ -28,11 +28,13 @@ const config = {
         background: "#E2E7EF",
         text: "#132043",
         brown: "#271300",
-      },
+        orange: "#FC7B54",
+   },
       fontFamily: {
         body: ["montserrat", "serif"],
-        title: ["merriweather", "serif"],
+        //title: ["merriweather", "serif"],
         montez: ["montez", "cursive"],
+        title: ["outfit", "sans-serif"],
       },
       keyframes: {
         "accordion-down": {

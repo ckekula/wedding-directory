@@ -8,47 +8,49 @@ import Nav from "../shared/Nav";
 import VisitorSignup from "./VisitorSignup";
 import VisitorLogin from "./VisitorLogin";
 
-
 const Header = () => {
-
   const [showVisitorSignup, setShowVisitorSignup] = useState(false);
   const [showVisitorLogin, setShowVisitorLogin] = useState(false);
   return (
     <Fragment>
-      <header className="py-6 xl:py-6 text-accent bg-white">
+      <header className="py-6 xl:py-6 text-black bg-white">
         <div className="container mx-auto flex justify-between items-center ">
           {/* Logo */}
-          <Link href="/>">
-            <h1 className=" text-2xl font-bold text-accent font-title">
-              Say I Do
-            </h1>
-          </Link>
-
-         
+          <div className="flex-1">
+            <Link href="/>">
+              <h1 className=" text-2xl font-bold text-black font-title">
+                Say I Do
+              </h1>
+            </Link>
+          </div>
 
           {/*desktop nav */}
-          <div className="hidden xl:flex items-center gap-8">
+          <div className="flex-1 hidden xl:flex items-center justify-center">
             <Nav />
           </div>
-          <div className=" text-xl flex items-center justify-center gap-8 font-bold">
-            <Link href="help" className="font-title font-bold">
+          <div className="flex-1 flex items-center justify-end gap-8 text-xl">
+            <Link href="help" className="font-title ">
               Help
             </Link>
-            {/*}  <Link href="/login" >
-              <Button variant="login">Login</Button>
-              </Link>
-           <Link href="/sign-up">
 
-           {*/}
+            <Button variant="login" onClick={() => setShowVisitorLogin(true)}>
+              Login
+            </Button>
 
-            <Button variant="login" onClick={() => setShowVisitorLogin(true)}>Login</Button>
-
-            <Button variant="signup" onClick={() => setShowVisitorSignup(true)}>Sign Up</Button>
+            <Button variant="signup" onClick={() => setShowVisitorSignup(true)}>
+              Sign Up
+            </Button>
           </div>
         </div>
       </header>
-      <VisitorSignup isVisible={showVisitorSignup} onClose={() => setShowVisitorSignup(false)} />
-      <VisitorLogin isVisible={showVisitorLogin} onClose={() => setShowVisitorLogin(false)} />
+      <VisitorSignup
+        isVisible={showVisitorSignup}
+        onClose={() => setShowVisitorSignup(false)}
+      />
+      <VisitorLogin
+        isVisible={showVisitorLogin}
+        onClose={() => setShowVisitorLogin(false)}
+      />
     </Fragment>
   );
 };
