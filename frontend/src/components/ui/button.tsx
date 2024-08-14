@@ -21,9 +21,9 @@ const buttonVariants = cva(
           "hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-50",
         link: "text-slate-900 underline-offset-4 hover:underline dark:text-slate-50",
         login:
-          " bg-secondary font-title font-bold text-accent text-xl hover:bg-FFDCDC/90 dark:bg-FFDCDC dark:text-slate-900 dark:hover:bg-FFDCDC/90",
+          " bg-white border border-black  font-title  text-black text-xl hover:bg-black hover:text-white dark:bg-FFDCDC dark:text-slate-900 dark:hover:bg-FFDCDC/90",
         signup:
-          "bg-primary font-title font-bold text-accent text-xl hover:bg-F1B4B4/90 dark:bg-F1B4B4 dark:text-slate-900 dark:hover:bg-F1B4B4/90",
+          "bg-orange font-title  text-white text-xl  hover:bg-white hover:text-orange border border-orange  dark:bg-F1B4B4 dark:text-slate-900 dark:hover:bg-F1B4B4/90",
         
         
           
