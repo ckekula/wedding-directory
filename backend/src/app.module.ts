@@ -5,6 +5,7 @@ import { ConfigService, ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { VendorModule } from './modules/vendor/vendor.module';
+import { VisitorModule } from './modules/visitor/visitor.module';
 
 @Module({
   imports: [
@@ -31,7 +32,8 @@ import { VendorModule } from './modules/vendor/vendor.module';
       playground: true
     }),
 
-    VendorModule
+    VendorModule,
+    VisitorModule
   ],
 
 })

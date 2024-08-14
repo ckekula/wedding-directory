@@ -3,6 +3,7 @@ import { VendorEntity } from 'src/database/entities/vendor.entity';
 import { VendorFilterInput } from 'src/graphql/inputs/vendorFilter';
 import { DataSource } from 'typeorm';
 import { VendorRepositoryType, VendorRepository } from 'src/database/repositories/vendor.repository';
+import { CreateVendorInput } from 'src/graphql/inputs/create-vendor.input';
 
 @Injectable()
 export class VendorService {
@@ -23,4 +24,11 @@ export class VendorService {
   async findVendorById(id: number): Promise<VendorEntity | null> {
     return this.vendorRepository.findVendorById(id);
   }
+
+  async createVendor(createVendorInput: CreateVendorInput): Promise<VendorEntity> {
+    const vendor = this.vendorRepository.create(createVendorInput);
+    return this.vendorRepository.save(vendor);
+  }
+
+
 }
