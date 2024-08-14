@@ -25,6 +25,7 @@ const buttonVariants = cva(
         signup:
           "bg-primary font-title font-bold text-accent text-xl hover:bg-F1B4B4/90 dark:bg-F1B4B4 dark:text-slate-900 dark:hover:bg-F1B4B4/90",
         
+        
           
       },
       size: {
