@@ -15,7 +15,7 @@ const Header = () => {
   const [showVisitorLogin, setShowVisitorLogin] = useState(false);
   return (
     <Fragment>
-      <header className="py-6 xl:py-6 text-accent bg-background">
+      <header className="py-6 xl:py-6 text-accent bg-white">
         <div className="container mx-auto flex justify-between items-center ">
           {/* Logo */}
           <Link href="/>">
@@ -24,10 +24,7 @@ const Header = () => {
             </h1>
           </Link>
 
-          <Link href="/login">
-            <Button variant="login">Login</Button>
-          </Link>
-          <Link href="/sign-up">
+         
 
           {/*desktop nav */}
           <div className="hidden xl:flex items-center gap-8">
@@ -42,8 +39,7 @@ const Header = () => {
               </Link>
            <Link href="/sign-up">
 
-            <Button variant="signup">Sign Up</Button>
-          </Link> {*/}
+           {*/}
 
             <Button variant="login" onClick={() => setShowVisitorLogin(true)}>Login</Button>
 
