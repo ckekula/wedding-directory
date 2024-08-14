@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Montserrat, Merriweather, Montez } from "next/font/google";
-import Head from "next/head";
+
 import "./globals.css";
 
 import PageTransition from "@/components/PageTransition";
@@ -35,9 +35,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Head>
+   
         <link rel="icon" href="/favicon.ico" />
-      </Head>
+      
       <body
         className={`${montserrat.variable} ${merriweather.variable} ${montez.variable}`}
       >

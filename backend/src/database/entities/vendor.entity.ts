@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { LocationEntity } from './location.entity';
 
 @Entity({ name: 'vendor' })
@@ -28,10 +28,10 @@ export class VendorEntity {
   @Column({ type: 'varchar', length: 20 })
   category: string;
 
-  @Column({ name: 'created_at', type: 'timestamp', nullable: false })
+  @CreateDateColumn({ name: 'created_at', type: 'timestamp',  nullable: false })
   createdAt: Date;
 
-  @Column({ name: 'updated_at', type: 'timestamp', nullable: false })
+  @UpdateDateColumn({ name: 'updated_at', type: 'timestamp' , nullable: false })
   updatedAt: Date;
 
   @OneToOne(() => LocationEntity)

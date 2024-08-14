@@ -8,7 +8,7 @@ const Hero = () => {
     <div className="relative w-full h-[300px] md:h-[600px]">
       <Image
         src="/hero.jpg"
-        layout="fill"
+        fill
         objectFit="cover"
         className="object-cover w-full h-full"
         alt="hero image"
