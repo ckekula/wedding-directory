@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { VisitorEntity } from 'src/database/entities/visitor.entity';
-import { CreateVisitorInput } from 'src/graphql/inputs/create-visitor.input';
+import { CreateVisitorInput } from 'src/graphql/inputs/createVisitor';
 
 @Injectable()
 export class VisitorService {

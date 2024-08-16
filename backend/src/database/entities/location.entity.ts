@@ -1,10 +1,10 @@
-import { Entity, Column, PrimaryColumn, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { VendorEntity } from './vendor.entity';
 
 @Entity({ name: 'location' })
 export class LocationEntity {
-  @PrimaryColumn()
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column({ type: 'varchar', length: 100 })
   address: string;
@@ -19,6 +19,5 @@ export class LocationEntity {
   longitude: number;
 
   @OneToOne(() => VendorEntity, vendor => vendor.location)
-  @JoinColumn({ name: 'id' })
   vendor: VendorEntity;
 }

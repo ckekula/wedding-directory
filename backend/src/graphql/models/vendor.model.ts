@@ -1,10 +1,10 @@
-import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType } from '@nestjs/graphql';
 import { LocationModel } from './location.model';
 
 @ObjectType()
 export class VendorModel {
-  @Field(() => Int)
-  id: number;
+  @Field()
+  id: string;
 
   @Field()
   email: string;
