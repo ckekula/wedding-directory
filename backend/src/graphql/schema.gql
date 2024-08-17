@@ -11,7 +11,7 @@ type LocationModel {
 }
 
 type VendorModel {
-  id: Int!
+  id: String!
   email: String!
   password: String!
   fname: String!
