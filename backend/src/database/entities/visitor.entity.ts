@@ -3,13 +3,13 @@ import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateCol
 @Entity({ name: 'visitor' })
 export class VisitorEntity {
 
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column({ type: 'varchar', length: 50 })
   email: string;
 
-  @Column({ type: 'varchar', length: 20 })
+  @Column({ type: 'varchar'})
   password: string;
 
   @Column({ type: 'varchar', length: 20, nullable: true })

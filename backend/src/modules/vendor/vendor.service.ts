@@ -3,7 +3,7 @@ import { VendorEntity } from 'src/database/entities/vendor.entity';
 import { VendorFilterInput } from 'src/graphql/inputs/vendorFilter';
 import { DataSource } from 'typeorm';
 import { VendorRepositoryType, VendorRepository } from 'src/database/repositories/vendor.repository';
-import { CreateVendorInput } from 'src/graphql/inputs/create-vendor.input';
+import { CreateVendorInput } from 'src/graphql/inputs/createVendor';
 
 @Injectable()
 export class VendorService {
