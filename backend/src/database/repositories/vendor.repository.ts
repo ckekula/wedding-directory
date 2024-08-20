@@ -4,7 +4,7 @@ import { VendorFilterInput } from 'src/graphql/inputs/vendorFilter';
 
 // Assuming AppDataSource is your configured DataSource
 export type VendorRepositoryType = Repository<VendorEntity> & {
-  findVendorById(id: number): Promise<VendorEntity | null>;
+  findVendorById(id: string): Promise<VendorEntity | null>;
   findAllVendors(): Promise<VendorEntity[]>;
   findVendorsWithFilters(filters: VendorFilterInput): Promise<VendorEntity[]>;
 };
@@ -13,7 +13,7 @@ export type VendorRepositoryType = Repository<VendorEntity> & {
 export const VendorRepository = (dataSource: DataSource): VendorRepositoryType =>
   dataSource.getRepository(VendorEntity).extend({
     
-    findVendorById(id: number): Promise<VendorEntity | null> {
+    findVendorById(id: string): Promise<VendorEntity | null> {
       return this.findOne({ where: { id }, relations: ['location'] });
     },
 
