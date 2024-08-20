@@ -7,5 +7,6 @@ import { VisitorEntity } from 'src/database/entities/visitor.entity';
 @Module({
   imports: [TypeOrmModule.forFeature([VisitorEntity])],
   providers: [VisitorService, VisitorResolver],
+  exports: [VisitorService],
 })
 export class VisitorModule {}

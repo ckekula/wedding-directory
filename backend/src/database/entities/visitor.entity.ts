@@ -9,7 +9,7 @@ export class VisitorEntity {
   @Column({ type: 'varchar', length: 50 })
   email: string;
 
-  @Column({ type: 'varchar', length: 20 })
+  @Column({ type: 'varchar'})
   password: string;
 
   @Column({ type: 'varchar', length: 20, nullable: true })

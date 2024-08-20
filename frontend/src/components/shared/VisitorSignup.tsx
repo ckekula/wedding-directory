@@ -5,14 +5,18 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link";
 import VisitorLogin from "./VisitorLogin";
 
+interface VisitorSignupProps {
+    isVisible: boolean
+    onClose: () => void
+}
 
-const VisitorSignup = ({ isVisible, onClose }) => {
+const VisitorSignup : React.FC<VisitorSignupProps> = ({ isVisible, onClose }) => {
 
     const [showVisitorLogin, setShowVisitorLogin] = useState(false);
     if (!isVisible) return null;
 
-    const handleClose = (e) => {
-        if (e.target.id === 'wrapper') onClose();
+    const handleClose = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (e.currentTarget.id === 'wrapper') onClose();
     }
 
     return (
