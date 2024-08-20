@@ -1,22 +1,13 @@
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
 
+// Create a basic HTTP link to connect to your GraphQL server
 const httpLink = createHttpLink({
   uri: 'http://localhost:4000/graphql', // replace with your backend URL
 });
 
-const authLink = setContext((_, { headers }) => {
-  const token = localStorage.getItem('token');
-  return {
-    headers: {
-      ...headers,
-      authorization: token ? `Bearer ${token}` : '',
-    },
-  };
-});
-
+// Set up Apollo Client with the HTTP link and in-memory cache
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  link: httpLink,
   cache: new InMemoryCache(),
 });
 
