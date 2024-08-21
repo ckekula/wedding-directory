@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import { Button } from "./ui/button"; 
+import { Button } from "../ui/button"; 
 import { MoveRight, MoveLeft } from "lucide-react"; 
 
 const testimonials = [

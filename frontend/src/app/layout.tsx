@@ -1,28 +1,7 @@
 import type { Metadata } from "next";
-import { Montserrat, Merriweather, Montez } from "next/font/google";
-import ApolloWrapper from '@/components/ApolloWrapper'; 
-
+import ApolloWrapper from "@/apollo/ApolloWrapper";
+import { montserrat, merriweather, montez } from "@/assets/fonts/fonts";
 import "./globals.css";
-
-import PageTransition from "@/components/PageTransition";
-
-const montserrat = Montserrat({
-  subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
-  variable: "--font-montserrat",
-});
-
-const merriweather = Merriweather({
-  subsets: ["latin"],
-  weight: ["300", "400", "700", "900"],
-  variable: "--font-merriweather",
-});
-
-const montez = Montez({
-  subsets: ["latin"],
-  weight: ["400"],
-  variable: "--font-montez",
-});
 
 export const metadata: Metadata = {
   title: "Say I Do",

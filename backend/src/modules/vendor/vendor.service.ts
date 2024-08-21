@@ -21,7 +21,7 @@ export class VendorService {
     return this.vendorRepository.findAllVendors();
   }
 
-  async findVendorById(id: number): Promise<VendorEntity | null> {
+  async findVendorById(id: string): Promise<VendorEntity | null> {
     return this.vendorRepository.findVendorById(id);
   }
 
@@ -29,6 +29,5 @@ export class VendorService {
     const vendor = this.vendorRepository.create(createVendorInput);
     return this.vendorRepository.save(vendor);
   }
-
 
 }

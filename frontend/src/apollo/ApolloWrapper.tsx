@@ -1,7 +1,7 @@
-'use client'; // Mark this as a client component
+'use client';
 
 import { ApolloProvider } from '@apollo/client';
-import client from '@/lib/apollo-client';
+import client from './apollo-client';
 
 export default function ApolloWrapper({
   children,

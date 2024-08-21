@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import leftImage from "../assets/images/bridaldressing.jpg";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 const PlanningSteps = () => {
   const cards = [
     {

@@ -1,23 +1,21 @@
 import React from "react";
 import { Metadata } from "next";
 
-
 //components
 import Header from "@/components/shared/Header";
-import Hero from "@/components/Hero";
-import MasonaryGrid from "@/components/MasonaryGrid";
-import PlanningSteps from "@/components/PlanningSteps";
-import Testimonials from "@/components/Testimonials";
-import Subscribe from "@/components/Subscribe";
+import Hero from "@/components/home/Hero";
+import MasonaryGrid from "@/components/home/MasonaryGrid";
+import PlanningSteps from "@/components/home/PlanningSteps";
+import Testimonials from "@/components/home/Testimonials";
+import Subscribe from "@/components/home/Subscribe";
 import Footer from "@/components/shared/Footer";
-
 
 export const metadata: Metadata = {
   title: 'Say I Do',
 }
+
 export default function Page() {
   return (
-    
       <div>
         <Header />
         <Hero />
@@ -27,7 +25,5 @@ export default function Page() {
         <Subscribe />
         <Footer />
       </div>
-    
-
   );
 }
