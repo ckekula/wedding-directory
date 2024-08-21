@@ -1,7 +1,6 @@
 import React from "react";
 import { Metadata } from "next";
-import { ApolloProvider } from "@apollo/client";
-import client from "@/apollo/client";
+
 
 //components
 import Header from "@/components/shared/Header";
@@ -18,7 +17,7 @@ export const metadata: Metadata = {
 }
 export default function Page() {
   return (
-    <ApolloProvider client={client}>
+    
       <div>
         <Header />
         <Hero />
@@ -28,7 +27,7 @@ export default function Page() {
         <Subscribe />
         <Footer />
       </div>
-    </ApolloProvider>
+    
 
   );
 }

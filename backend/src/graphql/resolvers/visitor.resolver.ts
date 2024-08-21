@@ -23,8 +23,7 @@ export class VisitorResolver {
 
   @Query(() => VisitorModel, { nullable: true })
   @UseGuards(GqlAuthGuard)
-  async findVisitorById(@CurrentUser() visitor: Promise<VisitorEntity>, @Args('id') id: string): Promise<VisitorModel> {
-    console.log(visitor);
+  async findVisitorById(@Args('id') id: string): Promise<VisitorModel> {
     return this.visitorService.findOne(id);
   }
 

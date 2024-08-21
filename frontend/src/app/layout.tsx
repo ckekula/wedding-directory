@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Montserrat, Merriweather, Montez } from "next/font/google";
+import ApolloWrapper from '@/components/ApolloWrapper'; 
 
 import "./globals.css";
 
@@ -41,7 +42,10 @@ export default function RootLayout({
       <body
         className={`${montserrat.variable} ${merriweather.variable} ${montez.variable}`}
       >
-        {children}
+        <ApolloWrapper>
+          {children}
+        </ApolloWrapper>
+        
       </body>
     </html>
   );
