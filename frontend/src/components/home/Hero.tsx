@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 //components
-import SearchBar from "./shared/SearchBar";
+import SearchBar from "../shared/SearchBar";
 
 const Hero = () => {
   return (
