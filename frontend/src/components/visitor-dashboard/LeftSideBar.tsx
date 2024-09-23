@@ -16,27 +16,20 @@ const LeftSideBar = () => {
 
   return (
     <div
-      className={`font-body bg-white shadow-md p-5 transition-all duration-300 h-[400px] ${
+      className={`flex justify-center font-body rounded-3xl bg-white shadow-md p-5 transition-all duration-300 h-[400px] ${
         isCollapsed ? "w-20" : "w-64"
       }`}
     >
-      {/* Toggle Button */}
-      <div className="flex justify-end align-center">
-        <button onClick={toggleSideBar} className="focus:outline-none">
-          {isCollapsed ? <FaChevronRight /> : <FaChevronLeft />}
-        </button>
-      </div>
-
       {/* Navigation Items */}
-      <nav className="mt-10">
-        <div className="space-y-4">
+      <nav className="flex mt-10">
+        <div className="space-y-8">
           <Link
             href="/dashboard"
             className={`flex items-center text-black transition-colors duration-300 ${
               isCollapsed ? "justify-center" : ""
             }`}
           >
-            <FiHome className="text-2xl" />
+            <FiHome className="text-2xl w-[30px] h-[30px]"/>
             {!isCollapsed && <span className="ml-3">Dashboard</span>}
           </Link>
 
@@ -46,7 +39,7 @@ const LeftSideBar = () => {
               isCollapsed ? "justify-center" : ""
             }`}
           >
-            <IoMdCheckmarkCircleOutline className="text-2xl" />
+            <IoMdCheckmarkCircleOutline className="text-2xl w-[30px] h-[30px]" />
             {!isCollapsed && <span className="ml-3">Checklist</span>}
           </Link>
 
@@ -56,7 +49,7 @@ const LeftSideBar = () => {
               isCollapsed ? "justify-center" : ""
             }`}
           >
-            <FiDollarSign className="text-2xl" />
+            <FiDollarSign className="text-2xl w-[30px] h-[30px]" />
             {!isCollapsed && <span className="ml-3">Budgeter</span>}
           </Link>
 
@@ -66,7 +59,7 @@ const LeftSideBar = () => {
               isCollapsed ? "justify-center" : ""
             }`}
           >
-            <FiUsers className="text-2xl" />
+            <FiUsers className="text-2xl w-[30px] h-[30px]" />
             {!isCollapsed && <span className="ml-3">Guest List</span>}
           </Link>
 
@@ -76,11 +69,17 @@ const LeftSideBar = () => {
               isCollapsed ? "justify-center" : ""
             }`}
           >
-            <HiOutlineBriefcase className="text-2xl" />
+            <HiOutlineBriefcase className="text-2xl w-[30px] h-[30px]" />
             {!isCollapsed && <span className="ml-3">Vendors</span>}
           </Link>
         </div>
       </nav>
+      {/* Toggle Button */}
+      <div className="flex  items-stretch ml-3">
+        <button onClick={toggleSideBar} className="focus:outline-none">
+          {isCollapsed ? <FaChevronRight /> : <FaChevronLeft />}
+        </button>
+      </div>
     </div>
   );
 };
