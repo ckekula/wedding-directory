@@ -4,7 +4,7 @@ services:
       context: ./frontend
       dockerfile: dockerfile
     ports:
-      - "3000:3000"
+      - 3000:3000
     environment:
       - NODE_ENV=development
 
@@ -13,7 +13,7 @@ services:
       context: ./backend
       dockerfile: dockerfile
     ports:
-      - "4000:4000"
+      - 4000:4000
     env_file:
       - backend/.env
     environment:
