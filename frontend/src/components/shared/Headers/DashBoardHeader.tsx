@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { Fragment } from "react";
 import { Input } from "@/components/ui/input";
+import SearchBar from "../SearchBar";
 
 const DashBoardHeader = () => {
   return (
@@ -18,6 +19,8 @@ const DashBoardHeader = () => {
           </div>
 
           {/*search bar/*/}
+         <SearchBar />
+          {/*nav */}
           
         </div>
       </header>
