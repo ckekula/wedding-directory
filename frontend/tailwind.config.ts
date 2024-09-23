@@ -33,9 +33,10 @@ const config = {
    },
       fontFamily: {
         body: ["montserrat", "serif"],
-        //title: ["merriweather", "serif"],
+        merriweather: ["merriweather", "serif"],
         montez: ["montez", "cursive"],
         title: ["outfit", "sans-serif"],
+
       },
       keyframes: {
         "accordion-down": {
