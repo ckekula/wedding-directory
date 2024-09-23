@@ -3,7 +3,9 @@ import Link from "next/link";
 import { Fragment } from "react";
 import { Input } from "@/components/ui/input";
 import SearchBar from "../SearchBar";
-
+import { IoIosNotificationsOutline } from "react-icons/io";
+import Image from "next/image";
+import profile from "../../../assets/images/profilePic.jpg"
 const DashBoardHeader = () => {
   return (
     <Fragment>
@@ -19,9 +21,25 @@ const DashBoardHeader = () => {
           </div>
 
           {/*search bar/*/}
-         <SearchBar />
-          {/*nav */}
-          
+          <SearchBar
+            showIcon={false}
+            placehHolderText="search venues, hotels,jewellres etc."
+          />
+          {/*dashboard nav */}
+          <div className="flex-1 flex items-center justify-end gap-8 text-xl font-title">
+            <Link href="dahboard" >Dashboard</Link>
+            <Link href="help" >
+              Help
+            </Link>
+            <Link href="notifications">
+              <IoIosNotificationsOutline className="w-[36px] h-[36px]"/>
+            </Link>
+            <Link href="profile">
+            <Image
+            src={profile}
+            alt="profile picture"
+            className="w-[36px] h-[36px] rounded-full"/></Link>
+          </div>
         </div>
       </header>
     </Fragment>
