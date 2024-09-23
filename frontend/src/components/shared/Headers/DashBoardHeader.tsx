@@ -30,7 +30,7 @@ const DashBoardHeader = () => {
 
           {/*dashboard nav */}
           <div className="flex items-center justify-end gap-8 text-xl font-title text-text">
-            <Link href="dahboard">Dashboard</Link>
+            <Link href="visitor-dashboard">Dashboard</Link>
             <Link href="help">Help</Link>
             <Link href="notifications">
               <IoIosNotificationsOutline className="w-[36px] h-[36px]" />

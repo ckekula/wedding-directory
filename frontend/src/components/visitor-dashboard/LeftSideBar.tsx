@@ -15,7 +15,9 @@ const LeftSideBar = () => {
   return (
     <div
       className={`flex justify-center font-body  bg-white rounded-br-3xl rounded-tr-3xl shadow-md p-5 transition-all duration-300 ${
-        isCollapsed ? "w-[55px] h-[132px] border-slate-800 border-solid border-2 " : "w-64 h-[400px]"
+        isCollapsed
+          ? "w-[55px] h-[132px] border-slate-800 border-solid border-2 "
+          : "w-64 h-[400px]"
       }`}
     >
       {/* Collapsed State */}
