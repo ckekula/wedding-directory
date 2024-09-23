@@ -29,6 +29,7 @@ const config = {
         text: "#132043",
         brown: "#271300",
         orange: "#FC7B54",
+        lightYellow:"#FFF8F3",
    },
       fontFamily: {
         body: ["montserrat", "serif"],

@@ -5,40 +5,43 @@ import { Input } from "@/components/ui/input";
 import SearchBar from "../SearchBar";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import Image from "next/image";
-import profile from "../../../assets/images/profilePic.jpg"
+import profile from "../../../assets/images/profilePic.jpg";
 const DashBoardHeader = () => {
   return (
     <Fragment>
       <header className="py-6 xl:py-6 text-black bg-white">
-        <div className="container mx-auto flex justify-between items-center ">
+        <div className="container mx-auto flex  justify-between items-center">
           {/* Logo */}
-          <div className="flex-1">
+          <div className="flex items-center">
             <Link href="/">
-              <h1 className=" text-2xl font-bold text-black font-title">
+              <h1 className=" text-2xl font-bold text-text font-title">
                 Say I Do
               </h1>
             </Link>
           </div>
 
           {/*search bar/*/}
-          <SearchBar
-            showIcon={false}
-            placehHolderText="search venues, hotels,jewellres etc."
-          />
+          <div className="flex flex-1 justify-center">
+            <SearchBar
+              showIcon={false}
+              placehHolderText="search venues, hotels,jewellres etc."
+            />
+          </div>
+
           {/*dashboard nav */}
-          <div className="flex-1 flex items-center justify-end gap-8 text-xl font-title">
-            <Link href="dahboard" >Dashboard</Link>
-            <Link href="help" >
-              Help
-            </Link>
+          <div className="flex items-center justify-end gap-8 text-xl font-title text-text">
+            <Link href="dahboard">Dashboard</Link>
+            <Link href="help">Help</Link>
             <Link href="notifications">
-              <IoIosNotificationsOutline className="w-[36px] h-[36px]"/>
+              <IoIosNotificationsOutline className="w-[36px] h-[36px]" />
             </Link>
             <Link href="profile">
-            <Image
-            src={profile}
-            alt="profile picture"
-            className="w-[36px] h-[36px] rounded-full"/></Link>
+              <Image
+                src={profile}
+                alt="profile picture"
+                className="w-[75px] h-[75px] rounded-full"
+              />
+            </Link>
           </div>
         </div>
       </header>
