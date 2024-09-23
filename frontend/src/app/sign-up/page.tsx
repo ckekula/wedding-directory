@@ -1,5 +1,5 @@
 import Footer from "@/components/shared/Footer";
-import Header from "@/components/shared/Header";
+import Header from "@/components/shared/Headers/Header";
 import React from "react";
 import Image from "next/image";
 import {

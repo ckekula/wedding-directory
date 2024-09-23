@@ -1,14 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 import { Fragment, useState } from "react";
 //components
-import Nav from "../shared/Nav";
-import VisitorSignup from "./VisitorSignup";
-import VisitorLogin from "./VisitorLogin";
+import Nav from "../Nav";
+import VisitorSignup from "../VisitorSignup";
+import VisitorLogin from "../VisitorLogin";
 
-const Header = () => {
+const GeneralHeader = () => {
   const [showVisitorSignup, setShowVisitorSignup] = useState(false);
   const [showVisitorLogin, setShowVisitorLogin] = useState(false);
   return (
@@ -17,7 +17,7 @@ const Header = () => {
         <div className="container mx-auto flex justify-between items-center ">
           {/* Logo */}
           <div className="flex-1">
-            <Link href="/>">
+            <Link href="/">
               <h1 className=" text-2xl font-bold text-black font-title">
                 Say I Do
               </h1>
@@ -55,4 +55,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default GeneralHeader;
