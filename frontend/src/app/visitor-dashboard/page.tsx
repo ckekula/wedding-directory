@@ -4,6 +4,13 @@ import Header from "@/components/shared/Headers/Header";
 import LeftSideBar from "@/components/visitor-dashboard/LeftSideBar";
 import Image from "next/image";
 import profilePic from "../../assets/images/dashboardProfilePic.jpg";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Button } from "@/components/ui/button";
 const VisitorDashboard = () => {
   return (
     <Fragment>
@@ -53,16 +60,72 @@ const VisitorDashboard = () => {
               <hr className=" w-3/5 h-1 mx-auto my-4 bg-slate-400 border-0 rounded md:my-6 "></hr>
 
               <div className="flex justify-around">
-                <div>Venodr block</div>
-                <div>Venue block</div>
+                <div>
+                  <Accordion type="single" collapsible>
+                    {/*Vendors block*/}
+                    <AccordionItem value="vendors">
+                      <AccordionTrigger className="font-title text-lg font-bold ">
+                        Vendors
+                      </AccordionTrigger>
+                      <AccordionContent className="text-sm font-body">
+                        Get in touch with photograhers, DJs, florists and more.
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+                </div>
+                <div>
+                  <Accordion type="single" collapsible>
+                    <AccordionItem value="Venues">
+                      <AccordionTrigger className="font-title text-lg font-bold ">
+                        Venues
+                      </AccordionTrigger>
+                      <AccordionContent className="text-sm font-body">
+                        Find your kind of place for the celebration to go down.
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+                </div>
               </div>
 
               <div className="flex justify-around">
-                <div>guest list block</div>
-                <div>anouncement block</div>
+                <div>
+                  <Accordion type="single" collapsible>
+                    <AccordionItem value="guest-list">
+                      <AccordionTrigger className="font-title text-lg font-bold ">
+                        Guest List
+                      </AccordionTrigger>
+                      <AccordionContent className="text-sm font-body">
+                        Find your kind of place for the celebration to go down.
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+                </div>
+                <div>
+                  <Accordion type="single" collapsible>
+                    <AccordionItem value="announcements">
+                      <AccordionTrigger className="font-title text-lg font-bold ">
+                        Announcements
+                      </AccordionTrigger>
+                      <AccordionContent className="text-sm font-body">
+                      Start spreading the word with save the dates
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
+                </div>
               </div>
 
-              <div className="flex justify-center">Wedding planning guide block</div>
+              <div className="flex justify-center mt-10">
+                <div className="bg-white shadow-lg p-6 rounded-xl text-center mx-auto w-4/5">
+                  <h3 className="font-title text-lg font-bold">
+                    Wedding Planning Guide
+                  </h3>
+                  <p className="text-sm font-body mt-2">
+                    Have no idea about how to plan your wedding? We are here to help you for every little step of yours!
+                  </p>
+                  <Button variant="signup">Say I Do Guidance</Button>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
