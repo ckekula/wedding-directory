@@ -3,6 +3,10 @@ services:
     build:
       context: ./frontend
       dockerfile: dockerfile
+    volumes:
+      - ./frontend:/app  # Bind mount the local frontend directory
+      - /app/node_modules # Ensure container's node_modules are used
+    command: npm run dev  # Use development mode
     ports:
       - 3000:3000
     environment:
@@ -12,6 +16,10 @@ services:
     build:
       context: ./backend
       dockerfile: dockerfile
+    volumes:
+      - ./backend:/app  # Bind mount the local backend directory
+      - /app/node_modules # Ensure container's node_modules are used
+    command: npm run start:dev  # Use development mode (for NestJS)
     ports:
       - 4000:4000
     env_file:
