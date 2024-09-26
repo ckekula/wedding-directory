@@ -2,17 +2,13 @@ import Footer from "@/components/shared/Footer";
 import Header from "@/components/shared/Header";
 import React from "react";
 import Image from "next/image";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Button } from "@/components/ui/button"
 import Link from "next/link";
+import AddressInput from "@/components/vendor-signup/LocationInput";
+import BusinessCategory from "@/components/vendor-signup/BusinessCategory";
+import CityInput from "@/components/vendor-signup/CityInput";
 
 const page = () => {
   return (
@@ -45,14 +41,7 @@ const page = () => {
                     <Input className="h-8" id="bname" placeholder="Businees Name" />
                   </div>
                   <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
-                    <Select>
-                      <SelectTrigger className="h-8" id="bcategory">
-                        <SelectValue placeholder="Business Category" />
-                      </SelectTrigger>
-                      <SelectContent position="popper">
-                        <SelectItem value="photo">Photography</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <BusinessCategory />
                   </div>
                   <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
                     <Input className="h-8" id="phone" placeholder="Phone" />
@@ -61,17 +50,10 @@ const page = () => {
                     <Input className="h-8" type="email" id="email" placeholder="Email" />
                   </div>
                   <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
-                    <Select>
-                      <SelectTrigger className="h-8" id="district">
-                        <SelectValue placeholder="District" />
-                      </SelectTrigger>
-                      <SelectContent position="popper">
-                        <SelectItem value="gampaha">Gampaha</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <AddressInput />
                   </div>
-                  <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
-                    <Input className="h-8" id="postalcode" placeholder="Postal Code" />
+                  <div  className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
+                    <CityInput/>
                   </div>
                   <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
                     <Input className="h-8" type="password" id="password" placeholder="Password" />
