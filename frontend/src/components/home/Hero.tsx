@@ -21,8 +21,12 @@ const Hero = () => {
         <p className="mt-4 text-lg md:text-xl font-body">
           Search, Add to the checklist and Plan your Wedding!
         </p>
-
+        <div className="mt-8">
         <SearchBar />
+        
+
+        </div>
+
       </div>
     </div>
   );
