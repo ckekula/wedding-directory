@@ -1,5 +1,6 @@
 "use client";
-import React, { Fragment,useState } from "react";
+import React, { Fragment, useState } from "react";
+import Link from "next/link";
 import Header from "@/components/shared/Headers/Header";
 import LeftSideBar from "@/components/visitor-dashboard/LeftSideBar";
 import Image from "next/image";
@@ -13,7 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 
 const VisitorDashboard = () => {
-  const[isSideBarCollapsed, setIsSideBarCollapsed] = useState(false);
+  const [isSideBarCollapsed, setIsSideBarCollapsed] = useState(false);
 
   return (
     <Fragment>
@@ -23,11 +24,16 @@ const VisitorDashboard = () => {
         </div>
         <div className="bg-lightYellow flex">
           <div className="flex w-1/5 h-[calc(100vh-100px)] items-center">
-            <LeftSideBar isCollapsed={isSideBarCollapsed} setIsCollapsed={setIsSideBarCollapsed}/>
+            <LeftSideBar
+              isCollapsed={isSideBarCollapsed}
+              setIsCollapsed={setIsSideBarCollapsed}
+            />
           </div>
           <div
             className={`transition-all duration-300 py-10 ${
-              isSideBarCollapsed ? "w-[calc(100%-55px)]" : "w-[calc(100%-16rem)]"
+              isSideBarCollapsed
+                ? "w-[calc(100%-55px)]"
+                : "w-[calc(100%-16rem)]"
             }`}
           >
             <div className=" mr-52">
@@ -56,13 +62,15 @@ const VisitorDashboard = () => {
                     Plan your wedding
                   </p>
                   <p className="font-body text-lg">All in one place</p>
-                  <p className="font-body text-sm mt-4">Set Budget</p>
+                  <Link href="budgeter">
+                    <p className="font-body text-sm mt-4">Set Budget</p>
+                  </Link>
                 </div>
               </div>
               <div className="flex mt-4 justify-center gap-8 font-body">
-                <div>Add Date</div>
-                <div>Add venue</div>
-                <div>No of guests</div>
+                <div><Link href="#">Add Date</Link></div>
+                <div><Link href="#" >Add Venue</Link></div>
+                <div><Link href="#">No of Guests</Link></div>
               </div>
               <hr className="w-3/5 h-1 mx-auto my-4 bg-[rgba(0,0,0,0.25)] border-0 rounded md:my-6"></hr>
 
