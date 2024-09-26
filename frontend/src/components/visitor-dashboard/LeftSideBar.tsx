@@ -5,9 +5,15 @@ import { HiOutlineBriefcase } from "react-icons/hi2";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import Link from "next/link";
 
-const LeftSideBar = () => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+interface LeftSideBarProps {
+  isCollapsed: boolean;
+  setIsCollapsed: (isCollapsed: boolean) => void;
+}
 
+const LeftSideBar: React.FC<LeftSideBarProps> = ({
+  isCollapsed,
+  setIsCollapsed,
+}) => {
   const toggleSideBar = () => {
     setIsCollapsed(!isCollapsed);
   };
@@ -36,7 +42,7 @@ const LeftSideBar = () => {
             <div className="space-y-8">
               <Link
                 href="/visitor-dashboard"
-                className="flex items-center text-black transition-colors duration-300"
+                className="flex items-center text-black transition-colors duration-300 active:text-orange "
               >
                 <FiHome className="text-2xl w-[30px] h-[30px]" />
                 <span className="ml-3">Dashboard</span>

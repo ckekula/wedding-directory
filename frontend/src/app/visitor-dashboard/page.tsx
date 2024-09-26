@@ -1,5 +1,5 @@
 "use client";
-import React, { Fragment } from "react";
+import React, { Fragment,useState } from "react";
 import Header from "@/components/shared/Headers/Header";
 import LeftSideBar from "@/components/visitor-dashboard/LeftSideBar";
 import Image from "next/image";
@@ -13,6 +13,8 @@ import {
 import { Button } from "@/components/ui/button";
 
 const VisitorDashboard = () => {
+  const[isSideBarCollapsed, setIsSideBarCollapsed] = useState(false);
+
   return (
     <Fragment>
       <div>
@@ -21,12 +23,16 @@ const VisitorDashboard = () => {
         </div>
         <div className="bg-lightYellow flex">
           <div className="flex w-1/5 h-[calc(100vh-100px)] items-center">
-            <LeftSideBar />
+            <LeftSideBar isCollapsed={isSideBarCollapsed} setIsCollapsed={setIsSideBarCollapsed}/>
           </div>
-          <div className="w-4/5 py-10">
-            <div className="mr-48">
-              <div className="flex justify-evenly">
-                <div className="flex">
+          <div
+            className={`transition-all duration-300 py-10 ${
+              isSideBarCollapsed ? "w-[calc(100%-55px)]" : "w-[calc(100%-16rem)]"
+            }`}
+          >
+            <div className=" mr-52">
+              <div className="flex justify-between">
+                <div className="flex w-full items-center">
                   <div className="rounded-xl overflow-hidden transform -rotate-12 shadow-lg">
                     <Image
                       src={profilePic}
@@ -45,7 +51,7 @@ const VisitorDashboard = () => {
                   </div>
                 </div>
 
-                <div className="flex flex-col items-center">
+                <div className="flex flex-col items-center text-center whitespace-nowrap justify-center">
                   <p className="font-title text-4xl font-semibold">
                     Plan your wedding
                   </p>
@@ -58,7 +64,7 @@ const VisitorDashboard = () => {
                 <div>Add venue</div>
                 <div>No of guests</div>
               </div>
-              <hr className="w-3/5 h-1 mx-auto my-4 bg-slate-400 border-0 rounded md:my-6"></hr>
+              <hr className="w-3/5 h-1 mx-auto my-4 bg-[rgba(0,0,0,0.25)] border-0 rounded md:my-6"></hr>
 
               {/* Single Accordion container for all sections */}
               <Accordion type="multiple" className="">
@@ -70,7 +76,7 @@ const VisitorDashboard = () => {
                   >
                     <AccordionTrigger className="text-left mb-1">
                       <div className="flex flex-col ">
-                        <h3 className="font-title text-3xl font-semibold text-left">
+                        <h3 className="font-title text-3xl text-left">
                           Vendors
                         </h3>
                         <p className="text-sm font-body">
@@ -89,9 +95,7 @@ const VisitorDashboard = () => {
                   >
                     <AccordionTrigger className="text-left mb-1">
                       <div className="flex flex-col ">
-                        <h3 className="font-title text-3xl font-semibold ">
-                          Venues
-                        </h3>
+                        <h3 className="font-title text-3xl ">Venues</h3>
                         <p className="text-sm font-body ">
                           Find your kind of place for the celebration to go
                           down.
@@ -108,9 +112,7 @@ const VisitorDashboard = () => {
                   >
                     <AccordionTrigger className="text-left mb-1">
                       <div className="flex flex-col">
-                        <h3 className="font-title text-3xl font-semibold ">
-                          Guest List
-                        </h3>
+                        <h3 className="font-title text-3xl ">Guest List</h3>
                         <p className="text-sm font-body">
                           Find your kind of place for the celebration to go
                           down.
@@ -126,9 +128,7 @@ const VisitorDashboard = () => {
                   >
                     <AccordionTrigger className="text-left mb-1">
                       <div className="flex flex-col">
-                        <h3 className="font-title text-3xl font-semibold ">
-                          Announcements
-                        </h3>
+                        <h3 className="font-title text-3xl  ">Announcements</h3>
                         <p className="text-sm font-body">
                           Start spreading the word with save the dates
                         </p>
@@ -140,14 +140,13 @@ const VisitorDashboard = () => {
               </Accordion>
 
               {/* Wedding Planning Guide Block */}
-              <div className="flex justify-center mt-10">
-                <div className="bg-white shadow-lg p-6 rounded-xl text-center mx-auto w-4/5">
-                  <h3 className="font-title text-lg font-bold">
-                    Wedding Planning Guide
+              <div className="flex  mt-10">
+                <div className="bg-white shadow-lg p-6 rounded-xl text-center w-full">
+                  <h3 className="font-title text-4xl font-semibold">
+                    Have no idea about how to plan your wedding?
                   </h3>
-                  <p className="text-sm font-body mt-2">
-                    Have no idea how to plan your wedding? We are here to help
-                    with every little step!
+                  <p className=" text-l font-body my-2">
+                    We are here to help you for every little step of yours!
                   </p>
                   <Button variant="signup">Say I Do Guidance</Button>
                 </div>
