@@ -13,6 +13,7 @@ interface Visitor {
 interface AuthContextProps {
     visitor: Visitor | null;
     accessToken: string | null;
+    isAuthenticated: boolean; // Add isAuthenticated
     login: (token: string) => void;
     logout: () => void;
 }
@@ -54,6 +55,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         router.push('/signin');
     };
 
+    // Check if the visitor is authenticated
+    const isAuthenticated = !!accessToken && !!visitor;
+
     useEffect(() => {
         // On page load, check if there is an access token in the cookies
         const storedToken = document.cookie
@@ -68,7 +72,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ visitor, accessToken, login, logout }}>
+        <AuthContext.Provider value={{ visitor, accessToken, isAuthenticated, login, logout }}>
             {children}
         </AuthContext.Provider>
     );

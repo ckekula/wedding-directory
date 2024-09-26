@@ -19,7 +19,7 @@ const GET_VISITOR_BY_ID = gql`
 `;
 
 const Profile = () => {
-    const { visitor, accessToken, login } = useAuth(); // Added login method for token context management
+    const { visitor, accessToken, login, isAuthenticated } = useAuth(); // Added login method for token context management
     const [tokenChecked, setTokenChecked] = useState(false); // To track token check status
 
     // Extract the token from the cookie and perform auto-login if the token is valid
@@ -66,6 +66,7 @@ const Profile = () => {
     return (
         <div>
             <h1>Profile Information</h1>
+            <p><strong>is Authenticated?</strong>{isAuthenticated ? "True" : "False"}</p>
             <p><strong>ID:</strong> {visitorData.id}</p>
             <p><strong>Email:</strong> {visitorData.email}</p>
             <p><strong>First Name:</strong> {visitorData.visitor_fname || "N/A"}</p>
