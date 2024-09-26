@@ -3,12 +3,11 @@
 
 import { createContext, useState, useContext, ReactNode, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import {jwtDecode} from 'jwt-decode'; // For decoding the JWT token
+import {jwtDecode} from 'jwt-decode'; // Correct import for jwtDecode
 
 interface Visitor {
     id: string;
     email: string;
-    // Add more fields if needed
 }
 
 interface AuthContextProps {
@@ -33,30 +32,40 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [accessToken, setAccessToken] = useState<string | null>(null);
     const router = useRouter();
 
-    useEffect(() => {
-        // On first render, check if a token exists in the cookies
-        const storedToken = document.cookie.split('; ').find(row => row.startsWith('access_token='));
-        if (storedToken) {
-            const token = storedToken.split('=')[1];
-            login(token);
-        }
-    }, []);
-
+    // Function to login by decoding JWT and extracting visitor details
     const login = (token: string) => {
-        const decoded = jwtDecode<any>(token);
-        setVisitor({ id: decoded.sub, email: decoded.email });
-        setAccessToken(token);
+        const decoded = jwtDecode<{ sub: string, email: string }>(token); // Expecting sub (visitor id) and email
 
-        // Optionally: Save the token in localStorage or keep it in cookies
-        document.cookie = `access_token=${token}; path=/;`; // Save token as a cookie
+        // Set access token and visitor details in state
+        setAccessToken(token);
+        setVisitor({
+            id: decoded.sub,   // Assuming the sub is the visitor's ID
+            email: decoded.email, // Email extracted from JWT
+        });
     };
 
     const logout = () => {
+        // Clear visitor and accessToken state
         setVisitor(null);
         setAccessToken(null);
-        document.cookie = 'access_token=; Max-Age=0; path=/;'; // Delete the token cookie
-        router.push('/signin'); // Redirect to sign-in page
+        // Delete the access_token cookie
+        document.cookie = 'access_token=; Max-Age=0; path=/;';
+        // Redirect to sign-in page
+        router.push('/signin');
     };
+
+    useEffect(() => {
+        // On page load, check if there is an access token in the cookies
+        const storedToken = document.cookie
+            .split('; ')
+            .find(row => row.startsWith('access_token='));
+
+        if (storedToken) {
+            const token = storedToken.split('=')[1];
+            // Automatically log in if the token exists
+            login(token);
+        }
+    }, []);
 
     return (
         <AuthContext.Provider value={{ visitor, accessToken, login, logout }}>

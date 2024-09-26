@@ -20,7 +20,7 @@ const SignIn = () => {
         try {
             const response = await loginApi(email, password);
 
-            if (response ) {
+            if (response && response.status === 200) {
                 // Since the token is now stored in a cookie, trigger the context login using the cookie token
                 const storedToken = document.cookie
                     .split('; ')

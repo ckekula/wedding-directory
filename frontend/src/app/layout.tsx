@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import { Montserrat, Merriweather, Montez } from "next/font/google";
-import ApolloWrapper from '@/components/ApolloWrapper'; 
+import ApolloWrapper from '@/components/ApolloWrapper';
+import {AuthProvider} from "@/contexts/VisitorAuthContext";
 
 import "./globals.css";
 
 import PageTransition from "@/components/PageTransition";
+
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -42,9 +44,15 @@ export default function RootLayout({
       <body
         className={`${montserrat.variable} ${merriweather.variable} ${montez.variable}`}
       >
-        <ApolloWrapper>
-          {children}
-        </ApolloWrapper>
+      <ApolloWrapper>
+        {/* Wrapping the application with VisitorProvider */}
+        <AuthProvider>
+          {/* PageTransition can wrap around the children to handle animations */}
+          <PageTransition>
+            {children}
+          </PageTransition>
+        </AuthProvider>
+      </ApolloWrapper>
         
       </body>
     </html>
