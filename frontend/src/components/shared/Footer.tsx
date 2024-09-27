@@ -65,7 +65,7 @@ const Footer = () => {
               Work with us to find more couples and help them to make their big
               day unforgettable!
             </p>
-            <Button className="font-body font-bold">Register Now</Button>
+            <Button className="font-body font-bold" variant="signup">Register Now</Button>
           </div>
         </div>
         <hr className="border-t border-black pt-4" />

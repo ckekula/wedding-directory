@@ -26,6 +26,8 @@ const buttonVariants = cva(
           "bg-orange font-title  text-white text-xl  hover:bg-white hover:text-orange border border-orange  dark:bg-F1B4B4 dark:text-slate-900 dark:hover:bg-F1B4B4/90",
         ornageOutline:
           "border border-orange bg-white text-orange hover:bg-slate-100 hover:text-slate-900 hover:border-slate-900 dark:bg-slate-950 dark:border-slate-800 dark:bg-slate-950 dark:hover:bg-slate-800 dark:hover:text-slate-50",
+          subscribe:
+          "border border-brown bg-white text-black hover:bg-white hover:text-brown hover:border-white dark:bg-slate-950 dark:border-slate-800 dark:bg-slate-950 dark:hover:bg-slate-800 dark:hover:text-slate-50",
       },
       size: {
         default: "h-10 px-4 py-2",
