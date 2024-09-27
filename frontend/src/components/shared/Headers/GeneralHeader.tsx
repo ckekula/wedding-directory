@@ -38,7 +38,7 @@ const GeneralHeader = () => {
             </Button>
 
             <Button variant="signup" onClick={() => setShowVisitorSignup(true)}>
-              Sign Up
+              Get Started
             </Button>
           </div>
         </div>
