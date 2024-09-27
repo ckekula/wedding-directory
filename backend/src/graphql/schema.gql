@@ -46,11 +46,12 @@ type VisitorModel {
 }
 
 type Query {
-  findVendorById(id: Int!): [VendorModel!]!
+  findVendorById(id: String!): [VendorModel!]!
   findAllVendors: [VendorModel!]!
   findVendorsWithFilters(filters: VendorFilterInput!): [VendorModel!]!
   findAllVisitors: [VisitorModel!]!
   findVisitorById(id: String!): VisitorModel
+  autocompleteLocation(input: String!): [String!]!
 }
 
 input VendorFilterInput {
