@@ -71,8 +71,8 @@ const Profile = () => {
             <p><strong>Email:</strong> {visitorData.email}</p>
             <p><strong>First Name:</strong> {visitorData.visitor_fname || "N/A"}</p>
             <p><strong>Last Name:</strong> {visitorData.visitor_lname || "N/A"}</p>
-            <p><strong>Partner's First Name:</strong> {visitorData.partner_fname || "N/A"}</p>
-            <p><strong>Partner's Last Name:</strong> {visitorData.partner_lname || "N/A"}</p>
+            <p><strong>Partner&apos;s First Name:</strong> {visitorData.partner_fname || "N/A"}</p>
+            <p><strong>Partner&apos;s Last Name:</strong> {visitorData.partner_lname || "N/A"}</p>
         </div>
     );
 };
