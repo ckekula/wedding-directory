@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import { AuthProvider } from "@/contexts/VisitorAuthContext";
 import ApolloWrapper from "@/apollo/ApolloWrapper";
 import { montserrat, merriweather, montez } from "@/assets/fonts/fonts";
 import "./globals.css";
+import PageTransition from "@/components/PageTransition";
 
 export const metadata: Metadata = {
   title: "Say I Do",
@@ -21,9 +23,15 @@ export default function RootLayout({
       <body
         className={`${montserrat.variable} ${merriweather.variable} ${montez.variable}`}
       >
-        <ApolloWrapper>
-          {children}
-        </ApolloWrapper>
+      <ApolloWrapper>
+        {/* Wrapping the application with VisitorProvider */}
+        <AuthProvider>
+          {/* PageTransition can wrap around the children to handle animations */}
+          <PageTransition>
+            {children}
+          </PageTransition>
+        </AuthProvider>
+      </ApolloWrapper>
         
       </body>
     </html>

@@ -1,7 +1,7 @@
 import { Input } from "@/components/ui/input";
 
 //components
-import Header from "@/components/shared/Header";
+import Header from "@/components/shared/Headers/Header";
 import Footer from "@/components/shared/Footer";
 import ProfileSetting from "@/components/ProfileSetting";
 

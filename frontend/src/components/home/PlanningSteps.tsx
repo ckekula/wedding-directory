@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import leftImage from "../../assets/images/bridaldressing.jpg"
+import leftImage from "../../assets/images/bridaldressing.jpg";
 import { Button } from "../ui/button";
 const PlanningSteps = () => {
   const cards = [
@@ -69,7 +69,7 @@ const PlanningSteps = () => {
                   </h3>
                   <p className="text-sm font-body p-4">{card.description}</p>
                   <Link href="/sign-up">
-                    <Button variant="outline" className="pt-2 font-body">
+                    <Button variant="ornageOutline" className="pt-2 font-body">
                       Get Started
                     </Button>
                   </Link>
