@@ -14,11 +14,7 @@ const Footer = () => {
           <div>
             <h3 className="text-xl font-bold font-title mb-2">Say I Do</h3>
             <p className="text-sm font-body">
-              Sample text sample text sample text sample text sample text sample
-              text sample text sample text sample text sample text sample text
-              sample text sample text sample text sample text sample text sample
-              text sample text sample text sample text sample text sample text
-              sample text sample text
+            Say I Do is your one-stop destination for all wedding planning needs. From finding the perfect venue to hiring the best vendors, we make sure your big day is as magical and stress-free as possible. Explore our handpicked marketplace, manage your budget, and check off your wedding to-do list with ease. Start planning the wedding of your dreams today.
             </p>
           </div>
           {/* Navigation Links */}
@@ -69,7 +65,7 @@ const Footer = () => {
               Work with us to find more couples and help them to make their big
               day unforgettable!
             </p>
-            <Button className="font-body font-bold">Register Now</Button>
+            <Button className="font-body font-bold" variant="signup">Register Now</Button>
           </div>
         </div>
         <hr className="border-t border-black pt-4" />

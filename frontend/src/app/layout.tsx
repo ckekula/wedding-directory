@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { AuthProvider} from '@/contexts/VisitorAuthContext';
+import { AuthProvider } from "@/contexts/VisitorAuthContext";
 import ApolloWrapper from "@/apollo/ApolloWrapper";
 import { montserrat, merriweather, montez } from "@/assets/fonts/fonts";
 import "./globals.css";
-import PageTransition from '@/components/PageTransition';
+import PageTransition from "@/components/PageTransition";
 
 export const metadata: Metadata = {
   title: "Say I Do",
