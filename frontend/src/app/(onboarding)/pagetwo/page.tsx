@@ -7,11 +7,12 @@ import { X } from 'lucide-react';
 import { FaCircleCheck } from "react-icons/fa6";
 import { TbCircleNumber2Filled, TbCircleNumber3 } from "react-icons/tb";
 import { GoHorizontalRule } from "react-icons/go";
+import Link from 'next/link';
 
 
 const page = () => {
     return (
-        <div className="bg-background font-title">
+        <div className="bg-background font-title h-screen">
             <div className="flex flex-col md:flex-row h-screen">
 
                 <div className="relative w-full m-3 md:w-5/12 h-full md:h-auto rounded-2xl overflow-hidden">
@@ -29,9 +30,9 @@ const page = () => {
                 </button>
 
                 <div className="w-full md:w-7/12 p-5 border-l-2 border-black">
-                    <button
-                        className="absolute top-5 transform -translate-x-1/6 text-black font-body hover:text-gray-500">  &larr; Back
-                    </button>
+                    <Link href="pageone" className="absolute top-5 transform -translate-x-1/6 text-black font-body hover:text-gray-500">
+                        &larr; Back
+                    </Link>
 
                     <div className='flex flex-col justify-start items-center p-10 mt-8'>
 
@@ -65,21 +66,21 @@ const page = () => {
                                 <Checkbox className="border-gray-400 border-solid  border-2 mr-2 mt-4 rounded-md" />
                                 <label className="font-light mt-4">We&apos;re still deciding</label>
                             </div>
-                            
+
                         </div>
-                                               
+
                         <div className="mt-4 flex flex-col w-7/12 ">
                             <Button className="rounded-none text-black font-bold hover:bg-primary bg-primary text-lg">
-                               Next
+                                Next
                             </Button>
-                            </div>
-                    <button className="mt-48 text-center text-black "> Skip the onboarding process</button>
-                
-                </div>
-                </div>
+                        </div>
+                        <button className="mt-44 text-center text-black "> Skip the onboarding process</button>
+
+                    </div>
                 </div>
             </div>
-       
+        </div>
+
     )
 }
 
