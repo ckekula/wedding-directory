@@ -7,7 +7,7 @@ import ProfileSetting from "@/components/ProfileSetting";
 
 const page = () => {
   return (
-    <div className="bg-lightYellow">
+    <div>
       <Header />
 
       <ProfileSetting />
