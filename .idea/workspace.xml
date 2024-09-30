@@ -5,16 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fe9e803b-a74e-4952-bf96-9a931fe40db4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/src/modules/auth/request-with-vendor.interface.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/api/auth/vendor.auth.api.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/app/vendor-profile/page.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/contexts/VendorAuthContext.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/database/repositories/vendor.repository.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/database/repositories/vendor.repository.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/graphql/resolvers/vendor.resolver.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/graphql/resolvers/vendor.resolver.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/graphql/schema.gql" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/graphql/schema.gql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/modules/auth/auth.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/modules/auth/auth.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/modules/auth/auth.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/modules/auth/auth.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/modules/auth/auth.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/modules/auth/auth.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/modules/auth/guards/local-auth.guard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/modules/auth/guards/local-auth.guard.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/modules/auth/strategies/jwt.strategy.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/modules/auth/strategies/jwt.strategy.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/modules/auth/strategies/local.strategy.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/modules/auth/strategies/local.strategy.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/modules/vendor/vendor.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/modules/vendor/vendor.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/api/auth/auth.api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/api/auth/visitor.auth.api.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/login/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/login/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/signin/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/signin/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/shared/VisitorLogin.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/shared/VisitorLogin.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/shared/VisitorSignup.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/shared/VisitorSignup.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

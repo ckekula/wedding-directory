@@ -8,10 +8,10 @@ import { CreateVendorInput } from "../inputs/createVendor";
 @Resolver(() => VendorModel)
 export class VendorResolver {
   constructor(
-      private vendorService: VendorService,
+      private readonly vendorService: VendorService,
   ) {}
 
-  @Query(() => [VendorModel])
+  @Query(() => VendorModel)
   async findVendorById(@Args('id', { type: () => String }) id: string): Promise<VendorEntity> {
     return this.vendorService.findVendorById(id);
   }

@@ -41,7 +41,7 @@ export class AuthController {
             throw new UnauthorizedException('Invalid credentials for vendor');
         }
         const { access_token } = this.authService.loginVendor(vendor);
-        res.cookie('access_token', access_token, {
+        res.cookie('access_tokenVendor', access_token, {
             httpOnly: false,  // Set this to false so the cookie is accessible to frontend JavaScript
             secure: process.env.NODE_ENV === 'production', // Use secure cookie in production (HTTPS)
             sameSite: 'lax',  // Adjust sameSite policy based on your use case (e.g., 'strict', 'none')

@@ -57,7 +57,7 @@ type VisitorModel {
 }
 
 type Query {
-  findVendorById(id: String!): [VendorModel!]!
+  findVendorById(id: String!): VendorModel!
   findAllVendors: [VendorModel!]!
   findVendorsWithFilters(filters: VendorFilterInput!): [VendorModel!]!
   findAllVisitors: [VisitorModel!]!
