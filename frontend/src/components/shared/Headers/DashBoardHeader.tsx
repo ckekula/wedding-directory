@@ -35,7 +35,7 @@ const DashBoardHeader = () => {
             <Link href="notifications">
               <IoIosNotificationsOutline className="w-[36px] h-[36px]" />
             </Link>
-            <Link href="profile">
+            <Link href="visitor-profile">
               <Image
                 src={profile}
                 alt="profile picture"
