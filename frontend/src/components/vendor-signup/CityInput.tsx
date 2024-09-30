@@ -1,3 +1,5 @@
+'use client';
+
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,8 +15,18 @@ import {
 } from "@/components/ui/dropdown-menu";
 import cities from '../../utils/city.json';
 import { Button } from "../ui/button";
+import { CityProps } from "@/types/signupInput";
+import { useState } from "react";
 
-const CityInput = () => {
+const CityInput: React.FC<CityProps> = ({ onCityChange }) => {
+
+  const [selectedCity, setSelectedCity] = useState<string | null>(null); // State to store selected city
+
+  const handleCitySelect = (city: string) => {
+    setSelectedCity(city); // Update the selected city
+    onCityChange(city); // Call the parent handler
+  };
+
   const provinces = [...new Set(cities.map(city => city.Province))];
 
   const getDistrictsByProvince = (province: string) => {
@@ -34,10 +46,12 @@ const CityInput = () => {
   };
 
   return (
-    <div>
+    <div className="border-black border-2 rounded-lg w-full border-solid bg-white">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button className="rounded-none hover:bg-none" variant="ghost">Select City</Button>
+          <Button className="flex flex-row justify-start text-left w-full space-y-1.5 text-black hover:bg-white bg-white h-8">
+            {selectedCity ? selectedCity : "Select City"} {/* Show selected city */}
+          </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56">
           <DropdownMenuLabel>Find Your City</DropdownMenuLabel>
@@ -56,7 +70,9 @@ const CityInput = () => {
                           <DropdownMenuSubContent>
                             {/* Cities */}
                             {getCitiesByDistrict(district).map((city, cityIndex) => (
-                              <DropdownMenuItem key={cityIndex}>{city}</DropdownMenuItem>
+                              <DropdownMenuItem key={cityIndex} onClick={() => handleCitySelect(city)}>
+                                {city}
+                              </DropdownMenuItem>
                             ))}
                           </DropdownMenuSubContent>
                         </DropdownMenuPortal>

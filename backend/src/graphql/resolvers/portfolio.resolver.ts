@@ -1,9 +1,9 @@
 import { Resolver, Query, Args } from '@nestjs/graphql';
-import { LocationService } from 'src/modules/location/location.service';
+import { PortfolioService } from 'src/modules/portfolio/portfolio.service';
 
 @Resolver()
-export class LocationResolver {
-  constructor(private readonly placesService: LocationService) {}
+export class PortfolioResolver {
+  constructor(private readonly placesService: PortfolioService) {}
 
   @Query(() => [String])
   async autocompleteLocation(@Args('input') input: string) {

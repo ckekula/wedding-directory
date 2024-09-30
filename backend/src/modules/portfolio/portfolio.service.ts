@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 
 @Injectable()
-export class LocationService {
+export class PortfolioService {
   constructor(private readonly httpService: HttpService) {}
 
   async autocompleteLocation(input: string) {

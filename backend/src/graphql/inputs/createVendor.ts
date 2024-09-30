@@ -18,10 +18,9 @@ export class CreateVendorInput {
   busname: string;
 
   @Field()
-  phone: number;
+  phone: string;
 
   @Field()
   category: string;
-
 
 }

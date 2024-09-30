@@ -25,14 +25,6 @@ CREATE TABLE vendor (
     created_at DATE NOT NULL,
     updated_at DATE NOT NULL
 );
-CREATE TABLE location (
-    id VARCHAR(20) NOT NULL PRIMARY KEY,
-    address VARCHAR(100) NOT NULL,
-    city VARCHAR(30) NOT NULL,
-    latitude VARCHAR(20) NOT NULL,
-    longitude VARCHAR(20) NOT NULL,
-    CONSTRAINT FK_lid FOREIGN KEY (id) REFERENCES vendor(id)
-);
 CREATE TABLE portfolio (
     id VARCHAR(20) NOT NULL PRIMARY KEY,
     about VARCHAR(200) NOT NULL,

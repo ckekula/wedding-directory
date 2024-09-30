@@ -7,7 +7,7 @@ import { join } from 'path';
 import { VendorModule } from './modules/vendor/vendor.module';
 import { VisitorModule } from './modules/visitor/visitor.module';
 import { AuthModule } from './modules/auth/auth.module';
-import { LocationModule } from './modules/location/location.module';
+import { PortfolioModule } from './modules/portfolio/portfolio.module';
 
 @Module({
   imports: [
@@ -34,7 +34,7 @@ import { LocationModule } from './modules/location/location.module';
     VendorModule,
     VisitorModule,
     AuthModule,
-    LocationModule
+    PortfolioModule
   ],
 })
 export class AppModule {}
