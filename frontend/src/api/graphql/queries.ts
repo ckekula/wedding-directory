@@ -1,4 +1,4 @@
-import { gql, useQuery } from '@apollo/client';
+import { gql } from '@apollo/client';
 
 export const GET_ALL_VISITORS = gql`
   query findAllVisitors {
@@ -15,3 +15,8 @@ export const GET_ALL_VISITORS = gql`
   }
 `;
 
+export const AUTOCOMPLETE_QUERY = gql`
+    query Autocomplete($input: String!) {
+        autocompleteLocation(input: $input)
+    }
+`;
