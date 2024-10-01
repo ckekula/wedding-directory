@@ -1,15 +1,22 @@
 "use client";
 
-import { usePathname } from "next/navigation";
 import GeneralHeader from "./GeneralHeader";
-import DashBoardHeader from "./DashBoardHeader";
+import DashBoardHeader from "./VisitorHeader";
+import VendorHeader from "./VendorHeader";
+import { useAuth as VisitorAuth } from "@/contexts/VisitorAuthContext";
+import { useVendorAuth as VendorAuth } from "@/contexts/VendorAuthContext";
 
 const Header = () => {
-  const pathname = usePathname();
+  const { visitor } = VisitorAuth();
+  const { vendor } = VendorAuth();
 
-  if (pathname.startsWith("/visitor-dashboard") || pathname.startsWith("/visitor-profile")) {
+  if (visitor) {
     return <DashBoardHeader />;
-  } else return <GeneralHeader />;
+  } else if (vendor) {
+    return <VendorHeader />;
+  }else{
+    return <GeneralHeader />
+  }
 };
 
 export default Header;

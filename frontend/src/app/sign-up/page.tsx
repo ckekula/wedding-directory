@@ -11,7 +11,7 @@ import Link from "next/link";
 import BusinessCategory from "@/components/vendor-signup/BusinessCategory";
 import { useMutation } from '@apollo/client';
 import { CREATE_VENDOR } from "@/api/graphql/mutations";
-
+import { useRouter } from "next/navigation";
 const Signup = () => {
 
   const [formData, setFormData] = useState({
@@ -26,6 +26,7 @@ const Signup = () => {
   });
 
   const [createVendor, { loading, error }] = useMutation(CREATE_VENDOR);
+  const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -40,6 +41,8 @@ const Signup = () => {
   };
 
   const onRegister = async () => {
+
+    
 
     if (formData.password !== formData.rpassword) {
       alert("Passwords do not match!");
@@ -61,6 +64,7 @@ const Signup = () => {
         },
       });
       alert("Vendor created successfully!");
+      router.push('/venodr-dashboard')
     } catch (err) {
       console.error("Error creating vendor:", err);
       alert("Error creating vendor");
