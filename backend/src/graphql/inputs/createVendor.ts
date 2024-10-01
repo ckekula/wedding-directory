@@ -23,4 +23,10 @@ export class CreateVendorInput {
   @Field()
   category: string;
 
+  @Field()
+  city: string;
+
+  @Field()
+  location: string;
+
 }

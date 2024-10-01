@@ -22,7 +22,7 @@ export class VendorModel {
   busname: string;
 
   @Field()
-  address: string;
+  location: string;
 
   @Field()
   city: string;

@@ -19,8 +19,8 @@ export class VendorEntity {
   @Column({ type: 'varchar', length: 20 })
   lname: string;
   
-  @Column({ type: 'varchar', length: 100 })
-  address: string;
+  @Column({ type: 'varchar', length: 500 })
+  location: string;
 
   @Column({ type: 'varchar', length: 100 })
   city: string;

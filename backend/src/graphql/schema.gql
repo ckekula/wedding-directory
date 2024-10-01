@@ -33,7 +33,7 @@ type VendorModel {
   fname: String!
   lname: String!
   busname: String!
-  address: String!
+  location: String!
   city: String!
   phone: String!
   category: String!
@@ -87,6 +87,8 @@ input CreateVendorInput {
   busname: String!
   phone: String!
   category: String!
+  city: String!
+  location: String!
 }
 
 input CreateVisitorInput {
