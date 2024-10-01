@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Button } from "../../ui/button";
 import { Fragment, useState, useEffect, useRef } from "react";
 import { useAuth } from "@/contexts/VisitorAuthContext";
-import { FiUser } from "react-icons/fi";
+
 //components
 import Nav from "../Nav";
 import VisitorSignup from "../VisitorSignup";
