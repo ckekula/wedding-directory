@@ -24,7 +24,7 @@ const DashBoardHeader = () => {
           <div className="flex flex-1 justify-center">
             <SearchBar
               showIcon={false}
-              placehHolderText="search venues, hotels,jewellres etc."
+              placehHolderText="search venues, caterers, etc."
             />
           </div>
 

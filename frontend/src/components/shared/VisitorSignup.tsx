@@ -80,7 +80,7 @@ const VisitorSignup: React.FC<VisitorSignupProps> = ({ isVisible, onClose }) => 
                     login(token);  // Call the login method from context to set the visitor in state
 
                     // Redirect to visitor dashboard or close the modal
-                    router.push('/visitor-dashboard');  // Redirect to dashboard
+                    router.push('/pageone');  // Redirect to dashboard
                 } else {
                     setError('Login failed. Token not found in cookies.');
                 }
@@ -162,6 +162,17 @@ const VisitorSignup: React.FC<VisitorSignupProps> = ({ isVisible, onClose }) => 
                           </Link>
                       </label>
                   </div>
+                  <div className="text-center mt-2">
+                    <label
+                    htmlFor="terms"
+                    className="text-sm font-bold leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                    Are you a wedding service provider?{" "}
+                    <Link href="/sign-up" className="underline">
+                        Start from here
+                    </Link>
+                    </label>
+                </div>
               </form>
           </div>
 
