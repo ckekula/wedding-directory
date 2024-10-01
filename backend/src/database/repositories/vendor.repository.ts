@@ -2,7 +2,6 @@ import { DataSource, Repository } from 'typeorm';
 import { VendorEntity } from '../entities/vendor.entity';
 import { VendorFilterInput } from 'src/graphql/inputs/vendorFilter';
 
-// Assuming AppDataSource is your configured DataSource
 export type VendorRepositoryType = Repository<VendorEntity> & {
   findVendorById(id: string): Promise<VendorEntity | null>;
   findAllVendors(): Promise<VendorEntity[]>;
@@ -14,19 +13,19 @@ export const VendorRepository = (dataSource: DataSource): VendorRepositoryType =
   dataSource.getRepository(VendorEntity).extend({
     
     findVendorById(id: string): Promise<VendorEntity | null> {
-      return this.findOne({ where: { id }, relations: ['location'] });
+      return this.findOne({ where: { id }, relations: ['portfolio'] });
     },
 
     findAllVendors(): Promise<VendorEntity[]> {
-      return this.find({ relations: ['location'] });
+      return this.find({ relations: ['portfolio'] });
     },
 
     findVendorsWithFilters(filters: VendorFilterInput): Promise<VendorEntity[]> {
       const query = this.createQueryBuilder('vendor')
-        .leftJoinAndSelect('vendor.location', 'location');
+        .leftJoinAndSelect('vendor.portfolio', 'portfolio');
 
       if (filters.city) {
-        query.andWhere('location.city = :city', { city: filters.city });
+        query.andWhere('portfolio.city = :city', { city: filters.city });
       }
 
       if (filters.category) {
