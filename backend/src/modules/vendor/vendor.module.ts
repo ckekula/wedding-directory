@@ -12,6 +12,7 @@ import { VendorRepository } from 'src/database/repositories/vendor.repository';
       VendorService,
       VendorResolver
     ],
+  exports: [VendorService]
 })
 
 export class VendorModule {}

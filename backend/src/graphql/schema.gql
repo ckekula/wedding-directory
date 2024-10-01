@@ -2,13 +2,30 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type LocationModel {
+type PortfolioModel {
   id: String!
+  bus_phone: String!
+  bus_email: String!
+  about: String!
+  pfp: String!
   address: String!
   city: String!
   latitude: String!
   longitude: String!
+  experience: String!
+  website: String!
+  instagram: String!
+  facebook: String!
+  x: String!
+  tiktok: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
 }
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
 
 type VendorModel {
   id: String!
@@ -18,17 +35,11 @@ type VendorModel {
   lname: String!
   busname: String!
   phone: String!
-  city: String!
   category: String!
   createdAt: DateTime!
   updatedAt: DateTime!
-  location: LocationModel
+  portfolio: PortfolioModel
 }
-
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
 
 type VisitorModel {
   id: String!
@@ -46,11 +57,12 @@ type VisitorModel {
 }
 
 type Query {
-  findVendorById(id: Int!): [VendorModel!]!
+  findVendorById(id: String!): VendorModel!
   findAllVendors: [VendorModel!]!
   findVendorsWithFilters(filters: VendorFilterInput!): [VendorModel!]!
   findAllVisitors: [VisitorModel!]!
   findVisitorById(id: String!): VisitorModel
+  autocompleteLocation(input: String!): [String!]!
 }
 
 input VendorFilterInput {
@@ -70,7 +82,7 @@ input CreateVendorInput {
   fname: String!
   lname: String!
   busname: String!
-  phone: Float!
+  phone: String!
   category: String!
 }
 

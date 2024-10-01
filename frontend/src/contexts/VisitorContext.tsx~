@@ -1,0 +1,93 @@
+// visitorContext.tsx
+'use client';
+import React, { createContext, useState, useEffect, useContext } from 'react';
+import {jwtDecode} from 'jwt-decode'; // Fix the import for jwtDecode
+import { useGetVisitorById } from '@/api/graphql/queries'; // Import the query function
+import { login as loginApi } from '@/api/auth/auth.api'; // Import your login function
+
+type Visitor = {
+    id: string;
+    name: string;
+    email: string;
+};
+
+type VisitorContextType = {
+    visitor: Visitor | null;
+    visitorId: string | null;
+    token: string | null;
+    isAuthenticated: boolean;
+    loading: boolean;
+    error: any;
+    login: (email: string, password: string) => Promise<void>;
+    logout: () => void;
+};
+
+const VisitorContext = createContext<VisitorContextType | undefined>(undefined);
+
+export const VisitorProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+    const [visitorId, setVisitorId] = useState<string | null>(null);
+    const [token, setToken] = useState<string | null>(null);
+    const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+    const [loading, setLoading] = useState<boolean>(false);
+    const [error, setError] = useState<any>(null);
+
+    const { visitor, loading: visitorLoading, error: visitorError } = useGetVisitorById(visitorId as string);
+
+    // Effect to handle visitor ID and authentication
+    useEffect(() => {
+        if (visitorId) {
+            setIsAuthenticated(true);
+        } else {
+            setIsAuthenticated(false);
+        }
+    }, [visitorId]);
+
+    const login = async (email: string, password: string) => {
+        setLoading(true);
+        setError(null);
+        try {
+            const response = await loginApi(email, password);
+            const { access_token } = response;
+            const decodedToken: any = jwtDecode(access_token);
+            setToken(access_token);
+            setVisitorId(decodedToken.sub); // Assuming `sub` contains the visitor ID
+            setIsAuthenticated(true);
+        } catch (error) {
+            setError('Login failed. Please check your credentials.');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const logout = () => {
+        setToken(null);
+        setVisitorId(null);
+        setIsAuthenticated(false);
+    };
+
+    return (
+        <VisitorContext.Provider
+            value={{
+                visitor,
+                visitorId,
+                token,
+                isAuthenticated,
+                loading: loading || visitorLoading,
+                error: error || visitorError,
+                login,
+                logout,
+            }}
+        >
+            {children}
+        </VisitorContext.Provider>
+    );
+};
+
+// Custom hook to use VisitorContext
+export const useVisitor = () => {
+    const context = useContext(VisitorContext);
+    if (context === undefined) {
+        throw new Error('useVisitor must be used within a VisitorProvider');
+    }
+    return context;
+};

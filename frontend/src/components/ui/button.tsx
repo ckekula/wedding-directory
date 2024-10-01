@@ -24,9 +24,10 @@ const buttonVariants = cva(
           " bg-white border border-black  font-title  text-black text-xl hover:bg-black hover:text-white dark:bg-FFDCDC dark:text-slate-900 dark:hover:bg-FFDCDC/90",
         signup:
           "bg-orange font-title  text-white text-xl  hover:bg-white hover:text-orange border border-orange  dark:bg-F1B4B4 dark:text-slate-900 dark:hover:bg-F1B4B4/90",
-        
-        
-          
+        ornageOutline:
+          "border border-orange bg-white text-orange hover:bg-slate-100 hover:text-slate-900 hover:border-slate-900 dark:bg-slate-950 dark:border-slate-800 dark:bg-slate-950 dark:hover:bg-slate-800 dark:hover:text-slate-50",
+          subscribe:
+          "border border-brown bg-white text-black hover:bg-white hover:text-brown hover:border-white dark:bg-slate-950 dark:border-slate-800 dark:bg-slate-950 dark:hover:bg-slate-800 dark:hover:text-slate-50",
       },
       size: {
         default: "h-10 px-4 py-2",
@@ -53,7 +54,10 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     const Comp = asChild ? Slot : "button";
     return (
       <Comp
-        className={cn(buttonVariants({ variant, size, className }),"rounded-[19px]")}
+        className={cn(
+          buttonVariants({ variant, size, className }),
+          "rounded-[19px]"
+        )}
         ref={ref}
         {...props}
       />

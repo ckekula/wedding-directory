@@ -1,20 +1,72 @@
-import Footer from "@/components/shared/Footer";
-import Header from "@/components/shared/Header";
-import React from "react";
-import Image from "next/image";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Input } from "@/components/ui/input"
-import { Checkbox } from "@/components/ui/checkbox"
-import { Button } from "@/components/ui/button"
-import Link from "next/link";
+'use client'
 
-const page = () => {
+import Footer from "@/components/shared/Footer";
+import Header from "@/components/shared/Headers/Header";
+import React, { useState } from "react";
+import Image from "next/image";
+import { Input } from "@/components/ui/input";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import BusinessCategory from "@/components/vendor-signup/BusinessCategory";
+import { useMutation } from '@apollo/client';
+import { CREATE_VENDOR } from "@/api/graphql/mutations";
+
+const Signup = () => {
+
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    rpassword: '',
+    fname: '',
+    lname: '',
+    busname: '',
+    phone: '',
+    category: '',
+  });
+
+  const [createVendor, { loading, error }] = useMutation(CREATE_VENDOR);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleCategoryChange = (category: string) => {
+    setFormData({ ...formData, category });
+  };
+
+  const onRegister = async () => {
+
+    if (formData.password !== formData.rpassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+
+    try {
+      await createVendor({
+        variables: {
+          input: {
+            email: formData.email,
+            password: formData.password,
+            fname: formData.fname,
+            lname: formData.lname,
+            busname: formData.busname,
+            phone: formData.phone,
+            category: formData.category
+          },
+        },
+      });
+      alert("Vendor created successfully!");
+    } catch (err) {
+      console.error("Error creating vendor:", err);
+      alert("Error creating vendor");
+    }
+  };
+
   return (
     <div>
       <Header />
@@ -36,48 +88,84 @@ const page = () => {
 
                 <div className="mt-6 grid grid-cols-1 md:grid-cols-2 w-full items-center gap-x-12 gap-y-5">
                   <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
-                    <Input className="h-8" id="fname" placeholder="First Name" />
+                    <Input 
+                      className="h-8" 
+                      id="fname"
+                      placeholder="First Name"
+                      type="text"
+                      name="fname"
+                      value={formData.fname}
+                      onChange={handleChange}
+                     />
                   </div>
                   <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
-                    <Input className="h-8" id="lname" placeholder="Last Name" />
+                    <Input 
+                      className="h-8" 
+                      id="lname" 
+                      placeholder="Last Name" 
+                      type="text"
+                      name="lname"
+                      value={formData.lname}
+                      onChange={handleChange}
+                    />
                   </div>
                   <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
-                    <Input className="h-8" id="bname" placeholder="Businees Name" />
+                    <Input 
+                      className="h-8" 
+                      id="busname" 
+                      placeholder="Businees Name"
+                      type="text"
+                      name="busname"
+                      value={formData.busname}
+                      onChange={handleChange}
+                    />
                   </div>
                   <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
-                    <Select>
-                      <SelectTrigger className="h-8" id="bcategory">
-                        <SelectValue placeholder="Business Category" />
-                      </SelectTrigger>
-                      <SelectContent position="popper">
-                        <SelectItem value="photo">Photography</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <BusinessCategory onCategoryChange={handleCategoryChange} />
                   </div>
                   <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
-                    <Input className="h-8" id="phone" placeholder="Phone" />
+                    <Input
+                      className="h-8"
+                      id="phone"
+                      placeholder="Phone"
+                      type="text"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                    />
                   </div>
                   <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
-                    <Input className="h-8" type="email" id="email" placeholder="Email" />
+                    <Input
+                      className="h-8"
+                      type="email"
+                      id="email"
+                      placeholder="Email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                    />
                   </div>
                   <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
-                    <Select>
-                      <SelectTrigger className="h-8" id="district">
-                        <SelectValue placeholder="District" />
-                      </SelectTrigger>
-                      <SelectContent position="popper">
-                        <SelectItem value="gampaha">Gampaha</SelectItem>
-                      </SelectContent>
-                    </Select>
+                    <Input
+                      className="h-8"
+                      type="password"
+                      id="password"
+                      placeholder="Password"
+                      name="password"
+                      value={formData.password}
+                      onChange={handleChange}
+                    />
                   </div>
                   <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
-                    <Input className="h-8" id="postalcode" placeholder="Postal Code" />
-                  </div>
-                  <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
-                    <Input className="h-8" type="password" id="password" placeholder="Password" />
-                  </div>
-                  <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
-                    <Input className="h-8" type="password" id="rpassword" placeholder="Retype Password" />
+                    <Input
+                      className="h-8"
+                      type="password"
+                      id="rpassword"
+                      placeholder="Retype Password"
+                      name="rpassword"
+                      value={formData.rpassword}
+                      onChange={handleChange}
+                    />
                   </div>
                 </div>
                 <div className="mt-6 flex space-x-2">
@@ -97,19 +185,22 @@ const page = () => {
                   </label>
                 </div>
                 <div className=" border-black rounded-md border-2 mt-6 flex flex-col w-full border-solid  bg-primary ">
-                  <Button className="rounded-none text-black font-bold hover:bg-primary bg-primary text-xl">Register Now</Button>
+                  <Button
+                    onClick={onRegister}
+                    className="rounded-none text-black font-bold hover:bg-primary bg-primary text-xl"
+                    disabled={loading}
+                >
+                  {loading ? "Registering..." : "Register Now"}
+                </Button>
                 </div>
               </form>
             </div>
           </div>
-
         </div>
       </div>
-
       <Footer />
-
     </div>
   );
 };
 
-export default page;
+export default Signup;

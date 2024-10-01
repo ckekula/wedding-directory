@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
-import { LocationEntity } from './location.entity';
+import { PortfolioEntity } from './portfolio.entity'
 
 @Entity({ name: 'vendor' })
 export class VendorEntity {
@@ -10,7 +10,7 @@ export class VendorEntity {
   @Column({ type: 'varchar', length: 50, unique: true  })
   email: string;
 
-  @Column({ type: 'varchar', length: 20 })
+  @Column({ type: 'varchar', length: 100 })
   password: string;
 
   @Column({ type: 'varchar', length: 20 })
@@ -22,8 +22,8 @@ export class VendorEntity {
   @Column({ type: 'varchar', length: 50 })
   busname: string;
 
-  @Column({ type: 'bigint' })
-  phone: number;
+  @Column({ type: 'varchar', length: 12 })
+  phone: string;
 
   @Column({ type: 'varchar', length: 20 })
   category: string;
@@ -34,7 +34,7 @@ export class VendorEntity {
   @UpdateDateColumn({ name: 'updated_at', type: 'timestamp' , nullable: false })
   updatedAt: Date;
 
-  @OneToOne(() => LocationEntity)
-  @JoinColumn({ name: 'location_id' })
-  location: LocationEntity;
+  @OneToOne(() => PortfolioEntity)
+  @JoinColumn({ name: 'portfolio_id' })
+  portfolio: PortfolioEntity;
 }
