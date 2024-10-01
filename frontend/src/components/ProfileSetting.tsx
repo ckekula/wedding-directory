@@ -12,14 +12,14 @@ const ProfileSetting = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const initialProfileData = {
-    firstName: "Hansika",
-    lastName: "Karunathilake",
-    partnerFirstName: "Janitha",
-    partnerLastName: "Karunarathna",
+    firstName: "John",
+    lastName: "Joe",
+    partnerFirstName: "Sara",
+    partnerLastName: "Watson",
     engagementDate: new Date("2025-07-14"),
     weddingDate: new Date("2027-07-14"),
     weddingVenue: "Sunset Beach Resort",
-    email: "nostochk@gmail.com",
+    email: "john.doek@gmail.com",
     password: "********",
   };
 
@@ -34,7 +34,7 @@ const ProfileSetting = () => {
 
   return (
     <div className="container mx-auto px-4 m-14">
-      <h2 className="text-4xl font-bold font-title text-center my-10">
+      <h2 className="text-[40px] font-bold font-merriweather text-center my-10">
         Profile Settings
       </h2>
       <div className="bg-secondary p-8 rounded-2xl relative">

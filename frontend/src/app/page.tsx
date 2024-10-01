@@ -11,19 +11,20 @@ import Subscribe from "@/components/home/Subscribe";
 import Footer from "@/components/shared/Footer";
 
 export const metadata: Metadata = {
-  title: 'Say I Do',
-}
+  title: "Say I Do",
+};
 
 export default function Page() {
   return (
-      <div>
-        <Header />
-        <Hero />
-        <MasonaryGrid />
-        <PlanningSteps />
-        <Testimonials />
-        <Subscribe />
-        <Footer />
-      </div>
+    <div>
+      <Header />
+      <Hero />
+      <MasonaryGrid />
+      <PlanningSteps />
+      <Subscribe />
+      <Testimonials />
+
+      <Footer />
+    </div>
   );
 }
