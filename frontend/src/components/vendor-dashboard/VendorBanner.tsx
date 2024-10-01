@@ -2,23 +2,26 @@
 import Image from "next/image";
 import React from "react";
 import vendorBanner from "../../assets/images/vendor/vendorBanner.jpg";
-
+import { FiHome } from "react-icons/fi";
 interface VendorBannerProps {
   businessName: string;
 }
 const VendorBanner: React.FC<VendorBannerProps> = ({ businessName }) => {
   return (
-    <div className=" container relative w-screen h-[305px] ">
-      {/* Set relative position and fixed height */}
+    <div className="container relative w-screen h-[305px]">
+      {/* Banner image */}
       <Image
         src={vendorBanner}
         alt="vendor banner dashboard image"
         fill={true}
         style={{ objectFit: "cover" }}
-        className="w-screen h-[305px] rounded-xl bg-opacity-100"
+        className="w-screen h-[305px] rounded-xl"
       />
-      <div className="absolute inset-0 bg-white flex flex-col items-center justify-center text-white text-center">
-        <p>{businessName}</p>
+
+      {/* Business name div */}
+      <div className="absolute bottom-4 left-4 bg-white text-black py-2 px-4 rounded-xl flex items-center">
+        <FiHome className="mr-2 font-bold" size={20} style={{ strokeWidth: 2.5 }}/>
+        <p className="font-bold font-title text-[20px]">{businessName}</p>
       </div>
     </div>
   );

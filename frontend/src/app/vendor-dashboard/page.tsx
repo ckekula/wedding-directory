@@ -8,7 +8,7 @@ const page = () => {
       <Header />
       <div className="bg-lightYellow h-screen">
         <div className="p-20">
-          <VendorBanner businessName="John's Florals" />
+          <VendorBanner businessName="John's Flower Shop" />
         </div>
       </div>
     </div>
