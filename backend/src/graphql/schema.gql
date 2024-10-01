@@ -12,6 +12,7 @@ type PackageModel {
   pfp: String
   media: [String!]
   experience: String
+  start_price: String
   website: String
   instagram: String
   facebook: String
@@ -19,6 +20,7 @@ type PackageModel {
   tiktok: String
   createdAt: DateTime
   updatedAt: DateTime
+  vendor: VendorModel!
 }
 
 """
@@ -64,7 +66,7 @@ type Query {
   autocompleteLocation(input: String!): [String!]!
   findAllVisitors: [VisitorModel!]!
   findVisitorById(id: String!): VisitorModel
-  findPortfolioById(id: String!): PackageModel!
+  findPackageById(id: String!): PackageModel!
 }
 
 input VendorFilterInput {
@@ -76,7 +78,7 @@ type Mutation {
   createVendor(input: CreateVendorInput!): VendorModel!
   createVisitor(createVisitorInput: CreateVisitorInput!): VisitorModel!
   removeVisitor(id: String!): Boolean!
-  createPortfolio(input: CreatePackageInput!): PackageModel!
+  createPackage(input: CreatePackageInput!): PackageModel!
 }
 
 input CreateVendorInput {
@@ -110,11 +112,8 @@ input CreatePackageInput {
   bus_email: String!
   about: String!
   pfp: String!
-  address: String!
-  city: String!
-  latitude: String!
-  longitude: String!
   experience: String!
+  start_price: String!
   website: String!
   instagram: String!
   facebook: String!

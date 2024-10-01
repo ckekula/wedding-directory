@@ -10,20 +10,20 @@ export class PackageService {
   constructor(
 
     @InjectRepository(PackageEntity)
-    private readonly portfolioRepository: Repository<PackageEntity>,
+    private readonly packageRepository: Repository<PackageEntity>,
 
     @InjectRepository(VendorEntity)
     private readonly vendorRepository: Repository<VendorEntity>,
   ) {}
 
-  async findPortfolioById(id: string): Promise<PackageEntity | null> {
-    return this.portfolioRepository.findOne({ where: { id } });
+  async findPackageById(id: string): Promise<PackageEntity | null> {
+    return this.packageRepository.findOne({ where: { id } });
   }
 
-  async createPortfolio(createPortfolioInput: CreatePackageInput): Promise<PackageEntity> {
+  async createPackage(createPackageInput: CreatePackageInput): Promise<PackageEntity> {
     // Fetch the vendor by vendorId
     const vendor = await this.vendorRepository.findOne(
-      { where: { id: createPortfolioInput.vendor_id } }
+      { where: { id: createPackageInput.vendor_id } }
     );
     
     if (!vendor) {
@@ -31,10 +31,11 @@ export class PackageService {
     }
 
     // Create and save the portfolio associated with the vendor
-    const portfolio = this.portfolioRepository.create({
+    const _package = this.packageRepository.create({
+      ...createPackageInput,
       vendor, // associate with the vendor
     });
 
-    return this.portfolioRepository.save(portfolio);
+    return this.packageRepository.save(_package);
   }
 }

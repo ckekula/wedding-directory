@@ -11,13 +11,13 @@ export class PackageResolver {
   ) {}
 
   @Query(() => PackageModel)
-  async findPortfolioById(@Args('id', { type: () => String }) id: string): Promise<PackageEntity> {
-    return this.packageService.findPortfolioById(id);
+  async findPackageById(@Args('id', { type: () => String }) id: string): Promise<PackageEntity> {
+    return this.packageService.findPackageById(id);
   }
 
   @Mutation(() => PackageModel)
-  async createPortfolio(@Args('input') input: CreatePackageInput): Promise<PackageEntity> {
-    return this.packageService.createPortfolio(input);
+  async createPackage(@Args('input') input: CreatePackageInput): Promise<PackageEntity> {
+    return this.packageService.createPackage(input);
   }
  
 }

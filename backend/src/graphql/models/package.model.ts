@@ -1,4 +1,5 @@
 import { ObjectType, Field } from '@nestjs/graphql';
+import { VendorModel } from './vendor.model';
 
 @ObjectType()
 export class PackageModel {
@@ -30,6 +31,9 @@ export class PackageModel {
   experience: string;
 
   @Field({ nullable: true })
+  start_price: string;
+
+  @Field({ nullable: true })
   website : string;
 
   @Field({ nullable: true })
@@ -49,4 +53,7 @@ export class PackageModel {
 
   @Field({ nullable: true })
   updatedAt: Date;
+
+  @Field(() => VendorModel)
+  vendor: VendorModel;
 }

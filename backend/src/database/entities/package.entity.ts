@@ -1,7 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
 import { VendorEntity } from './vendor.entity';
 
-@Entity({ name: 'portfolio' })
+@Entity({ name: 'package' })
 export class PackageEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
@@ -28,6 +28,9 @@ export class PackageEntity {
     experience: string;
 
     @Column({ type: 'varchar', length: 100 })
+    start_price: string;
+
+    @Column({ type: 'varchar', length: 100 })
     website : string;
 
     @Column({ type: 'varchar', length: 100 })
@@ -49,5 +52,6 @@ export class PackageEntity {
     updatedAt: Date;
 
     @ManyToOne(() => VendorEntity, v => v.package)
+    @JoinColumn({ name: 'vendor_id' })  // Add this to make the relation explicit
     vendor: VendorEntity;
 }
