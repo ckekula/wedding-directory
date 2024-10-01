@@ -36,7 +36,7 @@ const VendorLoginPage = () => {
                 }
 
                 // Redirect to profile page after successful login
-                router.push('/vendor-profile');
+                router.push('/vendor-dashboard');
             } else {
                 setError('Login failed. Please try again.');
             }

@@ -6,6 +6,7 @@ import SearchBar from "../SearchBar";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import Image from "next/image";
 import profile from "../../../assets/images/profilePic.jpg";
+
 const DashBoardHeader = () => {
   return (
     <Fragment>
