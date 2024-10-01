@@ -31,8 +31,4 @@ export class VendorService {
     const vendor = this.vendorRepository.create({ ...createVendorInput, password: hashedPassword });
     return this.vendorRepository.save(vendor);
   }
-
-  public getVendorByEmail(email: string): Promise<VendorEntity | undefined> {
-    return this.vendorRepository.findOne({ where: { email } });
-  }
 }
