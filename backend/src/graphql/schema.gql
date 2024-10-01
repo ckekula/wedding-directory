@@ -2,24 +2,23 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type PortfolioModel {
+type PackageModel {
   id: String!
+  vendor_id: String!
+  category: String!
   bus_phone: String!
   bus_email: String!
   about: String!
-  pfp: String!
-  address: String!
-  city: String!
-  latitude: String!
-  longitude: String!
-  experience: String!
-  website: String!
-  instagram: String!
-  facebook: String!
-  x: String!
-  tiktok: String!
-  createdAt: DateTime!
-  updatedAt: DateTime!
+  pfp: String
+  media: [String!]
+  experience: String
+  website: String
+  instagram: String
+  facebook: String
+  x: String
+  tiktok: String
+  createdAt: DateTime
+  updatedAt: DateTime
 }
 
 """
@@ -34,11 +33,13 @@ type VendorModel {
   fname: String!
   lname: String!
   busname: String!
+  address: String!
+  city: String!
   phone: String!
   category: String!
   createdAt: DateTime!
   updatedAt: DateTime!
-  portfolio: PortfolioModel
+  package: PackageModel
 }
 
 type VisitorModel {
@@ -60,9 +61,10 @@ type Query {
   findVendorById(id: String!): VendorModel!
   findAllVendors: [VendorModel!]!
   findVendorsWithFilters(filters: VendorFilterInput!): [VendorModel!]!
+  autocompleteLocation(input: String!): [String!]!
   findAllVisitors: [VisitorModel!]!
   findVisitorById(id: String!): VisitorModel
-  autocompleteLocation(input: String!): [String!]!
+  findPortfolioById(id: String!): PackageModel!
 }
 
 input VendorFilterInput {
@@ -74,6 +76,7 @@ type Mutation {
   createVendor(input: CreateVendorInput!): VendorModel!
   createVisitor(createVisitorInput: CreateVisitorInput!): VisitorModel!
   removeVisitor(id: String!): Boolean!
+  createPortfolio(input: CreatePackageInput!): PackageModel!
 }
 
 input CreateVendorInput {
@@ -96,4 +99,23 @@ input CreateVisitorInput {
   engaged_date: DateTime
   wed_date: DateTime
   wed_venue: String
+}
+
+input CreatePackageInput {
+  vendor_id: String!
+  category: String!
+  bus_phone: String!
+  bus_email: String!
+  about: String!
+  pfp: String!
+  address: String!
+  city: String!
+  latitude: String!
+  longitude: String!
+  experience: String!
+  website: String!
+  instagram: String!
+  facebook: String!
+  x: String!
+  tiktok: String!
 }

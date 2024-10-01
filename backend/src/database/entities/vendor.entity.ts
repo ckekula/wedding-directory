@@ -1,5 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
-import { PortfolioEntity } from './portfolio.entity'
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, OneToMany } from 'typeorm';
+import { PackageEntity } from './package.entity'
 
 @Entity({ name: 'vendor' })
 export class VendorEntity {
@@ -18,6 +18,12 @@ export class VendorEntity {
 
   @Column({ type: 'varchar', length: 20 })
   lname: string;
+  
+  @Column({ type: 'varchar', length: 100 })
+  address: string;
+
+  @Column({ type: 'varchar', length: 100 })
+  city: string;
 
   @Column({ type: 'varchar', length: 50 })
   busname: string;
@@ -34,7 +40,6 @@ export class VendorEntity {
   @UpdateDateColumn({ name: 'updated_at', type: 'timestamp' , nullable: false })
   updatedAt: Date;
 
-  @OneToOne(() => PortfolioEntity)
-  @JoinColumn({ name: 'portfolio_id' })
-  portfolio: PortfolioEntity;
+  @OneToMany(() => PackageEntity, p => p.vendor, { cascade: true })
+  package: PackageEntity[];
 }

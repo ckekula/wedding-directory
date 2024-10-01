@@ -1,10 +1,13 @@
-import { Entity, Column, OneToOne, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne } from 'typeorm';
 import { VendorEntity } from './vendor.entity';
 
 @Entity({ name: 'portfolio' })
-export class PortfolioEntity {
+export class PackageEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
+
+    @Column({ type: 'varchar', length: 100 })
+    category: string;
 
     @Column({ type: 'varchar', length: 100 })
     bus_phone: string;
@@ -18,17 +21,8 @@ export class PortfolioEntity {
     @Column({ type: 'varchar', length: 100 })
     pfp: string;
 
-    @Column({ type: 'varchar', length: 100 })
-    address: string;
-
-    @Column({ type: 'varchar', length: 100 })
-    city: string;
-
-    @Column({ type: 'varchar', length: 100 })
-    latitude: string;
-
-    @Column({ type: 'varchar', length: 100 })
-    longitude: string;
+    @Column('text', { array: true, nullable: true })
+    media: string[];
 
     @Column({ type: 'varchar', length: 100 })
     experience: string;
@@ -54,6 +48,6 @@ export class PortfolioEntity {
     @UpdateDateColumn({ name: 'updated_at', type: 'timestamp' , nullable: false })
     updatedAt: Date;
 
-    @OneToOne(() => VendorEntity, v => v.portfolio)
+    @ManyToOne(() => VendorEntity, v => v.package)
     vendor: VendorEntity;
 }

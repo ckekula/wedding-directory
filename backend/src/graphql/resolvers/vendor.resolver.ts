@@ -26,6 +26,12 @@ export class VendorResolver {
     return this.vendorService.findVendorsWithFilters(filters);
   }
 
+  @Query(() => [String])
+  async autocompleteLocation(@Args('input') input: string) {
+    const result = await this.vendorService.autocompleteLocation(input);
+    return result.predictions.map((place) => place.description);
+  }
+
   @Mutation(() => VendorModel)
   async createVendor(@Args('input') input: CreateVendorInput): Promise<VendorEntity> {
     return this.vendorService.createVendor(input);
