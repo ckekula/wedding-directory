@@ -2,7 +2,6 @@ import { DataSource, Repository } from 'typeorm';
 import { VendorEntity } from '../entities/vendor.entity';
 import { VendorFilterInput } from 'src/graphql/inputs/vendorFilter';
 
-// Assuming AppDataSource is your configured DataSource
 export type VendorRepositoryType = Repository<VendorEntity> & {
   findVendorById(id: string): Promise<VendorEntity | null>;
   findAllVendors(): Promise<VendorEntity[]>;
@@ -14,21 +13,19 @@ export const VendorRepository = (dataSource: DataSource): VendorRepositoryType =
   dataSource.getRepository(VendorEntity).extend({
 
     findVendorById(id: string): Promise<VendorEntity | null> {
-      // Removed the 'relations: ['location']' since it's not in the schema
-      return this.findOne({ where: { id } });
+      return this.findOne({ where: { id }, relations: ['portfolio'] });
     },
 
     findAllVendors(): Promise<VendorEntity[]> {
-      // Removed the 'relations: ['location']' since it's not in the schema
-      return this.find();
+      return this.find({ relations: ['portfolio'] });
     },
 
     findVendorsWithFilters(filters: VendorFilterInput): Promise<VendorEntity[]> {
-      const query = this.createQueryBuilder('vendor');
+      const query = this.createQueryBuilder('vendor')
+        .leftJoinAndSelect('vendor.portfolio', 'portfolio');
 
       if (filters.city) {
-        // Assuming there's a city field in the VendorEntity, if not, this should be adjusted
-        query.andWhere('vendor.city = :city', { city: filters.city });
+        query.andWhere('portfolio.city = :city', { city: filters.city });
       }
 
       if (filters.category) {

@@ -12,18 +12,17 @@ export class VisitorResolver {
   constructor(private readonly visitorService: VisitorService) {}
 
   @Mutation(() => VisitorModel)
-  async createVisitor(@Args('createVisitorInput') createVisitorInput: CreateVisitorInput): Promise<VisitorModel> {
+  async createVisitor(@Args('createVisitorInput') createVisitorInput: CreateVisitorInput): Promise<VisitorEntity> {
     return this.visitorService.create(createVisitorInput);
   }
 
   @Query(() => [VisitorModel])
-  async findAllVisitors(): Promise<VisitorModel[]> {
+  async findAllVisitors(): Promise<VisitorEntity[]> {
     return this.visitorService.findAll();
   }
 
   @Query(() => VisitorModel, { nullable: true })
-
-  async findVisitorById(@Args('id') id: string): Promise<VisitorModel> {
+  async findVisitorById(@Args('id') id: string): Promise<VisitorEntity> {
     return this.visitorService.findOne(id);
   }
 

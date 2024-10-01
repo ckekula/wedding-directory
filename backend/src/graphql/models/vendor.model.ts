@@ -1,5 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { PortfolioModel } from './portfolio.model';
+import { PackageModel } from './package.model';
 
 @ObjectType()
 export class VendorModel {
@@ -22,6 +22,12 @@ export class VendorModel {
   busname: string;
 
   @Field()
+  location: string;
+
+  @Field()
+  city: string;
+
+  @Field()
   phone: string;
 
   @Field()
@@ -33,6 +39,6 @@ export class VendorModel {
   @Field()
   updatedAt: Date;
 
-  @Field(() => PortfolioModel, { nullable: true })
-  portfolio?: PortfolioModel;
+  @Field(() => PackageModel, { nullable: true })
+  package?: PackageModel;
 }

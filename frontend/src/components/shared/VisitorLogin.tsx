@@ -128,7 +128,7 @@ const VisitorLogin: React.FC<VisitorLoginProps> = ({ isVisible, onClose }) => {
           <div className="text-center mt-2">
             <label
               htmlFor="terms"
-              className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              className="text-sm font-bold leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
             >
               Are you a wedding service provider?{" "}
               <Link href="/login" className="underline">
