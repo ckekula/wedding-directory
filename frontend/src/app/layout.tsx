@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
-import { AuthProvider } from "@/contexts/VisitorAuthContext";
+import { AuthProvider as VisitorAuthProvider } from "@/contexts/VisitorAuthContext";
 import ApolloWrapper from "@/apollo/ApolloWrapper";
 import { montserrat, merriweather, montez } from "@/assets/fonts/fonts";
 import "./globals.css";
 import PageTransition from "@/components/PageTransition";
+import { VendorAuthProvider } from '@/contexts/VendorAuthContext';
 
 export const metadata: Metadata = {
   title: "Say I Do",
@@ -25,12 +26,16 @@ export default function RootLayout({
       >
       <ApolloWrapper>
         {/* Wrapping the application with VisitorProvider */}
-        <AuthProvider>
+        <VisitorAuthProvider>
+          <VendorAuthProvider>
+            <PageTransition>
+              {children}
+            </PageTransition>
+
+          </VendorAuthProvider>
           {/* PageTransition can wrap around the children to handle animations */}
-          <PageTransition>
-            {children}
-          </PageTransition>
-        </AuthProvider>
+
+        </VisitorAuthProvider>
       </ApolloWrapper>
         
       </body>
