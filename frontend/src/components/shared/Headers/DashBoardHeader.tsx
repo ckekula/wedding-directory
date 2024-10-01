@@ -39,7 +39,7 @@ const DashBoardHeader = () => {
               <Image
                 src={profile}
                 alt="profile picture"
-                className="w-[75px] h-[75px] rounded-full"
+                className="w-[50px] h-[50px] rounded-full"
               />
             </Link>
           </div>
