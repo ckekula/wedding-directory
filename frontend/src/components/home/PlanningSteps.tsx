@@ -78,6 +78,8 @@ const PlanningSteps = () => {
             ))}
           </div>
         </div>
+        <h2 className="text-5xl font-bold font-title mb-8 text-center mt-8">Join with Say I Do</h2>
+        <Button variant="signup">Sign up with us for free</Button>
       </div>
     </section>
   );
