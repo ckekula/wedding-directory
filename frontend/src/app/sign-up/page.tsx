@@ -11,8 +11,13 @@ import Link from "next/link";
 import BusinessCategory from "@/components/vendor-signup/BusinessCategory";
 import { useMutation } from '@apollo/client';
 import { CREATE_VENDOR } from "@/api/graphql/mutations";
+import CityInput from "@/components/vendor-signup/CityInput";
+import LocationInput from "@/components/vendor-signup/LocationInput";
 import { useRouter } from "next/navigation";
+
 const Signup = () => {
+
+  const router = useRouter();
 
   const [formData, setFormData] = useState({
     email: '',
@@ -23,10 +28,11 @@ const Signup = () => {
     busname: '',
     phone: '',
     category: '',
+    city: '',
+    location: ''
   });
 
   const [createVendor, { loading, error }] = useMutation(CREATE_VENDOR);
-  const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -40,9 +46,15 @@ const Signup = () => {
     setFormData({ ...formData, category });
   };
 
-  const onRegister = async () => {
+  const handleLocationChange = (location: string) => {
+    setFormData({ ...formData, location });
+  };
 
-    
+  const handleCityChange = (city: string) => {
+    setFormData({ ...formData, city });
+  };
+
+  const onRegister = async () => {
 
     if (formData.password !== formData.rpassword) {
       alert("Passwords do not match!");
@@ -59,12 +71,14 @@ const Signup = () => {
             lname: formData.lname,
             busname: formData.busname,
             phone: formData.phone,
-            category: formData.category
+            category: formData.category,
+            city: formData.city,
+            location: formData.location
           },
         },
       });
       alert("Vendor created successfully!");
-      router.push('/venodr-dashboard')
+      router.push('/vendor-dashboard')
     } catch (err) {
       console.error("Error creating vendor:", err);
       alert("Error creating vendor");
@@ -127,6 +141,8 @@ const Signup = () => {
                   <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
                     <BusinessCategory onCategoryChange={handleCategoryChange} />
                   </div>
+                  <CityInput onCityChange={handleCityChange}/>
+                  <LocationInput onLocationChange={handleLocationChange}/>
                   <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
                     <Input
                       className="h-8"
