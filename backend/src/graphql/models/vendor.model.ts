@@ -31,9 +31,6 @@ export class VendorModel {
   phone: string;
 
   @Field()
-  category: string;
-
-  @Field()
   createdAt: Date;
 
   @Field()

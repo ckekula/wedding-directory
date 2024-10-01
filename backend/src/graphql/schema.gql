@@ -38,7 +38,6 @@ type VendorModel {
   location: String!
   city: String!
   phone: String!
-  category: String!
   createdAt: DateTime!
   updatedAt: DateTime!
   package: PackageModel
@@ -88,7 +87,6 @@ input CreateVendorInput {
   lname: String!
   busname: String!
   phone: String!
-  category: String!
   city: String!
   location: String!
 }

@@ -31,9 +31,6 @@ export class VendorEntity {
   @Column({ type: 'varchar', length: 12 })
   phone: string;
 
-  @Column({ type: 'varchar', length: 20 })
-  category: string;
-
   @CreateDateColumn({ name: 'created_at', type: 'timestamp',  nullable: false })
   createdAt: Date;
 

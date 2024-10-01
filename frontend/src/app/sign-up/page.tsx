@@ -27,7 +27,6 @@ const Signup = () => {
     lname: '',
     busname: '',
     phone: '',
-    category: '',
     city: '',
     location: ''
   });
@@ -40,10 +39,6 @@ const Signup = () => {
       ...formData,
       [name]: value,
     });
-  };
-
-  const handleCategoryChange = (category: string) => {
-    setFormData({ ...formData, category });
   };
 
   const handleLocationChange = (location: string) => {
@@ -71,7 +66,6 @@ const Signup = () => {
             lname: formData.lname,
             busname: formData.busname,
             phone: formData.phone,
-            category: formData.category,
             city: formData.city,
             location: formData.location
           },
@@ -114,7 +108,7 @@ const Signup = () => {
                       name="fname"
                       value={formData.fname}
                       onChange={handleChange}
-                     />
+                    />
                   </div>
                   <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
                     <Input 
@@ -131,18 +125,20 @@ const Signup = () => {
                     <Input 
                       className="h-8" 
                       id="busname" 
-                      placeholder="Businees Name"
+                      placeholder="Business Name"
                       type="text"
                       name="busname"
                       value={formData.busname}
                       onChange={handleChange}
                     />
                   </div>
-                  <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
-                    <BusinessCategory onCategoryChange={handleCategoryChange} />
-                  </div>
                   <CityInput onCityChange={handleCityChange}/>
-                  <LocationInput onLocationChange={handleLocationChange}/>
+                  
+                  {/* LocationInput should span across both columns */}
+                  <div className="md:col-span-2">
+                    <LocationInput onLocationChange={handleLocationChange} />
+                  </div>
+                  
                   <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
                     <Input
                       className="h-8"
