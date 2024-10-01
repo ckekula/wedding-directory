@@ -12,21 +12,23 @@ export type VendorRepositoryType = Repository<VendorEntity> & {
 // Use the DataSource to get the base repository and extend it
 export const VendorRepository = (dataSource: DataSource): VendorRepositoryType =>
   dataSource.getRepository(VendorEntity).extend({
-    
+
     findVendorById(id: string): Promise<VendorEntity | null> {
-      return this.findOne({ where: { id }, relations: ['location'] });
+      // Removed the 'relations: ['location']' since it's not in the schema
+      return this.findOne({ where: { id } });
     },
 
     findAllVendors(): Promise<VendorEntity[]> {
-      return this.find({ relations: ['location'] });
+      // Removed the 'relations: ['location']' since it's not in the schema
+      return this.find();
     },
 
     findVendorsWithFilters(filters: VendorFilterInput): Promise<VendorEntity[]> {
-      const query = this.createQueryBuilder('vendor')
-        .leftJoinAndSelect('vendor.location', 'location');
+      const query = this.createQueryBuilder('vendor');
 
       if (filters.city) {
-        query.andWhere('location.city = :city', { city: filters.city });
+        // Assuming there's a city field in the VendorEntity, if not, this should be adjusted
+        query.andWhere('vendor.city = :city', { city: filters.city });
       }
 
       if (filters.category) {

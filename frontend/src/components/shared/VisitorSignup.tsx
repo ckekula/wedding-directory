@@ -8,7 +8,7 @@ import Link from "next/link";
 import { useRouter } from 'next/navigation';
 import VisitorLogin from "./VisitorLogin";
 import { useAuth } from "@/contexts/VisitorAuthContext";  // Import the login method from the context
-import { login as loginApi } from '@/api/auth/auth.api';   // Import the login API call
+import { loginVisitor as loginApi } from '@/api/auth/visitor.auth.api';   // Import the login API call
 
 interface VisitorSignupProps {
     isVisible: boolean;

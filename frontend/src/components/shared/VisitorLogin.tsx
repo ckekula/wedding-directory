@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import VisitorSignup from "./VisitorSignup";
 import { useRouter } from 'next/navigation';
-import { login as loginApi } from '@/api/auth/auth.api';
+import { loginVisitor as loginApi } from '@/api/auth/visitor.auth.api';
 import { useAuth } from "@/contexts/VisitorAuthContext";
 
 interface VisitorLoginProps {

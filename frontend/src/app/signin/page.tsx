@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { login as loginApi } from '@/api/auth/auth.api';
+import { login as loginApi } from '@/api/auth/visitor.auth.api';
 import { useAuth } from "@/contexts/VisitorAuthContext";
 
 const Login = () => {
