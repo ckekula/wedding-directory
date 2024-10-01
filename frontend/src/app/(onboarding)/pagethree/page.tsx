@@ -7,11 +7,12 @@ import { FaCircleCheck } from "react-icons/fa6";
 import { TbCircleNumber3Filled } from "react-icons/tb";
 import { GoHorizontalRule } from "react-icons/go";
 import Link from 'next/link';
+import { Checkbox } from '@/components/ui/checkbox';
 
 
 const page = () => {
     return (
-        <div className="bg-background font-title h-screen">
+        <div className="bg-lightYellow font-title h-screen">
             <div className="flex flex-col md:flex-row h-screen">
 
                 <div className="relative w-full m-3 md:w-5/12 h-full md:h-auto rounded-2xl overflow-hidden">
@@ -49,51 +50,32 @@ const page = () => {
                         </div>
 
                         <div>
-                            <h1 className="mx-40 text-3xl text-start mb-6">Nice! Before we continue, let&apos;s save your details</h1>
+                            <h1 className="mx-40 text-3xl text-start mb-2">Nice! Before we continue, one last thing</h1>
+                       
+                            <h1 className="text-sm mx-40 text-gray-600 text-opacity-90 mb-6">We&apos;ll help you plan the wedding you want - small or big, near of far</h1>
                         </div>
 
-
-
-                        <div className="space-y-6 w-full md:w-7/12 mb-6">
-                            <div className="flex flex-col w-full space-y-2">
-                                <label className="text-sm font-light">Email</label>
+                        <div className="flex flex-col md:flex-col justify-start space-y-2 md:space-y-0 mb-6">
+                            <div className="w-full md:w-full h-1/2 md:h-full relative">
+                                <label className="block font-light mb-2">Where are you getting married? (Best guesses welcome!)</label>
                                 <div className="border-gray-300 border-solid rounded-xl border-2 ">
                                     <Input className="h-9 w-full rounded-xl" type="text" id="" placeholder="" />
                                 </div>
                             </div>
-                            <div className="w-full md:w-full h-1/2 md:h-full relative">
-                                <label className="block font-light mb-2">Password (8 or more characters)</label>
-                                <div className="border-gray-300 border-solid rounded-xl border-2 ">
-                                    <Input className="h-9 w-full rounded-xl" type="password" id="" placeholder="" />
-                                </div>
+                            <div className="w-full h-1/2 md:h-full relative flex items-center ">
+                                <Checkbox className="border-gray-400 border-solid  border-2 mr-2 mt-4 rounded-md" />
+                                <label className="font-light mt-4">We&apos;re still deciding</label>
                             </div>
-
-
                         </div>
+
 
                         <div className="mt-4 flex flex-col w-7/12 mb-6">
                             <Button className="rounded-none text-black font-bold hover:bg-primary bg-primary text-lg">
                                 Let&apos;s go
                             </Button>
                         </div>
-                        <div className="w-full md:w-full text-center h-1/2 md:h-full relative">
-                            <label className="block text-sm mb-2">Already have an account?{' '}
-                                <Link href="/" className="underline">
-                                    Log in
-                                </Link> </label>
-                        </div>
-                        <div className="w-full md:w-full text-center h-1/2 md:h-full relative">
-                            <label className="block text-sm mb-2">
-                                By creating your account you agree to the Say I Do{' '}
-                                <Link href="/" className="underline">
-                                    Terms of use
-                                </Link>{' '}
-                                and{' '}
-                                <Link href="/" className="underline ">
-                                    Privacy policy
-                                </Link>
-                            </label>
-                        </div>
+
+
                         <button className="mt-12 text-center text-black "> Skip the onboarding process</button>
 
                     </div>

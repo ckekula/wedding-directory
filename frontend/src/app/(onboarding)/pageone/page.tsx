@@ -10,7 +10,7 @@ import { GoHorizontalRule } from "react-icons/go";
 
 const page = () => {
     return (
-        <div className="bg-background font-title h-screen">
+        <div className="bg-lightYellow font-title h-screen">
             <div className="flex flex-col md:flex-row h-screen">
 
                 <div className="relative w-full m-3 md:w-5/12 h-full md:h-auto rounded-2xl overflow-hidden">
@@ -48,7 +48,7 @@ const page = () => {
                         <div>
                             <h2 className="mx-40 text-3xl text-start mb-6 ">Like any great relationship, this one starts with basics</h2>
                         </div>
-                        
+
 
                         <div className="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 mb-4">
                             <div className="w-full md:w-1/2 h-1/2 md:h-full relative">
@@ -78,34 +78,20 @@ const page = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 mb-4">
-                            <div className="w-full md:w-1/2 h-1/2 md:h-full relative">
-                            <div className="flex items-center">
-                                <label className="block font-light w-fit mb-2 mr-1">Wedding date</label>
-                                <span className="text-gray-400 text-sm">(Don&apos;t worry! You can change this later)</span>
-                                </div>
-                                <div className="border-gray-300 border-solid rounded-xl border-2 w-8/12">
-                                    <Input className="h-9 w-full rounded-xl" type="date" id="" placeholder="" />
-                                </div>
-                            </div>
-                            <div className="w-full md:w-1/3 h-1/2 md:h-full relative flex items-center">
-                                <Checkbox className="mr-2 mt-10" />
-                                <label className="block font-light mt-10">We&apos;re still deciding</label>
-                            </div>
-                        </div>
+
 
                         <div className="mt-4 flex flex-col w-7/12 ">
                             <Button className="rounded-none text-black font-bold hover:bg-primary bg-primary text-lg">
-                               Next
+                                Next
                             </Button>
-                            </div>
-                    <button className="mt-8 text-center text-black "> Skip the onboarding process</button>
-                
-                </div>
-                </div>
+                        </div>
+                        <button className="mt-32 text-center text-black "> Skip the onboarding process</button>
+
+                    </div>
                 </div>
             </div>
-       
+        </div>
+
     )
 }
 
