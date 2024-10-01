@@ -39,62 +39,63 @@ const EditProfile: React.FC = () => {
 
   return (
     <Fragment>
-    <div className="bg-white rounded-2xl p-4 px-8 shadow-lg">
-      <h2 className="font-title text-[30px] ">Edit Profile</h2>
-      <hr className="w-[168px] h-px my-4 bg-gray-400 border-0 dark:bg-gray-700"></hr>
-      <form onSubmit={handleSubmit} className="mb-8">
-        <div>
-          <label className="font-body text-[16px] ">First Name</label>
-          <Input
-            name="firstName"
-            value={profile.firstName}
-            onChange={handleInputChange}
-            className="font-body rounded-md mt-2 mb-3"
-          />
-        </div>
-        <div>
-          <label className="font-body text-[16px] ">Last Name</label>
-          <Input
-            name="lastName"
-            value={profile.lastName}
-            onChange={handleInputChange}
-            className="font-body rounded-md mt-2 mb-3"
-          />
-        </div>
-        <div>
-          <label className="font-body text-[16px] ">Business Name</label>
-          <Input
-            name="buisnessName"
-            value={profile.businessName}
-            onChange={handleInputChange}
-            className="font-body rounded-md mt-2 mb-3"
-          />
-        </div>
-        <div>
-          <label className="font-body text-[16px] ">Phone Number</label>
-          <Input
-            name="phonenumber"
-            value={profile.phoneNumber}
-            onChange={handleInputChange}
-            className="font-body rounded-md mt-2 mb-3"
-          />
-        </div>
-        <div>
-          <label className="font-body text-[16px] ">Category</label>
-          <Input
-            name="category"
-            value={profile.category}
-            onChange={handleInputChange}
-            className="font-body rounded-md mt-2 mb-3"
-          />
-        </div>
-      </form>
-    </div>
+      <div className="bg-white rounded-2xl p-4 px-8 shadow-lg">
+        <h2 className="font-title text-[30px] ">Edit Profile</h2>
+        <hr className="w-[168px] h-px my-4 bg-gray-400 border-0 dark:bg-gray-700"></hr>
+        <form onSubmit={handleSubmit} className="mb-8">
+          <div>
+            <label className="font-body text-[16px] ">First Name</label>
+            <Input
+              name="firstName"
+              value={profile.firstName}
+              onChange={handleInputChange}
+              className="font-body rounded-md mt-2 mb-3"
+            />
+          </div>
+          <div>
+            <label className="font-body text-[16px] ">Last Name</label>
+            <Input
+              name="lastName"
+              value={profile.lastName}
+              onChange={handleInputChange}
+              className="font-body rounded-md mt-2 mb-3"
+            />
+          </div>
+          <div>
+            <label className="font-body text-[16px] ">Business Name</label>
+            <Input
+              name="buisnessName"
+              value={profile.businessName}
+              onChange={handleInputChange}
+              className="font-body rounded-md mt-2 mb-3"
+            />
+          </div>
+          <div>
+            <label className="font-body text-[16px] ">Phone Number</label>
+            <Input
+              name="phonenumber"
+              value={profile.phoneNumber}
+              onChange={handleInputChange}
+              className="font-body rounded-md mt-2 mb-3"
+            />
+          </div>
+          <div>
+            <label className="font-body text-[16px] ">Category</label>
+            <Input
+              name="category"
+              value={profile.category}
+              onChange={handleInputChange}
+              className="font-body rounded-md mt-2 mb-3"
+            />
+          </div>
+        </form>
+      </div>
 
-    <div className="bg-white rounded-2xl p-4 px-8 shadow-lg my-8 justify-center flex">
-        <Button variant="signup" className="m-3 w-full">Save Profile Informations</Button>
-    </div>
-
+      <div className="bg-white rounded-2xl p-4 px-8 shadow-lg my-8 justify-center flex">
+        <Button variant="signup" className="m-3 w-full">
+          Save Profile Informations
+        </Button>
+      </div>
     </Fragment>
   );
 };
