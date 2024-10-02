@@ -13,43 +13,26 @@ import {
 } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/VisitorAuthContext";
-
-import { gql, useQuery } from "@apollo/client";
-
-// graphql query to get visitor details by ID
-
-const GET_VISITOR_BY_ID = gql`
-  query GetVisitorById($id: String!) {
-    findVisitorById(id: $id) {
-      id
-      visitor_fname
-      partner_fname
-      wed_venue
-    }
-  }
-`;
+import { useQuery } from "@apollo/client";
+import { GET_VISITOR_BY_ID } from "@/api/graphql/queries";
 
 const VisitorDashboard = () => {
   const [isSideBarCollapsed, setIsSideBarCollapsed] = useState(false);
   const { visitor, accessToken, login, isAuthenticated } = useAuth(); // Added login method for token context management
   const [tokenChecked, setTokenChecked] = useState(false);
 
-  // Fetch visitor data if logged in and visitor ID exists
   const { data, loading, error } = useQuery(GET_VISITOR_BY_ID, {
     variables: { id: visitor?.id },
     skip: !visitor?.id, // Skip query if no visitor ID is available
   });
 
-  // Check if data is loading or error occurred
   if (loading) {
     return <p>Loading visitor information...</p>;
   }
-
   if (error) {
     return <p>Error loading profile information: {error.message}</p>;
   }
 
-  // Destructure visitor data from the query result
   const visitorData = data?.findVisitorById;
 
   return (
@@ -107,13 +90,13 @@ const VisitorDashboard = () => {
               </div>
               <div className="flex mt-4 justify-center gap-8 font-body">
                 <div>
-                  <Link href="#">Add Date</Link>
+                  <span>{visitorData?.wed_date || "Add Date"}</span>
                 </div>
                 <div>
-                  <Link href="#">{visitorData?.wed_venue || "Add Venue"}</Link>
+                  <span>{visitorData?.wed_venue || "Add Venue"}</span>
                 </div>
                 <div>
-                  <Link href="#">No of Guests</Link>
+                  <span>No of Guests</span>
                 </div>
               </div>
               <hr className="w-3/5 h-1 mx-auto my-4 bg-[rgba(0,0,0,0.25)] border-0 rounded md:my-6"></hr>

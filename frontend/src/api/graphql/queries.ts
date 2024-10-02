@@ -31,3 +31,19 @@ export const FIND_VENDORS_WITH_FILTERS = gql`
     }
   }
 `;
+
+export const GET_VISITOR_BY_ID = gql`
+  query GetVisitorById($id: String!) {
+    findVisitorById(id: $id) {
+      id
+      email
+      visitor_fname
+      visitor_lname
+      partner_fname
+      partner_lname
+      engaged_date
+      wed_date
+      wed_venue
+    }
+  }
+`;

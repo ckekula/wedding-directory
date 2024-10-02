@@ -105,6 +105,8 @@ input CreateVisitorInput {
 }
 
 input UpdateVisitorInput {
+  email: String
+  password: String
   visitor_fname: String
   visitor_lname: String
   partner_fname: String
