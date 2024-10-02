@@ -1,60 +1,34 @@
 "use client";
-import React, { Fragment, useState, useRef } from "react";
+import React, { Fragment, useState } from "react";
 import Link from "next/link";
 import Header from "@/components/shared/Headers/Header";
 import LeftSideBar from "@/components/visitor-dashboard/LeftSideBar";
 import Image from "next/image";
-import profilePicPlaceholder from "../../assets/images/dashboardProfilePic.jpg";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import profilePic from "../../assets/images/dashboardProfilePic.jpg";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/VisitorAuthContext";
-import { gql, useQuery } from "@apollo/client";
-
-// GraphQL query to get visitor details by ID
-const GET_VISITOR_BY_ID = gql`
-  query GetVisitorById($id: String!) {
-    findVisitorById(id: $id) {
-      id
-      visitor_fname
-      partner_fname
-      wed_venue
-    }
-  }
-`;
+import { useQuery } from "@apollo/client";
+import { GET_VISITOR_BY_ID } from "@/api/graphql/queries";
 
 const VisitorDashboard = () => {
   const [isSideBarCollapsed, setIsSideBarCollapsed] = useState(false);
-  const { visitor } = useAuth(); // Removed unused values for simplicity
-  const [profilePic, setProfilePic] = useState(profilePicPlaceholder); // State to store the profile picture
-  const fileInputRef = useRef<HTMLInputElement>(null); // Reference to the hidden file input
+  const { visitor, accessToken, login, isAuthenticated } = useAuth(); // Added login method for token context management
+  const [tokenChecked, setTokenChecked] = useState(false);
 
-  // Fetch visitor data if logged in and visitor ID exists
   const { data, loading, error } = useQuery(GET_VISITOR_BY_ID, {
     variables: { id: visitor?.id },
     skip: !visitor?.id, // Skip query if no visitor ID is available
   });
 
-  // Handle profile picture click - trigger file input
-  const handleProfilePicClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
-  };
-
-  // Handle file input change (uploading image)
-  const handleProfilePicChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const imageURL = URL.createObjectURL(file); // Generate a temporary URL to preview the image
-      setProfilePic(imageURL); // Update the profile picture preview
-      // You can also upload the file to the server here if needed.
-    }
-  };
-
   if (loading) {
     return <p>Loading visitor information...</p>;
   }
-
   if (error) {
     return <p>Error loading profile information: {error.message}</p>;
   }
@@ -84,28 +58,13 @@ const VisitorDashboard = () => {
             <div className=" mr-52">
               <div className="flex justify-between">
                 <div className="flex w-full items-center">
-                  {/* Profile Picture */}
-                  <div
-                    className="rounded-xl overflow-hidden transform -rotate-12 shadow-lg cursor-pointer"
-                    onClick={handleProfilePicClick} // Open file explorer on click
-                  >
+                  <div className="rounded-xl overflow-hidden transform -rotate-12 shadow-lg">
                     <Image
                       src={profilePic}
                       alt="dashboard profile picture"
-                      className="w-[175px] h-[175px] object-cover"
-                      width={175}
-                      height={175}
+                      className="w-[175px] h-[175px]"
                     />
                   </div>
-                  {/* Hidden file input for image upload */}
-                  <input
-                    type="file"
-                    accept="image/*"
-                    ref={fileInputRef}
-                    onChange={handleProfilePicChange} // Update profile picture on file select
-                    style={{ display: "none" }} // Hide the input
-                  />
-
                   <div className="font-merriweather">
                     <div className="flex flex-col text-center">
                       <span className="block text-5xl font-bold">
@@ -131,22 +90,25 @@ const VisitorDashboard = () => {
               </div>
               <div className="flex mt-4 justify-center gap-8 font-body">
                 <div>
-                  <Link href="#">Add Date</Link>
+                  <span>{visitorData?.wed_date || "Add Date"}</span>
                 </div>
                 <div>
-                  <Link href="#">{visitorData?.wed_venue || "Add Venue"}</Link>
+                  <span>{visitorData?.wed_venue || "Add Venue"}</span>
                 </div>
                 <div>
-                  <Link href="#">No of Guests</Link>
+                  <span>No of Guests</span>
                 </div>
               </div>
               <hr className="w-3/5 h-1 mx-auto my-4 bg-[rgba(0,0,0,0.25)] border-0 rounded md:my-6"></hr>
 
-              {/* Accordion */}
+              {/* Single Accordion container for all sections */}
               <Accordion type="multiple" className="">
                 <div className="grid grid-cols-2 gap-8">
                   {/* Vendors Block */}
-                  <AccordionItem value="vendors" className=" bg-white shadow-lg px-7 pb-7 rounded-xl ">
+                  <AccordionItem
+                    value="vendors"
+                    className=" bg-white shadow-lg px-7 pb-7 rounded-xl "
+                  >
                     <AccordionTrigger className="text-left mb-1">
                       <div className="flex flex-col ">
                         <h3 className="font-title text-3xl text-left">
@@ -162,7 +124,10 @@ const VisitorDashboard = () => {
                   </AccordionItem>
 
                   {/* Venue Block */}
-                  <AccordionItem value="venues" className=" bg-white shadow-lg px-7 pb-7 rounded-xl ">
+                  <AccordionItem
+                    value="venues"
+                    className=" bg-white shadow-lg px-7 pb-7 rounded-xl "
+                  >
                     <AccordionTrigger className="text-left mb-1">
                       <div className="flex flex-col ">
                         <h3 className="font-title text-3xl ">Venues</h3>
@@ -176,7 +141,10 @@ const VisitorDashboard = () => {
                   </AccordionItem>
 
                   {/* Guest List Block */}
-                  <AccordionItem value="guest-list" className=" bg-white shadow-lg px-7 pb-7 rounded-xl ">
+                  <AccordionItem
+                    value="guest-list"
+                    className=" bg-white shadow-lg px-7 pb-7 rounded-xl "
+                  >
                     <AccordionTrigger className="text-left mb-1">
                       <div className="flex flex-col">
                         <h3 className="font-title text-3xl ">Guest List</h3>
@@ -189,7 +157,10 @@ const VisitorDashboard = () => {
                     <AccordionContent className="text-sm font-body"></AccordionContent>
                   </AccordionItem>
                   {/* Announcements Block */}
-                  <AccordionItem value="announcements" className=" bg-white shadow-lg px-7 pb-7 rounded-xl ">
+                  <AccordionItem
+                    value="announcements"
+                    className=" bg-white shadow-lg px-7 pb-7 rounded-xl "
+                  >
                     <AccordionTrigger className="text-left mb-1">
                       <div className="flex flex-col">
                         <h3 className="font-title text-3xl  ">Announcements</h3>

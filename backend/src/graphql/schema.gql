@@ -105,6 +105,8 @@ input CreateVisitorInput {
 }
 
 input UpdateVisitorInput {
+  email: String
+  password: String
   visitor_fname: String
   visitor_lname: String
   partner_fname: String
@@ -120,7 +122,7 @@ input CreatePackageInput {
   bus_phone: String!
   bus_email: String!
   about: String!
-  pfp: String!
+  banner: String!
   experience: String!
   start_price: String!
   website: String!

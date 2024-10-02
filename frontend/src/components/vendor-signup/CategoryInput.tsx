@@ -4,7 +4,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import categories from '../../utils/category.json';
 import { CategoryProps } from "@/types/signupInput";
 
-const BusinessCategory: React.FC<CategoryProps> = ({ onCategoryChange }) => {
+const CategoryInput: React.FC<CategoryProps> = ({ onCategoryChange }) => {
 
   const handleCategorySelect = (value: string) => {
     onCategoryChange(value);
@@ -36,4 +36,4 @@ const BusinessCategory: React.FC<CategoryProps> = ({ onCategoryChange }) => {
   );
 }
 
-export default BusinessCategory;
+export default CategoryInput;

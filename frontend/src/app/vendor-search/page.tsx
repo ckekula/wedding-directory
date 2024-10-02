@@ -1,28 +1,50 @@
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuGroup,
-    DropdownMenuLabel,
-    DropdownMenuPortal,
-    DropdownMenuSeparator,
-    DropdownMenuSub,
-    DropdownMenuSubContent,
-    DropdownMenuSubTrigger,
-    DropdownMenuTrigger,
-    DropdownMenuItem,
-} from "@/components/ui/dropdown-menu";
-import React from 'react'
+'use client';
+
+import React, { useState } from 'react'
 import Footer from "@/components/shared/Footer";
 import Header from "@/components/shared/Headers/Header";
-import SearchBar from '@/components/shared/SearchBar';
-import vendor from '@/components/vendor-search/VendorResult'
+
 import VendorResult from '@/components/vendor-search/VendorResult';
 import { Button } from '@/components/ui/button';
 import { IoIosSearch } from "react-icons/io";
-import { RiArrowDropDownLine } from "react-icons/ri";
 import OtherVendor from "@/components/vendor-search/OtherVendor";
+import CityInput from '@/components/vendor-signup/CityInput';
+import CategoryInput from '@/components/vendor-signup/CategoryInput';
+import { FIND_VENDORS_WITH_FILTERS } from '@/api/graphql/queries';
+import { useLazyQuery } from '@apollo/client';
 
-const page = () => {
+const handleCityChange = (city: string) => {
+    
+}
+
+const handleCategoryChange = (category: string) => {
+    
+}
+
+const VendorSearch = () => {
+
+    const [filters, setFilters] = useState({
+        city: '',
+        category: ''
+    });
+
+    const [getVendors, { loading, data, error }] = useLazyQuery(FIND_VENDORS_WITH_FILTERS);
+    
+    const handleSearch = () => {
+        getVendors({
+          variables: {
+            filters,
+          },
+        });
+      };
+    
+      const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFilters({
+          ...filters,
+          [e.target.name]: e.target.value,
+        });
+      };
+
     return (
         <div className='bg-background font-title'>
             <Header />
@@ -33,36 +55,11 @@ const page = () => {
 
             <div className='flex flex-row h-12 justify-center align-middle'>
                 <div className="border-black border-2 rounded-lg w-44 border-solid bg-white ">
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <div className="rounded-md border-2 flex flex-col w-full border-solid h-full ">
-                                <Button className="rounded-none hover:bg-white w-full h-full bg-white text-black " >Category <RiArrowDropDownLine /></Button>
-                            </div>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent className="w-56">
-                            <DropdownMenuLabel>Category </DropdownMenuLabel>
-                            <DropdownMenuGroup>
-                                Photography
-                            </DropdownMenuGroup>
-                            <DropdownMenuSeparator />
-                        </DropdownMenuContent>
-                    </DropdownMenu></div>
+                    <CityInput onCityChange={handleCityChange}/>
+                </div>
 
                 <div className="border-black border-2 -ml-2 w-44 border-solid bg-white z-10">
-                    <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                            <div className="rounded-md border-2 flex flex-col w-full border-solid h-full ">
-                                <Button className="rounded-none hover:bg-white w-full h-full bg-white text-black " >Location <RiArrowDropDownLine /></Button>
-                            </div>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent className="w-56">
-                            <DropdownMenuLabel>Category </DropdownMenuLabel>
-                            <DropdownMenuGroup>
-                                Photography
-                            </DropdownMenuGroup>
-                            <DropdownMenuSeparator />
-                        </DropdownMenuContent>
-                    </DropdownMenu>
+                    <CategoryInput onCategoryChange={handleCategoryChange}/>
                 </div>
                 <div className="bg-orange w-14 h-12 -ml-2 rounded-lg text-2xl text-white flex items-center justify-center">
                     <IoIosSearch />
@@ -106,4 +103,4 @@ const page = () => {
     )
 }
 
-export default page
+export default VendorSearch;
