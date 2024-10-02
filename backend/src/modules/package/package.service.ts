@@ -14,13 +14,10 @@ export class PackageService {
 
     @InjectRepository(VendorEntity)
     private readonly vendorRepository: Repository<VendorEntity>,
+
   ) {}
 
-  async findPackageById(id: string): Promise<PackageEntity | null> {
-    return this.packageRepository.findOne({ where: { id } });
-  }
-
-  async createPackage(createPackageInput: CreatePackageInput): Promise<PackageEntity> {
+  async createPackage(createPackageInput: CreatePackageInput, mediaUrls: string[]): Promise<PackageEntity> {
     // Fetch the vendor by vendorId
     const vendor = await this.vendorRepository.findOne(
       { where: { id: createPackageInput.vendor_id } }
@@ -33,9 +30,23 @@ export class PackageService {
     // Create and save the portfolio associated with the vendor
     const _package = this.packageRepository.create({
       ...createPackageInput,
+      media: mediaUrls,
       vendor, // associate with the vendor
     });
 
     return this.packageRepository.save(_package);
+  }
+
+  async getPackagesByVendorId(vendorId: string): Promise<PackageEntity[]> {
+    const vendor = await this.vendorRepository.findOne({
+      where: { id: vendorId },
+      relations: ['package'],
+    });
+
+    if (!vendor) {
+      throw new Error('Vendor not found');
+    }
+
+    return vendor.package;
   }
 }

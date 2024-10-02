@@ -9,7 +9,8 @@ export const CREATE_VENDOR = gql`
       lname
       busname
       phone
-      category
+      city
+      location
     }
   }
 `;

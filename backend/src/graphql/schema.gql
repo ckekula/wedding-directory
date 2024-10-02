@@ -65,7 +65,7 @@ type Query {
   autocompleteLocation(input: String!): [String!]!
   findAllVisitors: [VisitorModel!]!
   findVisitorById(id: String!): VisitorModel
-  findPackageById(id: String!): PackageModel!
+  getVendorPackages(vendorId: String!): [PackageModel!]!
 }
 
 input VendorFilterInput {
@@ -77,7 +77,7 @@ type Mutation {
   createVendor(input: CreateVendorInput!): VendorModel!
   createVisitor(createVisitorInput: CreateVisitorInput!): VisitorModel!
   removeVisitor(id: String!): Boolean!
-  createPackage(input: CreatePackageInput!): PackageModel!
+  createPackage(input: CreatePackageInput!, mediaUrls: [String!]!): PackageModel!
 }
 
 input CreateVendorInput {

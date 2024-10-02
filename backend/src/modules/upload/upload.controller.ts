@@ -16,6 +16,11 @@ export class UploadController {
             ]
         })
     ) file: Express.Multer.File) {
+        const fileName = `${Date.now()}-${file.originalname}`;
+        // Upload the file to S3
         await this.uploadService.upload(file.originalname, file.buffer);
+        // Return the file URL
+        const fileUrl = `https://multi-vendor-wedding-directory.s3.amazonaws.com/${fileName}`;
+        return { fileUrl };
     }
 }
