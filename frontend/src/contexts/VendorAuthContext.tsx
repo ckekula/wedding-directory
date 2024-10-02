@@ -1,9 +1,15 @@
 // src/context/VendorAuthContext.tsx
 "use client";
 
-import { createContext, useState, useContext, ReactNode, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
-import { jwtDecode } from 'jwt-decode'; // Correct import for jwtDecode
+import {
+  createContext,
+  useState,
+  useContext,
+  ReactNode,
+  useEffect,
+} from "react";
+import { useRouter } from "next/navigation";
+import { jwtDecode } from "jwt-decode"; // Correct import for jwtDecode
 
 interface Vendor {
   id: string;
@@ -23,7 +29,7 @@ const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 export const useVendorAuth = (): AuthContextProps => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error('useVendorAuth must be used within a VendorAuthProvider');
+    throw new Error("useVendorAuth must be used within a VendorAuthProvider");
   }
   return context;
 };
@@ -35,12 +41,12 @@ export const VendorAuthProvider = ({ children }: { children: ReactNode }) => {
 
   // Function to login by decoding JWT and extracting vendor details
   const login = (token: string) => {
-    const decoded = jwtDecode<{ sub: string, email: string }>(token); // Expecting sub (vendor id) and email
+    const decoded = jwtDecode<{ sub: string; email: string }>(token); // Expecting sub (vendor id) and email
 
     // Set access token and vendor details in state
     setAccessToken(token);
     setVendor({
-      id: decoded.sub,   // Assuming the sub is the vendor's ID
+      id: decoded.sub, // Assuming the sub is the vendor's ID
       email: decoded.email, // Email extracted from JWT
     });
   };
@@ -50,9 +56,9 @@ export const VendorAuthProvider = ({ children }: { children: ReactNode }) => {
     setVendor(null);
     setAccessToken(null);
     // Delete the access_tokenVendor cookie
-    document.cookie = 'access_tokenVendor=; Max-Age=0; path=/;';
+    document.cookie = "access_tokenVendor=; Max-Age=0; path=/;";
     // Redirect to sign-in page
-    router.push('/signin');
+    router.push("/");
   };
 
   // Check if the vendor is authenticated
@@ -61,18 +67,20 @@ export const VendorAuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     // On page load, check if there is an access tokenVendor in the cookies
     const storedToken = document.cookie
-      .split('; ')
-      .find(row => row.startsWith('access_tokenVendor='));
+      .split("; ")
+      .find((row) => row.startsWith("access_tokenVendor="));
 
     if (storedToken) {
-      const token = storedToken.split('=')[1];
+      const token = storedToken.split("=")[1];
       // Automatically log in if the token exists
       login(token);
     }
   }, []);
 
   return (
-    <AuthContext.Provider value={{ vendor, accessToken, isAuthenticated, login, logout }}>
+    <AuthContext.Provider
+      value={{ vendor, accessToken, isAuthenticated, login, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );

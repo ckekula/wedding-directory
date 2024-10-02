@@ -14,3 +14,18 @@ export const CREATE_VENDOR = gql`
     }
   }
 `;
+
+export const UPDATE_VISITOR = gql`
+    mutation UpdateVisitor($id: String!, $input: UpdateVisitorInput!) {
+        updateVisitor(id: $id, input: $input) {
+            id
+            visitor_fname
+            visitor_lname
+            partner_fname
+            partner_lname
+            engaged_date
+            wed_date
+            wed_venue
+        }
+    }
+`;

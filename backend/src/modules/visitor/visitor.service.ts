@@ -4,7 +4,7 @@ import { Repository } from 'typeorm';
 import { VisitorEntity } from 'src/database/entities/visitor.entity';
 import { CreateVisitorInput } from 'src/graphql/inputs/create-visitor.input';
 import * as bcrypt from 'bcryptjs';
-import { UpdateVisitorInputP1 } from '../../graphql/inputs/update-visitor.input.pageone';
+import { UpdateVisitorInput } from '../../graphql/inputs/update-visitor.input';
 
 @Injectable()
 export class VisitorService {
@@ -37,10 +37,10 @@ export class VisitorService {
 
   async updateVisitorP1(
     id: string,
-    updateVisitorInputP1: UpdateVisitorInputP1,
+    updateVisitorInput: UpdateVisitorInput,
   ): Promise<VisitorEntity> {
     // Use the TypeORM update method to update only the provided fields
-    await this.visitorRepository.update(id, updateVisitorInputP1);
+    await this.visitorRepository.update(id, updateVisitorInput);
 
     // Fetch the updated visitor entity to return it with updated values
     return this.findOne(id);

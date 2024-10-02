@@ -1,7 +1,7 @@
 import { InputType, Field } from '@nestjs/graphql';
 
 @InputType()
-export class UpdateVisitorInputP1 {
+export class UpdateVisitorInput {
   @Field({ nullable: true })
   visitor_fname?: string;
 
@@ -13,4 +13,14 @@ export class UpdateVisitorInputP1 {
 
   @Field({ nullable: true })
   partner_lname?: string;
+
+  @Field({ nullable: true })
+  engaged_date?: Date;
+
+  @Field({ nullable: true })
+  wed_date?: Date;
+
+  @Field({ nullable: true })
+  wed_venue?: string;
+
 }
