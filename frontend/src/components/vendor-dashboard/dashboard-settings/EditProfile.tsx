@@ -2,6 +2,7 @@
 import React, { Fragment, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import BusinessCategory from "@/components/vendor-signup/BusinessCategory";
 
 interface ProfileData {
   firstName: string;
@@ -21,12 +22,20 @@ const EditProfile: React.FC = () => {
     category: "Florist",
   });
 
-  // Handle input changes
+  // Handle input changes for text fields
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setProfile((prevProfile) => ({
       ...prevProfile,
       [name]: value,
+    }));
+  };
+
+  // Handle category change for the dropdown
+  const handleCategoryChange = (category: string) => {
+    setProfile((prevProfile) => ({
+      ...prevProfile,
+      category,
     }));
   };
 
@@ -64,7 +73,7 @@ const EditProfile: React.FC = () => {
           <div>
             <label className="font-body text-[16px] ">Business Name</label>
             <Input
-              name="buisnessName"
+              name="businessName"
               value={profile.businessName}
               onChange={handleInputChange}
               className="font-body rounded-md mt-2 mb-3"
@@ -73,27 +82,25 @@ const EditProfile: React.FC = () => {
           <div>
             <label className="font-body text-[16px] ">Phone Number</label>
             <Input
-              name="phonenumber"
+              name="phoneNumber"
               value={profile.phoneNumber}
               onChange={handleInputChange}
               className="font-body rounded-md mt-2 mb-3"
             />
           </div>
           <div>
-            <label className="font-body text-[16px] ">Category</label>
-            <Input
-              name="category"
-              value={profile.category}
-              onChange={handleInputChange}
-              className="font-body rounded-md mt-2 mb-3"
-            />
+            <label className="font-body text-[16px] mt- mb-3 ">Category</label>
+            {/* Integrating the BusinessCategory dropdown */}
+            <div className="font-body rounded-md mt-2 mb-3">
+              <BusinessCategory onCategoryChange={handleCategoryChange} />
+            </div>
           </div>
         </form>
       </div>
 
       <div className="bg-white rounded-2xl p-4 px-8 shadow-lg my-8 justify-center flex">
         <Button variant="signup" className="m-3 w-full">
-          Save Profile Informations
+          Save Profile Information
         </Button>
       </div>
     </Fragment>

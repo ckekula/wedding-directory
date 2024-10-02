@@ -2,7 +2,7 @@
 import React, { Fragment, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-
+import BusinessCategory from "@/components/vendor-signup/BusinessCategory";
 interface PublicProfileData {
   businessCategory: string;
   businessPhone: string;
@@ -50,7 +50,7 @@ const EditPublicProfile: React.FC = () => {
           <div>
             <label className="font-body text-[16px] ">Business Category</label>
             <Input
-              name="businesscategory"
+              name="businessCategory"
               value={publicProfile.businessCategory}
               onChange={handleInputChange}
               className="font-body rounded-md mt-2 mb-3"
@@ -59,7 +59,7 @@ const EditPublicProfile: React.FC = () => {
           <div>
             <label className="font-body text-[16px] ">Business Phone</label>
             <Input
-              name="businessphone"
+              name="businessPhone"
               value={publicProfile.businessPhone}
               onChange={handleInputChange}
               className="font-body rounded-md mt-2 mb-3"
@@ -68,7 +68,7 @@ const EditPublicProfile: React.FC = () => {
           <div>
             <label className="font-body text-[16px] ">Business Email</label>
             <Input
-              name="buisnessEmail"
+              name="businessEmail"
               value={publicProfile.businessEmail}
               onChange={handleInputChange}
               className="font-body rounded-md mt-2 mb-3"
@@ -77,7 +77,7 @@ const EditPublicProfile: React.FC = () => {
           <div>
             <label className="font-body text-[16px] ">Tag Line</label>
             <Input
-              name="tagline"
+              name="tagLine"
               value={publicProfile.tagLine}
               onChange={handleInputChange}
               className="font-body rounded-md mt-2 mb-3"
@@ -86,7 +86,7 @@ const EditPublicProfile: React.FC = () => {
           <div>
             <label className="font-body text-[16px] ">Experience</label>
             <Input
-              name="experience"
+              name="experienece"
               value={publicProfile.experience}
               onChange={handleInputChange}
               className="font-body rounded-md mt-2 mb-3"
@@ -104,7 +104,7 @@ const EditPublicProfile: React.FC = () => {
           <div>
             <label className="font-body text-[16px] ">Business Description</label>
             <Input
-              name="businessdescription"
+              name="businessDescription"
               value={publicProfile.businessDescription}
               onChange={handleInputChange}
               className="font-body rounded-md mt-2 mb-3"
