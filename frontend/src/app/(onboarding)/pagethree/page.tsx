@@ -1,7 +1,7 @@
 
 import OnboardingPageThree from '@/components/visitor-onboarding/OnboardingPageThree';
-const PageThree = () => {
+const page = () => {
   return <OnboardingPageThree />;
 };
 
-export default PageThree;
+export default page;

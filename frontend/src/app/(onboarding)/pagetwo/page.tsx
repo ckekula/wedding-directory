@@ -1,7 +1,5 @@
-'use client';
 
-import React from 'react';
-import OnboardingPageTwo from '@/components/visitor-onboarding/OnboardingPageTwo';  // Adjust the path based on your structure
+import OnboardingPageTwo from '@/components/visitor-onboarding/OnboardingPageTwo';  
 
 const page = () => {
     return <OnboardingPageTwo />;

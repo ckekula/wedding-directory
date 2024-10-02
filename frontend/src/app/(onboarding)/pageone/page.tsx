@@ -1,7 +1,9 @@
+
 import OnboardingPageOne from '@/components/visitor-onboarding/OnboardingPageOne';
 
-const PageOne = () => {
+const page = () => {
     return <OnboardingPageOne />;
 };
 
-export default PageOne;
+export default page;
+
