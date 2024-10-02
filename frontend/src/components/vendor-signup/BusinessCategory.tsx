@@ -26,7 +26,7 @@ const BusinessCategory: React.FC<CategoryProps> = ({ onCategoryChange }) => {
           <SelectItem 
             key={index} 
             value={category} 
-            className="p-2 hover:bg-gray-100"
+            className="p-2 hover:bg-gray-100 font-body"
           >
             {category}
           </SelectItem>

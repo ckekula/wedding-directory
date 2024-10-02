@@ -3,6 +3,7 @@ import React, { Fragment, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import BusinessCategory from "@/components/vendor-signup/BusinessCategory";
+
 interface PublicProfileData {
   businessCategory: string;
   businessPhone: string;
@@ -20,9 +21,9 @@ const EditPublicProfile: React.FC = () => {
     businessPhone: "+91-34-7890-1234",
     businessEmail: "johnflorists@email.com",
     tagLine: "we sell flowers",
-    experience : "5 years",
+    experience: "5 years",
     expensiveness: "$$$",
-    businessDescription: "we don't have a description yet"
+    businessDescription: "we don't have a description yet",
   });
 
   // Handle input changes
@@ -34,7 +35,15 @@ const EditPublicProfile: React.FC = () => {
     }));
   };
 
-  // Handle form submission (no backend yet, so this just prevents default behavior)
+  // Handle category change from the dropdown
+  const handleCategoryChange = (category: string) => {
+    setPublicProfile((prevPublicProfile) => ({
+      ...prevPublicProfile,
+      businessCategory: category,
+    }));
+  };
+
+  // Handle form submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     alert("Profile saved successfully!");
@@ -44,20 +53,18 @@ const EditPublicProfile: React.FC = () => {
   return (
     <Fragment>
       <div className="bg-white rounded-2xl p-4 px-8 shadow-lg">
-        <h2 className="font-title text-[30px] ">Public Profile</h2>
+        <h2 className="font-title text-[30px]">Public Profile</h2>
         <hr className="w-[168px] h-px my-4 bg-gray-500 border-0 dark:bg-gray-700"></hr>
         <form onSubmit={handleSubmit} className="mb-8">
           <div>
-            <label className="font-body text-[16px] ">Business Category</label>
-            <Input
-              name="businessCategory"
-              value={publicProfile.businessCategory}
-              onChange={handleInputChange}
-              className="font-body rounded-md mt-2 mb-3"
-            />
+            <label className="font-body text-[16px]">Business Category</label>
+            {/* Use BusinessCategory component */}
+            <div className="font-body rounded-md mt-2 mb-3">
+              <BusinessCategory onCategoryChange={handleCategoryChange} />
+            </div>
           </div>
           <div>
-            <label className="font-body text-[16px] ">Business Phone</label>
+            <label className="font-body text-[16px]">Business Phone</label>
             <Input
               name="businessPhone"
               value={publicProfile.businessPhone}
@@ -66,7 +73,7 @@ const EditPublicProfile: React.FC = () => {
             />
           </div>
           <div>
-            <label className="font-body text-[16px] ">Business Email</label>
+            <label className="font-body text-[16px]">Business Email</label>
             <Input
               name="businessEmail"
               value={publicProfile.businessEmail}
@@ -75,7 +82,7 @@ const EditPublicProfile: React.FC = () => {
             />
           </div>
           <div>
-            <label className="font-body text-[16px] ">Tag Line</label>
+            <label className="font-body text-[16px]">Tag Line</label>
             <Input
               name="tagLine"
               value={publicProfile.tagLine}
@@ -84,16 +91,16 @@ const EditPublicProfile: React.FC = () => {
             />
           </div>
           <div>
-            <label className="font-body text-[16px] ">Experience</label>
+            <label className="font-body text-[16px]">Experience</label>
             <Input
-              name="experienece"
+              name="experience"
               value={publicProfile.experience}
               onChange={handleInputChange}
               className="font-body rounded-md mt-2 mb-3"
             />
           </div>
           <div>
-            <label className="font-body text-[16px] ">Expensiveness</label>
+            <label className="font-body text-[16px]">Expensiveness</label>
             <Input
               name="expensiveness"
               value={publicProfile.expensiveness}
@@ -102,7 +109,7 @@ const EditPublicProfile: React.FC = () => {
             />
           </div>
           <div>
-            <label className="font-body text-[16px] ">Business Description</label>
+            <label className="font-body text-[16px]">Business Description</label>
             <Input
               name="businessDescription"
               value={publicProfile.businessDescription}
@@ -115,7 +122,7 @@ const EditPublicProfile: React.FC = () => {
 
       <div className="bg-white rounded-2xl p-4 px-8 shadow-lg my-8 justify-center flex">
         <Button variant="signup" className="m-3 w-full">
-          Save Public Profile Informations
+          Save Public Profile Information
         </Button>
       </div>
     </Fragment>
