@@ -19,7 +19,7 @@ export class CreatePackageInput {
     about: string;
 
     @Field()
-    pfp: string;
+    banner: string;
 
     @Field()
     experience: string;

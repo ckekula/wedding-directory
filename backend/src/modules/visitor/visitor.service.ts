@@ -35,14 +35,11 @@ export class VisitorService {
     return this.visitorRepository.findOne({ where: { email } });
   }
 
-  async updateVisitorP1(
+  async updateVisitor(
     id: string,
     updateVisitorInput: UpdateVisitorInput,
   ): Promise<VisitorEntity> {
-    // Use the TypeORM update method to update only the provided fields
     await this.visitorRepository.update(id, updateVisitorInput);
-
-    // Fetch the updated visitor entity to return it with updated values
     return this.findOne(id);
   }
 }

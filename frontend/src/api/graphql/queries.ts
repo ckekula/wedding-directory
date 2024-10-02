@@ -20,3 +20,14 @@ export const AUTOCOMPLETE_QUERY = gql`
         autocompleteLocation(input: $input)
     }
 `;
+
+export const FIND_VENDORS_WITH_FILTERS = gql`
+  query FindVendorsWithFilters($filters: VendorFilterInput!) {
+    findVendorsWithFilters(filters: $filters) {
+      id
+      name
+      city
+      banner
+    }
+  }
+`;

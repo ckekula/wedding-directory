@@ -120,7 +120,7 @@ input CreatePackageInput {
   bus_phone: String!
   bus_email: String!
   about: String!
-  pfp: String!
+  banner: String!
   experience: String!
   start_price: String!
   website: String!
