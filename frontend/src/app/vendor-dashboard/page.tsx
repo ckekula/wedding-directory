@@ -1,26 +1,37 @@
-import React, { Fragment } from "react";
+import React from "react";
 import Header from "@/components/shared/Headers/Header";
 import VendorBanner from "@/components/vendor-dashboard/VendorBanner";
+import Stats from "./dashboard/Stats";
 
-const EditProfilePage = () => {
+const VendorDashBoard = () => {
   return (
-    <Fragment>
+    <div className="">
       <Header />
-      <div className="bg-lightYellow">
-        <div className="container ">
-          <h2 className="font-title font-bold text-[36px] p-8 text-center">
-            Welcome
-          </h2>
+      <div className="bg-lightYellow min-h-screen">
+        <div className="p-20">
+          {/* Vendor Banner */}
           <VendorBanner businessName="John's Flower Shop" />
-          <div className="flex justify-center gap-10 my-8 font-body ">
-            <p>Category</p>
-            <p>Member since</p>
-            <p>Rating</p>
+          <div className="flex justify-evenly items-center gap-10 container mt-10 mb-8">
+            <div className="flex flex-col justify-center items-center">
+              <p className=" font-body text-[20px]">Category</p>
+              <p className=" font-body text-[15px]">Florist</p>
+            </div>
+            <div className="flex flex-col justify-center items-center">
+              <p className=" font-body text-[20px]">Member Since</p>
+              <p className=" font-body text-[15px]">2024</p>
+            </div>
+            <div className="flex flex-col justify-center items-center">
+              <p className=" font-body text-[20px]">Rating</p>
+              <p className=" font-body text-[15px]">4.9</p>
+            </div>
+          </div>
+          <div className="flex">
+            <Stats />
           </div>
         </div>
       </div>
-    </Fragment>
+    </div>
   );
 };
 
-export default EditProfilePage;
+export default VendorDashBoard;

@@ -4,7 +4,7 @@ import VendorBanner from "@/components/vendor-dashboard/VendorBanner";
 import Settings from "@/components/vendor-dashboard/dashboard-settings/Settings";
 import EditProfile from "@/components/vendor-dashboard/dashboard-settings/EditProfile";
 
-const EditProfilePage = () => {
+const VendorDashBoardSettings = () => {
   return (
     <div className="">
       <Header />
@@ -30,4 +30,4 @@ const EditProfilePage = () => {
   );
 };
 
-export default EditProfilePage;
+export default VendorDashBoardSettings;
