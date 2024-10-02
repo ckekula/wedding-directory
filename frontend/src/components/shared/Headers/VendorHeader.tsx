@@ -21,10 +21,10 @@ const VendorHeader = () => {
 
           {/* Center section: Navigation links */}
           <div className="flex-1 flex justify-center items-center gap-8 text-xl font-title text-text"> {/* Ensure this is centered */}
-            <Link href="/dashboard">Dashboard</Link>
-            <Link href="/dashboard">Services</Link>
-            <Link href="/dashboard">Analytics</Link>
-            <Link href="/dashboard">Help</Link>
+            <Link href="/vendor-dashboard">Dashboard</Link>
+            <Link href="/vendor-dashboard/services">Services</Link>
+            <Link href="/vendor-dashboard/analytics">Analytics</Link>
+            <Link href="/help">Help</Link>
             <Link href="/vendor-dashboard/settings">Settings</Link>
           </div>
 
