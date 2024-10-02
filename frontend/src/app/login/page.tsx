@@ -38,11 +38,11 @@ const VendorLoginPage = () => {
                 // Redirect to profile page after successful login
                 router.push('/vendor-dashboard');
             } else {
-                setError('Login failed. Please try again.');
+                alert('Login failed. Please try again.');
             }
         } catch (err) {
             console.log(err)
-            setError("Invalid email or password. Please try again.");
+            alert("Invalid email or password. Please try again.");
         }
     };
 
@@ -69,7 +69,7 @@ const VendorLoginPage = () => {
                                     htmlFor="terms"
                                     className="text-lg text-left leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                                   >
-                                      Enter your username and password{" "}
+                                      Enter your email and password{" "}
                                   </label>
                               </div>
                               <div className="mt-6 grid grid-cols-1 w-full items-center gap-x-12 gap-y-5">

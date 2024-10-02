@@ -22,7 +22,7 @@ export class PackageModel {
   about: string;
 
   @Field({ nullable: true })
-  pfp: string;
+  banner: string;
 
   @Field(() => [String], { nullable: true })
   media: string[];

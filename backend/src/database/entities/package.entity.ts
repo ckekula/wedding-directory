@@ -19,7 +19,7 @@ export class PackageEntity {
     about: string;
 
     @Column({ type: 'varchar', length: 100 })
-    pfp: string;
+    banner: string;
 
     @Column('text', { array: true, nullable: true })
     media: string[];

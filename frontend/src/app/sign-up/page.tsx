@@ -8,12 +8,12 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import BusinessCategory from "@/components/vendor-signup/BusinessCategory";
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { CREATE_VENDOR } from "@/api/graphql/mutations";
 import CityInput from "@/components/vendor-signup/CityInput";
 import LocationInput from "@/components/vendor-signup/LocationInput";
 import { useRouter } from "next/navigation";
+import { FIND_VENDOR_BY_EMAIL } from "@/api/graphql/queries";
 
 const Signup = () => {
 
@@ -33,6 +33,12 @@ const Signup = () => {
 
   const [createVendor, { loading, error }] = useMutation(CREATE_VENDOR);
 
+  // Use findVendorByEmail query to check for existing email
+  const { data: emailData, loading: emailLoading, error: emailError, refetch: checkEmail } = useQuery(FIND_VENDOR_BY_EMAIL, {
+    variables: { email: formData.email },
+    skip: !formData.email, // Skip query if email is not provided
+  });
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({
@@ -49,10 +55,31 @@ const Signup = () => {
     setFormData({ ...formData, city });
   };
 
+  const goToVendorLogin: () => React.MouseEventHandler<HTMLButtonElement> = () => {
+    return (event: React.MouseEvent<HTMLButtonElement>) => {
+      router.push('/login');
+    };
+  };
+
   const onRegister = async () => {
+
+    const { email, password, rpassword, fname, lname, busname, phone, city, location } = formData;
+
+    if (!email || !password || !rpassword || !fname || !lname || !busname || !phone || !city || !location) {
+      alert("Please fill in all the required fields.");
+      return;
+    }
 
     if (formData.password !== formData.rpassword) {
       alert("Passwords do not match!");
+      return;
+    }
+
+    // Check if email already exists
+    await checkEmail();
+
+    if (emailData && emailData.findVendorByEmail) {
+      alert("Email already exists!");
       return;
     }
 
@@ -108,6 +135,7 @@ const Signup = () => {
                       name="fname"
                       value={formData.fname}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
@@ -119,6 +147,7 @@ const Signup = () => {
                       name="lname"
                       value={formData.lname}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
@@ -130,6 +159,7 @@ const Signup = () => {
                       name="busname"
                       value={formData.busname}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <CityInput onCityChange={handleCityChange}/>
@@ -148,6 +178,7 @@ const Signup = () => {
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
@@ -159,6 +190,7 @@ const Signup = () => {
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
@@ -170,6 +202,7 @@ const Signup = () => {
                       name="password"
                       value={formData.password}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
@@ -181,6 +214,7 @@ const Signup = () => {
                       name="rpassword"
                       value={formData.rpassword}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                 </div>
@@ -205,11 +239,17 @@ const Signup = () => {
                     onClick={onRegister}
                     className="rounded-none text-black font-bold hover:bg-primary bg-primary text-xl"
                     disabled={loading}
-                >
-                  {loading ? "Registering..." : "Register Now"}
-                </Button>
+                  >
+                    {loading ? "Registering..." : "Register Now"}
+                  </Button>
                 </div>
               </form>
+              <div className="mt-2">
+                Already have an account?<span> </span>
+                <button onClick={goToVendorLogin()}>
+                  <div className="text-decoration-line: underline">Login</div>
+                </button>
+              </div>
             </div>
           </div>
         </div>

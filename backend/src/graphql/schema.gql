@@ -9,7 +9,7 @@ type PackageModel {
   bus_phone: String!
   bus_email: String!
   about: String!
-  pfp: String
+  banner: String
   media: [String!]
   experience: String
   start_price: String
@@ -60,6 +60,7 @@ type VisitorModel {
 
 type Query {
   findVendorById(id: String!): VendorModel!
+  findVendorByEmail(email: String!): VendorModel!
   findAllVendors: [VendorModel!]!
   findVendorsWithFilters(filters: VendorFilterInput!): [VendorModel!]!
   autocompleteLocation(input: String!): [String!]!
@@ -77,11 +78,8 @@ type Mutation {
   createVendor(input: CreateVendorInput!): VendorModel!
   createVisitor(createVisitorInput: CreateVisitorInput!): VisitorModel!
   removeVisitor(id: String!): Boolean!
-  createPackage(
-    input: CreatePackageInput!
-    mediaUrls: [String!]!
-  ): PackageModel!
   updateVisitor(id: String!, input: UpdateVisitorInputP1!): VisitorModel!
+  createPackage(input: CreatePackageInput!, mediaUrls: [String!]!): PackageModel!
 }
 
 input CreateVendorInput {
