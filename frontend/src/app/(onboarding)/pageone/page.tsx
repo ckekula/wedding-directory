@@ -1,14 +1,23 @@
+"use client";
+
 import React from 'react'
 import Image from "next/image";
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
 import { X } from 'lucide-react';
 import { TbCircleNumber1Filled, TbCircleNumber2, TbCircleNumber3 } from "react-icons/tb";
 import { GoHorizontalRule } from "react-icons/go";
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 
-const page = () => {
+const OnboardOne = () => {
+    const router = useRouter();
+
+    const handleClick = () => {
+        router.push('/pagetwo');
+    };
+
     return (
         <div className="bg-lightYellow font-title h-screen">
             <div className="flex flex-col md:flex-row h-screen">
@@ -22,15 +31,19 @@ const page = () => {
                     />
                 </div>
 
-                <button
-                    className="absolute top-5 right-5 text-black hover:text-gray-500" >
-                    <X className="w-6 h-6" />
-                </button>
+                <Link href="/">
+                    <button
+                        className="absolute top-5 right-5 text-black hover:text-gray-500" >
+                        <X className="w-6 h-6" />
+                    </button>
+                </Link>
 
                 <div className="w-full md:w-7/12 p-5 border-l-2 border-black">
-                    <button
-                        className="absolute top-5 transform -translate-x-1/6 text-black font-body hover:text-gray-500">  &larr; Back
-                    </button>
+                    <Link href="/">
+                        <button
+                            className="absolute top-5 transform -translate-x-1/6 text-black font-body hover:text-gray-500">  &larr; Back
+                        </button>
+                    </Link>
 
                     <div className='flex flex-col justify-center items-center p-10 mt-8'>
 
@@ -80,12 +93,15 @@ const page = () => {
                         </div>
 
 
-                        <div className="mt-4 flex flex-col w-7/12 ">
-                            <Button className="rounded-none text-black font-bold hover:bg-primary bg-primary text-lg">
+                        <div className="mt-5 flex flex-col w-7/12 ">
+
+                            <Button onClick={handleClick} className="rounded-none text-black font-bold hover:bg-primary bg-primary text-lg">
                                 Next
                             </Button>
+
                         </div>
-                        <button className="mt-32 text-center text-black "> Skip the onboarding process</button>
+
+                        <Link href="/visitor-dashboard"className="mt-32 text-center text-black "> Skip the onboarding process</Link>
 
                     </div>
                 </div>
@@ -95,4 +111,4 @@ const page = () => {
     )
 }
 
-export default page
+export default OnboardOne

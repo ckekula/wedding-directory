@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react'
 import Image from "next/image";
 import { Input } from '@/components/ui/input';
@@ -8,9 +10,16 @@ import { TbCircleNumber3Filled } from "react-icons/tb";
 import { GoHorizontalRule } from "react-icons/go";
 import Link from 'next/link';
 import { Checkbox } from '@/components/ui/checkbox';
+import { useRouter } from 'next/navigation';
 
 
-const page = () => {
+const OnboardThree = () => {
+    const router = useRouter();
+
+    const handleClick = () => {
+        router.push('/visitor-dashboard');
+    };
+
     return (
         <div className="bg-lightYellow font-title h-screen">
             <div className="flex flex-col md:flex-row h-screen">
@@ -24,14 +33,18 @@ const page = () => {
                     />
                 </div>
 
-                <button
-                    className="absolute top-5 right-5 text-black hover:text-gray-500" >
-                    <X className="w-6 h-6" />
-                </button>
+                <Link href="/">
+                    <button
+                        className="absolute top-5 right-5 text-black hover:text-gray-500" >
+                        <X className="w-6 h-6" />
+                    </button>
+                </Link>
 
-                <div className="w-full md:w-7/12 p-5 border-l-2 border-black h-screen">
-                    <Link href="pagetwo" className="absolute top-5 transform -translate-x-1/6 text-black font-body hover:text-gray-500">
-                        &larr; Back
+                <div className="w-full md:w-7/12 p-5 border-l-2 border-black">
+                    <Link href="/pagetwo">
+                        <button
+                            className="absolute top-5 transform -translate-x-1/6 text-black font-body hover:text-gray-500">  &larr; Back
+                        </button>
                     </Link>
 
 
@@ -52,12 +65,12 @@ const page = () => {
                         <div>
                             <h1 className="mx-40 text-3xl text-start mb-2">Nice! Before we continue, one last thing</h1>
                        
-                            <h1 className="text-sm mx-40 text-gray-600 text-opacity-90 mb-6">We&apos;ll help you plan the wedding you want - small or big, near of far</h1>
+                            <h1 className="text-sm mx-40 text-gray-600 text-opacity-90 mb-6">We&apos;ll help you plan the wedding you want - small or big, near or far</h1>
                         </div>
 
-                        <div className="flex flex-col md:flex-col justify-start space-y-2 md:space-y-0 mb-6">
+                        <div className="flex flex-col md:flex-col space-y-2 md:space-y-0 -ml-12 mb-6">
                             <div className="w-full md:w-full h-1/2 md:h-full relative">
-                                <label className="block font-light mb-2">Where are you getting married? (Best guesses welcome!)</label>
+                                <label className="block font-light mb-2">Where are you getting married? (Type in your venue)</label>
                                 <div className="border-gray-300 border-solid rounded-xl border-2 ">
                                     <Input className="h-9 w-full rounded-xl" type="text" id="" placeholder="" />
                                 </div>
@@ -70,13 +83,13 @@ const page = () => {
 
 
                         <div className="mt-4 flex flex-col w-7/12 mb-6">
-                            <Button className="rounded-none text-black font-bold hover:bg-primary bg-primary text-lg">
+                            <Button onClick={handleClick} className="rounded-none text-black font-bold hover:bg-primary bg-primary text-lg">
                                 Let&apos;s go
                             </Button>
                         </div>
 
 
-                        <button className="mt-12 text-center text-black "> Skip the onboarding process</button>
+                        <Link href="/visitor-dashboard"className="mt-32 text-center text-black "> Skip the onboarding process</Link>
 
                     </div>
                 </div>
@@ -86,4 +99,4 @@ const page = () => {
     )
 }
 
-export default page
+export default OnboardThree
