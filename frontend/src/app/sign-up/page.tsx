@@ -13,7 +13,6 @@ import { CREATE_VENDOR } from "@/api/graphql/mutations";
 import CityInput from "@/components/vendor-signup/CityInput";
 import LocationInput from "@/components/vendor-signup/LocationInput";
 import { useRouter } from "next/navigation";
-import { FIND_VENDOR_BY_EMAIL } from "@/api/graphql/queries";
 
 const Signup = () => {
 
@@ -32,12 +31,6 @@ const Signup = () => {
   });
 
   const [createVendor, { loading, error }] = useMutation(CREATE_VENDOR);
-
-  // Use findVendorByEmail query to check for existing email
-  const { data: emailData, loading: emailLoading, error: emailError, refetch: checkEmail } = useQuery(FIND_VENDOR_BY_EMAIL, {
-    variables: { email: formData.email },
-    skip: !formData.email, // Skip query if email is not provided
-  });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -62,26 +55,6 @@ const Signup = () => {
   };
 
   const onRegister = async () => {
-
-    const { email, password, rpassword, fname, lname, busname, phone, city, location } = formData;
-
-    if (!email || !password || !rpassword || !fname || !lname || !busname || !phone || !city || !location) {
-      alert("Please fill in all the required fields.");
-      return;
-    }
-
-    if (formData.password !== formData.rpassword) {
-      alert("Passwords do not match!");
-      return;
-    }
-
-    // Check if email already exists
-    await checkEmail();
-
-    if (emailData && emailData.findVendorByEmail) {
-      alert("Email already exists!");
-      return;
-    }
 
     try {
       await createVendor({
