@@ -15,10 +15,10 @@ export class UpdateVisitorInput {
   partner_lname?: string;
 
   @Field({ nullable: true })
-  engaged_date?: Date;
+  engaged_date?: string;
 
   @Field({ nullable: true })
-  wed_date?: Date;
+  wed_date?: string;
 
   @Field({ nullable: true })
   wed_venue?: string;

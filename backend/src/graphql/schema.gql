@@ -51,8 +51,8 @@ type VisitorModel {
   visitor_lname: String
   partner_fname: String
   partner_lname: String
-  engaged_date: DateTime
-  wed_date: DateTime
+  engaged_date: String
+  wed_date: String
   wed_venue: String
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -109,8 +109,8 @@ input UpdateVisitorInput {
   visitor_lname: String
   partner_fname: String
   partner_lname: String
-  engaged_date: DateTime
-  wed_date: DateTime
+  engaged_date: String
+  wed_date: String
   wed_venue: String
 }
 

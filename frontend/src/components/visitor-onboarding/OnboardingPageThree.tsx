@@ -9,37 +9,24 @@ import { FaCircleCheck } from "react-icons/fa6";
 import { TbCircleNumber3Filled } from "react-icons/tb";
 import { GoHorizontalRule } from "react-icons/go";
 import { useRouter } from 'next/navigation';
-import { useMutation, gql } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { useAuth } from '@/contexts/VisitorAuthContext';
-
-// Define the mutation to update the visitor's wedding venue
-const UPDATE_VISITOR_MUTATION = gql`
-    mutation UpdateVisitor($id: String!, $input: UpdateVisitorInput!) {
-        updateVisitor(id: $id, input: $input) {
-            id
-            wed_venue
-        }
-    }
-`;
+import { UPDATE_VISITOR } from '@/api/graphql/mutations';
+import LocationInput from '../vendor-signup/LocationInput';
 
 const OnboardingPageThree = () => {
   const router = useRouter();
   const { visitor } = useAuth(); // Get visitor from the auth context
 
-  // Define state for the wedding venue and checkbox
   const [weddingVenue, setWeddingVenue] = useState('');
   const [isStillDeciding, setIsStillDeciding] = useState(false);
 
-  // Define the mutation for updating the visitor
-  const [updateVisitor] = useMutation(UPDATE_VISITOR_MUTATION);
+  const [updateVisitor] = useMutation(UPDATE_VISITOR);
 
-  // Handle the form submission
   const handleNext = async () => {
     try {
-      // Prepare the wedding venue (null if still deciding)
       const preparedWeddingVenue = isStillDeciding ? null : weddingVenue;
 
-      // Call the mutation to update the visitor's wedding venue
       await updateVisitor({
         variables: {
           id: visitor?.id, // Use the visitor ID from context
@@ -49,7 +36,6 @@ const OnboardingPageThree = () => {
         },
       });
 
-      // Navigate to the visitor dashboard
       router.push("/visitor-dashboard");
     } catch (error) {
       console.error("Error updating visitor: ", error);
@@ -111,11 +97,8 @@ const OnboardingPageThree = () => {
           <div className="mb-6">
             <div className="mb-4">
               <label className="block font-light mb-2">Where are you getting married? (Best guesses welcome!)</label>
-              <Input
-                className="h-10 w-full md:w-10/12 rounded-xl border-2 border-gray-300 mt-2"
-                type="text"
-                value={weddingVenue}
-                onChange={(e) => setWeddingVenue(e.target.value)}
+              <LocationInput
+                onLocationChange={(location) => setWeddingVenue(location)} // Update weddingVenue state when location is selected
                 disabled={isStillDeciding} // disable input if "still deciding" checkbox is checked
               />
             </div>

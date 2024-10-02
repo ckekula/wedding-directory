@@ -8,4 +8,5 @@ export interface CityProps {
 
 export interface LocationProps {
     onLocationChange: (category: string) => void;
+    disabled?: boolean;
 }
