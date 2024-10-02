@@ -10,7 +10,8 @@ const VendorDashBoard = () => {
     <div className="">
       <Header />
       <div className="bg-lightYellow min-h-screen">
-        <div className="container mx-auto px-4"> {/* Centering content and defining container */}
+        <div className="container mx-auto px-4 "> 
+          <h1 className="font-title text-[36px] text-black text-center my-10 pt-10">Welcome</h1>
           {/* Vendor Banner */}
           <VendorBanner businessName="John's Flower Shop" />
 
