@@ -23,8 +23,6 @@ const CREATE_VISITOR_MUTATION = gql`
         }) {
             id
             email
-            createdAt
-            updatedAt
         }
     }
 `;
@@ -80,7 +78,7 @@ const VisitorSignup: React.FC<VisitorSignupProps> = ({ isVisible, onClose }) => 
                     login(token);  // Call the login method from context to set the visitor in state
 
                     // Redirect to visitor dashboard or close the modal
-                    router.push('/pageone');  // Redirect to dashboard
+                    router.push('/visitor-dashboard');  // Redirect to dashboard
                 } else {
                     setError('Login failed. Token not found in cookies.');
                 }
