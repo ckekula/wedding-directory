@@ -25,7 +25,7 @@ const VendorHeader = () => {
             <Link href="/dashboard">Services</Link>
             <Link href="/dashboard">Analytics</Link>
             <Link href="/dashboard">Help</Link>
-            <Link href="/dashboard">Settings</Link>
+            <Link href="/vendor-dashboard/settings">Settings</Link>
           </div>
 
           {/* Right section: Notification and Profile Icon */}

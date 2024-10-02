@@ -1,12 +1,13 @@
-'use client'
+
+"use client";
 import React from 'react'
 import Image from "next/image";
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
 import { X } from 'lucide-react';
 import { TbCircleNumber1Filled, TbCircleNumber2, TbCircleNumber3 } from "react-icons/tb";
 import { GoHorizontalRule } from "react-icons/go";
+
 import { useRouter } from 'next/navigation';
 
 const pageOne = () => {
@@ -100,4 +101,6 @@ const pageOne = () => {
     )
 }
 
+
 export default pageOne;
+

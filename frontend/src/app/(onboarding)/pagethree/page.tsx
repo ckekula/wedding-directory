@@ -1,5 +1,4 @@
-'use client'
-
+"use client";
 import React from 'react'
 import Image from "next/image";
 import { Input } from '@/components/ui/input';
@@ -9,6 +8,7 @@ import { X } from 'lucide-react';
 import { FaCircleCheck } from "react-icons/fa6";
 import { TbCircleNumber3Filled } from "react-icons/tb";
 import { GoHorizontalRule } from "react-icons/go";
+
 import { useRouter } from 'next/navigation';
 
 const pageThree = () => {
@@ -100,3 +100,4 @@ const pageThree = () => {
 }
 
 export default pageThree;
+
