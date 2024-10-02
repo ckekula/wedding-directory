@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { gql, useMutation } from '@apollo/client';  // Apollo useMutation hook
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -78,7 +78,7 @@ const VisitorSignup: React.FC<VisitorSignupProps> = ({ isVisible, onClose }) => 
                     login(token);  // Call the login method from context to set the visitor in state
 
                     // Redirect to visitor dashboard or close the modal
-                    router.push('/visitor-dashboard');  // Redirect to dashboard
+                    router.push('/pageone');  // Redirect to dashboard
                 } else {
                     setError('Login failed. Token not found in cookies.');
                 }

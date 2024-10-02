@@ -2,7 +2,7 @@ import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { VisitorService } from 'src/modules/visitor/visitor.service';
 import { VisitorModel } from '../models/visitor.model';
 import { CreateVisitorInput } from '../inputs/create-visitor.input';
-import { UpdateVisitorInputP1} from '../inputs/update-visitor.input.pageone';
+import { UpdateVisitorInput} from '../inputs/update-visitor.input';
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from 'src/modules/auth/guards/gql-auth.guard';
 import { CurrentUser } from 'src/modules/auth/current-user.decorator';
@@ -36,7 +36,7 @@ export class VisitorResolver {
   @Mutation(() => VisitorModel)
   async updateVisitor(
     @Args('id') id: string,
-    @Args('input') updateVisitorInput: UpdateVisitorInputP1,
+    @Args('input') updateVisitorInput: UpdateVisitorInput,
   ): Promise<VisitorEntity> {
     return this.visitorService.updateVisitorP1(id, updateVisitorInput);
   }
