@@ -1,8 +1,9 @@
-import { Resolver, Query, Args, Mutation } from '@nestjs/graphql';
+import { Resolver, Args, Mutation } from '@nestjs/graphql';
 import { PackageService } from 'src/modules/package/package.service';
 import { PackageModel } from '../models/package.model';
 import { PackageEntity } from 'src/database/entities/package.entity';
 import { CreatePackageInput } from '../inputs/createPackage';
+import { Query } from '@nestjs/graphql';
 
 @Resolver()
 export class PackageResolver {
@@ -10,14 +11,18 @@ export class PackageResolver {
     private readonly packageService: PackageService,
   ) {}
 
-  @Query(() => PackageModel)
-  async findPortfolioById(@Args('id', { type: () => String }) id: string): Promise<PackageEntity> {
-    return this.packageService.findPortfolioById(id);
-  }
-
   @Mutation(() => PackageModel)
-  async createPortfolio(@Args('input') input: CreatePackageInput): Promise<PackageEntity> {
-    return this.packageService.createPortfolio(input);
+  async createPackage(
+    @Args('input') input: CreatePackageInput,
+    @Args({ name: 'mediaUrls', type: () => [String] }) mediaUrls: string[],
+  ): Promise<PackageEntity> {
+    return this.packageService.createPackage(input, mediaUrls);
   }
  
+  @Query(() => [PackageModel])
+  async getVendorPackages(
+    @Args('vendorId', { type: () => String }) vendorId: string
+  ): Promise<PackageEntity[]> {
+    return this.packageService.getPackagesByVendorId(vendorId);
+  }
 }

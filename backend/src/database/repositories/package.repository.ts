@@ -10,6 +10,6 @@ export const PackageRepository = (dataSource: DataSource): PackageRepositoryType
     dataSource.getRepository(PackageEntity).extend({
 
     findVendorById(id: string): Promise<PackageEntity | null> {
-      return this.findOne({ where: { id }, relations: ['portfolio'] });
+      return this.findOne({ where: { id }, relations: ['package'] });
     },
 });

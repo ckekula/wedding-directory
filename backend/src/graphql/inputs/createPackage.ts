@@ -22,19 +22,10 @@ export class CreatePackageInput {
     pfp: string;
 
     @Field()
-    address: string;
-
-    @Field()
-    city: string;
-
-    @Field()
-    latitude: string;
-
-    @Field()
-    longitude: string;
-
-    @Field()
     experience: string;
+
+    @Field()
+    start_price: string;
 
     @Field()
     website : string;

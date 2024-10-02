@@ -21,9 +21,6 @@ export class CreateVendorInput {
   phone: string;
 
   @Field()
-  category: string;
-
-  @Field()
   city: string;
 
   @Field()

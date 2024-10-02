@@ -9,9 +9,10 @@ type PackageModel {
   bus_phone: String!
   bus_email: String!
   about: String!
-  pfp: String
+  banner: String
   media: [String!]
   experience: String
+  start_price: String
   website: String
   instagram: String
   facebook: String
@@ -19,6 +20,7 @@ type PackageModel {
   tiktok: String
   createdAt: DateTime
   updatedAt: DateTime
+  vendor: VendorModel!
 }
 
 """
@@ -36,7 +38,6 @@ type VendorModel {
   location: String!
   city: String!
   phone: String!
-  category: String!
   createdAt: DateTime!
   updatedAt: DateTime!
   package: PackageModel
@@ -50,8 +51,8 @@ type VisitorModel {
   visitor_lname: String
   partner_fname: String
   partner_lname: String
-  engaged_date: DateTime
-  wed_date: DateTime
+  engaged_date: String
+  wed_date: String
   wed_venue: String
   createdAt: DateTime!
   updatedAt: DateTime!
@@ -64,7 +65,7 @@ type Query {
   autocompleteLocation(input: String!): [String!]!
   findAllVisitors: [VisitorModel!]!
   findVisitorById(id: String!): VisitorModel
-  findPortfolioById(id: String!): PackageModel!
+  getVendorPackages(vendorId: String!): [PackageModel!]!
 }
 
 input VendorFilterInput {
@@ -77,7 +78,7 @@ type Mutation {
   createVisitor(createVisitorInput: CreateVisitorInput!): VisitorModel!
   removeVisitor(id: String!): Boolean!
   updateVisitor(id: String!, input: UpdateVisitorInput!): VisitorModel!
-  createPortfolio(input: CreatePackageInput!): PackageModel!
+  createPackage(input: CreatePackageInput!, mediaUrls: [String!]!): PackageModel!
 }
 
 input CreateVendorInput {
@@ -87,7 +88,6 @@ input CreateVendorInput {
   lname: String!
   busname: String!
   phone: String!
-  category: String!
   city: String!
   location: String!
 }
@@ -109,8 +109,8 @@ input UpdateVisitorInput {
   visitor_lname: String
   partner_fname: String
   partner_lname: String
-  engaged_date: DateTime
-  wed_date: DateTime
+  engaged_date: String
+  wed_date: String
   wed_venue: String
 }
 
@@ -121,11 +121,8 @@ input CreatePackageInput {
   bus_email: String!
   about: String!
   pfp: String!
-  address: String!
-  city: String!
-  latitude: String!
-  longitude: String!
   experience: String!
+  start_price: String!
   website: String!
   instagram: String!
   facebook: String!

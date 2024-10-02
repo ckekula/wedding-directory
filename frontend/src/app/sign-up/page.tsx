@@ -8,8 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import BusinessCategory from "@/components/vendor-signup/BusinessCategory";
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { CREATE_VENDOR } from "@/api/graphql/mutations";
 import CityInput from "@/components/vendor-signup/CityInput";
 import LocationInput from "@/components/vendor-signup/LocationInput";
@@ -27,7 +26,6 @@ const Signup = () => {
     lname: '',
     busname: '',
     phone: '',
-    category: '',
     city: '',
     location: ''
   });
@@ -42,10 +40,6 @@ const Signup = () => {
     });
   };
 
-  const handleCategoryChange = (category: string) => {
-    setFormData({ ...formData, category });
-  };
-
   const handleLocationChange = (location: string) => {
     setFormData({ ...formData, location });
   };
@@ -54,12 +48,13 @@ const Signup = () => {
     setFormData({ ...formData, city });
   };
 
-  const onRegister = async () => {
+  const goToVendorLogin: () => React.MouseEventHandler<HTMLButtonElement> = () => {
+    return (event: React.MouseEvent<HTMLButtonElement>) => {
+      router.push('/login');
+    };
+  };
 
-    if (formData.password !== formData.rpassword) {
-      alert("Passwords do not match!");
-      return;
-    }
+  const onRegister = async () => {
 
     try {
       await createVendor({
@@ -71,7 +66,6 @@ const Signup = () => {
             lname: formData.lname,
             busname: formData.busname,
             phone: formData.phone,
-            category: formData.category,
             city: formData.city,
             location: formData.location
           },
@@ -114,7 +108,8 @@ const Signup = () => {
                       name="fname"
                       value={formData.fname}
                       onChange={handleChange}
-                     />
+                      required
+                    />
                   </div>
                   <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
                     <Input 
@@ -125,24 +120,28 @@ const Signup = () => {
                       name="lname"
                       value={formData.lname}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
                     <Input 
                       className="h-8" 
                       id="busname" 
-                      placeholder="Businees Name"
+                      placeholder="Business Name"
                       type="text"
                       name="busname"
                       value={formData.busname}
                       onChange={handleChange}
+                      required
                     />
                   </div>
-                  <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
-                    <BusinessCategory onCategoryChange={handleCategoryChange} />
-                  </div>
                   <CityInput onCityChange={handleCityChange}/>
-                  <LocationInput onLocationChange={handleLocationChange}/>
+                  
+                  {/* LocationInput should span across both columns */}
+                  <div className="md:col-span-2">
+                    <LocationInput onLocationChange={handleLocationChange} />
+                  </div>
+                  
                   <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
                     <Input
                       className="h-8"
@@ -152,6 +151,7 @@ const Signup = () => {
                       name="phone"
                       value={formData.phone}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
@@ -163,6 +163,7 @@ const Signup = () => {
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
@@ -174,6 +175,7 @@ const Signup = () => {
                       name="password"
                       value={formData.password}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
@@ -185,6 +187,7 @@ const Signup = () => {
                       name="rpassword"
                       value={formData.rpassword}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                 </div>
@@ -209,11 +212,17 @@ const Signup = () => {
                     onClick={onRegister}
                     className="rounded-none text-black font-bold hover:bg-primary bg-primary text-xl"
                     disabled={loading}
-                >
-                  {loading ? "Registering..." : "Register Now"}
-                </Button>
+                  >
+                    {loading ? "Registering..." : "Register Now"}
+                  </Button>
                 </div>
               </form>
+              <div className="mt-2">
+                Already have an account?<span> </span>
+                <button onClick={goToVendorLogin()}>
+                  <div className="text-decoration-line: underline">Login</div>
+                </button>
+              </div>
             </div>
           </div>
         </div>

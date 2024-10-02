@@ -6,7 +6,7 @@ import { Input } from '../ui/input';
 import { LocationProps } from '@/types/signupInput';
 import { AUTOCOMPLETE_QUERY } from '@/api/graphql/queries';
 
-const LocationInput: React.FC<LocationProps> = ({ onLocationChange }) => {
+const LocationInput: React.FC<LocationProps> = ({ onLocationChange, disabled }) => {
     const [input, setInput] = useState('');
     const [showSuggestions, setShowSuggestions] = useState(false);
     const [autocomplete, { data }] = useLazyQuery(AUTOCOMPLETE_QUERY);
@@ -35,7 +35,8 @@ const LocationInput: React.FC<LocationProps> = ({ onLocationChange }) => {
           type="text"
           value={input}
           onChange={handleChange}
-          placeholder="Your Google Maps location"
+          placeholder="Search for your location"
+          disabled={disabled}
         />
         {showSuggestions && (
           <ul className="absolute top-full left-0 w-full bg-white border border-gray-300 z-10">

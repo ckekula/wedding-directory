@@ -12,17 +12,7 @@ import { GoHorizontalRule } from "react-icons/go";
 import { useRouter } from 'next/navigation';
 import { useMutation, gql } from '@apollo/client';
 import { useAuth } from '@/contexts/VisitorAuthContext';
-
-// Define the mutation to update the visitor
-const UPDATE_VISITOR_MUTATION = gql`
-    mutation UpdateVisitor($id: String!, $input: UpdateVisitorInput!) {
-        updateVisitor(id: $id, input: $input) {
-            id
-            engaged_date
-            wed_date
-        }
-    }
-`;
+import { UPDATE_VISITOR } from '@/api/graphql/mutations';
 
 const OnboardingPageTwo = () => {
   const router = useRouter();
@@ -34,21 +24,19 @@ const OnboardingPageTwo = () => {
   const [isStillDeciding, setIsStillDeciding] = useState(false);
 
   // Define the mutation
-  const [updateVisitor] = useMutation(UPDATE_VISITOR_MUTATION);
+  const [updateVisitor] = useMutation(UPDATE_VISITOR);
 
   // Handle the form submission
   const handleNext = async () => {
     try {
-      const preparedEngageDate = engageDate ? new Date(engageDate).toISOString() : null;
-      const preparedWeddingDate = isStillDeciding ? null : (weddingDate ? new Date(weddingDate).toISOString() : null);
 
       // Call the mutation to update the visitor
       await updateVisitor({
         variables: {
           id: visitor?.id, // Use the visitor ID from context
           input: {
-            engaged_date: preparedEngageDate,
-            wed_date: preparedWeddingDate,
+            engaged_date: engageDate,
+            wed_date: weddingDate,
           },
         },
       });

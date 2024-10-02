@@ -77,8 +77,8 @@ const VisitorSignup: React.FC<VisitorSignupProps> = ({ isVisible, onClose }) => 
                     const token = storedToken.split('=')[1];
                     login(token);  // Call the login method from context to set the visitor in state
 
-                    // Redirect to visitor dashboard or close the modal
-                    router.push('/pageone');  // Redirect to dashboard
+                    // Redirect to onboarding page one
+                    router.push('/pageone');
                 } else {
                     setError('Login failed. Token not found in cookies.');
                 }
@@ -89,7 +89,7 @@ const VisitorSignup: React.FC<VisitorSignupProps> = ({ isVisible, onClose }) => 
 
         } catch (err) {
             console.error('Signup or login failed:', err);
-            setError('Failed to create visitor or login. Please try again.');
+            setError('Failed to sign up. Please try again.');
         }
     };
 
