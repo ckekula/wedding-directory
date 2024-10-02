@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "@/components/shared/Headers/Header";
 import VendorBanner from "@/components/vendor-dashboard/VendorBanner";
-import Settings from "@/components/vendor-dashboard/dashboard-settings/Settings";
+import Settings from "@/components/vendor-dashboard/dashboard-settings/SettingsMenu";
 import EditProfile from "@/components/vendor-dashboard/dashboard-settings/EditProfile";
 
 const VendorDashBoardSettings = () => {

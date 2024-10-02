@@ -40,7 +40,7 @@ const EditProfile: React.FC = () => {
   return (
     <Fragment>
       <div className="bg-white rounded-2xl p-4 px-8 shadow-lg">
-        <h2 className="font-title text-[30px] ">Edit Profile</h2>
+        <h2 className="font-title text-[30px] ">Vendor Profile</h2>
         <hr className="w-[168px] h-px my-4 bg-gray-400 border-0 dark:bg-gray-700"></hr>
         <form onSubmit={handleSubmit} className="mb-8">
           <div>
