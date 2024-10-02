@@ -3,7 +3,7 @@ import React, { Fragment, useState, useRef } from "react";
 import Link from "next/link";
 import Header from "@/components/shared/Headers/Header";
 import LeftSideBar from "@/components/visitor-dashboard/LeftSideBar";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import profilePicPlaceholder from "../../assets/images/dashboardProfilePic.jpg";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Button } from "@/components/ui/button";
@@ -18,6 +18,7 @@ const GET_VISITOR_BY_ID = gql`
       visitor_fname
       partner_fname
       wed_venue
+      wed_date
     }
   }
 `;
@@ -25,7 +26,7 @@ const GET_VISITOR_BY_ID = gql`
 const VisitorDashboard = () => {
   const [isSideBarCollapsed, setIsSideBarCollapsed] = useState(false);
   const { visitor } = useAuth(); // Removed unused values for simplicity
-  const [profilePic, setProfilePic] = useState(profilePicPlaceholder); // State to store the profile picture
+  const [profilePic, setProfilePic] = useState<string | StaticImageData>(profilePicPlaceholder); // State to store the profile picture
   const fileInputRef = useRef<HTMLInputElement>(null); // Reference to the hidden file input
 
   // Fetch visitor data if logged in and visitor ID exists
@@ -131,7 +132,7 @@ const VisitorDashboard = () => {
               </div>
               <div className="flex mt-4 justify-center gap-8 font-body">
                 <div>
-                  <Link href="#">Add Date</Link>
+                  <Link href="#">{visitorData?.wed_date || "Add Date"}</Link>
                 </div>
                 <div>
                   <Link href="#">{visitorData?.wed_venue || "Add Venue"}</Link>
