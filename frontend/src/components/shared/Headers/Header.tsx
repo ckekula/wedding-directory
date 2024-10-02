@@ -1,7 +1,7 @@
 "use client";
 
 import GeneralHeader from "./GeneralHeader";
-import DashBoardHeader from "./VisitorHeader";
+import VisitorHeader from "./VisitorHeader";
 import VendorHeader from "./VendorHeader";
 import { useAuth as VisitorAuth } from "@/contexts/VisitorAuthContext";
 import { useVendorAuth as VendorAuth } from "@/contexts/VendorAuthContext";
@@ -11,7 +11,7 @@ const Header = () => {
   const { vendor } = VendorAuth();
 
   if (visitor) {
-    return <DashBoardHeader />;
+    return <VisitorHeader />;
   } else if (vendor) {
     return <VendorHeader />;
   }else{
