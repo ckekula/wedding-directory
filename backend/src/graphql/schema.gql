@@ -76,7 +76,7 @@ type Mutation {
   createVendor(input: CreateVendorInput!): VendorModel!
   createVisitor(createVisitorInput: CreateVisitorInput!): VisitorModel!
   removeVisitor(id: String!): Boolean!
-  updateVisitor(id: String!, input: UpdateVisitorInputP1!): VisitorModel!
+  updateVisitor(id: String!, input: UpdateVisitorInput!): VisitorModel!
   createPortfolio(input: CreatePackageInput!): PackageModel!
 }
 
@@ -104,11 +104,14 @@ input CreateVisitorInput {
   wed_venue: String
 }
 
-input UpdateVisitorInputP1 {
+input UpdateVisitorInput {
   visitor_fname: String
   visitor_lname: String
   partner_fname: String
   partner_lname: String
+  engaged_date: DateTime
+  wed_date: DateTime
+  wed_venue: String
 }
 
 input CreatePackageInput {
