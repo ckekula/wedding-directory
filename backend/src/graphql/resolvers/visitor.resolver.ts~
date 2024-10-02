@@ -38,6 +38,6 @@ export class VisitorResolver {
     @Args('id') id: string,
     @Args('input') updateVisitorInput: UpdateVisitorInputP1,
   ): Promise<VisitorEntity> {
-    return this.visitorService.updateVisitorP1(id, updateVisitorInput);
+    return this.visitorService.update(id, updateVisitorInput);
   }
 }

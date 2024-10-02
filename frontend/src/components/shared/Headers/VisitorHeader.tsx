@@ -7,7 +7,7 @@ import { IoIosNotificationsOutline } from "react-icons/io";
 import Image from "next/image";
 import profile from "../../../assets/images/profilePic.jpg";
 
-const DashBoardHeader = () => {
+const VisitorHeader = () => {
   return (
     <Fragment>
       <header className="py-6 xl:py-6 text-black bg-white">
@@ -50,4 +50,4 @@ const DashBoardHeader = () => {
   );
 };
 
-export default DashBoardHeader;
+export default VisitorHeader;
