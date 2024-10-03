@@ -2,7 +2,7 @@
 import React, { Fragment, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import BusinessCategory from "@/components/vendor-signup/BusinessCategory";
+import BusinessCategory from "@/components/vendor-signup/CategoryInput";
 
 interface ProfileData {
   firstName: string;

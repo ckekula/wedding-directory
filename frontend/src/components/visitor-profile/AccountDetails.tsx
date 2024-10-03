@@ -2,21 +2,40 @@
 import React, { Fragment, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-
-interface AccountDetailsData {
-  emailAddress: string;
-  password: string;
-  retypePassword: string;
-  address: string;
-}
+import { useAuth } from "@/contexts/VisitorAuthContext";
+import { useMutation, useQuery } from "@apollo/client";
+import { GET_VISITOR_BY_ID } from "@/api/graphql/queries";
+import { UPDATE_VISITOR } from "@/api/graphql/mutations";
+import { AccountDetailsData } from "@/types/visitorProfileData";
 
 const AccountDetails: React.FC = () => {
-  // Form state to hold the account details
+
+  const { visitor } = useAuth();
+
+  // Fetch visitor data from the server using the visitor ID
+  const { data, loading, error } = useQuery(GET_VISITOR_BY_ID, {
+    variables: { id: visitor?.id },
+    skip: !visitor?.id, // Skip query if visitor ID is not available
+  });
+
+  const visitorData = data?.findVisitorById;
+
   const [accountDetails, setAccountDetails] = useState<AccountDetailsData>({
-    emailAddress: "",
+    email: visitorData?.email,
     password: "",
-    retypePassword: "",
-    address: "",
+    retypePassword: ""
+  });
+
+  // Mutation for updating visitor details
+  const [updateVisitor] = useMutation(UPDATE_VISITOR, {
+    onCompleted: () => {
+      // Optionally handle success (e.g., show a message, redirect, etc.)
+      console.log("Visitor updated successfully!");
+    },
+    onError: (error) => {
+      // Handle error (e.g., show an error message)
+      console.error("Error updating visitor:", error);
+    },
   });
 
   // Handle input changes
@@ -31,15 +50,25 @@ const AccountDetails: React.FC = () => {
   // Handle form submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
+    
     if (accountDetails.password !== accountDetails.retypePassword) {
-      alert("Passwords do not match!");
+      alert("Passwords do not match.");
       return;
     }
 
-    alert("Account details saved successfully!");
-    console.log(accountDetails); // This will log the updated account details in the browser console for now
+    updateVisitor({
+      variables: {
+        id: visitor?.id,
+        input: {
+          email: accountDetails.email,
+          password: accountDetails.password
+        }
+      },
+    });
   };
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error loading visitor details: {error.message}</p>;
 
   return (
     <Fragment>
@@ -51,8 +80,8 @@ const AccountDetails: React.FC = () => {
             <label className="font-body text-[16px]">Email Address</label>
             <Input
               type="email"
-              name="emailAddress"
-              value={accountDetails.emailAddress}
+              name="email"
+              value={accountDetails.email}
               onChange={handleInputChange}
               className="font-body rounded-md mt-2 mb-3"
               required
@@ -82,24 +111,12 @@ const AccountDetails: React.FC = () => {
               />
             </div>
           </div>
-          <div className="mb-6">
-            <label className="font-body text-[16px]">Address</label>
-            <Input
-              name="address"
-              value={accountDetails.address}
-              onChange={handleInputChange}
-              className="font-body rounded-md mt-2 mb-3"
-            />
+          <div className="bg-white rounded-2xl p-4 px-8 shadow-lg my-8 justify-center flex">
+            <Button variant="signup" className="m-3 w-full" type="submit">
+              Save Account Details
+            </Button>
           </div>
-
-          
         </form>
-      </div>
-
-      <div className="bg-white rounded-2xl p-4 px-8 shadow-lg my-8 justify-center flex">
-        <Button variant="signup" className="m-3 w-full">
-          Save Account Details
-        </Button>
       </div>
     </Fragment>
   );

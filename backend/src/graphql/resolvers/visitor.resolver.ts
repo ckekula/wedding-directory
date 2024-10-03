@@ -3,9 +3,6 @@ import { VisitorService } from 'src/modules/visitor/visitor.service';
 import { VisitorModel } from '../models/visitor.model';
 import { CreateVisitorInput } from '../inputs/create-visitor.input';
 import { UpdateVisitorInput} from '../inputs/update-visitor.input';
-import { UseGuards } from '@nestjs/common';
-import { GqlAuthGuard } from 'src/modules/auth/guards/gql-auth.guard';
-import { CurrentUser } from 'src/modules/auth/current-user.decorator';
 import { VisitorEntity } from 'src/database/entities/visitor.entity';
 
 @Resolver(() => VisitorModel)
@@ -38,6 +35,6 @@ export class VisitorResolver {
     @Args('id') id: string,
     @Args('input') updateVisitorInput: UpdateVisitorInput,
   ): Promise<VisitorEntity> {
-    return this.visitorService.updateVisitorP1(id, updateVisitorInput);
+    return this.visitorService.updateVisitor(id, updateVisitorInput);
   }
 }
