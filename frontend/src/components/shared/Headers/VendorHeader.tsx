@@ -51,7 +51,7 @@ const VendorHeader = () => {
               <h1 className="text-2xl font-bold text-text font-title">
                 Say I Do
               </h1>
-              <p className="text-sm font-title text-left">Vendors</p>
+              <p className="text-sm font-title text-center">Vendors</p>
             </Link>
           </div>
 

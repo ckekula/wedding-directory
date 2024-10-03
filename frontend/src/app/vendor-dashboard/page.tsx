@@ -1,17 +1,22 @@
 import React from "react";
 import Header from "@/components/shared/Headers/Header";
 import VendorBanner from "@/components/vendor-dashboard/VendorBanner";
-import Stats from "./dashboard/Stats";
+import Stats from "@/components/vendor-dashboard/Stats";
+import QuickActions from "@/components/vendor-dashboard/QuickActions";
+import ToDo from "@/components/vendor-dashboard/ToDo";
 
 const VendorDashBoard = () => {
   return (
     <div className="">
       <Header />
       <div className="bg-lightYellow min-h-screen">
-        <div className="p-20">
+        <div className="container mx-auto px-4 "> 
+          <h1 className="font-title text-[36px] text-black text-center my-10 pt-10">Welcome</h1>
           {/* Vendor Banner */}
           <VendorBanner businessName="John's Flower Shop" />
-          <div className="flex justify-evenly items-center gap-10 container mt-10 mb-8">
+
+          {/* Category, Member Since, Rating */}
+          <div className="flex justify-evenly items-center gap-10 mt-10 mb-8">
             <div className="flex flex-col justify-center items-center">
               <p className=" font-body text-[20px]">Category</p>
               <p className=" font-body text-[15px]">Florist</p>
@@ -25,8 +30,16 @@ const VendorDashBoard = () => {
               <p className=" font-body text-[15px]">4.9</p>
             </div>
           </div>
-          <div className="flex">
+
+          {/* Stats */}
+          <div className="flex justify-center">
             <Stats />
+          </div>
+
+          {/* Quick Actions and To Do's */}
+          <div className="flex justify-between py-12 gap-10"> {/* Adjusted spacing and alignment */}
+            <QuickActions  />  {/* Giving each section half the width */}
+            <ToDo  />  {/* Ensuring equal width for better alignment */}
           </div>
         </div>
       </div>
