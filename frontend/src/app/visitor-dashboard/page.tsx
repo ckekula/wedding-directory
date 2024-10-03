@@ -18,6 +18,7 @@ const GET_VISITOR_BY_ID = gql`
       visitor_fname
       partner_fname
       wed_venue
+      wed_date
     }
   }
 `;
@@ -131,7 +132,7 @@ const VisitorDashboard = () => {
               </div>
               <div className="flex mt-4 justify-center gap-8 font-body">
                 <div>
-                  <Link href="#">Add Date</Link>
+                  <Link href="#">{visitorData?.wed_date || "Add Date"}</Link>
                 </div>
                 <div>
                   <Link href="#">{visitorData?.wed_venue || "Add Venue"}</Link>

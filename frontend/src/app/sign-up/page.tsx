@@ -92,7 +92,7 @@ const Signup = () => {
         />
         <div className="absolute inset-0 font-body">
           <div className='flex flex-col justify-center items-center text-center'>
-            <div><p className="mt-8 w-full">tag line</p></div>
+            <div><p className="mt-8 w-full">Crafting Timeless Celebrations</p></div>
             <div><h1 className="font-title font-bold text-3xl w-full ">Welcome Vendors</h1></div>
             <div className='bg-white bg-opacity-70 mt-6 w-[350px] md:w-[600px] border-solid border-black border-2 border-opacity-60 rounded-md p-8' >
               <h1 className='text-text mx-[30px] md:mx-[90px] text-2xl font-bold text-center font-title'>Connect with couples to make their dream wedding come true!</h1>
