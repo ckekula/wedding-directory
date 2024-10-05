@@ -34,13 +34,19 @@ const Nav = () => {
   return (
     <nav className=" flex gap-6 font-title  text-xl">
       {Links.map((link, index) => {
+        const isActive = pathname === link.path;
         return (
           <Link
             href={link.path}
             key={index}
-            className={`${
-              link.path === pathname && "text-black border-b-2 border-black"
-            } capitalize  hover:  transition-all`}
+            className={`
+              capitalize 
+              text-black 
+              hover:text-orange  
+              transition-all 
+              ${isActive ? "font-bold text-black" : ""}
+              ${isActive && "hover:text-orange hover:font-bold"} 
+            `}
           >
             {link.name}
           </Link>
