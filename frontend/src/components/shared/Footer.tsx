@@ -25,16 +25,16 @@ const Footer = () => {
               </h4>
               <ul className="text-sm font-body">
                 <li>
-                  <Link href="/">Home</Link>
+                  <Link href="/" className="hover:text-orange">Home</Link>
                 </li>
                 <li>
-                  <Link href="#">Marketplace</Link>
+                  <Link href="#" className="hover:text-orange">Marketplace</Link>
                 </li>
                 <li>
-                  <Link href="#">Checklist</Link>
+                  <Link href="#" className="hover:text-orange">Checklist</Link>
                 </li>
                 <li>
-                  <Link href="#">Budget</Link>
+                  <Link href="#" className="hover:text-orange">Budget</Link>
                 </li>
               </ul>
             </div>
@@ -42,16 +42,16 @@ const Footer = () => {
               <h4 className="text-lg font-semibold font-title mb-2">About</h4>
               <ul className="text-sm font-body">
                 <li>
-                  <Link href="/about">About Us</Link>
+                  <Link href="/about" className="hover:text-orange">About Us</Link>
                 </li>
                 <li>
-                  <Link href="/privacy">Privacy Policy</Link>
+                  <Link href="/privacy" className="hover:text-orange">Privacy Policy</Link>
                 </li>
                 <li>
-                  <Link href="/terms">Terms and Conditions</Link>
+                  <Link href="/terms"  className="hover:text-orange">Terms and Conditions</Link>
                 </li>
                 <li>
-                  <Link href="/sitemap">Sitemap</Link>
+                  <Link href="/sitemap" className="hover:text-orange">Sitemap</Link>
                 </li>
               </ul>
             </div>
@@ -72,16 +72,16 @@ const Footer = () => {
         <div className="flex flex-col justify-between items-center m-4">
           {/* Social Media Icons */}
           <div className="flex space-x-4">
-            <a href="#" className="text-black hover:text-gray-600">
+            <a href="#" className="text-black hover:text-orange">
               <FaFacebook size={24} />
             </a>
-            <a href="#" className="text-black hover:text-gray-600">
+            <a href="#" className="text-black hover:text-orange">
               <FaXTwitter size={24} />
             </a>
-            <a href="#" className="text-black hover:text-gray-600">
+            <a href="#" className="text-black hover:text-orange">
               <AiFillInstagram size={24} />
             </a>
-            <a href="#" className="text-black hover:text-gray-600">
+            <a href="#" className="text-black hover:text-orange">
               <FaPinterest size={24} />
             </a>
           </div>
