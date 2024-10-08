@@ -1,13 +1,12 @@
 import { InputType, Field } from '@nestjs/graphql';
 
 @InputType()
-export class CreateVisitorInput {
+export class UpdateVisitorInput {
+  @Field({ nullable: true })
+  email?: string;
 
-  @Field()
-  email: string;
-
-  @Field()
-  password: string;
+  @Field({ nullable: true })
+  password?: string;
 
   @Field({ nullable: true })
   visitor_fname?: string;
@@ -22,11 +21,17 @@ export class CreateVisitorInput {
   partner_lname?: string;
 
   @Field({ nullable: true })
-  engaged_date?: Date;
+  engaged_date?: string;
 
   @Field({ nullable: true })
-  wed_date?: Date;
+  wed_date?: string;
 
   @Field({ nullable: true })
   wed_venue?: string;
+
+  @Field({ nullable: true })
+  phone?: string;
+
+  @Field({ nullable: true })
+  city?: string;
 }

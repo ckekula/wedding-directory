@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { VisitorEntity } from 'src/database/entities/visitor.entity';
-import { CreateVisitorInput } from 'src/graphql/inputs/create-visitor.input';
+import { CreateVisitorInput } from 'src/graphql/inputs/createVisitor.input';
 import * as bcrypt from 'bcryptjs';
-import { UpdateVisitorInput } from '../../graphql/inputs/update-visitor.input';
+import { UpdateVisitorInput } from '../../graphql/inputs/updateVisitor.input';
 
 @Injectable()
 export class VisitorService {
@@ -39,6 +39,12 @@ export class VisitorService {
     id: string,
     updateVisitorInput: UpdateVisitorInput,
   ): Promise<VisitorEntity> {
+    // Check if a password is provided in the update input
+    if (updateVisitorInput.password) {
+      // Hash the password before updating
+      updateVisitorInput.password = bcrypt.hashSync(updateVisitorInput.password, 12);
+    }
+    
     await this.visitorRepository.update(id, updateVisitorInput);
     return this.findOne(id);
   }

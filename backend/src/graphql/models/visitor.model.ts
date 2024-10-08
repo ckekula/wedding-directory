@@ -32,6 +32,12 @@ export class VisitorModel {
   @Field({ nullable: true })
   wed_venue?: string;
 
+  @Field({ nullable: true })
+  phone?: string;
+
+  @Field({ nullable: true })
+  city?: string;
+
   @Field()
   createdAt: Date;
 

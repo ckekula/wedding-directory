@@ -12,26 +12,32 @@ export class VisitorEntity {
   @Column({ type: 'varchar'})
   password: string;
 
-  @Column({ type: 'varchar', length: 20, nullable: true })
+  @Column({ type: 'varchar', length: 50, nullable: true })
   visitor_fname?: string;
 
-  @Column({ type: 'varchar', length: 20, nullable: true })
+  @Column({ type: 'varchar', length: 50, nullable: true })
   visitor_lname?: string;
 
-  @Column({ type: 'varchar', length: 20, nullable: true })
+  @Column({ type: 'varchar', length: 50, nullable: true })
   partner_fname?: string;
 
-  @Column({ type: 'varchar', length: 20, nullable: true })
+  @Column({ type: 'varchar', length: 50, nullable: true })
   partner_lname?: string;
 
-  @Column({ type: 'date', nullable: true })
-  engaged_date?: Date;
+  @Column({ type: 'string', nullable: true })
+  engaged_date?: string;
 
-  @Column({ type: 'date', nullable: true })
-  wed_date?: Date;
+  @Column({ type: 'string', nullable: true })
+  wed_date?: string;
 
-  @Column({ type: 'varchar', length: 30, nullable: true })
+  @Column({ type: 'varchar', length: 50, nullable: true })
   wed_venue?: string;
+
+  @Column({ type: 'string', nullable: true })
+  phone?: string;
+
+  @Column({ type: 'varchar', nullable: true })
+  city?: string;
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
   createdAt: Date;

@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PackageEntity } from 'src/database/entities/package.entity';
-import { CreatePackageInput } from 'src/graphql/inputs/createPackage';
+import { CreatePackageInput } from 'src/graphql/inputs/createPackage.input';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { VendorEntity } from 'src/database/entities/vendor.entity';

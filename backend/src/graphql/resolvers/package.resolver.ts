@@ -2,7 +2,7 @@ import { Resolver, Args, Mutation } from '@nestjs/graphql';
 import { PackageService } from 'src/modules/package/package.service';
 import { PackageModel } from '../models/package.model';
 import { PackageEntity } from 'src/database/entities/package.entity';
-import { CreatePackageInput } from '../inputs/createPackage';
+import { CreatePackageInput } from '../inputs/createPackage.input';
 import { Query } from '@nestjs/graphql';
 
 @Resolver()
