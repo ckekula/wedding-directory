@@ -58,7 +58,7 @@ const OnboardingPageTwo = () => {
 
   return (
     <div className="bg-lightYellow font-title min-h-screen flex items-center justify-center">
-      <div className="flex flex-col md:flex-row h-[800px] w-full md:w-10/12 lg:w-8/12 shadow-lg rounded-lg overflow-hidden">
+      <div className="flex flex-col md:flex-row h-[800px] w-full md:w-10/12 lg:w-8/12 shadow-lg rounded-lg overflow-hidden md:h-[700px]">
 
         {/* Left Image Section */}
         <div className="relative w-full md:w-6/12 h-96 md:h-auto">
@@ -98,14 +98,14 @@ const OnboardingPageTwo = () => {
 
           {/* Form Heading */}
           <h2 className="text-3xl text-center mb-8 font-semibold">Now, Let&apos;s talk about ✨ The Day</h2>
-
-          <div className="mb-6">
+<div>
+          <div className="mb-6 flex justify-center flex-col ml-4">
             {/* Engagement Date (Top Row) */}
             <div className="mb-4">
               <label className="block font-light mb-1">Engagement date</label>
               <span className="text-gray-400 text-sm">(You can change this later)</span>
               <Input
-                className="h-10 w-full md:w-8/12 rounded-xl border-2 border-gray-300 mt-2"
+                className="h-10 w-full rounded-xl border-2 border-gray-300 mt-2"
                 type="date"
                 value={engageDate}
                 onChange={(e) => setEngageDate(e.target.value)}
@@ -117,14 +117,14 @@ const OnboardingPageTwo = () => {
               <label className="block font-light mb-1">Wedding date</label>
               <span className="text-gray-400 text-sm">(Don&apos;t worry! You can change this later)</span>
               <Input
-                className="h-10 w-full md:w-8/12 rounded-xl border-2 border-gray-300 mt-2"
+                className="h-10 w-full  rounded-xl border-2 border-gray-300 mt-2"
                 type="date"
                 value={weddingDate}
                 onChange={(e) => setWeddingDate(e.target.value)}
                 disabled={isStillDeciding} // disable if the checkbox is checked
               />
             </div>
-
+            </div>
             {/* Still Deciding Checkbox */}
 
           </div>

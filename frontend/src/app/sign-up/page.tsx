@@ -92,7 +92,7 @@ const Signup = () => {
         />
         <div className="absolute inset-0 font-body">
           <div className='flex flex-col justify-center items-center text-center'>
-            <div><p className="mt-8 w-full">tag line</p></div>
+            <div><p className="mt-8 w-full">Crafting Timeless Celebrations</p></div>
             <div><h1 className="font-title font-bold text-3xl w-full ">Welcome Vendors</h1></div>
             <div className='bg-white bg-opacity-70 mt-6 w-[350px] md:w-[600px] border-solid border-black border-2 border-opacity-60 rounded-md p-8' >
               <h1 className='text-text mx-[30px] md:mx-[90px] text-2xl font-bold text-center font-title'>Connect with couples to make their dream wedding come true!</h1>
@@ -197,11 +197,11 @@ const Signup = () => {
                     htmlFor="terms"
                     className="text-sm text-left leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                     By submitting and sharing your information, you agree to the{' '}
-                    <Link href="/" className="underline">
+                    <Link href="/" className="underline hover:text-orange">
                       terms of use
                     </Link>{' '}
                     and{' '}
-                    <Link href="/" className="underline ">
+                    <Link href="/" className="underline hover:text-orange">
                       privacy policy
                     </Link>{' '}
                     of Say I Do.
@@ -220,7 +220,7 @@ const Signup = () => {
               <div className="mt-2">
                 Already have an account?<span> </span>
                 <button onClick={goToVendorLogin()}>
-                  <div className="text-decoration-line: underline">Login</div>
+                  <div className="text-decoration-line: underline hover:text-orange">Login</div>
                 </button>
               </div>
             </div>
