@@ -197,11 +197,11 @@ const Signup = () => {
                     htmlFor="terms"
                     className="text-sm text-left leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                     By submitting and sharing your information, you agree to the{' '}
-                    <Link href="/" className="underline">
+                    <Link href="/" className="underline hover:text-orange">
                       terms of use
                     </Link>{' '}
                     and{' '}
-                    <Link href="/" className="underline ">
+                    <Link href="/" className="underline hover:text-orange">
                       privacy policy
                     </Link>{' '}
                     of Say I Do.
@@ -220,7 +220,7 @@ const Signup = () => {
               <div className="mt-2">
                 Already have an account?<span> </span>
                 <button onClick={goToVendorLogin()}>
-                  <div className="text-decoration-line: underline">Login</div>
+                  <div className="text-decoration-line: underline hover:text-orange">Login</div>
                 </button>
               </div>
             </div>
