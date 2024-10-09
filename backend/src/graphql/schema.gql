@@ -54,6 +54,7 @@ type VisitorModel {
   engaged_date: String
   wed_date: String
   wed_venue: String
+  profile_pic_url: String
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -102,6 +103,7 @@ input CreateVisitorInput {
   engaged_date: DateTime
   wed_date: DateTime
   wed_venue: String
+  profile_pic_url: String
 }
 
 input UpdateVisitorInput {
@@ -114,6 +116,7 @@ input UpdateVisitorInput {
   engaged_date: String
   wed_date: String
   wed_venue: String
+  profile_pic_url: String
 }
 
 input CreatePackageInput {

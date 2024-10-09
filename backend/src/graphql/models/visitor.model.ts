@@ -32,6 +32,9 @@ export class VisitorModel {
   @Field({ nullable: true })
   wed_venue?: string;
 
+  @Field({ nullable: true })
+  profile_pic_url?: string;
+
   @Field()
   createdAt: Date;
 

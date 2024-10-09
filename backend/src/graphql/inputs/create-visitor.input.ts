@@ -2,7 +2,6 @@ import { InputType, Field } from '@nestjs/graphql';
 
 @InputType()
 export class CreateVisitorInput {
-
   @Field()
   email: string;
 
@@ -29,4 +28,7 @@ export class CreateVisitorInput {
 
   @Field({ nullable: true })
   wed_venue?: string;
+
+  @Field({ nullable: true })
+  profile_pic_url?: string;
 }

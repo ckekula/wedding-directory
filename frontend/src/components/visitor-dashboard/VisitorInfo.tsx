@@ -19,10 +19,10 @@ const VisitorInfo: React.FC<VisitorInfoProps> = ({
     <div className="flex flex-col text-center font-merriweather w-full">
       <div className="flex justify-between">
         <div className="flex flex-col">
-          <span className="block text-5xl font-bold">{visitor_fname}</span>
+          <span className="block text-5xl font-bold">{visitor_fname || "You"}</span>
           <span className="block text-4xl font-bold">&</span>
           <span className="block text-5xl font-bold ml-20">
-            {partner_fname}
+            {partner_fname  || "Yours"}
           </span>
         </div>
 
@@ -35,8 +35,8 @@ const VisitorInfo: React.FC<VisitorInfoProps> = ({
         </div>
       </div>
       <div className="flex m-2 justify-center gap-8 font-body">
-        <Link href="#">{wed_date} </Link>
-        <Link href="#">{wed_venue} </Link>
+        <Link href="#">{wed_date || "Add Date"} </Link>
+        <Link href="#">{wed_venue || "Add Venue"} </Link>
         <Link href="#">No of Guests</Link>
       </div>
     </div>
