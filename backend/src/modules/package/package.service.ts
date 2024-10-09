@@ -1,24 +1,30 @@
 import { Injectable } from '@nestjs/common';
 import { PackageEntity } from 'src/database/entities/package.entity';
 import { CreatePackageInput } from 'src/graphql/inputs/createPackage.input';
-import { Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { VendorEntity } from 'src/database/entities/vendor.entity';
+import { PackageFilterInput } from 'src/graphql/inputs/packageFilter.input';
+import { PackageRepository } from 'src/database/repositories/package.repository';
+import { PackageRepositoryType } from 'src/graphql/types/packageTypes';
 
 @Injectable()
 export class PackageService {
+  private packageRepository: PackageRepositoryType
   constructor(
-
-    @InjectRepository(PackageEntity)
-    private readonly packageRepository: Repository<PackageEntity>,
+    private readonly dataSource: DataSource,
 
     @InjectRepository(VendorEntity)
     private readonly vendorRepository: Repository<VendorEntity>,
 
-  ) {}
+  ) {
+    this.packageRepository = PackageRepository(this.dataSource);
+  }
 
-  async createPackage(createPackageInput: CreatePackageInput, mediaUrls: string[]): Promise<PackageEntity> {
-    // Fetch the vendor by vendorId
+  async createPackage(
+    createPackageInput: CreatePackageInput, 
+    mediaUrls: string[]
+  ): Promise<PackageEntity> {
     const vendor = await this.vendorRepository.findOne(
       { where: { id: createPackageInput.vendor_id } }
     );
@@ -26,27 +32,11 @@ export class PackageService {
     if (!vendor) {
       throw new Error('Vendor not found');
     }
-
-    // Create and save the portfolio associated with the vendor
-    const _package = this.packageRepository.create({
-      ...createPackageInput,
-      media: mediaUrls,
-      vendor, // associate with the vendor
-    });
-
-    return this.packageRepository.save(_package);
+    return this.packageRepository.createPackage(createPackageInput, vendor, mediaUrls);
   }
 
-  async getPackagesByVendorId(vendorId: string): Promise<PackageEntity[]> {
-    const vendor = await this.vendorRepository.findOne({
-      where: { id: vendorId },
-      relations: ['package'],
-    });
-
-    if (!vendor) {
-      throw new Error('Vendor not found');
-    }
-
-    return vendor.package;
+  async findPackagesByFilters(filterInput: PackageFilterInput): Promise<PackageEntity[]> {
+    const { category, city } = filterInput;
+    return this.packageRepository.findPackagesByFilters(category, city);
   }
 }

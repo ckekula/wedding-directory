@@ -24,16 +24,16 @@ export class VisitorEntity {
   @Column({ type: 'varchar', length: 50, nullable: true })
   partner_lname?: string;
 
-  @Column({ type: 'string', nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   engaged_date?: string;
 
-  @Column({ type: 'string', nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   wed_date?: string;
 
   @Column({ type: 'varchar', length: 50, nullable: true })
   wed_venue?: string;
 
-  @Column({ type: 'string', nullable: true })
+  @Column({ type: 'varchar', nullable: true })
   phone?: string;
 
   @Column({ type: 'varchar', nullable: true })

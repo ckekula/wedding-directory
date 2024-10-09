@@ -1,10 +1,7 @@
-import { DataSource, Repository } from 'typeorm';
+import { DataSource } from 'typeorm';
 import { VendorEntity } from '../entities/vendor.entity';
+import { VendorRepositoryType } from 'src/graphql/types/packageTypes';
 
-export type VendorRepositoryType = Repository<VendorEntity> & {
-  findVendorById(id: string): Promise<VendorEntity | null>;
-  findAllVendors(): Promise<VendorEntity[]>;
-};
 
 // Use the DataSource to get the base repository and extend it
 export const VendorRepository = (dataSource: DataSource): VendorRepositoryType =>

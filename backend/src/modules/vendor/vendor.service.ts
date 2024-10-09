@@ -1,11 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { VendorEntity } from 'src/database/entities/vendor.entity';
 import { DataSource } from 'typeorm';
-import { VendorRepositoryType, VendorRepository } from 'src/database/repositories/vendor.repository';
+import { VendorRepository } from 'src/database/repositories/vendor.repository';
 import { CreateVendorInput } from 'src/graphql/inputs/createVendor.input';
 import * as bcrypt from 'bcryptjs';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
+import { VendorRepositoryType } from 'src/graphql/types/packageTypes';
+
 
 @Injectable()
 export class VendorService {
