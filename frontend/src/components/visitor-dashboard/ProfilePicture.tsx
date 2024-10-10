@@ -3,13 +3,19 @@ import React, { useRef, useState } from "react";
 import Image, { StaticImageData } from "next/image";
 import profilePicPlaceholder from "../../assets/images/dashboardProfilePic.jpg";
 //import profilePic from "../../../public/dashboard_profile_pic_placeholder.jpg"
+import { useAuth } from "@/contexts/VisitorAuthContext";
+import request from "@/utils/request";
+
+
 interface ProfilePictureProps {
   profilePic: string | StaticImageData;
   setProfilePic: (image: string) => void;
 }
 
+
 const ProfilePicture: React.FC<ProfilePictureProps> = ({ profilePic, setProfilePic }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const {visitor} = useAuth();
 
   const handleProfilePicClick = () => {
     if (fileInputRef.current) {
@@ -17,11 +23,26 @@ const ProfilePicture: React.FC<ProfilePictureProps> = ({ profilePic, setProfileP
     }
   };
 
-  const handleProfilePicChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleProfilePicChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (file) {
-      const imageURL = URL.createObjectURL(file);
-      setProfilePic(imageURL);
+    if (file && visitor?.id) {
+      const formData = new FormData();
+      formData.append('file', file); // Append image file
+      formData.append('visitorId', visitor.id); // Append visitor ID
+
+      try {
+        const response = await request.post('/upload/profile-picture', formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data', // Required for file upload
+          },
+        });
+
+        // Assuming the backend responds with the uploaded file URL
+        const { fileUrl } = response.data;
+        setProfilePic(fileUrl); // Set the uploaded image URL
+      } catch (error) {
+        console.error('Error uploading profile picture:', error);
+      }
     }
   };
 
