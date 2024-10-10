@@ -10,9 +10,11 @@ import VisitorInfo from "@/components/visitor-dashboard/VisitorInfo";
 import ProfilePicture from "@/components/visitor-dashboard/ProfilePicture";
 import WeddingPlanningGuide from "@/components/visitor-dashboard/WeddingPlanningGuide";
 import AccordionItemBlock from "@/components/visitor-dashboard/AccordianItemsBlock";
+import profilePicPlaceholder from "../../../public/dashboard_profile_pic_placeholder.jpg"
+import { StaticImageData } from "next/image";
 
 // Placeholder for profile picture
-const profilePicPlaceholder = "/path/to/default/profilePic.png";
+//const profilePicPlaceholder = "/path/to/default/profilePic.png";
 
 // GraphQL query to get visitor details by ID
 const GET_VISITOR_BY_ID = gql`
@@ -23,6 +25,7 @@ const GET_VISITOR_BY_ID = gql`
       partner_fname
       wed_venue
       wed_date
+      profile_pic_url
     }
   }
 `;
@@ -30,11 +33,17 @@ const GET_VISITOR_BY_ID = gql`
 const VisitorDashboard = () => {
   const [isSideBarCollapsed, setIsSideBarCollapsed] = useState(false);
   const { visitor } = useAuth();
-  const [profilePic, setProfilePic] = useState(profilePicPlaceholder);
+  const [profilePic, setProfilePic] = useState<string | StaticImageData>(profilePicPlaceholder);
 
+  // Fetch visitor data including profile_pic_url
   const { data, loading, error } = useQuery(GET_VISITOR_BY_ID, {
     variables: { id: visitor?.id },
     skip: !visitor?.id,
+    onCompleted: (data) => {
+      if (data?.findVisitorById?.profile_pic_url) {
+        setProfilePic(data.findVisitorById.profile_pic_url); // Set the uploaded profile picture URL
+      }
+    },
   });
 
   if (loading) return <p>Loading visitor information...</p>;

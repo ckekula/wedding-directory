@@ -9,7 +9,7 @@ import request from "@/utils/request";
 
 interface ProfilePictureProps {
   profilePic: string | StaticImageData;
-  setProfilePic: (image: string) => void;
+  setProfilePic: React.Dispatch<React.SetStateAction<string | StaticImageData>>;
 }
 
 
@@ -39,7 +39,7 @@ const ProfilePicture: React.FC<ProfilePictureProps> = ({ profilePic, setProfileP
 
         // Assuming the backend responds with the uploaded file URL
         const { fileUrl } = response.data;
-        setProfilePic(fileUrl); // Set the uploaded image URL
+        setProfilePic(fileUrl || profilePicPlaceholder); // Set the uploaded image URL
       } catch (error) {
         console.error('Error uploading profile picture:', error);
       }
