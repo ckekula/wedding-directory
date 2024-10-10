@@ -15,7 +15,10 @@ export class VisitorService {
 
   async create(createVisitorInput: CreateVisitorInput): Promise<VisitorEntity> {
     const hashedPassword = bcrypt.hashSync(createVisitorInput.password, 12);
-    const visitor = this.visitorRepository.create({...createVisitorInput, password: hashedPassword});
+    const visitor = this.visitorRepository.create({
+      ...createVisitorInput,
+      password: hashedPassword,
+    });
     return this.visitorRepository.save(visitor);
   }
 
@@ -42,11 +45,19 @@ export class VisitorService {
     await this.visitorRepository.update(id, updateVisitorInput);
     return this.findOne(id);
   }
+
+  async updateProfilePicture(visitorId: string, fileUrl: string): Promise<VisitorEntity> {
+    // Find the visitor by ID
+    const visitor = await this.visitorRepository.findOne({ where: { id: visitorId } });
+
+    if (!visitor) {
+      throw new Error('Visitor not found');
+    }
+
+    // Update the profile_pic_url field
+    visitor.profile_pic_url = fileUrl;
+
+    // Save the updated visitor to the database
+    return await this.visitorRepository.save(visitor);
+  }
 }
-
-
-
-
-
-
-

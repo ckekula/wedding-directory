@@ -33,7 +33,7 @@ export class VisitorEntity {
   @Column({ type: 'varchar', length: 30, nullable: true })
   wed_venue?: string;
 
-  @Column({ type: 'varchar', length: 100, nullable: true })
+  @Column({ type: 'varchar', length: 200, nullable: true })
   profile_pic_url?: string;
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
