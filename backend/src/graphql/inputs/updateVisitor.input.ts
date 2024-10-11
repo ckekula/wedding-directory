@@ -30,9 +30,6 @@ export class UpdateVisitorInput {
   wed_venue?: string;
 
   @Field({ nullable: true })
-  profile_pic_url?: string;
-
-  @Field({ nullable: true })
   phone?: string;
 
   @Field({ nullable: true })

@@ -9,7 +9,7 @@ import VendorResult from "@/components/vendor-search/VendorResult";
 
 const VendorDashBoard = () => {
   return (
-    <div className="">
+    <div>
       <Header />
       <div className="bg-lightYellow min-h-screen">
         <div className="container mx-auto px-4 pt-10 ">
@@ -21,6 +21,7 @@ const VendorDashBoard = () => {
             {/* Adjusted spacing and alignment */}
             <QuickActions /> {/* Giving each section half the width */}
             <ToDo /> {/* Ensuring equal width for better alignment */}
+      
           </div>
           <hr className="border-t border-gray-300 my-4" />
           <div className="flex flex-row">
