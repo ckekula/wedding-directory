@@ -7,6 +7,9 @@ export class PackageEntity {
     id: string;
 
     @Column({ type: 'varchar', length: 100 })
+    name: string;
+
+    @Column({ type: 'varchar', length: 100 })
     category: string;
 
     @Column({ type: 'varchar', length: 100 })
@@ -24,31 +27,31 @@ export class PackageEntity {
     @Column('text', { array: true, nullable: true })
     media: string[];
 
-    @Column({ type: 'varchar', length: 100 })
+    @Column({ type: 'varchar', length: 100, nullable: true })
     experience: string;
 
-    @Column({ type: 'varchar', length: 100 })
+    @Column({ type: 'varchar', length: 100, nullable: true })
     start_price: string;
 
-    @Column({ type: 'varchar', length: 100 })
+    @Column({ type: 'varchar', length: 100, nullable: true })
     website : string;
 
-    @Column({ type: 'varchar', length: 100 })
+    @Column({ type: 'varchar', length: 100, nullable: true })
     instagram: string;
 
-    @Column({ type: 'varchar', length: 100 })
+    @Column({ type: 'varchar', length: 100, nullable: true })
     facebook: string;
 
-    @Column({ type: 'varchar', length: 100 })
+    @Column({ type: 'varchar', length: 100, nullable: true })
     x: string;
 
-    @Column({ type: 'varchar', length: 100 })
+    @Column({ type: 'varchar', length: 100, nullable: true })
     tiktok: string;
 
-    @CreateDateColumn({ name: 'created_at', type: 'timestamp',  nullable: false })
+    @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
     createdAt: Date;
   
-    @UpdateDateColumn({ name: 'updated_at', type: 'timestamp' , nullable: false })
+    @UpdateDateColumn({ name: 'updated_at', type: 'timestamp' })
     updatedAt: Date;
 
     @ManyToOne(() => VendorEntity, v => v.package)

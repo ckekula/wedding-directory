@@ -31,13 +31,13 @@ export class VendorEntity {
   @Column({ type: 'varchar', length: 12 })
   phone: string;
 
-  @Column({ type: 'varchar', length: 50 })
+  @Column({ type: 'varchar', length: 50, nullable: true })
   profile_pic_url: string;
 
-  @CreateDateColumn({ name: 'created_at', type: 'timestamp',  nullable: false })
+  @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
   createdAt: Date;
 
-  @UpdateDateColumn({ name: 'updated_at', type: 'timestamp' , nullable: false })
+  @UpdateDateColumn({ name: 'updated_at', type: 'timestamp' })
   updatedAt: Date;
 
   @OneToMany(() => PackageEntity, p => p.vendor, { cascade: true, onDelete: 'CASCADE' })

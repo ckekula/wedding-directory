@@ -5,10 +5,11 @@
 type PackageModel {
   id: String!
   vendor_id: String!
+  name: String!
   category: String!
-  bus_phone: String!
-  bus_email: String!
-  about: String!
+  bus_phone: String
+  bus_email: String
+  about: String
   banner: String
   media: [String!]
   experience: String
@@ -38,6 +39,7 @@ type VendorModel {
   location: String!
   city: String!
   phone: String!
+  profile_pic_url: String
   createdAt: DateTime!
   updatedAt: DateTime!
   package: PackageModel
@@ -126,16 +128,6 @@ input UpdateVisitorInput {
 
 input CreatePackageInput {
   vendor_id: String!
+  name: String!
   category: String!
-  bus_phone: String!
-  bus_email: String!
-  about: String!
-  banner: String!
-  experience: String!
-  start_price: String!
-  website: String!
-  instagram: String!
-  facebook: String!
-  x: String!
-  tiktok: String!
 }
