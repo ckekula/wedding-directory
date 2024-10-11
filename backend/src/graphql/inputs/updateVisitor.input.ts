@@ -29,4 +29,12 @@ export class UpdateVisitorInput {
   @Field({ nullable: true })
   wed_venue?: string;
 
+  @Field({ nullable: true })
+  profile_pic_url?: string;
+
+  @Field({ nullable: true })
+  phone?: string;
+
+  @Field({ nullable: true })
+  city?: string;
 }

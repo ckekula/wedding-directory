@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { VisitorEntity } from 'src/database/entities/visitor.entity';
-import { CreateVisitorInput } from 'src/graphql/inputs/create-visitor.input';
+import { CreateVisitorInput } from 'src/graphql/inputs/createVisitor.input';
 import * as bcrypt from 'bcryptjs';
-import { UpdateVisitorInput } from '../../graphql/inputs/update-visitor.input';
+import { UpdateVisitorInput } from '../../graphql/inputs/updateVisitor.input';
 
 @Injectable()
 export class VisitorService {
@@ -15,7 +15,10 @@ export class VisitorService {
 
   async create(createVisitorInput: CreateVisitorInput): Promise<VisitorEntity> {
     const hashedPassword = bcrypt.hashSync(createVisitorInput.password, 12);
-    const visitor = this.visitorRepository.create({...createVisitorInput, password: hashedPassword});
+    const visitor = this.visitorRepository.create({
+      ...createVisitorInput,
+      password: hashedPassword,
+    });
     return this.visitorRepository.save(visitor);
   }
 
@@ -39,14 +42,28 @@ export class VisitorService {
     id: string,
     updateVisitorInput: UpdateVisitorInput,
   ): Promise<VisitorEntity> {
+    // Check if a password is provided in the update input
+    if (updateVisitorInput.password) {
+      // Hash the password before updating
+      updateVisitorInput.password = bcrypt.hashSync(updateVisitorInput.password, 12);
+    }
+    
     await this.visitorRepository.update(id, updateVisitorInput);
     return this.findOne(id);
   }
+
+  async updateProfilePicture(visitorId: string, fileUrl: string): Promise<VisitorEntity> {
+    // Find the visitor by ID
+    const visitor = await this.visitorRepository.findOne({ where: { id: visitorId } });
+
+    if (!visitor) {
+      throw new Error('Visitor not found');
+    }
+
+    // Update the profile_pic_url field
+    visitor.profile_pic_url = fileUrl;
+
+    // Save the updated visitor to the database
+    return await this.visitorRepository.save(visitor);
+  }
 }
-
-
-
-
-
-
-

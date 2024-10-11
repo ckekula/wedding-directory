@@ -21,12 +21,17 @@ export const AUTOCOMPLETE_QUERY = gql`
     }
 `;
 
-export const FIND_VENDORS_WITH_FILTERS = gql`
-  query FindVendorsWithFilters($filters: VendorFilterInput!) {
-    findVendorsWithFilters(filters: $filters) {
+export const FIND_PACKAGES = gql`
+  query FindPackages($filter: PackageFilterInput!) {
+    findPackages(filter: $filter) {
       id
-      name
-      city
+      vendor {
+        id
+        busname
+        city
+      }
+      category
+      about
       banner
     }
   }
