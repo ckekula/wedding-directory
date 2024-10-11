@@ -10,11 +10,9 @@ export const PackageRepository = (dataSource: DataSource): PackageRepositoryType
     async createPackage(
       createPackageInput: Partial<PackageEntity>,
       vendor: VendorEntity,
-      mediaUrls: string[],
     ): Promise<PackageEntity> {
       const _package = this.create({
         ...createPackageInput,
-        media: mediaUrls,
         vendor,
       });
       return this.save(_package);
