@@ -10,15 +10,18 @@ export class PackageModel {
   vendor_id: string;
 
   @Field()
+  name: string;
+
+  @Field()
   category: string;
 
-  @Field()
+  @Field({ nullable: true })
   bus_phone: string;
 
-  @Field()
+  @Field({ nullable: true })
   bus_email: string;
 
-  @Field()
+  @Field({ nullable: true })
   about: string;
 
   @Field({ nullable: true })
