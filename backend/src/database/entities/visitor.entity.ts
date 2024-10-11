@@ -1,15 +1,20 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity({ name: 'visitor' })
 export class VisitorEntity {
-
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column({ type: 'varchar', length: 50 })
   email: string;
 
-  @Column({ type: 'varchar'})
+  @Column({ type: 'varchar' })
   password: string;
 
   @Column({ type: 'varchar', length: 50, nullable: true })
@@ -32,6 +37,9 @@ export class VisitorEntity {
 
   @Column({ type: 'varchar', length: 50, nullable: true })
   wed_venue?: string;
+
+  @Column({ type: 'varchar', length: 200, nullable: true })
+  profile_pic_url?: string;
 
   @Column({ type: 'varchar', nullable: true })
   phone?: string;
