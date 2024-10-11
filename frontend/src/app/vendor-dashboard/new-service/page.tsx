@@ -1,9 +1,9 @@
 "use client"; // Ensures this component is rendered client-side
 
 import React, { useState } from "react";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
-import CategoryInput from "../vendor-signup/CategoryInput";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import CategoryInput from "@/components/vendor-signup/CategoryInput";
 import Link from "next/link"; // Import Next.js Link component
 
 const AddNewService: React.FC = () => {

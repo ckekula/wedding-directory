@@ -6,6 +6,7 @@ import QuickActions from "@/components/vendor-dashboard/QuickActions";
 import ToDo from "@/components/vendor-dashboard/ToDo";
 import ProfileInfo from "@/components/vendor-dashboard/ProfileInfo";
 import VendorResult from "@/components/vendor-search/VendorResult";
+import Link from "next/link";
 
 const VendorDashBoard = () => {
   return (
@@ -53,7 +54,7 @@ const VendorDashBoard = () => {
           <hr className="border-t border-gray-300 my-4" />
           <div className="flex flex-row">
           <div className="w-5/6 text-2xl font-bold mb-8">Your Services</div>
-          <div className="w-1/6 ml-10">Add new Service</div></div>
+          <div className="w-1/6 ml-10"><Link href="/vendor-dashboard/new-service" >Add new Service</Link></div></div>
           <div className="grid grid-cols-3 gap-6 overflow-x-auto">
             <VendorResult
               key="sdf"
