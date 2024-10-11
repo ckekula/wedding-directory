@@ -72,7 +72,7 @@ const VendorSearch = () => {
         </h2>
       </div>
 
-      <FilterSearchBar />
+      <FilterSearchBar handleSearch={handleSearch} />
 
       <hr className="w-full h-px my-4 bg-slate-900 border-2  container" />
 
