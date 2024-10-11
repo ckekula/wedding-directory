@@ -38,6 +38,7 @@ type VendorModel {
   location: String!
   city: String!
   phone: String!
+  profile_pic_url: String
   createdAt: DateTime!
   updatedAt: DateTime!
   package: PackageModel
@@ -77,10 +78,16 @@ input PackageFilterInput {
 
 type Mutation {
   createVendor(input: CreateVendorInput!): VendorModel!
+  updateVendor(id: String!, input: UpdateVendorInput!): VendorModel!
+  deleteVendor(id: String!): Boolean!
+  updateVendorProfilePic(id: String!, fileUrl: String!): VendorModel!
   createVisitor(createVisitorInput: CreateVisitorInput!): VisitorModel!
   removeVisitor(id: String!): Boolean!
   updateVisitor(id: String!, input: UpdateVisitorInput!): VisitorModel!
   createPackage(input: CreatePackageInput!, mediaUrls: [String!]!): PackageModel!
+  updatePackage(id: String!, input: UpdatePackageInput!, mediaUrls: [String!]!): PackageModel!
+  deletePackage(id: String!): Boolean!
+  updatePackageBanner(id: String!, fileUrl: String!): PackageModel!
 }
 
 input CreateVendorInput {
@@ -94,6 +101,17 @@ input CreateVendorInput {
   location: String!
 }
 
+input UpdateVendorInput {
+  email: String
+  password: String
+  fname: String
+  lname: String
+  busname: String
+  phone: String
+  city: String
+  location: String
+}
+
 input CreateVisitorInput {
   email: String!
   password: String!
@@ -104,7 +122,6 @@ input CreateVisitorInput {
   engaged_date: String
   wed_date: String
   wed_venue: String
-  profile_pic_url: String
   phone: String
   city: String
 }
@@ -119,7 +136,6 @@ input UpdateVisitorInput {
   engaged_date: String
   wed_date: String
   wed_venue: String
-  profile_pic_url: String
   phone: String
   city: String
 }
@@ -130,7 +146,6 @@ input CreatePackageInput {
   bus_phone: String!
   bus_email: String!
   about: String!
-  banner: String!
   experience: String!
   start_price: String!
   website: String!
@@ -138,4 +153,18 @@ input CreatePackageInput {
   facebook: String!
   x: String!
   tiktok: String!
+}
+
+input UpdatePackageInput {
+  category: String
+  bus_phone: String
+  bus_email: String
+  about: String
+  experience: String
+  start_price: String
+  website: String
+  instagram: String
+  facebook: String
+  x: String
+  tiktok: String
 }
