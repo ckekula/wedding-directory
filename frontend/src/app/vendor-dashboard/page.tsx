@@ -12,7 +12,7 @@ const VendorDashBoard = () => {
       <div className="bg-lightYellow">
         <div className="container mx-auto px-4 ">
           {/* Adjusted the top margin and padding of the h1 */}
-          <h1 className="font-title text-[36px] text-black text-center my-4 pt-0">Welcome</h1>
+          <h1 className="font-title text-[36px] text-black text-center  py-4">Welcome</h1>
 
           {/* Vendor Banner */}
           <VendorBanner businessName="John's Flower Shop" />
