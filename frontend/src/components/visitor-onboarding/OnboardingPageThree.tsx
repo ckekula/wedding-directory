@@ -98,7 +98,7 @@ const OnboardingPageThree = () => {
           {/* Input Fields */}
           <div className="mb-6">
             <div className="mb-4">
-              <label className="block font-light mb-2">Where is your home town? (For better recomendations)</label>
+              <label className="block font-light mb-2">Where is your hometown? (For better recomendations)</label>
               <CityInput onCityChange={setWeddingVenue}/>
             </div>
             <div className="flex items-center">
