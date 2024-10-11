@@ -74,33 +74,7 @@ const VendorSearch = () => {
 
       <FilterSearchBar />
 
-      {/* <div className='flex flex-row h-12 justify-center align-middle'>
-                <div className="border-black border-2 rounded-lg w-44 border-solid bg-white ">
-                    <CityInput onCityChange={handleCityChange} />
-                </div>
-
-                <div className="border-black border-2 -ml-2 w-44 border-solid bg-white z-10">
-                    <CategoryInput onCategoryChange={handleCategoryChange} />
-                </div>
-                <div className="hover:cursor-pointer bg-orange w-14 h-12 -ml-2 rounded-lg text-2xl text-white flex items-center justify-center">
-                    <IoIosSearch onClick={handleSearch} />
-                </div>
-            </div> */}
-
-     {/*  <div className="flex justify-center mb-8">
-        <div className="flex border-2  border-black rounded-lg overflow-hidden">
-          <CityInput onCityChange={handleCityChange}  />
-          <CategoryInput onCategoryChange={handleCategoryChange} />
-          <div className="flex items-center justify-center bg-orange w-14 h-12 text-white text-2xl">
-            <IoIosSearch onClick={handleSearch} />
-          </div>
-        </div>
-
-      </div> */}
-
-
-
-      <hr className="w-full h-px my-4 bg-slate-900 border-2  container"/>
+      <hr className="w-full h-px my-4 bg-slate-900 border-2  container" />
 
       <div className="flex flex-row mx-16 px-10">
         <div className="relative w-full m-3 md:w-3/4 h-full md:h-auto rounded-2xl overflow-hidden">
