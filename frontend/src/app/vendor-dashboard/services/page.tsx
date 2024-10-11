@@ -16,7 +16,7 @@ const Services = () => {
   const renderSection = () => {
     switch (activeSection) {
       case "publicProfile":
-        return <EditPublicProfile />;
+        return <EditPublicProfile isServiceVisible={true} />;
       case "socialContact":
         return <EditSocialContact />;
       case "portfolio":
@@ -24,7 +24,7 @@ const Services = () => {
       case "serviceSettings":
         return <EditServiceSettings />;
       default:
-        return <EditPublicProfile />;
+        return <EditPublicProfile isServiceVisible={true} />;
     }
   };
 

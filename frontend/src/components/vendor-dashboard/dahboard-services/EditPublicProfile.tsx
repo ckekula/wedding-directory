@@ -3,6 +3,7 @@ import React, { Fragment, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import BusinessCategory from "@/components/vendor-signup/CategoryInput";
+import { Switch } from "@/components/ui/switch";
 
 interface PublicProfileData {
   businessCategory: string;
@@ -14,7 +15,13 @@ interface PublicProfileData {
   businessDescription: string;
 }
 
-const EditPublicProfile: React.FC = () => {
+interface EditPublicProfileProps {
+  isServiceVisible: boolean; // Prop for service visibility
+}
+
+const EditPublicProfile: React.FC<EditPublicProfileProps> = ({
+  isServiceVisible,
+}) => {
   // Form state with demo data
   const [publicProfile, setPublicProfile] = useState<PublicProfileData>({
     businessCategory: "Florist",
@@ -25,6 +32,8 @@ const EditPublicProfile: React.FC = () => {
     expensiveness: "$$$",
     businessDescription: "we don't have a description yet",
   });
+
+  const [serviceVisibility, setServiceVisibility] = useState(isServiceVisible);
 
   // Handle input changes
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -48,6 +57,11 @@ const EditPublicProfile: React.FC = () => {
     e.preventDefault();
     alert("Profile saved successfully!");
     console.log(publicProfile); // This will log the updated profile in the browser console for now
+  };
+
+  // Handle service visibility toggle
+  const handleVisibilityToggle = () => {
+    setServiceVisibility(!serviceVisibility);
   };
 
   return (
@@ -109,7 +123,9 @@ const EditPublicProfile: React.FC = () => {
             />
           </div>
           <div>
-            <label className="font-body text-[16px]">Business Description</label>
+            <label className="font-body text-[16px]">
+              Business Description
+            </label>
             <Input
               name="businessDescription"
               value={publicProfile.businessDescription}
@@ -118,6 +134,12 @@ const EditPublicProfile: React.FC = () => {
             />
           </div>
         </form>
+
+        {/* Service Visibility Toggle */}
+        <div className="flex items-center mb-8">
+          <label className="font-body text-[16px] mr-4">Service Visibility</label>
+          <Switch checked={serviceVisibility} onCheckedChange={handleVisibilityToggle} />
+        </div>
       </div>
 
       <div className="bg-white rounded-2xl p-4 px-8 shadow-lg my-8 justify-center flex">

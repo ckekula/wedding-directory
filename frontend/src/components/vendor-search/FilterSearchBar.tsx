@@ -26,7 +26,7 @@ const FilterSearchBar: React.FC<FilterSearchBarProps> = ({ handleSearch }) => {
   };
 
   return (
-    <div className="flex items-center justify-center py-10">
+    <div className="flex items-center justify-center py-4">
       <div className="flex items-center bg-white shadow-lg rounded-full w-[650px] h-[70px] px-4 space-x-4">
         {/* Category Input */}
         <div className="relative flex-1">
