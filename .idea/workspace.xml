@@ -5,11 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fe9e803b-a74e-4952-bf96-9a931fe40db4" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/visitor-onboarding/OnboardingPageOne.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/visitor-onboarding/OnboardingPageThree.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/visitor-onboarding/OnboardingPageTwo.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/graphql/inputs/update-visitor.input.pageone.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/graphql/inputs/update-visitor.input.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/graphql/resolvers/visitor.resolver.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/graphql/resolvers/visitor.resolver.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/graphql/schema.gql" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/graphql/schema.gql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/sign-up/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/sign-up/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/vendor-dashboard/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/vendor-dashboard/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/modules/visitor/visitor.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/modules/visitor/visitor.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/api/graphql/mutations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/api/graphql/mutations.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/(onboarding)/pageone/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/(onboarding)/pageone/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/(onboarding)/pagethree/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/(onboarding)/pagethree/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/(onboarding)/pagetwo/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/(onboarding)/pagetwo/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/shared/VisitorSignup.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/shared/VisitorSignup.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,17 +45,14 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "com.codeium.enabled": "true",
-    "git-widget-placeholder": "bugfix/janitha-vendorSignUp",
+    "git-widget-placeholder": "feature/janitha-visitor-onboarding",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "D:/Web Development/My Projects/UniExchange",
     "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.standard": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.standard": "",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "preferences.pluginManager",

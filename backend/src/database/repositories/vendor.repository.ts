@@ -1,6 +1,6 @@
 import { DataSource } from 'typeorm';
 import { VendorEntity } from '../entities/vendor.entity';
-import { VendorRepositoryType } from 'src/graphql/types/packageTypes';
+import { VendorRepositoryType } from 'src/graphql/types/vendorTypes';
 
 
 // Use the DataSource to get the base repository and extend it
