@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { loginVendor as loginVendorAPI } from "@/api/auth/vendor.auth.api"; // Import the loginVendor function
 import { useVendorAuth } from "@/contexts/VendorAuthContext"; // Use VendorAuthContext for authentication
+import { toast } from 'react-hot-toast';
 
 const VendorLoginPage = () => {
     const [email, setEmail] = useState("");
@@ -38,11 +39,13 @@ const VendorLoginPage = () => {
                 // Redirect to profile page after successful login
                 router.push('/vendor-dashboard');
             } else {
-                alert('Login failed. Please try again.');
+                toast.error('Login failed. Please try again.', {style: {background: '#333',color: '#fff',},});
+                //alert('Login failed. Please try again.');
             }
         } catch (err) {
             console.log(err)
-            alert("Invalid email or password. Please try again.");
+            toast.error('Invalid email or password. Please try again.', {style: {background: '#333',color: '#fff',},});
+            //alert("Invalid email or password. Please try again.");
         }
     };
 

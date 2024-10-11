@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import VisitorLogin from "./VisitorLogin";
 import { useAuth } from "@/contexts/VisitorAuthContext";  // Import the login method from the context
 import { loginVisitor as loginApi } from '@/api/auth/visitor.auth.api';   // Import the login API call
+import { toast } from 'react-hot-toast';
 
 interface VisitorSignupProps {
     isVisible: boolean;
@@ -63,6 +64,7 @@ const VisitorSignup: React.FC<VisitorSignupProps> = ({ isVisible, onClose }) => 
             });
 
             if (response.data) {
+                toast.success('Visitor Registered!', {style: {background: '#333',color: '#fff',},});
                 console.log('Visitor created successfully:', response.data.createVisitor);
 
                 // After successful signup, login using the provided email and password
@@ -88,6 +90,7 @@ const VisitorSignup: React.FC<VisitorSignupProps> = ({ isVisible, onClose }) => 
             }
 
         } catch (err) {
+            toast.error('Registration Failed!', {style: {background: '#333',color: '#fff',},});
             console.error('Signup or login failed:', err);
             setError('Failed to sign up. Please try again.');
         }
