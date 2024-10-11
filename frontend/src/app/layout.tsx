@@ -5,6 +5,7 @@ import { montserrat, merriweather, montez } from "@/assets/fonts/fonts";
 import "./globals.css";
 import PageTransition from "@/components/PageTransition";
 import { VendorAuthProvider } from '@/contexts/VendorAuthContext';
+import { Toaster } from 'react-hot-toast';
 
 export const metadata: Metadata = {
   title: "Say I Do",
@@ -30,6 +31,7 @@ export default function RootLayout({
           <VendorAuthProvider>
             <PageTransition>
               {children}
+              <Toaster reverseOrder={false} />
             </PageTransition>
 
           </VendorAuthProvider>

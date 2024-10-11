@@ -8,15 +8,25 @@ import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { CREATE_VENDOR } from "@/api/graphql/mutations";
 import CityInput from "@/components/vendor-signup/CityInput";
 import LocationInput from "@/components/vendor-signup/LocationInput";
 import { useRouter } from "next/navigation";
+import FirstNameInput from "@/components/vendor-signup/FirstNameInput";
+import LastNameInput from "@/components/vendor-signup/LastNameInput";
+import BusinessNameInput from "@/components/vendor-signup/BusinessNameInput";
+import PhoneInput from "@/components/vendor-signup/PhoneInput";
+import EmailInput from "@/components/vendor-signup/EmailInput";
+import PasswordInput from "@/components/vendor-signup/PasswordInput";
+import RePassword from "@/components/vendor-signup/RePassword";
+import { toast } from 'react-hot-toast';
+import { useVendorAuth } from '@/contexts/VendorAuthContext';
+import { loginVendor as loginApi } from '@/api/auth/vendor.auth.api';
 
 const Signup = () => {
-
   const router = useRouter();
+  const { login } = useVendorAuth();
 
   const [formData, setFormData] = useState({
     email: '',
@@ -30,8 +40,9 @@ const Signup = () => {
     location: ''
   });
 
-  const [createVendor, { loading, error }] = useMutation(CREATE_VENDOR);
+  const [createVendor, { loading }] = useMutation(CREATE_VENDOR);
 
+  // Handle input change
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData({
@@ -48,16 +59,15 @@ const Signup = () => {
     setFormData({ ...formData, city });
   };
 
-  const goToVendorLogin: () => React.MouseEventHandler<HTMLButtonElement> = () => {
-    return (event: React.MouseEvent<HTMLButtonElement>) => {
-      router.push('/login');
-    };
+  // Go to vendor login page
+  const goToVendorLogin = () => {
+    router.push('/login');
   };
 
+  // Register vendor
   const onRegister = async () => {
-
     try {
-      await createVendor({
+      const response = await createVendor({
         variables: {
           input: {
             email: formData.email,
@@ -71,18 +81,41 @@ const Signup = () => {
           },
         },
       });
-      alert("Vendor created successfully!");
-      router.push('/vendor-dashboard')
+
+      if (response.data) {
+        toast.success('Vendor created successfully!', {
+          style: { background: '#333', color: '#fff' },
+        });
+
+        // Login with the created email and password
+        await loginApi(formData.email, formData.password);
+
+        // Check for token in cookies
+        const storedToken = document.cookie
+          .split('; ')
+          .find(row => row.startsWith('access_tokenVendor='));
+
+        if (storedToken) {
+          const token = storedToken.split('=')[1];
+          login(token);  // Set vendor in context state
+          router.push('/vendor-dashboard');
+        } else {
+          toast.error('Login failed. Token not found in cookies', {
+            style: { background: '#333', color: '#fff' },
+          });
+        }
+      }
     } catch (err) {
       console.error("Error creating vendor:", err);
-      alert("Error creating vendor");
+      toast.error('Unsuccessful registration', {
+        style: { background: '#333', color: '#fff' },
+      });
     }
   };
 
   return (
     <div>
       <Header />
-
       <div className="relative z-10 w-full h-[1000px] md:h-[800px]">
         <Image
           src="/login-signup.jpg"
@@ -97,100 +130,22 @@ const Signup = () => {
             <div className='bg-white bg-opacity-70 mt-6 w-[350px] md:w-[600px] border-solid border-black border-2 border-opacity-60 rounded-md p-8' >
               <h1 className='text-text mx-[30px] md:mx-[90px] text-2xl font-bold text-center font-title'>Connect with couples to make their dream wedding come true!</h1>
               <form>
-
                 <div className="mt-6 grid grid-cols-1 md:grid-cols-2 w-full items-center gap-x-12 gap-y-5">
-                  <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
-                    <Input 
-                      className="h-8" 
-                      id="fname"
-                      placeholder="First Name"
-                      type="text"
-                      name="fname"
-                      value={formData.fname}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                  <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
-                    <Input 
-                      className="h-8" 
-                      id="lname" 
-                      placeholder="Last Name" 
-                      type="text"
-                      name="lname"
-                      value={formData.lname}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                  <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
-                    <Input 
-                      className="h-8" 
-                      id="busname" 
-                      placeholder="Business Name"
-                      type="text"
-                      name="busname"
-                      value={formData.busname}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                  <CityInput onCityChange={handleCityChange}/>
-                  
-                  {/* LocationInput should span across both columns */}
+                  <FirstNameInput value={formData.fname} onChange={handleChange} />
+                  <LastNameInput value={formData.lname} onChange={handleChange} />
+                  <BusinessNameInput value={formData.busname} onChange={handleChange} />
+                  <CityInput onCityChange={handleCityChange} />
+
                   <div className="md:col-span-2">
                     <LocationInput onLocationChange={handleLocationChange} />
                   </div>
-                  
-                  <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
-                    <Input
-                      className="h-8"
-                      id="phone"
-                      placeholder="Phone"
-                      type="text"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                  <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
-                    <Input
-                      className="h-8"
-                      type="email"
-                      id="email"
-                      placeholder="Email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                  <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
-                    <Input
-                      className="h-8"
-                      type="password"
-                      id="password"
-                      placeholder="Password"
-                      name="password"
-                      value={formData.password}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                  <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5">
-                    <Input
-                      className="h-8"
-                      type="password"
-                      id="rpassword"
-                      placeholder="Retype Password"
-                      name="rpassword"
-                      value={formData.rpassword}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
+
+                  <PhoneInput value={formData.phone} onChange={handleChange} />
+                  <EmailInput value={formData.email} onChange={handleChange} />
+                  <PasswordInput value={formData.password} onChange={handleChange} />
+                  <RePassword value={formData.rpassword} onChange={handleChange} />
                 </div>
+
                 <div className="mt-6 flex space-x-2">
                   <Checkbox id="terms" />
                   <label
@@ -207,7 +162,8 @@ const Signup = () => {
                     of Say I Do.
                   </label>
                 </div>
-                <div className=" border-black rounded-md border-2 mt-6 flex flex-col w-full border-solid  bg-primary ">
+
+                <div className="border-black rounded-md border-2 mt-6 flex flex-col w-full border-solid  bg-primary">
                   <Button
                     onClick={onRegister}
                     className="rounded-none text-black font-bold hover:bg-primary bg-primary text-xl"
@@ -217,9 +173,10 @@ const Signup = () => {
                   </Button>
                 </div>
               </form>
+
               <div className="mt-2">
                 Already have an account?<span> </span>
-                <button onClick={goToVendorLogin()}>
+                <button onClick={goToVendorLogin}>
                   <div className="text-decoration-line: underline hover:text-orange">Login</div>
                 </button>
               </div>

@@ -19,6 +19,7 @@ const OnboardingPageThree = () => {
   const { visitor } = useAuth(); // Get visitor from the auth context
 
   const [weddingVenue, setWeddingVenue] = useState('');
+  const [contactno, setContactno] = useState('');
   const [isStillDeciding, setIsStillDeciding] = useState(false);
 
   const [updateVisitor] = useMutation(UPDATE_VISITOR);
@@ -105,11 +106,21 @@ const OnboardingPageThree = () => {
             <div className="flex items-center">
               <input
                 type="checkbox"
-                className="border-gray-400 border-2 mr-2 mt-1 rounded-md"
+                className="border-gray-400 border-2 mr-2 mt-0 rounded-md"
                 checked={isStillDeciding}
                 onChange={(e) => setIsStillDeciding(e.target.checked)}
               />
               <label className="font-light mt-1">We&apos;re still deciding</label>
+            </div>
+            <div className="mb-6">
+              <label className="block font-light mt-3 mb-2">Contact Number</label>
+              <Input
+                className="h-10 w-full rounded-xl border-2 border-gray-300"
+                type="text"
+                value={contactno}
+                onChange={(e) => setContactno(e.target.value)}  // Update state
+                placeholder="Contact Number"
+              />
             </div>
           </div>
 

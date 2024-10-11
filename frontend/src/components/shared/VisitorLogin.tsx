@@ -7,6 +7,7 @@ import VisitorSignup from "./VisitorSignup";
 import { useRouter } from 'next/navigation';
 import { loginVisitor as loginApi } from '@/api/auth/visitor.auth.api';
 import { useAuth } from "@/contexts/VisitorAuthContext";
+import { toast } from 'react-hot-toast';
 
 interface VisitorLoginProps {
   isVisible: boolean;
@@ -54,6 +55,7 @@ const VisitorLogin: React.FC<VisitorLoginProps> = ({ isVisible, onClose }) => {
       }
     } catch (err: any) {
       setError('Login failed. Please check your credentials.');
+      toast.error('Login Failed', {style: {background: '#333',color: '#fff',},});
       console.error('Login failed:', err);
     }
   };
