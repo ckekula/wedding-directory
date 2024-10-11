@@ -8,8 +8,7 @@ export class CreatePackageInput {
 
     @Field()
     name: string;
-    
+
     @Field()
     category: string;
-
 }

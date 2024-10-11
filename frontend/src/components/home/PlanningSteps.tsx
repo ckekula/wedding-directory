@@ -3,41 +3,44 @@ import Image from "next/image";
 import Link from "next/link";
 import leftImage from "../../assets/images/bridaldressing.jpg";
 import { Button } from "../ui/button";
+
+const cards = [
+  {
+    id: 1,
+    tagLine: "sample tag line",
+    title: "Your Vendors",
+    description:
+      "We'll help you find the perfect vendors for your wedding, tailored to your specific needs!",
+    buttonText: "Get Started",
+    image: "/venue.jpg",
+  },
+  {
+    id: 2,
+    tagLine: "sample tag line",
+    title: "Your Budget",
+    description:
+      "Setup your budget and manage your finances with our easy-to-use budgeting tool!",
+    buttonText: "Get Started",
+    image: "/cakes.jpg",
+  },
+  {
+    id: 3,
+    tagLine: "sample tag line",
+    title: "Your Checklist",
+    description:
+      "We'll walk you through every part of planning, so you can plan your big day in no time!",
+    buttonText: "Get Started",
+    image: "/florists.jpg",
+  },
+];
+
 const PlanningSteps = () => {
-  const cards = [
-    {
-      id: 1,
-      tagLine: "sample tag line",
-      title: "Your Vendors",
-      description:
-        "sample text sample text sample text sample text sample text sample text sample text sample text sample text sample text",
-      buttonText: "Get Started",
-      image: "/venue.jpg",
-    },
-    {
-      id: 2,
-      tagLine: "sample tag line",
-      title: "Your Budget",
-      description:
-        "sample text sample text sample text sample text sample text sample text sample text sample text sample text sample text",
-      buttonText: "Get Started",
-      image: "/cakes.jpg",
-    },
-    {
-      id: 3,
-      tagLine: "sample tag line",
-      title: "Your Checklist",
-      description:
-        "sample text sample text sample text sample text sample text sample text sample text sample text sample text sample text",
-      buttonText: "Get Started",
-      image: "/florists.jpg",
-    },
-  ];
+
   return (
     <section className="flex justify-center py-16 bg-white">
       <div className="container mx-auto flex flex-col items-center">
         <h2 className="text-5xl font-bold font-title mb-8 text-center">
-          Wedding planning has never been easy
+          Wedding planning has never been easier
         </h2>
         <div className="flex flex-wrap">
           <div className="w-full md:w-1/2 lg:w-2/5 p-4">

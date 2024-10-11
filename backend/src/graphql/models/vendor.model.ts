@@ -34,6 +34,9 @@ export class VendorModel {
   profile_pic_url: string;
 
   @Field()
+  profile_pic_url: string;
+
+  @Field()
   createdAt: Date;
 
   @Field()

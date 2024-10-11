@@ -1,56 +1,62 @@
+'use client';
 import React from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+
+const photos = [
+  {
+    id: 1,
+    src: "/photography.jpg",
+    alt: "Photographers",
+    label: "Browse galleries to find your look",
+  },
+  {
+    id: 2,
+    src: "/cakes.jpg",
+    alt: "Wedding Cakes",
+    label: "Discover the perfect cake for your big day",
+  },
+  {
+    id: 3,
+    src: "/invitation.jpg",
+    alt: "Invitations",
+    label: "Explore elegant invitation designs",
+  },
+  {
+    id: 4,
+    src: "/preshoot.jpg",
+    alt: "Pre-wedding Shoots",
+    label: "Capture memories with a pre-wedding shoot",
+  },
+  {
+    id: 5,
+    src: "/tablesetting.jpg",
+    alt: "Table Settings",
+    label: "Find inspiration for your wedding table settings",
+  },
+  {
+    id: 6,
+    src: "/transportation.jpg",
+    alt: "Transportation",
+    label: "Arrange stylish transportation for your wedding",
+  },
+  {
+    id: 7,
+    src: "/Dj.jpg",
+    alt: "Wedding DJ",
+    label: "Find the perfect DJ to keep the party going",
+  },
+  {
+    id: 8,
+    src: "/bride.jpg",
+    alt: "Bridal Looks",
+    label: "Get inspired by stunning bridal looks",
+  },
+];
+
 const MasonaryGrid = () => {
-  const photos = [
-    {
-      id: 1,
-      src: "/photography.jpg",
-      alt: "Photographers",
-      label: "Browse galleries to find your look",
-    },
-    {
-      id: 2,
-      src: "/cakes.jpg",
-      alt: "Wedding Cakes",
-      label: "Discover the perfect cake for your big day",
-    },
-    {
-      id: 3,
-      src: "/invitation.jpg",
-      alt: "Invitations",
-      label: "Explore elegant invitation designs",
-    },
-    {
-      id: 4,
-      src: "/preshoot.jpg",
-      alt: "Pre-wedding Shoots",
-      label: "Capture memories with a pre-wedding shoot",
-    },
-    {
-      id: 5,
-      src: "/tablesetting.jpg",
-      alt: "Table Settings",
-      label: "Find inspiration for your wedding table settings",
-    },
-    {
-      id: 6,
-      src: "/transportation.jpg",
-      alt: "Transportation",
-      label: "Arrange stylish transportation for your wedding",
-    },
-    {
-      id: 7,
-      src: "/Dj.jpg",
-      alt: "Wedding DJ",
-      label: "Find the perfect DJ to keep the party going",
-    },
-    {
-      id: 8,
-      src: "/bride.jpg",
-      alt: "Bridal Looks",
-      label: "Get inspired by stunning bridal looks",
-    },
-  ];
+
+  const router = useRouter();
 
   return (
     <div>
@@ -67,6 +73,8 @@ const MasonaryGrid = () => {
               <div
                 key={photo.id}
                 className="relative group overflow-hidden rounded-lg break-inside-avoid"
+                onClick={() => router.push('/vendor-search')}
+
               >
                 <Image
                   src={photo.src}
