@@ -7,11 +7,13 @@ import ToDo from "@/components/vendor-dashboard/ToDo";
 
 const VendorDashBoard = () => {
   return (
-    <div className="">
+    <div>
       <Header />
-      <div className="bg-lightYellow min-h-screen">
-        <div className="container mx-auto px-4 "> 
-          <h1 className="font-title text-[36px] text-black text-center my-10 pt-10">Welcome</h1>
+      <div className="bg-lightYellow">
+        <div className="container mx-auto px-4 ">
+          {/* Adjusted the top margin and padding of the h1 */}
+          <h1 className="font-title text-[36px] text-black text-center my-4 pt-0">Welcome</h1>
+
           {/* Vendor Banner */}
           <VendorBanner businessName="John's Flower Shop" />
 
@@ -37,9 +39,9 @@ const VendorDashBoard = () => {
           </div>
 
           {/* Quick Actions and To Do's */}
-          <div className="flex justify-between py-12 gap-10"> {/* Adjusted spacing and alignment */}
-            <QuickActions  />  {/* Giving each section half the width */}
-            <ToDo  />  {/* Ensuring equal width for better alignment */}
+          <div className="flex justify-between py-12 gap-10">
+            <QuickActions />
+            <ToDo />
           </div>
         </div>
       </div>
