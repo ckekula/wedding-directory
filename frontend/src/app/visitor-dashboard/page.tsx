@@ -31,7 +31,7 @@ const GET_VISITOR_BY_ID = gql`
 `;
 
 const VisitorDashboard = () => {
-  const [isSideBarCollapsed, setIsSideBarCollapsed] = useState(false);
+  const [isSideBarCollapsed, setIsSideBarCollapsed] = useState(true);
   const { visitor } = useAuth();
   const [profilePic, setProfilePic] = useState<string | StaticImageData>(profilePicPlaceholder);
 
