@@ -20,6 +20,27 @@ export const PackageRepository = (dataSource: DataSource): PackageRepositoryType
       return this.save(_package);
     },
 
+    async updatePackage(
+      id: string,
+      updatePackageInput: Partial<PackageEntity>,
+      mediaUrls: string[],
+    ): Promise<PackageEntity> {
+      const _package = await this.findOne({ where: { id } });
+      if (!_package) {
+        throw new Error('Package not found');
+      }
+      return this.save({
+        ..._package,
+        ...updatePackageInput,
+        media: mediaUrls,
+      });
+    },
+
+    async deletePackage(id: string): Promise<boolean> {
+      const result = await this.delete({ id });
+      return result.affected > 0;
+    },
+
     async findPackagesByFilters(category?: string, city?: string): Promise<PackageEntity[]> {
       const query = this.createQueryBuilder('package')
         .leftJoinAndSelect('package.vendor', 'vendor'); // Join with vendor

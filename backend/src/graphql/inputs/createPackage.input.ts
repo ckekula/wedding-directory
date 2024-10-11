@@ -10,35 +10,32 @@ export class CreatePackageInput {
     category: string;
 
     @Field()
-    bus_phone: string;
+    bus_phone?: string;
 
     @Field()
-    bus_email: string;
+    bus_email?: string;
 
     @Field()
-    about: string;
+    about?: string;
 
     @Field()
-    banner: string;
+    experience?: string;
 
     @Field()
-    experience: string;
+    start_price?: string;
 
     @Field()
-    start_price: string;
+    website?: string;
 
     @Field()
-    website : string;
+    instagram?: string;
 
     @Field()
-    instagram: string;
+    facebook?: string;
 
     @Field()
-    facebook: string;
+    x?: string;
 
     @Field()
-    x: string;
-
-    @Field()
-    tiktok: string;
+    tiktok?: string;
 }
