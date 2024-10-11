@@ -2,8 +2,9 @@ import { Resolver, Args, Mutation } from '@nestjs/graphql';
 import { PackageService } from 'src/modules/package/package.service';
 import { PackageModel } from '../models/package.model';
 import { PackageEntity } from 'src/database/entities/package.entity';
-import { CreatePackageInput } from '../inputs/createPackage';
+import { CreatePackageInput } from '../inputs/createPackage.input';
 import { Query } from '@nestjs/graphql';
+import { PackageFilterInput } from '../inputs/packageFilter.input';
 
 @Resolver()
 export class PackageResolver {
@@ -20,9 +21,9 @@ export class PackageResolver {
   }
  
   @Query(() => [PackageModel])
-  async getVendorPackages(
-    @Args('vendorId', { type: () => String }) vendorId: string
+  async findPackages(
+    @Args('filter', { nullable: true }) filter?: PackageFilterInput
   ): Promise<PackageEntity[]> {
-    return this.packageService.getPackagesByVendorId(vendorId);
+    return this.packageService.findPackagesByFilters(filter || {});
   }
 }

@@ -54,7 +54,12 @@ type VisitorModel {
   engaged_date: String
   wed_date: String
   wed_venue: String
+
   profile_pic_url: String
+
+  phone: String
+  city: String
+
   createdAt: DateTime!
   updatedAt: DateTime!
 }
@@ -62,16 +67,15 @@ type VisitorModel {
 type Query {
   findVendorById(id: String!): VendorModel!
   findAllVendors: [VendorModel!]!
-  findVendorsWithFilters(filters: VendorFilterInput!): [VendorModel!]!
   autocompleteLocation(input: String!): [String!]!
   findAllVisitors: [VisitorModel!]!
   findVisitorById(id: String!): VisitorModel
-  getVendorPackages(vendorId: String!): [PackageModel!]!
+  findPackages(filter: PackageFilterInput): [PackageModel!]!
 }
 
-input VendorFilterInput {
-  city: String
+input PackageFilterInput {
   category: String
+  city: String
 }
 
 type Mutation {
@@ -100,10 +104,15 @@ input CreateVisitorInput {
   visitor_lname: String
   partner_fname: String
   partner_lname: String
-  engaged_date: DateTime
-  wed_date: DateTime
+  engaged_date: String
+  wed_date: String
   wed_venue: String
+
   profile_pic_url: String
+
+  phone: String
+  city: String
+
 }
 
 input UpdateVisitorInput {
@@ -116,7 +125,12 @@ input UpdateVisitorInput {
   engaged_date: String
   wed_date: String
   wed_venue: String
+
   profile_pic_url: String
+
+  phone: String
+  city: String
+
 }
 
 input CreatePackageInput {

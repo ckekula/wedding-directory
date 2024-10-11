@@ -2,8 +2,7 @@ import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { VendorModel } from "../models/vendor.model";
 import { VendorEntity } from "src/database/entities/vendor.entity";
 import { VendorService } from "src/modules/vendor/vendor.service";
-import { VendorFilterInput } from "../inputs/vendorFilter";
-import { CreateVendorInput } from "../inputs/createVendor";
+import { CreateVendorInput } from "../inputs/createVendor.input";
 
 @Resolver(() => VendorModel)
 export class VendorResolver {
@@ -19,11 +18,6 @@ export class VendorResolver {
   @Query(() => [VendorModel])
   async findAllVendors(): Promise<VendorEntity[]> {
     return this.vendorService.findAllVendors();
-  }
-
-  @Query(() => [VendorModel])
-  async findVendorsWithFilters(@Args('filters') filters: VendorFilterInput): Promise<VendorEntity[]> {
-    return this.vendorService.findVendorsWithFilters(filters);
   }
 
   @Query(() => [String])

@@ -1,8 +1,8 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { VisitorService } from 'src/modules/visitor/visitor.service';
 import { VisitorModel } from '../models/visitor.model';
-import { CreateVisitorInput } from '../inputs/create-visitor.input';
-import { UpdateVisitorInput} from '../inputs/update-visitor.input';
+import { CreateVisitorInput } from '../inputs/createVisitor.input';
+import { UpdateVisitorInput} from '../inputs/updateVisitor.input';
 import { VisitorEntity } from 'src/database/entities/visitor.entity';
 
 @Resolver(() => VisitorModel)

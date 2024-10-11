@@ -21,14 +21,21 @@ export class CreateVisitorInput {
   partner_lname?: string;
 
   @Field({ nullable: true })
-  engaged_date?: Date;
+  engaged_date?: string;
 
   @Field({ nullable: true })
-  wed_date?: Date;
+  wed_date?: string;
 
   @Field({ nullable: true })
   wed_venue?: string;
 
   @Field({ nullable: true })
   profile_pic_url?: string;
+
+  @Field({ nullable: true })
+  phone?: string;
+
+  @Field({ nullable: true })
+  city?: string;
+
 }

@@ -1,11 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { VendorEntity } from 'src/database/entities/vendor.entity';
-import { VendorFilterInput } from 'src/graphql/inputs/vendorFilter';
 import { DataSource } from 'typeorm';
-import { VendorRepositoryType, VendorRepository } from 'src/database/repositories/vendor.repository';
-import { CreateVendorInput } from 'src/graphql/inputs/createVendor';
+import { VendorRepository } from 'src/database/repositories/vendor.repository';
+import { CreateVendorInput } from 'src/graphql/inputs/createVendor.input';
 import * as bcrypt from 'bcryptjs';
 import { HttpService } from '@nestjs/axios';
+import { firstValueFrom } from 'rxjs';
+import { VendorRepositoryType } from 'src/graphql/types/packageTypes';
+
 
 @Injectable()
 export class VendorService {
@@ -22,12 +24,8 @@ export class VendorService {
     const apiKey = process.env.GOOGLE_MAPS_API_KEY;
     const url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${input}&key=${apiKey}`;
 
-    const response = await this.httpService.get(url).toPromise();
+    const response = await firstValueFrom(this.httpService.get(url));
     return response.data;
-  }
-
-  async findVendorsWithFilters(filters: VendorFilterInput): Promise<VendorEntity[]> {
-    return this.vendorRepository.findVendorsWithFilters(filters);
   }
 
   async findAllVendors(): Promise<VendorEntity[]> {

@@ -1,7 +1,18 @@
-// next.config.mjs
-export default {
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
     images: {
-      domains: ['multi-vendor-wedding-directory.s3.ap-south-1.amazonaws.com'], // Add your S3 bucket domain here
+        remotePatterns: [
+            {
+              protocol: 'https',
+              hostname: 'multi-vendor-wedding-directory.s3.ap-south-1.amazonaws.com',
+              port: '',
+              pathname: '/**', // all paths under this hostname are allowed
+            },
+        ],
     },
-  };
+};
+  
+export default nextConfig;
+
   
