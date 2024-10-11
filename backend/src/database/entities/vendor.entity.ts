@@ -40,10 +40,12 @@ export class VendorEntity {
   @Column({ type: 'varchar', length: 50, nullable: true })
   profile_pic_url: string;
 
+
   @CreateDateColumn({ name: 'created_at', type: 'timestamp', nullable: false })
   createdAt: Date;
 
   @UpdateDateColumn({ name: 'updated_at', type: 'timestamp', nullable: false })
+
   updatedAt: Date;
 
   @OneToMany(() => PackageEntity, (p) => p.vendor, {

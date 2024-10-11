@@ -31,7 +31,10 @@ export class VendorModel {
   phone: string;
 
   @Field({ nullable: true })
+
   profile_pic_url: string;
+
+ 
 
   @Field()
   createdAt: Date;
