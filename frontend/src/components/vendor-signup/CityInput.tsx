@@ -46,7 +46,7 @@ const CityInput: React.FC<CityProps> = ({ onCityChange }) => {
   };
 
   return (
-    <div className="border-black border-2 rounded-lg w-full border-solid bg-white">
+    <div className="border-black border-solid border-2 rounded-lg flex flex-row space-y-1.5 bg-white">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button className="flex flex-row justify-start text-left w-full space-y-1.5 text-black hover:bg-white bg-white h-8">

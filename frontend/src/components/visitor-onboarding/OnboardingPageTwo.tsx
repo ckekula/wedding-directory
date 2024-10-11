@@ -120,6 +120,7 @@ const OnboardingPageTwo = () => {
                 className="h-10 w-full  rounded-xl border-2 border-gray-300 mt-2"
                 type="date"
                 value={weddingDate}
+                min={new Date().toISOString().split("T")[0]}
                 onChange={(e) => setWeddingDate(e.target.value)}
                 disabled={isStillDeciding} // disable if the checkbox is checked
               />
