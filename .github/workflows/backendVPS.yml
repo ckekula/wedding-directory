@@ -13,9 +13,6 @@ jobs:
       matrix:
         node-version: [20.18.0]
 
-    env:
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}  # Add any other environment variables you need
-
     steps:
       # Checkout the code from GitHub repository
       - uses: actions/checkout@v4
@@ -31,13 +28,15 @@ jobs:
         run:
           cd backend && npm ci
 
+      - name: Add Environmental Variables
+        run: |
+          touch .env
+          echo "${{ secrets.PROD_ENV_FILE }}" > .env
+
       # Build the backend (Nest.js) app
       - name: Build the backend
         run:
           cd backend && npm run build
 
-      - name: Start the backend
-        run:
-          cd backend && npm run start
 
 
