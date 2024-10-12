@@ -10,7 +10,7 @@ jobs:
     runs-on: self-hosted
     defaults:
      run:
-      working-directory: frontend
+      working-directory: './frontend'
 
     strategy:
       matrix:
@@ -26,20 +26,23 @@ jobs:
     - name: Setup Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
+          filters: |
+            frontend:
+              - 'frontend/**' 
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
 
     # Install dependencies in the frontend folder
     - name: Install dependencies
       run: npm ci
-      working-directory: ./frontend
+      working-directory: './frontend'
 
     # Build the frontend
     - name: Build the frontend
       run: npm run build --if-present
-      working-directory: ./frontend
+      working-directory: './frontend'
 
     # Restart the application using PM2
     - name: Restart the application
       run: pm2 restart 0
-      working-directory: ./frontend
+      working-directory: './frontend'
