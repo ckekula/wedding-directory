@@ -18,12 +18,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    # Change directory to frontend
-    - name: Change Directory to Frontend
-      working-directory: ./frontend
-      run: pwd
-
-    # Set up Node.js with the desired version
+    # Set up Node.js
     - name: Setup Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
