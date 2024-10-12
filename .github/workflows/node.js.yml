@@ -19,18 +19,28 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    # Set the correct working directory to frontend
-    - name: Change to Frontend Directory
+    # Change directory to frontend before using Node.js setup
+    - name: Change Directory to Frontend
       run: cd /home/janitha/actions-runner/_work/wedding-directory/wedding-directory/frontend
 
+    # Use Node.js version in the correct directory
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
 
-    - run: npm ci
-    - run: npm run build --if-present
-    - name: Change Directory
-      run: cd /home/janitha/actions-runner/_work/wedding-directory/wedding-directory/frontend
-    - run: pm2 restart 0
+    # Install dependencies
+    - name: Install dependencies
+      run: npm ci
+      working-directory: /home/janitha/actions-runner/_work/wedding-directory/wedding-directory/frontend
+
+    # Build the frontend
+    - name: Build the frontend
+      run: npm run build --if-present
+      working-directory: /home/janitha/actions-runner/_work/wedding-directory/wedding-directory/frontend
+
+    # Restart the application using PM2
+    - name: Restart the application
+      run: pm2 restart 0
+      working-directory: /home/janitha/actions-runner/_work/wedding-directory/wedding-directory/frontend
