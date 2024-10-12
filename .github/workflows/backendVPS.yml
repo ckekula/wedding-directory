@@ -1,30 +1,21 @@
 name: Node.js CI Backend
-
 on:
   push:
     branches: [ "main" ]
-
 jobs:
   build:
     name: Build Backend
     runs-on: self-hosted
-
     strategy:
       matrix:
         node-version: [20.18.0]
 
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}  # Add any other environment variables you need
+
     steps:
       # Checkout the code from GitHub repository
       - uses: actions/checkout@v4
-
-      # Set up Node.js with the specified version
-      - name: Set up Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      # Install dependencies in the backend directory
-      - name: Install dependencies
         run:
           cd backend && npm ci
 
@@ -32,11 +23,9 @@ jobs:
         run: |
           touch .env
           echo "${{ secrets.PROD_ENV_FILE }}" > .env
-
       # Build the backend (Nest.js) app
       - name: Build the backend
         run:
           cd backend && npm run build
-
-
-
+      - run: 
+          cd backend && pm2 restart 1
