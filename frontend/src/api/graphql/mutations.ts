@@ -29,3 +29,16 @@ export const UPDATE_VISITOR = gql`
         }
     }
 `;
+
+export const CREATE_PACKAGE = gql`
+  mutation CreatePackage($input: CreatePackageInput!) {
+    createPackage(input: $input) {
+      id
+      name
+      category
+      vendor {
+        id
+      }
+    }
+  }
+`;

@@ -4,7 +4,6 @@
 
 type PackageModel {
   id: String!
-  vendor_id: String!
   name: String!
   category: String!
   bus_phone: String
@@ -85,7 +84,7 @@ type Mutation {
   createVisitor(createVisitorInput: CreateVisitorInput!): VisitorModel!
   removeVisitor(id: String!): Boolean!
   updateVisitor(id: String!, input: UpdateVisitorInput!): VisitorModel!
-  createPackage(input: CreatePackageInput!, mediaUrls: [String!]!): PackageModel!
+  createPackage(input: CreatePackageInput!): PackageModel!
   updatePackage(id: String!, input: UpdatePackageInput!, mediaUrls: [String!]!): PackageModel!
   deletePackage(id: String!): Boolean!
   updatePackageBanner(id: String!, fileUrl: String!): PackageModel!

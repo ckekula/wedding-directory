@@ -23,8 +23,7 @@ export class PackageService {
   }
 
   async createPackage(
-    createPackageInput: CreatePackageInput, 
-    mediaUrls: string[]
+    createPackageInput: CreatePackageInput
   ): Promise<PackageEntity> {
     const vendor = await this.vendorRepository.findOne(
       { where: { id: createPackageInput.vendor_id } }
@@ -33,7 +32,7 @@ export class PackageService {
     if (!vendor) {
       throw new Error('Vendor not found');
     }
-    return this.packageRepository.createPackage(createPackageInput, vendor, mediaUrls);
+    return this.packageRepository.createPackage(createPackageInput, vendor);
   }
 
   async updatePackage(

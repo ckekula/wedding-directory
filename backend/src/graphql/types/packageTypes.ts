@@ -6,7 +6,6 @@ export type PackageRepositoryType = Repository<PackageEntity> & {
     createPackage(
       createPackageInput: Partial<PackageEntity>,
       vendor: VendorEntity,
-      mediaUrls: string[],
     ): Promise<PackageEntity>;
 
     updatePackage(
