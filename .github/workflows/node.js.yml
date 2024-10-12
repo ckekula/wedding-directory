@@ -4,6 +4,9 @@ on:
   push:
     branches: [ "main" ]
 
+    # Change directory to frontend before using Node.js setup
+
+
 jobs:
   build:
 
@@ -29,6 +32,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+        working-directory: cd /home/janitha/actions-runner/_work/wedding-directory/wedding-directory/frontend
 
     # Install dependencies
     - name: Install dependencies
