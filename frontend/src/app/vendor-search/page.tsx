@@ -101,12 +101,16 @@ const VendorSearch = () => {
                 {data.findPackages.map((pkg: any) => (
                   <VendorResult
                     key={pkg.id}
+                    name={pkg.name}
                     vendor={pkg.vendor.busname}
                     city={pkg.vendor.city}
                     banner={"/photography.jpg"}
                     rating="⭐ 4.9 (154)" // customize the rating
                     price="$$-$$$" // customize the price
-                    about={pkg.about || "No description available"}
+                    description={pkg.about || "No description available"}
+                    showStats={true}
+                    buttonText="View Details"
+                    link={`/packages/${pkg.id}`}
                   />
                 ))}
               </div>
@@ -117,8 +121,8 @@ const VendorSearch = () => {
         </div>
 
         <div className="relative w-full m-3 md:w-1/4 h-full md:h-auto rounded-2xl bg-white overflow-hidden">
-          <p className="text-center mt-4 mb-6 font-bold">Other Vendors You might like</p>
-          <p className="mt">Nothing to show yet</p>
+          <p className="text-center my-6 font-bold">Other Vendors You might like</p>
+          <p className="mt text-center">Nothing to show yet</p>
           {/* <OtherVendor />
           <OtherVendor />
           <OtherVendor /> */}

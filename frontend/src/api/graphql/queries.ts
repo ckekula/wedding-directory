@@ -25,6 +25,7 @@ export const FIND_PACKAGES = gql`
   query FindPackages($filter: PackageFilterInput!) {
     findPackages(filter: $filter) {
       id
+      name
       vendor {
         id
         busname
