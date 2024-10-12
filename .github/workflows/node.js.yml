@@ -19,6 +19,10 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
+        # Navigate to the frontend directory before running npm commands
+    - name: Change Directory to Frontend
+      working-directory: /home/janitha/actions-runner/_work/wedding-directory/wedding-directory/frontend
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
