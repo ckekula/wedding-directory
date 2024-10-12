@@ -63,6 +63,7 @@ export const GET_VENDOR_BY_ID = gql`
       lname 
       location
       busname
+      phone
       city
       createdAt
     }

@@ -142,10 +142,10 @@ const Signup = () => {
                   <FirstNameInput value={formData.fname} onChange={handleChange} />
                   <LastNameInput value={formData.lname} onChange={handleChange} />
                   <BusinessNameInput value={formData.busname} onChange={handleChange} />
-                  <CityInput onCityChange={handleCityChange} />
+                  <CityInput placeholder='Select city' onCityChange={handleCityChange} />
 
                   <div className="md:col-span-2">
-                    <LocationInput onLocationChange={handleLocationChange} />
+                    <LocationInput placeholder='Search for location' onLocationChange={handleLocationChange} />
                   </div>
 
                   <PhoneInput value={formData.phone} onChange={handleChange} />

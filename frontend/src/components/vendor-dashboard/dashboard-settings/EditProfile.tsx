@@ -21,10 +21,10 @@ const EditProfile: React.FC = () => {
   const vendorData = data?.findVendorById;
 
   const [profile, setProfile] = useState<ProfileData>({
-    firstName: vendorData?.fname || "your first name",
-    lastName: vendorData?.lname || "",
-    businessName: vendorData?.busname || "",
-    phone: vendorData?.phone || "",
+    firstName: vendorData?.fname || "Your first name",
+    lastName: vendorData?.lname || "Your last name",
+    businessName: vendorData?.busname || "Your business name",
+    phone: vendorData?.phone || "Your phone number",
     city: vendorData?.city || "",
     location: vendorData?.location || "",
   });
@@ -127,13 +127,13 @@ const EditProfile: React.FC = () => {
           <div>
             <label className="font-body text-[16px] mt- mb-3 ">City</label>
             <div className="font-body rounded-md mt-2 mb-3">
-              <CityInput onCityChange={handleCityChange} />
+              <CityInput placeholder={profile.city} onCityChange={handleCityChange} />
             </div>
           </div>
           <div>
             <label className="font-body text-[16px] mt- mb-3 ">Location</label>
             <div className="font-body rounded-md mt-2 mb-3">
-              <LocationInput onLocationChange={handleLocationChange} />
+              <LocationInput placeholder={profile.location} onLocationChange={handleLocationChange} />
             </div>
           </div>
           <Button

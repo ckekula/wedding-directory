@@ -18,7 +18,7 @@ import { Button } from "../ui/button";
 import { CityProps } from "@/types/signupInput";
 import { useState } from "react";
 
-const CityInput: React.FC<CityProps> = ({ onCityChange }) => {
+const CityInput: React.FC<CityProps> = ({ onCityChange, placeholder }) => {
 
   const [selectedCity, setSelectedCity] = useState<string | null>(null); // State to store selected city
 
@@ -50,7 +50,7 @@ const CityInput: React.FC<CityProps> = ({ onCityChange }) => {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button className="flex flex-row justify-start text-left w-full space-y-1.5 text-black hover:bg-white bg-white h-8">
-            {selectedCity ? selectedCity : "Select City"} {/* Show selected city */}
+            {selectedCity ? selectedCity : placeholder} {/* Show selected city */}
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56">

@@ -5,10 +5,6 @@ import Footer from "@/components/shared/Footer";
 import Header from "@/components/shared/Headers/Header";
 import VendorResult from "@/components/vendor-search/VendorResult";
 import { Button } from "@/components/ui/button";
-import { IoIosSearch } from "react-icons/io";
-import OtherVendor from "@/components/vendor-search/OtherVendor";
-import CityInput from "@/components/vendor-signup/CityInput";
-import CategoryInput from "@/components/vendor-signup/CategoryInput";
 import { FIND_PACKAGES } from "@/api/graphql/queries";
 import { useLazyQuery } from "@apollo/client";
 import FilterSearchBar from "@/components/vendor-search/FilterSearchBar";
@@ -121,12 +117,11 @@ const VendorSearch = () => {
         </div>
 
         <div className="relative w-full m-3 md:w-1/4 h-full md:h-auto rounded-2xl bg-white overflow-hidden">
-          <p className="text-center mt-4 mb-6 font-bold">
-            Other Vendors You might like
-          </p>
+          <p className="text-center mt-4 mb-6 font-bold">Other Vendors You might like</p>
+          <p className="mt">Nothing to show yet</p>
+          {/* <OtherVendor />
           <OtherVendor />
-          <OtherVendor />
-          <OtherVendor />
+          <OtherVendor /> */}
         </div>
       </div>
       <Footer />
