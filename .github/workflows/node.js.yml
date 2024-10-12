@@ -12,19 +12,32 @@ jobs:
     strategy:
       matrix:
         node-version: [20.18.0]
+
     env:
         NEXT_WEBSITE_URL: ${{ secrets.NEXT_WEBSITE_URL }}
+
     steps:
     - uses: actions/checkout@v4
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - name: Change Directory
-      run: cd /home/janitha/actions-runner/_work/wedding-directory/wedding-directory/frontend
-    - run: npm ci
-    - run: npm run build --if-present
-    - name: Change Directory
-      run: cd /home/janitha/actions-runner/_work/wedding-directory/wedding-directory/frontend
-    - run: pm2 restart 0
+
+    # Navigate to the frontend directory before running npm commands
+    - name: Change Directory to Frontend
+      working-directory: /home/janitha/actions-runner/_work/wedding-directory/wedding-directory/frontend
+      run: pwd
+
+    - name: Install dependencies
+      run: npm ci
+      working-directory: /home/janitha/actions-runner/_work/wedding-directory/wedding-directory/frontend
+
+    - name: Build the frontend
+      run: npm run build --if-present
+      working-directory: /home/janitha/actions-runner/_work/wedding-directory/wedding-directory/frontend
+
+    - name: Restart the application using PM2
+      run: pm2 restart 0
+      working-directory: /home/janitha/actions-runner/_work/wedding-directory/wedding-directory/frontend
