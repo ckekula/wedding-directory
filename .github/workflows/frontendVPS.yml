@@ -1,0 +1,40 @@
+name: Node.js CI Frontend
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    name: Build Frontend
+    runs-on: self-hosted
+
+    strategy:
+      matrix:
+        node-version: [20.18.0]
+
+    env:
+      NEXT_WEBSITE_URL: ${{ secrets.NEXT_WEBSITE_URL }}
+
+    steps:
+      # Checkout the code from GitHub repository
+      - uses: actions/checkout@v4
+
+      # Set up Node.js with the specified version
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # Install dependencies in the frontend directory
+      - name: Install dependencies
+        run:
+          cd frontend && npm ci
+
+
+      # Build the frontend (Next.js) app
+      - name: Build the frontend
+        run:
+          cd frontend && npm run build
+
+
