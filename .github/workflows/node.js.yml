@@ -1,7 +1,8 @@
-name: Node.js CI Frontend
-
+name: Frontend CI/CD
 on:
   push:
+    paths:
+     - 'frontend/**'
     branches: [ "main" ]
 
 jobs:
