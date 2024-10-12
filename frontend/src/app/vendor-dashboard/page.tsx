@@ -1,14 +1,31 @@
+"use client";
+
 import React from "react";
 import Header from "@/components/shared/Headers/Header";
 import VendorBanner from "@/components/vendor-dashboard/VendorBanner";
 import Stats from "@/components/vendor-dashboard/Stats";
 import QuickActions from "@/components/vendor-dashboard/QuickActions";
 import ToDo from "@/components/vendor-dashboard/ToDo";
-import ProfileInfo from "@/components/vendor-dashboard/ProfileInfo";
 import VendorResult from "@/components/vendor-search/VendorResult";
 import Link from "next/link";
+import { GET_VENDOR_BY_ID } from "@/api/graphql/queries";
+import { useVendorAuth } from "@/contexts/VendorAuthContext";
+import { useQuery } from "@apollo/client";
+import { CiCirclePlus } from "react-icons/ci";
 
 const VendorDashBoard = () => {
+
+  const { vendor } = useVendorAuth();
+  const { data, loading, error } = useQuery(GET_VENDOR_BY_ID, {
+    variables: { id: vendor?.id },
+    skip: !vendor?.id,
+  });
+
+  if (loading) return <p>Loading vendor information...</p>;
+  if (error) return <p>Error loading profile information: {error.message}</p>;
+
+  const vendorData = data?.findVendorById;
+
   return (
     <div>
       <Header />
@@ -19,21 +36,21 @@ const VendorDashBoard = () => {
           <h1 className="font-title text-[36px] text-black text-center  py-4">Welcome</h1>
 
           {/* Vendor Banner */}
-          <VendorBanner businessName="John's Flower Shop" />
+          <VendorBanner businessName={ vendorData?.busname} />
 
-          {/* Category, Member Since, Rating */}
-          <div className="flex justify-evenly items-center gap-10 mt-10 mb-8">
+          {/* City, Member Since, Rating */}
+          <div className="grid grid-cols-3 text-center gap-10 mt-10 mb-8">
             <div className="flex flex-col justify-center items-center">
-              <p className=" font-body text-[20px]">Category</p>
-              <p className=" font-body text-[15px]">Florist</p>
+              <p className="font-body text-[20px]">City</p>
+              <p className="font-body text-[15px]">{vendorData?.city}</p>
             </div>
             <div className="flex flex-col justify-center items-center">
-              <p className=" font-body text-[20px]">Member Since</p>
-              <p className=" font-body text-[15px]">2024</p>
-            </div>
+              <p className="font-body text-[20px]">Member Since</p>
+              <p className="font-body text-[15px]">{new Date(vendorData?.createdAt).getFullYear()}</p>
+              </div>
             <div className="flex flex-col justify-center items-center">
-              <p className=" font-body text-[20px]">Rating</p>
-              <p className=" font-body text-[15px]">4.9</p>
+              <p className="font-body text-[20px]">Rating</p>
+              <p className="font-body text-[15px]">- / -</p>
             </div>
           </div>
 
@@ -44,30 +61,36 @@ const VendorDashBoard = () => {
 
 
           {/* Quick Actions and To Do's */}
-          <div className="flex justify-between py-12 gap-10">
+          {/* <div className="flex justify-between py-12 gap-10">
             {" "}
-            {/* Adjusted spacing and alignment */}
-            <QuickActions /> {/* Giving each section half the width */}
-            <ToDo /> {/* Ensuring equal width for better alignment */}
-      
+            <QuickActions />
+            <ToDo />
+          </div> */}
+          {/* <hr className="border-t border-gray-300 my-4" /> */}
+          
+          <div className="flex flex-row mt-8">
+            <div className="w-5/6 text-2xl font-bold mb-8">Your Services</div>
+            <div className="w-1/6 ml-10">
+              <Link href="/vendor-dashboard/new-service" className="flex items-center">
+                <CiCirclePlus className="mr-2" />
+                Add new Service
+              </Link>
+            </div>
           </div>
-          <hr className="border-t border-gray-300 my-4" />
-          <div className="flex flex-row">
-          <div className="w-5/6 text-2xl font-bold mb-8">Your Services</div>
-          <div className="w-1/6 ml-10"><Link href="/vendor-dashboard/new-service" >Add new Service</Link></div></div>
           <div className="grid grid-cols-3 gap-6 overflow-x-auto">
             <VendorResult
               key="sdf"
-              vendor="sfsfd"
-              city={"sdsy"}
+              vendor="vendor name"
+              city={"vendor city"}
               banner={"/login-signup.jpg"}
               rating="⭐ 4.9 (154)" // customize the rating
               price="$$-$$$" // customize the price
               about={"No description available"}
-            />            
+            />  
           </div>
           <hr className="border-t border-gray-300 my-4" />
           <div className="text-2xl font-bold mb-8">Messages and Inquiries</div>
+          <p className="mb-8">Coming soon!</p>
         </div>
       </div>
     </div>

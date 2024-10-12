@@ -12,16 +12,16 @@ export class PackageEntity {
     @Column({ type: 'varchar', length: 100 })
     category: string;
 
-    @Column({ type: 'varchar', length: 100 })
+    @Column({ type: 'varchar', length: 100, nullable: true })
     bus_phone: string;
 
-    @Column({ type: 'varchar', length: 100 })
+    @Column({ type: 'varchar', length: 100, nullable: true })
     bus_email: string;
 
-    @Column({ type: 'varchar', length: 100 })
+    @Column({ type: 'varchar', length: 100, nullable: true })
     about: string;
 
-    @Column({ type: 'varchar', length: 100 })
+    @Column({ type: 'varchar', length: 100, nullable: true  })
     banner: string;
 
     @Column('text', { array: true, nullable: true })
@@ -55,6 +55,6 @@ export class PackageEntity {
     updatedAt: Date;
 
     @ManyToOne(() => VendorEntity, v => v.package)
-    @JoinColumn({ name: 'vendor_id' })  // Add this to make the relation explicit
+    @JoinColumn({ name: 'vendor_id' })
     vendor: VendorEntity;
 }

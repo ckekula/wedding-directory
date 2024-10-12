@@ -4,7 +4,6 @@ import Footer from "@/components/shared/Footer";
 import Header from "@/components/shared/Headers/Header";
 import React, { useState } from "react";
 import Image from "next/image";
-import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -41,6 +40,7 @@ const Signup = () => {
   });
 
   const [createVendor, { loading }] = useMutation(CREATE_VENDOR);
+  const [termsAccepted, setTermsAccepted] = useState(false);
 
   // Handle input change
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,6 +66,14 @@ const Signup = () => {
 
   // Register vendor
   const onRegister = async () => {
+
+    if (!termsAccepted) {
+      toast.error('You must accept the terms and conditions', {
+        style: { background: '#333', color: '#fff' },
+      });
+      return;
+    }
+
     try {
       const response = await createVendor({
         variables: {
@@ -147,8 +155,8 @@ const Signup = () => {
                 </div>
 
                 <div className="mt-6 flex space-x-2">
-                  <Checkbox id="terms" />
-                  <label
+                <Checkbox id="terms" checked={termsAccepted} onCheckedChange={(checked) => setTermsAccepted(!!checked)} />
+                <label
                     htmlFor="terms"
                     className="text-sm text-left leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                     By submitting and sharing your information, you agree to the{' '}
@@ -167,7 +175,7 @@ const Signup = () => {
                   <Button
                     onClick={onRegister}
                     className="rounded-none text-black font-bold hover:bg-primary bg-primary text-xl"
-                    disabled={loading}
+                    disabled={loading || !termsAccepted} // Disable if loading or terms not accepted
                   >
                     {loading ? "Registering..." : "Register Now"}
                   </Button>

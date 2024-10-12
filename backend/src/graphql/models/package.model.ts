@@ -7,9 +7,6 @@ export class PackageModel {
   id: string;
 
   @Field()
-  vendor_id: string;
-
-  @Field()
   name: string;
 
   @Field()
