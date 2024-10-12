@@ -52,3 +52,35 @@ export const GET_VISITOR_BY_ID = gql`
     }
   }
 `;
+
+export const GET_VENDOR_BY_ID = gql`
+  query GetVendorById($id: String!) {
+    findVendorById(id: $id) {
+      id
+      email
+      password
+      fname
+      lname 
+      location
+      busname
+      city
+      createdAt
+    }
+  }
+`;
+
+export const GET_PACKAGE_BY_ID = gql`
+  query GetPackageById($id: String!) {
+    findPackageById(id: $id) {
+      id
+      category
+      start_price
+      experience
+      vendor {
+        id
+        busname
+        city
+      }
+    }
+  }
+`;

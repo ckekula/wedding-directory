@@ -5,6 +5,7 @@ import Settings from "@/components/vendor-dashboard/dashboard-settings/SettingsM
 import EditProfile from "@/components/vendor-dashboard/dashboard-settings/EditProfile";
 
 const VendorDashBoardSettings = () => {
+
   return (
     <div className="">
       <Header />

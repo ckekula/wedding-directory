@@ -16,9 +16,8 @@ export class PackageResolver {
   @Mutation(() => PackageModel)
   async createPackage(
     @Args('input') input: CreatePackageInput,
-    @Args({ name: 'mediaUrls', type: () => [String] }) mediaUrls: string[],
   ): Promise<PackageEntity> {
-    return this.packageService.createPackage(input, mediaUrls);
+    return this.packageService.createPackage(input);
   }
 
   @Mutation(() => PackageModel)

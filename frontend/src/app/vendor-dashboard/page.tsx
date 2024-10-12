@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import Header from "@/components/shared/Headers/Header";
 import VendorBanner from "@/components/vendor-dashboard/VendorBanner";
@@ -6,8 +8,24 @@ import QuickActions from "@/components/vendor-dashboard/QuickActions";
 import ToDo from "@/components/vendor-dashboard/ToDo";
 import VendorService from "@/components/vendor-dashboard/ServiceResult"; // Import ServiceResult
 import Link from "next/link";
+import { GET_VENDOR_BY_ID } from "@/api/graphql/queries";
+import { useVendorAuth } from "@/contexts/VendorAuthContext";
+import { useQuery } from "@apollo/client";
+import { CiCirclePlus } from "react-icons/ci";
 
-const page = () => {
+const VendorDashBoard = () => {
+
+  const { vendor } = useVendorAuth();
+  const { data, loading, error } = useQuery(GET_VENDOR_BY_ID, {
+    variables: { id: vendor?.id },
+    skip: !vendor?.id,
+  });
+
+  if (loading) return <p>Loading vendor information...</p>;
+  if (error) return <p>Error loading profile information: {error.message}</p>;
+
+  const vendorData = data?.findVendorById;
+
   return (
     <div>
       <Header />
@@ -18,21 +36,21 @@ const page = () => {
           <h1 className="font-title text-[36px] text-black text-center py-4">Welcome</h1>
 
           {/* Vendor Banner */}
-          <VendorBanner businessName="John's Flower Shop" />
+          <VendorBanner businessName={ vendorData?.busname} />
 
-          {/* Category, Member Since, Rating */}
-          <div className="flex justify-evenly items-center gap-10 mt-10 mb-8">
+          {/* City, Member Since, Rating */}
+          <div className="grid grid-cols-3 text-center gap-10 mt-10 mb-8">
             <div className="flex flex-col justify-center items-center">
-              <p className=" font-body text-[20px]">Category</p>
-              <p className=" font-body text-[15px]">Florist</p>
+              <p className="font-body text-[20px]">City</p>
+              <p className="font-body text-[15px]">{vendorData?.city}</p>
             </div>
             <div className="flex flex-col justify-center items-center">
-              <p className=" font-body text-[20px]">Member Since</p>
-              <p className=" font-body text-[15px]">2024</p>
-            </div>
+              <p className="font-body text-[20px]">Member Since</p>
+              <p className="font-body text-[15px]">{new Date(vendorData?.createdAt).getFullYear()}</p>
+              </div>
             <div className="flex flex-col justify-center items-center">
-              <p className=" font-body text-[20px]">Rating</p>
-              <p className=" font-body text-[15px]">4.9</p>
+              <p className="font-body text-[20px]">Rating</p>
+              <p className="font-body text-[15px]">- / -</p>
             </div>
           </div>
 
@@ -50,10 +68,13 @@ const page = () => {
           <hr className="border-t border-gray-300 my-4" />
 
           {/* Services Section */}
-          <div className="flex flex-row">
+          <div className="flex flex-row mt-8">
             <div className="w-5/6 text-2xl font-bold mb-8">Your Services</div>
             <div className="w-1/6 ml-10">
-              <Link href="/vendor-dashboard/new-service">Add new Service</Link>
+              <Link href="/vendor-dashboard/new-service" className="flex items-center">
+                <CiCirclePlus className="mr-2" />
+                Add new Service
+              </Link>
             </div>
           </div>
 
@@ -78,6 +99,7 @@ const page = () => {
           <hr className="border-t border-gray-300 my-4" />
 
           <div className="text-2xl font-bold mb-8">Messages and Inquiries</div>
+          <p className="mb-8">Coming soon!</p>
         </div>
       </div>
     </div>

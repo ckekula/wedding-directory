@@ -29,3 +29,29 @@ export const UPDATE_VISITOR = gql`
         }
     }
 `;
+
+export const CREATE_PACKAGE = gql`
+  mutation CreatePackage($input: CreatePackageInput!) {
+    createPackage(input: $input) {
+      id
+      name
+      category
+      vendor {
+        id
+      }
+    }
+  }
+`;
+
+export const UPDATE_VENDOR = gql`
+  mutation UpdateVendor($id: String!, $input: UpdateVendorInput!) {
+    updateVendor(id: $id, input: $input) {
+      fname
+      lname
+      busname 
+      phone 
+      city 
+      location
+    }
+  }
+`;
