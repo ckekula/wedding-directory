@@ -1,43 +1,51 @@
 name: Node.js CI Backend
-
 on:
   push:
     branches: [ "main" ]
-
 jobs:
   build:
     name: Build Backend
     runs-on: self-hosted
-
     strategy:
       matrix:
         node-version: [20.18.0]
 
     env:
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}  # Add any other environment variables you need
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_S3_REGION: ${{ secrets.AWS_S3_REGION }}
+      UPLOAD_RATE_TTL: ${{ secrets.UPLOAD_RATE_TTL }}
+      UPLOAD_RATE_LIMIT: ${{ secrets.UPLOAD_RATE_LIMIT }}
 
     steps:
       # Checkout the code from GitHub repository
       - uses: actions/checkout@v4
 
-      # Set up Node.js with the specified version
-      - name: Set up Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-
-      # Install dependencies in the backend directory
-      - name: Install dependencies
-        run:
+      # Install dependencies
+      - name: Install Dependencies
+        run: |
           cd backend && npm ci
+
+      # Add Environmental Variables
+      - name: Add Environmental Variables
+        run: |
+          touch .env
+          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
+          echo "GOOGLE_MAPS_API_KEY=${{ secrets.GOOGLE_MAPS_API_KEY }}" >> .env
+          echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> .env
+          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> .env
+          echo "AWS_S3_REGION=${{ secrets.AWS_S3_REGION }}" >> .env
+          echo "UPLOAD_RATE_TTL=${{ secrets.UPLOAD_RATE_TTL }}" >> .env
+          echo "UPLOAD_RATE_LIMIT=${{ secrets.UPLOAD_RATE_LIMIT }}" >> .env
 
       # Build the backend (Nest.js) app
       - name: Build the backend
-        run:
+        run: |
           cd backend && npm run build
 
-      - name: Start the backend
-        run:
-          cd backend && npm run start
-
-
+      # Restart the backend application using PM2
+      - name: Restart the backend
+        run: |
+          cd backend && pm2 restart 1
