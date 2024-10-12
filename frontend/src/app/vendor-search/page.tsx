@@ -30,8 +30,10 @@ const VendorSearch = () => {
   const handleSearch = () => {
     getPackages({
       variables: {
-        city: city || null,
-        category: category || null,
+        filter: {
+          city: city || null,
+          category: category || null,
+        },
       },
     });
   };
@@ -68,8 +70,11 @@ const VendorSearch = () => {
         </h2>
       </div>
 
-      <FilterSearchBar handleSearch={handleSearch} />
-
+      <FilterSearchBar
+        handleSearch={handleSearch}
+        onCityChange={handleCityChange}
+        onCategoryChange={handleCategoryChange}
+      />
       <hr className="w-full h-px my-4 bg-slate-900 border-2  container" />
 
       <div className="flex flex-row mx-16 px-10">
@@ -107,7 +112,7 @@ const VendorSearch = () => {
                     banner={"/photography.jpg"}
                     rating="⭐ 4.9 (154)" // customize the rating
                     price="$$-$$$" // customize the price
-                    description={pkg.about || "No description available"}
+                    about={pkg.about}
                     showStats={true}
                     buttonText="View Details"
                     link={`/packages/${pkg.id}`}

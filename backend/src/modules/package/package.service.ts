@@ -52,6 +52,10 @@ export class PackageService {
     return this.packageRepository.findPackagesByFilters(category, city);
   }
 
+  async findPackagesByVendor(vendorId: string): Promise<PackageEntity[]> {
+    return this.packageRepository.findPackagesByVendor(vendorId);
+  }
+
   async updatePackageBanner(packageId: string, fileUrl: string): Promise<PackageEntity> {
     // Find the package by ID
     const pkg = await this.packageRepository.findOne({ where: { id: packageId } });

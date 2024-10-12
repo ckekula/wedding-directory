@@ -5,8 +5,15 @@ export interface PackageProps {
     rating: string, 
     price: string, 
     banner: string,
-    description: string,
+    about: string,
     showStats: boolean,
     link: string,
     buttonText: string
 }
+
+export interface FilterSearchBarProps {
+    handleSearch: (city: string, category: string) => void;
+    onCityChange: (city: string) => void;
+    onCategoryChange: (category: string) => void;
+  }
+  

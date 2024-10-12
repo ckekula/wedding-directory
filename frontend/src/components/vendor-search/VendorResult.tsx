@@ -7,6 +7,7 @@ import Link from "next/link";
 
 // Utility function to truncate the description
 const truncateDescription = (description: string, maxLength: number) => {
+  if (!description) return ""
   if (description.length > maxLength) {
     return description.slice(0, maxLength) + "...";
   }
@@ -20,14 +21,14 @@ const VendorResult = ({
   city,
   rating,
   price,
-  description,
+  about,
   banner,
   showStats,
   link,
   buttonText,
 }: PackageProps) => {
   // Truncate the description to a maximum of 100 characters
-  const truncatedDescription = truncateDescription(description, 100);
+  const truncatedDescription = truncateDescription(about, 100);
 
   return (
     <div className="flex justify-left items-start mb-5 border rounded-2xl shadow-lg hover:shadow-xl">
@@ -58,7 +59,7 @@ const VendorResult = ({
           <div className="mb-4">
             <div>
               {truncatedDescription}{" "}
-              {description.length > 100 && (
+              {about && about.length > 100 && (
                 <Link href={link} className="text-blue-500">
                   Read more
                 </Link>

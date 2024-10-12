@@ -69,6 +69,7 @@ type Query {
   findAllVisitors: [VisitorModel!]!
   findVisitorById(id: String!): VisitorModel
   findPackages(filter: PackageFilterInput): [PackageModel!]!
+  findPackagesByVendor(id: String!): [PackageModel!]!
 }
 
 input PackageFilterInput {

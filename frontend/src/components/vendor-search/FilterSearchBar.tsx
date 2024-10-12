@@ -4,22 +4,23 @@ import { IoIosSearch } from "react-icons/io";
 import CategoryInput from "./CategoryInput";
 import CityInput from "./CityInput";
 import { Button } from "../ui/button";
+import { FilterSearchBarProps } from "@/types/packageTypes";
 
-interface FilterSearchBarProps {
-  handleSearch: (city: string, category: string) => void;
-}
-
-const FilterSearchBar: React.FC<FilterSearchBarProps> = ({ handleSearch }) => {
+const FilterSearchBar: React.FC<FilterSearchBarProps> = ({
+  onCategoryChange, onCityChange, handleSearch }) => {
   const [category, setCategory] = useState<string | null>(null);
   const [city, setCity] = useState<string | null>(null);
 
   const handleCategoryChange = (selectedCategory: string) => {
     setCategory(selectedCategory);
+    onCategoryChange(selectedCategory); // Update parent state
   };
 
   const handleCityChange = (selectedCity: string) => {
     setCity(selectedCity);
+    onCityChange(selectedCity); // Update parent state
   };
+
 
   const onSearch = () => {
     handleSearch(city || "", category || "");
@@ -36,7 +37,7 @@ const FilterSearchBar: React.FC<FilterSearchBarProps> = ({ handleSearch }) => {
         {/* Location Input */}
         <div className="relative flex-1">
           <label className="block text-xs text-slate-600 mb-1 ml-3">Location</label>
-          <CityInput onCityChange={handleCityChange} />
+          <CityInput placeholder="City" onCityChange={handleCityChange} />
         </div>
 
         {/* Search Button */}

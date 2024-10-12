@@ -53,4 +53,11 @@ export const PackageRepository = (dataSource: DataSource): PackageRepositoryType
 
       return query.getMany();
     },
+
+    async findPackagesByVendor(id: string): Promise<PackageEntity[]> {
+      return this.createQueryBuilder('package')
+        .leftJoinAndSelect('package.vendor', 'vendor') // Include vendor details
+        .where('vendor.id = :id', { id })
+        .getMany();
+    }
   });

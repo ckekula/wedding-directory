@@ -49,4 +49,11 @@ export class PackageResolver {
     return this.packageService.findPackagesByFilters(filter || {});
   }
 
+  @Query(() => [PackageModel])
+  async findPackagesByVendor(
+    @Args('id') id: string,
+  ): Promise<PackageEntity[]> {
+    return this.packageService.findPackagesByVendor(id);
+  }
+
 }
