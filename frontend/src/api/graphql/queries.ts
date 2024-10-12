@@ -59,6 +59,9 @@ export const GET_VENDOR_BY_ID = gql`
       id
       email
       password
+      fname
+      lname 
+      location
       busname
       city
       createdAt
