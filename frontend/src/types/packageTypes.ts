@@ -15,5 +15,5 @@ export interface FilterSearchBarProps {
     handleSearch: (city: string, category: string) => void;
     onCityChange: (city: string) => void;
     onCategoryChange: (category: string) => void;
-  }
+}
   

@@ -39,6 +39,11 @@ export const PackageRepository = (dataSource: DataSource): PackageRepositoryType
       return result.affected > 0;
     },
 
+    async findPackageById(id: string): Promise<PackageEntity> {
+      return this.findOne({ 
+        relations: ['vendor'], where: { id } });
+    },
+
     async findPackagesByFilters(category?: string, city?: string): Promise<PackageEntity[]> {
       const query = this.createQueryBuilder('package')
         .leftJoinAndSelect('package.vendor', 'vendor'); // Join with vendor

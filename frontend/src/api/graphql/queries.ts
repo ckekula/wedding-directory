@@ -38,6 +38,28 @@ export const FIND_PACKAGES = gql`
   }
 `;
 
+export const FIND_PACKAGE_BY_ID = gql`
+  query FindPackageById($id: String!) {
+    findPackageById(id: $id) {
+      id
+      name
+      category
+      about
+      banner
+      website
+      facebook
+      instagram
+      x
+      tiktok
+      vendor {
+        id
+        busname
+        city
+      }
+    }
+  }
+`;
+
 export const FIND_PACKAGES_BY_VENDOR = gql`
   query FindPackagesByVendor($id: String!) {
     findPackagesByVendor(id: $id) {

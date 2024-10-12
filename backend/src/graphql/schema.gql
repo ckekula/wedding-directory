@@ -68,6 +68,7 @@ type Query {
   autocompleteLocation(input: String!): [String!]!
   findAllVisitors: [VisitorModel!]!
   findVisitorById(id: String!): VisitorModel
+  findPackageById(id: String!): PackageModel!
   findPackages(filter: PackageFilterInput): [PackageModel!]!
   findPackagesByVendor(id: String!): [PackageModel!]!
 }

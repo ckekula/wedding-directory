@@ -1,6 +1,8 @@
+"use client";
+
 import Header from '@/components/shared/Headers/Header'
 import React from 'react'
-import { CiStar, CiHeart } from "react-icons/ci";
+import { CiStar, CiHeart, CiTwitter } from "react-icons/ci";
 import { SlSocialFacebook, SlSocialInstagram } from "react-icons/sl";
 import { GoGlobe } from "react-icons/go";
 import { FiPhoneCall } from "react-icons/fi";
@@ -8,8 +10,10 @@ import { CgLoadbar } from "react-icons/cg";
 import { IoMdShare } from "react-icons/io";
 import Image from "next/image";
 import { useParams } from 'next/navigation';
+import { FIND_PACKAGE_BY_ID } from '../../../api/graphql/queries';
+import { useQuery } from '@apollo/client';
 
-const photos = ["/photography.jpg",
+const mediaURLs = ["/photography.jpg",
     "/photography.jpg",
     "/photography.jpg",
     "/photography.jpg",
@@ -17,43 +21,48 @@ const photos = ["/photography.jpg",
     "/photography.jpg"
 ]
 
-const Packages = ({ packageData }) => {
+const Package: React.FC = () => {
 
     const params = useParams();
     const { id } = params;
 
+    const { loading, error, data } = useQuery(FIND_PACKAGE_BY_ID, {
+        variables: { id },
+    });
 
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>Error: {error.message}</p>;
+
+    const pkg = data?.findPackageById;
 
     return (
         <div className='bg-lightYellow font-body'>
             <Header />
             <div className='mx-40 my-4 p-4'>
 
-                <div className='mb-2'>
+                <div>
                     <button className=" text-black font-body hover:text-gray-500 mr-2">
                         &larr;
                     </button>
-                    Wedding Photographers in Nuwara Eliya
+                    back
                 </div>
                 <div>
                     <section >
 
                         <div className="container mx-auto">
-                            <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4 p-4">
-                                {photos.map((photo) => (
+                            <div className="columns-1 sm:columns-2 lg:columns-3 gap-1 space-y-1 p-4">
+                                {mediaURLs.map((photo) => (
                                     <div
-                                        key={photo.id}
                                         className="relative group overflow-hidden rounded-lg break-inside-avoid"
                                     >
                                         <Image
-                                            src={photo.src}
-                                            alt={photo.alt}
+                                            src={photo}
+                                            alt=''
                                             className="w-full h-full object-cover"
                                             layout="responsive"
                                             width={500}
                                             height={500}
                                         />
-                                        
                                     </div>
                                 ))}
                             </div>
@@ -64,26 +73,52 @@ const Packages = ({ packageData }) => {
                     <div className='bg-white rounded-2xl p-4 mb-4'>
                         <div className='flex flex-row'>
                             <div className='w-8/12 flex flex-col'>
+                                <p>{pkg?.vendor.busname}</p>
                                 <div className='flex flex-row text-2xl font-bold'>
-                                    John&apos;s Flower Shop
+                                    {pkg?.name}
                                     <div className='ml-2 flex flex-row justify-center items-center gap-x-1'>
                                         <CiHeart />
                                         <IoMdShare />
                                     </div>
                                 </div>
                                 <div className=' flex flex-row items-center text-lg'>
-                                    <CiStar /><CiStar /><CiStar /><CiStar /><CiStar /> 5(42)
+                                    <CiStar /><CiStar /><CiStar /><CiStar /><CiStar /><span>  -/-(0)</span>
                                 </div>
                                 <div className=''>
-                                    Nuwara Eliya
+                                    {pkg?.vendor.city}
                                 </div>
                             </div>
                             <div className='w-4/12 flex flex-row text-2xl items-center justify-end gap-x-4 mr-3'>
-                                <SlSocialFacebook />
-                                <SlSocialInstagram />
-                                <GoGlobe />
-                                <FiPhoneCall />
+                                <div
+                                    onClick={() => window.open(pkg?.website, '_blank')}
+                                    className='cursor-pointer'
+                                    title="Visit Website"
+                                >
+                                    <GoGlobe />
+                                </div>
+                                <div
+                                    onClick={() => window.open(pkg?.facebook, '_blank')}
+                                    className='cursor-pointer'
+                                    title="Visit Facebook Page"
+                                >
+                                    <SlSocialFacebook />
+                                </div>
+                                <div
+                                    onClick={() => window.open(pkg?.instagram, '_blank')}
+                                    className='cursor-pointer'
+                                    title="Visit Instagram Page"
+                                >
+                                    <SlSocialInstagram />
+                                </div>
+                                <div
+                                    onClick={() => window.open(pkg?.x, '_blank')}
+                                    className='cursor-pointer'
+                                    title="Visit X Page"
+                                >
+                                    <CiTwitter />
+                                </div>
                             </div>
+
                         </div>
                     </div>
 
@@ -92,11 +127,8 @@ const Packages = ({ packageData }) => {
                             <div className='mb-3 text-2xl font-bold font-title'>
                                 About this vendor
                             </div>
-                            <div className='mb-3'>
-                                A Full Service DJ Network & Production Company
-                            </div>
                             <div>
-                                4AM is a full service talent management and event production company  based in NYC, servicing clients globally. Since 2010, we have provided  dynamic DJ talent for nightclubs to fashion houses, creative and PR  agencies, sports and luxury brands, and of course, wedding and private  event hosts! Our clients include BMW, Belvedere, Kate Spade, Netflix,  Nike, Paris Hilton, Tony Awards, Viacom, and W Hotels - to name a few.  We have a large network of DJ talent and Instrumentalists that fit all  styles and price points, accompanied by a production arm that can take  care of anything from your basic equipment and sound set ups, to custom  booths, lighting, staging, and beyond.
+                            {pkg?.about}
                             </div>
                             <hr className="border-t border-gray-300 my-4" />
 
@@ -179,4 +211,4 @@ const Packages = ({ packageData }) => {
     )
 }
 
-export default Packages;
+export default Package;
