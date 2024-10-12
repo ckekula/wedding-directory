@@ -1,45 +1,54 @@
-import Header from '@/components/shared/Headers/Header'
-import React from 'react'
-import Image from "next/image";
-import Footer from '@/components/shared/Footer';
+import React from "react";
+import Header from "@/components/shared/Headers/Header";
+import Footer from "@/components/shared/Footer";
+import ContactInfo from "@/components/contact/ContactInfo";
+import ContactForm from "@/components/contact/ContactForm";
+import { FiMail, FiPhone, FiMapPin } from "react-icons/fi";
 
-const page = () => {
+const ContactPage: React.FC = () => {
   return (
-    <div className='bg-lightYellow font-body'>
+    <div className="bg-lightYellow font-body min-h-screen flex flex-col">
       <Header />
-      <div className='mx-10 '>
-        <div className="relative z-10 w-10/12 h-[1000px] md:h-[300px] mx-auto flex justify-center items-center ">
-          <div className="absolute inset-0 border-solid rounded-md">
-            <Image
-              src='/photography.jpg'
-              layout="fill"
-              objectFit="cover"
-              alt="sign image"
-            />
+
+      <div className=" container py-8 flex flex-col items-center">
+        <div className="bg-white shadow-lg rounded-lg p-6 w-full">
+          <div className="flex flex-col mb-8">
+            <h2 className="font-title text-5xl font-bold mb-2 text-center">
+              Get in Touch
+            </h2>
+            <p className="text-gray-600 text-center">
+              We're here to assist you with any questions or concerns.
+            </p>
+          </div>
+
+          <div className="flex justify-center items-center space-x-8 text-gray-700 text-lg">
+            <div className="flex items-center space-x-2">
+              <FiMail className="text-orange text-3xl" size={25} />
+              <span>help@sayido.lk</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <FiPhone className="text-orange text-3xl" size={25} />
+              <span>+94 47 786 4913</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <FiMapPin className="text-orange text-3xl" size={25} />
+              <span>Hapugala,Galle, Sri Lanka</span>
+            </div>
           </div>
         </div>
 
-        <div className='mx-28 mt-4 bg-white rounded-lg py-5 px-6 mb-3'>
-          <div className='font-title font-bold text-3xl'>Contact Us</div>
-          <div className='font-title font-bold text-2xl mt-3'>Say I Do</div>
-          <div className='gap-y-2 flex flex-col mt-4'>For help with your Wedding Website, Registry, or with general support questions about SayIDo.com
-            <div className='font-bold mt-4'>Email:</div>
-            <div >help@sayido.com</div>
-             <div className='mt-4 font-bold'>Customer Service Hours:</div>
-              <div>10:00 AM to 6:00 PM (EST)</div>
-              <div>Monday-Friday (excluding holidays)</div>
-              <div className='mt-4'>Need help? LiveChat is available</div>
-              <div className='font-bold'>Email:</div>
-              <div>sayido@weddings.com</div>
-            
-          </div>
+        <div className="mt-8 w-full">
+          <ContactInfo />
+        </div>
 
+        <div className="mt-8">
+          <ContactForm />
         </div>
       </div>
 
       <Footer />
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default ContactPage;
