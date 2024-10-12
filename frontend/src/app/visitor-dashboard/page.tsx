@@ -1,9 +1,8 @@
 "use client";
 import React, { Fragment, useState } from "react";
-import Link from "next/link";
 import Header from "@/components/shared/Headers/Header";
 import LeftSideBar from "@/components/visitor-dashboard/LeftSideBar";
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { useAuth } from "@/contexts/VisitorAuthContext";
 import { Accordion } from "@/components/ui/accordion";
 import VisitorInfo from "@/components/visitor-dashboard/VisitorInfo";
@@ -12,23 +11,10 @@ import WeddingPlanningGuide from "@/components/visitor-dashboard/WeddingPlanning
 import AccordionItemBlock from "@/components/visitor-dashboard/AccordianItemsBlock";
 import profilePicPlaceholder from "../../../public/dashboard_profile_pic_placeholder.jpg"
 import { StaticImageData } from "next/image";
+import { GET_VISITOR_BY_ID } from "@/api/graphql/queries";
 
 // Placeholder for profile picture
 //const profilePicPlaceholder = "/path/to/default/profilePic.png";
-
-// GraphQL query to get visitor details by ID
-const GET_VISITOR_BY_ID = gql`
-  query GetVisitorById($id: String!) {
-    findVisitorById(id: $id) {
-      id
-      visitor_fname
-      partner_fname
-      wed_venue
-      wed_date
-      profile_pic_url
-    }
-  }
-`;
 
 const VisitorDashboard = () => {
   const [isSideBarCollapsed, setIsSideBarCollapsed] = useState(true);
