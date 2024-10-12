@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from 'react';
 import Image from 'next/image';
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { MdArrowForwardIos, MdArrowBackIos } from "react-icons/md";
 
 interface CarouselProps {
   images: string[];
@@ -23,29 +23,30 @@ const Carousel: React.FC<CarouselProps> = ({ images }) => {
   };
 
   return (
-    <div className="relative w-full h-[500px] md:h-[400px]">
+    <div className="relative w-full container h-[500px] md:h-[400px] mt-20 ">
       {/* Display the current image */}
       <Image
         src={images[currentIndex]}
         layout="fill"
         objectFit="cover"
         alt={`Carousel image ${currentIndex + 1}`}
+        className='rounded-2xl shadow-xl'
       />
 
       {/* Left Arrow */}
       <button
         onClick={handlePrev}
-        className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-3 rounded-full"
+        className="absolute left-0 top-1/2 transform -translate-y-1/2 text-white p-3 rounded-full"
       >
-        <FaArrowLeft />
+        <MdArrowBackIos size={40} />
       </button>
 
       {/* Right Arrow */}
       <button
         onClick={handleNext}
-        className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 text-white p-3 rounded-full"
+        className="absolute right-0 top-1/2 transform -translate-y-1/2  text-white p-3 rounded-full"
       >
-        <FaArrowRight />
+        <MdArrowForwardIos size={40}/>
       </button>
     </div>
   );
