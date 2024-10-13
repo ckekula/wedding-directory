@@ -15,6 +15,10 @@ export type PackageRepositoryType = Repository<PackageEntity> & {
     ): Promise<PackageEntity>;
 
     deletePackage(id: string): Promise<boolean>;
+
+    findPackageById(id: string): Promise<PackageEntity>;
   
     findPackagesByFilters(category?: string, city?: string): Promise<PackageEntity[]>;
+
+    findPackagesByVendor(id: string): Promise<PackageEntity[]>;
 };

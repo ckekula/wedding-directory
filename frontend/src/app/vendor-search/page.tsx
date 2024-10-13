@@ -5,10 +5,6 @@ import Footer from "@/components/shared/Footer";
 import Header from "@/components/shared/Headers/Header";
 import VendorResult from "@/components/vendor-search/VendorResult";
 import { Button } from "@/components/ui/button";
-import { IoIosSearch } from "react-icons/io";
-import OtherVendor from "@/components/vendor-search/OtherVendor";
-import CityInput from "@/components/vendor-signup/CityInput";
-import CategoryInput from "@/components/vendor-signup/CategoryInput";
 import { FIND_PACKAGES } from "@/api/graphql/queries";
 import { useLazyQuery } from "@apollo/client";
 import FilterSearchBar from "@/components/vendor-search/FilterSearchBar";
@@ -34,8 +30,10 @@ const VendorSearch = () => {
   const handleSearch = () => {
     getPackages({
       variables: {
-        city: city || null,
-        category: category || null,
+        filter: {
+          city: city || null,
+          category: category || null,
+        },
       },
     });
   };
@@ -72,8 +70,11 @@ const VendorSearch = () => {
         </h2>
       </div>
 
-      <FilterSearchBar handleSearch={handleSearch} />
-
+      <FilterSearchBar
+        handleSearch={handleSearch}
+        onCityChange={handleCityChange}
+        onCategoryChange={handleCategoryChange}
+      />
       <hr className="w-full h-px my-4 bg-slate-900 border-2  container" />
 
       <div className="flex flex-row mx-16 px-10">
@@ -105,12 +106,16 @@ const VendorSearch = () => {
                 {data.findPackages.map((pkg: any) => (
                   <VendorResult
                     key={pkg.id}
+                    name={pkg.name}
                     vendor={pkg.vendor.busname}
                     city={pkg.vendor.city}
                     banner={"/photography.jpg"}
                     rating="⭐ 4.9 (154)" // customize the rating
                     price="$$-$$$" // customize the price
-                    about={pkg.about || "No description available"}
+                    about={pkg.about}
+                    showStats={true}
+                    buttonText="View Details"
+                    link={`/packages/${pkg.id}`}
                   />
                 ))}
               </div>
@@ -121,12 +126,11 @@ const VendorSearch = () => {
         </div>
 
         <div className="relative w-full m-3 md:w-1/4 h-full md:h-auto rounded-2xl bg-white overflow-hidden">
-          <p className="text-center mt-4 mb-6 font-bold">
-            Other Vendors You might like
-          </p>
+          <p className="text-center my-6 font-bold">Other Vendors You might like</p>
+          <p className="mt text-center">Nothing to show yet</p>
+          {/* <OtherVendor />
           <OtherVendor />
-          <OtherVendor />
-          <OtherVendor />
+          <OtherVendor /> */}
         </div>
       </div>
       <Footer />

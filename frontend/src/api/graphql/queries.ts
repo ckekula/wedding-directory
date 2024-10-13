@@ -25,6 +25,7 @@ export const FIND_PACKAGES = gql`
   query FindPackages($filter: PackageFilterInput!) {
     findPackages(filter: $filter) {
       id
+      name
       vendor {
         id
         busname
@@ -36,6 +37,46 @@ export const FIND_PACKAGES = gql`
     }
   }
 `;
+
+export const FIND_PACKAGE_BY_ID = gql`
+  query FindPackageById($id: String!) {
+    findPackageById(id: $id) {
+      id
+      name
+      category
+      about
+      banner
+      website
+      facebook
+      instagram
+      x
+      tiktok
+      vendor {
+        id
+        busname
+        city
+      }
+    }
+  }
+`;
+
+export const FIND_PACKAGES_BY_VENDOR = gql`
+  query FindPackagesByVendor($id: String!) {
+    findPackagesByVendor(id: $id) {
+      id
+      name
+      category
+      about
+      banner
+      vendor {
+        id
+        busname
+        city
+      }
+    }
+  }
+`;
+
 
 export const GET_VISITOR_BY_ID = gql`
   query GetVisitorById($id: String!) {
@@ -63,6 +104,7 @@ export const GET_VENDOR_BY_ID = gql`
       lname 
       location
       busname
+      phone
       city
       createdAt
     }

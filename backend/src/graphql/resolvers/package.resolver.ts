@@ -42,11 +42,23 @@ export class PackageResolver {
     return this.packageService.updatePackageBanner(id, fileUrl);
   }
 
+  @Query(() => PackageModel)
+  async findPackageById(@Args('id') id: string): Promise<PackageEntity> {
+    return this.packageService.findPackageById(id);
+  }
+
   @Query(() => [PackageModel])
   async findPackages(
     @Args('filter', { nullable: true }) filter?: PackageFilterInput
   ): Promise<PackageEntity[]> {
     return this.packageService.findPackagesByFilters(filter || {});
+  }
+
+  @Query(() => [PackageModel])
+  async findPackagesByVendor(
+    @Args('id') id: string,
+  ): Promise<PackageEntity[]> {
+    return this.packageService.findPackagesByVendor(id);
   }
 
 }
