@@ -160,11 +160,11 @@ const Signup = () => {
                     htmlFor="terms"
                     className="text-sm text-left leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
                     By submitting and sharing your information, you agree to the{' '}
-                    <Link href="/" className="underline hover:text-orange">
+                    <Link href="/terms-of-use" target="_blank" className="underline hover:text-orange">
                       terms of use
                     </Link>{' '}
                     and{' '}
-                    <Link href="/" className="underline hover:text-orange">
+                    <Link href="/privacy-policy" target="_blank" className="underline hover:text-orange">
                       privacy policy
                     </Link>{' '}
                     of Say I Do.

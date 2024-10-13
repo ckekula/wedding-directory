@@ -99,16 +99,7 @@ const OnboardingPageThree = () => {
           <div className="mb-6">
             <div className="mb-4">
               <label className="block font-light mb-2">Where is your hometown? (For better recomendations)</label>
-              <CityInput onCityChange={setWeddingVenue}/>
-            </div>
-            <div className="flex items-center">
-              <input
-                type="checkbox"
-                className="border-gray-400 border-2 mr-2 mt-0 rounded-md"
-                checked={isStillDeciding}
-                onChange={(e) => setIsStillDeciding(e.target.checked)}
-              />
-              <label className="font-light mt-1">We&apos;re still deciding</label>
+              <CityInput placeholder="Find your city" onCityChange={setWeddingVenue}/>
             </div>
             <div className="mb-6">
               <label className="block font-light mt-3 mb-2">What is your Contact Number (optional)</label>

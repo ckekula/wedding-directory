@@ -13,7 +13,7 @@ const PurposeAndVision: React.FC = () => {
         </p>
       </div>
       <div className="w-full md:w-1/2 p-6 bg-white shadow-lg rounded-lg">
-        <div className="font-bold font-title text-2xl mb-2">Our Vision</div>
+        <div className="font-bold font-title text-2xl mb-2">Our Mission</div>
         <p>
           Our mission is to make wedding planning a stress-free and enjoyable
           experience for every couple. By leveraging innovative tools, expert
