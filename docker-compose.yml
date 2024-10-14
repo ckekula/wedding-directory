@@ -1,36 +1,28 @@
-version: '3.8'
-
 services:
   frontend:
     build:
       context: ./frontend
       dockerfile: dockerfile
+    volumes:
+      - ./frontend:/app  # Bind mount the local frontend directory
+      - /app/node_modules # Ensure container's node_modules are used
+    command: npm run dev  # Use development mode
     ports:
-      - "3000:3000"
+      - 3000:3000
     environment:
-      - NODE_ENV=production
+      - NODE_ENV=development
 
   backend:
     build:
       context: ./backend
       dockerfile: dockerfile
+    volumes:
+      - ./backend:/app  # Bind mount the local backend directory
+      - /app/node_modules # Ensure container's node_modules are used
+    command: npm run start:dev  # Use development mode (for NestJS)
     ports:
-      - "4000:4000"
+      - 4000:4000
+    env_file:
+      - backend/.env
     environment:
-      - NODE_ENV=production
-      - DATABASE_HOST=host.docker.internal
-      - DATABASE_PORT=5432
-      - DATABASE_USER=postgres
-      - DATABASE_PASSWORD=postgres
-      - DATABASE_NAME=app_db
-    depends_on:
-      - db
-
-  db:
-    image: postgres:13
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_DB=app_db
-    ports:
-      - "5432:5432"
+      - NODE_ENV=development

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="fe9e803b-a74e-4952-bf96-9a931fe40db4" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/visitor-onboarding/OnboardingPageOne.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/visitor-onboarding/OnboardingPageThree.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/visitor-onboarding/OnboardingPageTwo.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/graphql/inputs/update-visitor.input.pageone.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/graphql/inputs/update-visitor.input.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/graphql/resolvers/visitor.resolver.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/graphql/resolvers/visitor.resolver.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/graphql/schema.gql" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/graphql/schema.gql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/modules/visitor/visitor.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/modules/visitor/visitor.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/api/graphql/mutations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/api/graphql/mutations.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/(onboarding)/pageone/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/(onboarding)/pageone/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/(onboarding)/pagethree/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/(onboarding)/pagethree/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/(onboarding)/pagetwo/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/(onboarding)/pagetwo/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/shared/VisitorSignup.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/shared/VisitorSignup.tsx" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="feature/janitha-vendorAuth-backend" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2mVrgwWlrTLhWxSE74wnh2yv7iw" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "com.codeium.enabled": "true",
+    "git-widget-placeholder": "feature/janitha-visitor-onboarding",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "D:/Web Development/My Projects/UniExchange",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "ts.external.directory.path": "D:\\UOR\\5thSem\\Software Project\\dev\\root\\wedding-directory\\backend\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\UOR\5thSem\Software Project\dev\root\wedding-directory\frontend\public" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="ShConfigurationType">
+      <option name="SCRIPT_TEXT" value="" />
+      <option name="INDEPENDENT_SCRIPT_PATH" value="true" />
+      <option name="SCRIPT_PATH" value="" />
+      <option name="SCRIPT_OPTIONS" value="" />
+      <option name="INDEPENDENT_SCRIPT_WORKING_DIRECTORY" value="true" />
+      <option name="SCRIPT_WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="INDEPENDENT_INTERPRETER_PATH" value="true" />
+      <option name="INTERPRETER_PATH" value="powershell.exe" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="EXECUTE_IN_TERMINAL" value="true" />
+      <option name="EXECUTE_SCRIPT_FILE" value="true" />
+      <envs />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-WS-242.22855.79" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fe9e803b-a74e-4952-bf96-9a931fe40db4" name="Changes" comment="" />
+      <created>1727172700230</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1727172700230</updated>
+      <workItem from="1727172702232" duration="886000" />
+      <workItem from="1727177976869" duration="36000" />
+      <workItem from="1727178025399" duration="13842000" />
+      <workItem from="1727271024399" duration="17788000" />
+      <workItem from="1727326564078" duration="18910000" />
+      <workItem from="1727357503600" duration="5781000" />
+      <workItem from="1727417756534" duration="3063000" />
+      <workItem from="1727537008058" duration="2996000" />
+      <workItem from="1727843353787" duration="120000" />
+      <workItem from="1727843484330" duration="2062000" />
+      <workItem from="1727856623693" duration="9277000" />
+      <workItem from="1727880325458" duration="8637000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/frontend/src/app/visitors/page.tsx</url>
+          <line>1</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/backend/src/app.module.ts</url>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
