@@ -39,7 +39,7 @@ jobs:
       - name: Install dependencies
         run: |
           cd frontend
-          npm i
+          npm ci
 
       # Build the frontend (Next.js) app
       - name: Build the frontend
@@ -47,8 +47,12 @@ jobs:
           cd frontend
           npm run build --if-present
 
-      # Deploy to PM2
-      - name: Restart PM2
+      # # Copy the frontend folder to the VPS using rsync
+      # - name: Deploy to VPS
+      #   run: |
+      #     rsync -avz --delete frontend/ janitha@51.79.145.226:/home/janitha/actions-runner-frontend/_work/wedding-directory/wedding-directory/frontend
+
+      # SSH into the VPS and restart the PM2 process
+      - name: Restart PM2 on VPS
         run: |
-          cd frontend
-          pm2 restart 0
+          npm ci && pm2 restart 0"
