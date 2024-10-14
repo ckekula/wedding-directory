@@ -1,11 +1,14 @@
 name: Node.js CI Backend
+
 on:
   push:
     branches: [ "main" ]
+
 jobs:
   build:
     name: Build Backend
     runs-on: self-hosted
+
     strategy:
       matrix:
         node-version: [20.18.0]
@@ -23,14 +26,28 @@ jobs:
       # Checkout the code from GitHub repository
       - uses: actions/checkout@v4
 
-      # Install dependencies
+	# Set up Node.js with the specified version
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # Install dependencies in the backend directory
       - name: Install Dependencies
         run: |
-          cd backend && npm ci
+          cd backend
+          npm ci
 
-      # Add Environmental Variables
+      # Copy files to the production backend directory
+      - name: Copy files to production backend directory
+        run: |
+          rm -rf /home/janitha/production/backend/*
+          cp -R backend/* /home/janitha/production/backend/
+
+      # Set up environmental variables
       - name: Add Environmental Variables
         run: |
+          cd /home/janitha/production/backend
           touch .env
           echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
           echo "GOOGLE_MAPS_API_KEY=${{ secrets.GOOGLE_MAPS_API_KEY }}" >> .env
@@ -40,12 +57,8 @@ jobs:
           echo "UPLOAD_RATE_TTL=${{ secrets.UPLOAD_RATE_TTL }}" >> .env
           echo "UPLOAD_RATE_LIMIT=${{ secrets.UPLOAD_RATE_LIMIT }}" >> .env
 
-      # Build the backend (Nest.js) app
+      # Build the backend in the production directory
       - name: Build the backend
         run: |
-          cd backend && npm run build
-
-      # Restart the backend application using PM2
-      - name: Restart the backend
-        run: |
-          cd backend && pm2 restart 1
+          cd /home/janitha/production/backend
+          npm run build --if-present
