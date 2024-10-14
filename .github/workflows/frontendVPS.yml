@@ -39,7 +39,7 @@ jobs:
       - name: Install dependencies
         run: |
           cd frontend
-          npm ci
+          npm i
 
       # Build the frontend (Next.js) app
       - name: Build the frontend
