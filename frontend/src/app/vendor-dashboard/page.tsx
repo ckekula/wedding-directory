@@ -119,4 +119,4 @@ const page = () => {
   );
 };
 
-export default VendorDashBoard;
+export default page;
