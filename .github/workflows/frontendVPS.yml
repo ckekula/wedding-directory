@@ -27,15 +27,29 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
 
+      # Restore npm cache
+      - name: Restore npm cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
       # Install dependencies in the frontend directory
       - name: Install dependencies
-        run:
-          cd frontend && npm ci
-
+        run: |
+          cd frontend
+          npm ci
 
       # Build the frontend (Next.js) app
       - name: Build the frontend
-        run:
-          cd frontend && npm run build --if-present
-          pm2 restart 0
+        run: |
+          cd frontend
+          npm run build --if-present
 
+      # Deploy to PM2
+      - name: Restart PM2
+        run: |
+          cd frontend
+          pm2 restart 0
