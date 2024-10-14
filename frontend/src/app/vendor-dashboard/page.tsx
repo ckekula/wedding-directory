@@ -13,7 +13,7 @@ import { useVendorAuth } from "@/contexts/VendorAuthContext";
 import { useQuery } from "@apollo/client";
 import { CiCirclePlus } from "react-icons/ci";
 
-const page = () => {
+const VendorDashBoard = () => {
 
   const { vendor } = useVendorAuth();
 
@@ -119,4 +119,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default VendorDashBoard;
