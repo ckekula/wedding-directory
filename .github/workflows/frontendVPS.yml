@@ -25,6 +25,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
+          cache: 'npm'
 
       # Install dependencies in the frontend directory
       - name: Install dependencies
@@ -36,5 +37,5 @@ jobs:
       - name: Build the frontend
         run:
           cd frontend && npm run build --if-present
-
+          pm2 restart 0
 
