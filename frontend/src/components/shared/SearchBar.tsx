@@ -8,7 +8,7 @@ import { useRouter } from "next/navigation";
 
 const SearchBar: React.FC<SearchBarProps> = ({
   showIcon = true,
-  placehHolderText = "Search...",
+  placehHolderText = "Search for a service or category",
 }) => {
 
   const router = useRouter();

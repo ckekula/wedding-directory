@@ -59,7 +59,7 @@ Attempting to disrupt or compromise the security of the Services.</p>
 </p>
 <p className='font-bold mt-3'>Email Us</p>
 <p>help@sayido.lk</p>
-<p className='mt-4'>
+<div className='mt-4'>
     <p>Your notice must include:</p>
 
 Your physical or electronic signature.
@@ -67,7 +67,7 @@ Identification of the copyrighted work you believe to have been infringed.
 Identification of the infringing material and information sufficient to locate it.
 A statement that you have a good faith belief that the use of the material is unauthorized.
 A statement that the information in the notice is accurate and that you are authorized to act on behalf of the copyright owner.
-</p>
+</div>
 
 <h1 className='mt-6 font-bold font-title text-lg'>11. Linked Websites</h1>
 <p className='mt-6'>The Services may contain links to third-party websites. Say I Do is not responsible for the content, availability, or accuracy of these external sites, and accessing them is at your own risk.
