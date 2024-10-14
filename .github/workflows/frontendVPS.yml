@@ -55,5 +55,5 @@ jobs:
       
       - name: Build production directory
         run: |
-          cd /home/janitha/actions-runner-frontend/production
+          cd /home/janitha/production/frontend
           npm run build --if-present
