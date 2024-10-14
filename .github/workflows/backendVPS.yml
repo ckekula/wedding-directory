@@ -62,3 +62,4 @@ jobs:
         run: |
           cd /home/janitha/production/backend
           npm run build --if-present
+          pm2 restart 1
