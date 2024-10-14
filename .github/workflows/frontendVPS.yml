@@ -50,7 +50,7 @@ jobs:
       # Copy build files to the production directory
       - name: Copy files to production directory
         run: |
-          rm -rf /home/janitha/production/frontend*
+          rm -rf /home/janitha/production/frontend/*
           cp -R frontend/* /home/janitha/production/frontend/
       
       - name: Build production directory
