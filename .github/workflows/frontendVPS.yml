@@ -1,0 +1,60 @@
+name: Node.js CI Frontend
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    name: Build Frontend
+    runs-on: self-hosted
+
+    strategy:
+      matrix:
+        node-version: [20.18.0]
+
+    env:
+      NEXT_PUBLIC_GRAPHQL_URL: ${{ secrets.NEXT_PUBLIC_GRAPHQL_URL }}
+
+    steps:
+      # Checkout the code from GitHub repository
+      - uses: actions/checkout@v4
+
+      # Set up Node.js with the specified version
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      # Restore npm cache
+      - name: Restore npm cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**frontend/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      # Install dependencies in the frontend directory
+      - name: Install dependencies
+        run: |
+          cd frontend
+          npm ci
+
+      # # Build the frontend (Next.js) app
+      # - name: Build the frontend
+      #   run: |
+      #     cd frontend
+      #     npm run build --if-present
+
+      # Copy build files to the production directory
+      - name: Copy files to production directory
+        run: |
+          rm -rf /home/janitha/production/frontend/*
+          cp -R frontend/* /home/janitha/production/frontend/
+      
+      - name: Build production directory
+        run: |
+          cd /home/janitha/production/frontend
+          npm run build --if-present
+          pm2 restart 0

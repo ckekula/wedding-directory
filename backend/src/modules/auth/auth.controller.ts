@@ -24,8 +24,8 @@ export class AuthController {
         // Set access_token as a regular cookie (not HttpOnly, so it is accessible from frontend)
         res.cookie('access_token', access_token, {
             httpOnly: false,  // Set this to false so the cookie is accessible to frontend JavaScript
-            secure: process.env.NODE_ENV === 'production', // Use secure cookie in production (HTTPS)
-            sameSite: 'lax',  // Adjust sameSite policy based on your use case (e.g., 'strict', 'none')
+            secure: process.env.COOKIE_SECURE === 'true',  // Convert environment variable to boolean
+            sameSite: sameSiteValue,  // Properly typed value
             maxAge: 24 * 60 * 60 * 1000, // 1 day expiration
         });
 
@@ -43,10 +43,18 @@ export class AuthController {
         const { access_token } = this.authService.loginVendor(vendor);
         res.cookie('access_tokenVendor', access_token, {
             httpOnly: false,  // Set this to false so the cookie is accessible to frontend JavaScript
-            secure: process.env.NODE_ENV === 'production', // Use secure cookie in production (HTTPS)
-            sameSite: 'lax',  // Adjust sameSite policy based on your use case (e.g., 'strict', 'none')
+            secure: process.env.COOKIE_SECURE === 'true',  // Convert environment variable to boolean
+            sameSite: sameSiteValue,  // Properly typed value
             maxAge: 24 * 60 * 60 * 1000, // 1 day expiration
         });
         res.status(HttpStatus.OK).json({ message: 'Login successful' });
     }
 }
+
+
+// Define a valid value for sameSite based on the environment variable
+const sameSiteValue = (process.env.COOKIE_SAMESITE === 'none'
+    ? 'none'
+    : process.env.COOKIE_SAMESITE === 'strict'
+    ? 'strict'
+    : 'lax') as 'lax' | 'strict' | 'none'; // TypeScript strict type checking
