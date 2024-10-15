@@ -1,16 +1,14 @@
 <!-- Improved compatibility of back to top link: See: https://github.com/othneildrew/Best-README-Template/pull/73 -->
+
 <a id="readme-top"></a>
 
-
 <!-- PROJECT SHIELDS -->
+
 [![Contributors][contributors-shield]][contributors-url]
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
 [![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
-
 
 <!-- PROJECT LOGO -->
 <br />
@@ -34,8 +32,6 @@
     <a href="https://github.com/ckekula/wedding-directory/issues/new?labels=enhancement&template=feature-request---.md">Request Feature</a>
   </p>
 </div>
-
-
 
 <!-- TABLE OF CONTENTS -->
 <details>
@@ -63,45 +59,44 @@
   </ol>
 </details>
 
-
-
 <!-- ABOUT THE PROJECT -->
+
 ## About The Project
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `ckekula`, `wedding-directory`, `twitter_handle`, `linkedin_username`, `email_client`, `email`, `project_title`, `project_description`
+At Sayido.lk, we celebrate the beauty of weddings by connecting Sri
+Lankan couples with the best local vendors, venues, and services. Our
+platform is designed to make wedding planning easier and more
+personalized, helping you bring your dream celebration to life. From
+photographers and florists to breathtaking venues, Sayido.lk is your
+go-to destination for finding trusted professionals who understand the
+unique charm and traditions of Sri Lankan weddings. Whether you're
+planning an intimate gathering or a grand celebration, we’re here to
+guide you every step of the way, turning inspiration into action with
+ease.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
 
 ### Built With
 
-
-* [![Next][Next.js]][Next-url]
-* [![React][React.js]][React-url]
-* [![TailwindCSS][TailwindCSS]][TailwindCSS-url]
-* [![NestJS][NestJS]][NestJS-url]
-* [![Apollo-GraphQL][Apollo-GraphQL]][Apollo-GraphQL-url]
-* [![Redis][Redis]][Redis-url]
-* [![JWT][JWT]][JWT-url]
-* [![Postgres][Postgres]][Postgres-url]
-* [![MongoDB][MongoDB]][MongoDB-url]
-* [![Docker][Docker]][Docker-url]
-* [![Jest][Jest]][Jest-url]
-* [![Selenium][Selenium]][Selenium-url]
-
-
-
-
-
+- [![Next][Next.js]][Next-url]
+- [![React][React.js]][React-url]
+- [![TailwindCSS][TailwindCSS]][TailwindCSS-url]
+- [![NestJS][NestJS]][NestJS-url]
+- [![Apollo-GraphQL][Apollo-GraphQL]][Apollo-GraphQL-url]
+- [![Redis][Redis]][Redis-url]
+- [![JWT][JWT]][JWT-url]
+- [![Postgres][Postgres]][Postgres-url]
+- [![MongoDB][MongoDB]][MongoDB-url]
+- [![Docker][Docker]][Docker-url]
+- [![Jest][Jest]][Jest-url]
+- [![Selenium][Selenium]][Selenium-url]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 <!-- GETTING STARTED -->
+
 ## Getting Started
 
 This is an example of how you may give instructions on setting up your project locally.
@@ -109,8 +104,7 @@ To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
+- npm
   ```sh
   npm install npm@latest -g
   ```
@@ -121,13 +115,13 @@ This is an example of how to list things you need to use the software and how to
    ```sh
    git clone https://github.com/ckekula/wedding-directory.git
    ```
-2. Install NPM packages
-   ```sh
-   npm install
-   ```
-3. Navigate to the directory `frontend`
+2. Navigate to the directory `frontend`
    ```js
    cd frontend
+   ```
+3. Install NPM packages
+   ```sh
+   npm install
    ```
 4. Start the local Next.js server
    ```sh
@@ -149,20 +143,20 @@ This is an example of how to list things you need to use the software and how to
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- ROADMAP -->
+
 ## Roadmap
 
 - [ ] Feature 1
 - [ ] Feature 2
 - [ ] Feature 3
-    - [ ] Nested Feature
+  - [ ] Nested Feature
 
 See the [open issues](https://github.com/ckekula/wedding-directory/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 <!-- CONTRIBUTING -->
+
 ## Contributing
 
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
@@ -178,22 +172,20 @@ Don't forget to give the project a star! Thanks again!
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 <!-- LICENSE -->
+
 ## License
 
 Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 <!-- CONTACT -->
+
 ## Contact
 
 Hansika Karunathilake - [LinkedIn](https://www.linkedin.com/in/hansika-karunathilake-520a03218/)  
-KRC Skekulawala - [LinkedIn](https://www.linkedin.com/in/krcskekulawala)  
+Chamuditha kekulawala - [LinkedIn](https://www.linkedin.com/in/krcskekulawala)  
 Janitha Karunarathna - [LinkedIn](https://www.linkedin.com/in/janitha-karunarathna/)  
 Keshara Gunathilaka - [LinkedIn](https://www.linkedin.com/in/keshara-gunathilaka/)
 
@@ -201,20 +193,17 @@ Project Link: [https://github.com/ckekula/wedding-directory](https://github.com/
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 <!-- ACKNOWLEDGMENTS -->
+
 ## Acknowledgments
 
-We would like to express our gratitude to our client, Dr. Kushan Sudheera, for his guidance and support throughout the project.
-
+We would like to express our gratitude to, Dr. Kushan Sudheera (lecturer, FOE, UOR) for his guidance and support throughout the project.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-
-
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
 [contributors-shield]: https://img.shields.io/github/contributors/ckekula/wedding-directory.svg?style=for-the-badge
 [contributors-url]: https://github.com/ckekula/wedding-directory/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/ckekula/wedding-directory.svg?style=for-the-badge

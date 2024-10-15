@@ -21,7 +21,7 @@ import { UploadModule } from './modules/upload/upload.module';
         url: configService.get<string>('DATABASE_URL'),
         ssl: true,
         entities: [join(__dirname, '**', '*.entity.{ts,js}')],
-        synchronize: true, // Set to false in production
+        synchronize: false, // Set to false in production
       }),
       inject: [ConfigService],
     }),
