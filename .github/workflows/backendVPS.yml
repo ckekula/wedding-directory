@@ -2,7 +2,7 @@ name: Node.js CI Backend
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
   build:
@@ -21,6 +21,8 @@ jobs:
       AWS_S3_REGION: ${{ secrets.AWS_S3_REGION }}
       UPLOAD_RATE_TTL: ${{ secrets.UPLOAD_RATE_TTL }}
       UPLOAD_RATE_LIMIT: ${{ secrets.UPLOAD_RATE_LIMIT }}
+      COOKIE_SECURE: ${{ secrets.COOKIE_SECURE }}
+      COOKIE_SAMESITE: ${{secrets.COOKIE_SAMESITE}}
 
     steps:
       # Checkout the code from GitHub repository
