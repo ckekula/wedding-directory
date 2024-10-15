@@ -52,9 +52,13 @@ export class AuthController {
 }
 
 
-// Define a valid value for sameSite based on the environment variable
+
+
 const sameSiteValue = (process.env.COOKIE_SAMESITE === 'none'
     ? 'none'
     : process.env.COOKIE_SAMESITE === 'strict'
     ? 'strict'
     : 'lax') as 'lax' | 'strict' | 'none'; // TypeScript strict type checking
+
+
+
