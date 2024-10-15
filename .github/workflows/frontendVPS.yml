@@ -14,7 +14,7 @@ jobs:
         node-version: [20.18.0]
 
     env:
-      NEXT_WEBSITE_URL: ${{ secrets.NEXT_WEBSITE_URL }}
+      NEXT_PUBLIC_GRAPHQL_URL: ${{ secrets.NEXT_PUBLIC_GRAPHQL_URL }}
 
     steps:
       # Checkout the code from GitHub repository
@@ -26,15 +26,35 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      # Restore npm cache
+      - name: Restore npm cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**frontend/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
       # Install dependencies in the frontend directory
       - name: Install dependencies
-        run:
-          cd frontend && npm ci
+        run: |
+          cd frontend
+          npm ci
 
+      # # Build the frontend (Next.js) app
+      # - name: Build the frontend
+      #   run: |
+      #     cd frontend
+      #     npm run build --if-present
 
-      # Build the frontend (Next.js) app
-      - name: Build the frontend
-        run:
-          cd frontend && npm run build
-
-
+      # Copy build files to the production directory
+      - name: Copy files to production directory
+        run: |
+          rm -rf /home/janitha/production/frontend/*
+          cp -R frontend/* /home/janitha/production/frontend/
+      
+      - name: Build production directory
+        run: |
+          cd /home/janitha/production/frontend
+          npm run build --if-present
+          pm2 restart 0

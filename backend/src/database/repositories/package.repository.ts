@@ -10,14 +10,38 @@ export const PackageRepository = (dataSource: DataSource): PackageRepositoryType
     async createPackage(
       createPackageInput: Partial<PackageEntity>,
       vendor: VendorEntity,
-      mediaUrls: string[],
     ): Promise<PackageEntity> {
       const _package = this.create({
         ...createPackageInput,
-        media: mediaUrls,
         vendor,
       });
       return this.save(_package);
+    },
+
+    async updatePackage(
+      id: string,
+      updatePackageInput: Partial<PackageEntity>,
+      mediaUrls: string[],
+    ): Promise<PackageEntity> {
+      const _package = await this.findOne({ where: { id } });
+      if (!_package) {
+        throw new Error('Package not found');
+      }
+      return this.save({
+        ..._package,
+        ...updatePackageInput,
+        media: mediaUrls,
+      });
+    },
+
+    async deletePackage(id: string): Promise<boolean> {
+      const result = await this.delete({ id });
+      return result.affected > 0;
+    },
+
+    async findPackageById(id: string): Promise<PackageEntity> {
+      return this.findOne({ 
+        relations: ['vendor'], where: { id } });
     },
 
     async findPackagesByFilters(category?: string, city?: string): Promise<PackageEntity[]> {
@@ -34,4 +58,11 @@ export const PackageRepository = (dataSource: DataSource): PackageRepositoryType
 
       return query.getMany();
     },
+
+    async findPackagesByVendor(id: string): Promise<PackageEntity[]> {
+      return this.createQueryBuilder('package')
+        .leftJoinAndSelect('package.vendor', 'vendor') // Include vendor details
+        .where('vendor.id = :id', { id })
+        .getMany();
+    }
   });

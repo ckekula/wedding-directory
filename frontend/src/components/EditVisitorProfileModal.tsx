@@ -6,7 +6,7 @@ import { Calendar } from "./ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Calendar as CalendarIcon } from "lucide-react";
 import { format } from "date-fns";
-import { EditProfileModalProps } from "@/types/visitorProfileProps";
+import { EditProfileModalProps } from "@/types/visitorProfileTypes";
 
 const EditProfileModal = ({
   isOpen,

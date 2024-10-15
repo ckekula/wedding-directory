@@ -6,7 +6,7 @@ import { useAuth } from "@/contexts/VisitorAuthContext";
 import { useMutation, useQuery } from "@apollo/client";
 import { GET_VISITOR_BY_ID } from "@/api/graphql/queries";
 import { UPDATE_VISITOR } from "@/api/graphql/mutations";
-import { AccountDetailsData } from "@/types/visitorProfileData";
+import { AccountDetailsData } from "@/types/visitorProfileTypes";
 
 const AccountDetails: React.FC = () => {
 

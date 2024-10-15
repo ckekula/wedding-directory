@@ -13,6 +13,7 @@ import { useMutation } from '@apollo/client';
 import { useAuth } from '@/contexts/VisitorAuthContext';
 import { UPDATE_VISITOR } from '@/api/graphql/mutations';
 import LocationInput from '../vendor-signup/LocationInput';
+import CityInput from '../vendor-signup/CityInput';
 
 const OnboardingPageThree = () => {
   const router = useRouter();
@@ -97,23 +98,11 @@ const OnboardingPageThree = () => {
           {/* Input Fields */}
           <div className="mb-6">
             <div className="mb-4">
-              <label className="block font-light mb-2">Where are you getting married? (Best guesses welcome!)</label>
-              <LocationInput
-                onLocationChange={(location) => setWeddingVenue(location)} // Update weddingVenue state when location is selected
-                disabled={isStillDeciding} // disable input if "still deciding" checkbox is checked
-              />
-            </div>
-            <div className="flex items-center">
-              <input
-                type="checkbox"
-                className="border-gray-400 border-2 mr-2 mt-0 rounded-md"
-                checked={isStillDeciding}
-                onChange={(e) => setIsStillDeciding(e.target.checked)}
-              />
-              <label className="font-light mt-1">We&apos;re still deciding</label>
+              <label className="block font-light mb-2">Where is your hometown? (For better recomendations)</label>
+              <CityInput placeholder="Find your city" onCityChange={setWeddingVenue}/>
             </div>
             <div className="mb-6">
-              <label className="block font-light mt-3 mb-2">Contact Number</label>
+              <label className="block font-light mt-3 mb-2">What is your Contact Number (optional)</label>
               <Input
                 className="h-10 w-full rounded-xl border-2 border-gray-300"
                 type="text"

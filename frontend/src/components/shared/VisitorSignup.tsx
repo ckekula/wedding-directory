@@ -64,7 +64,7 @@ const VisitorSignup: React.FC<VisitorSignupProps> = ({ isVisible, onClose }) => 
             });
 
             if (response.data) {
-                toast.success('Visitor Registered!', {style: {background: '#333',color: '#fff',},});
+                toast.success('Succesfully Registered!', {style: {background: '#333',color: '#fff',},});
                 console.log('Visitor created successfully:', response.data.createVisitor);
 
                 // After successful signup, login using the provided email and password

@@ -1,5 +1,6 @@
 import React from "react";
 import { Button } from "../ui/button";
+import Link from "next/link";
 
 const Subscribe = () => {
   return (
@@ -14,7 +15,7 @@ const Subscribe = () => {
           variant="subscribe"
           className="font-body  font-bold px-4 text-[20px]"
         >
-          Subscribe
+          <Link href={"#"}>Subscribe</Link>
         </Button>
       </div>
     </div>

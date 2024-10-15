@@ -7,18 +7,18 @@ export class PackageModel {
   id: string;
 
   @Field()
-  vendor_id: string;
+  name: string;
 
   @Field()
   category: string;
 
-  @Field()
+  @Field({ nullable: true })
   bus_phone: string;
 
-  @Field()
+  @Field({ nullable: true })
   bus_email: string;
 
-  @Field()
+  @Field({ nullable: true })
   about: string;
 
   @Field({ nullable: true })

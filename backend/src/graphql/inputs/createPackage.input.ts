@@ -7,38 +7,8 @@ export class CreatePackageInput {
     vendor_id: string;
 
     @Field()
+    name: string;
+
+    @Field()
     category: string;
-
-    @Field()
-    bus_phone: string;
-
-    @Field()
-    bus_email: string;
-
-    @Field()
-    about: string;
-
-    @Field()
-    banner: string;
-
-    @Field()
-    experience: string;
-
-    @Field()
-    start_price: string;
-
-    @Field()
-    website : string;
-
-    @Field()
-    instagram: string;
-
-    @Field()
-    facebook: string;
-
-    @Field()
-    x: string;
-
-    @Field()
-    tiktok: string;
 }

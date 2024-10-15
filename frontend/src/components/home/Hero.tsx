@@ -22,11 +22,8 @@ const Hero = () => {
           Search, Add to the checklist and Plan your Wedding!
         </p>
         <div className="mt-8">
-        <SearchBar />
-        
-
+          <SearchBar />
         </div>
-
       </div>
     </div>
   );
