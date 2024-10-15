@@ -28,7 +28,7 @@ import { UploadModule } from './modules/upload/upload.module';
 
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      autoSchemaFile: 'src/graphql/schema.gql',
+      // autoSchemaFile: 'src/graphql/schema.gql',
       playground: true
     }),
 
