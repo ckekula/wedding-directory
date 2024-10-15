@@ -4,7 +4,6 @@ on:
   push:
     branches: [ "main" ]
 
-
 jobs:
   build:
     name: Build Backend
@@ -35,9 +34,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-
-
-
       # Install dependencies in the backend directory
       - name: Install Dependencies
         run: |
@@ -62,9 +58,8 @@ jobs:
           echo "AWS_S3_REGION=${{ secrets.AWS_S3_REGION }}" >> .env
           echo "UPLOAD_RATE_TTL=${{ secrets.UPLOAD_RATE_TTL }}" >> .env
           echo "UPLOAD_RATE_LIMIT=${{ secrets.UPLOAD_RATE_LIMIT }}" >> .env
-
-          echo "COOKIE_SAMESITE=${{ secrets.COOKIE_SAMESITE }}" >> .env
-          echo "COOKIE_SECURE=${{ secrets.COOKIE_SECURE }}" >> .env
+          echo "COOKIE_SAMESITE=none" >> .env
+          echo "COOKIE_SECURE=true" >> .env
 
 
       # Build the backend in the production directory
