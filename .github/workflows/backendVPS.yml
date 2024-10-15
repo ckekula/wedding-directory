@@ -4,6 +4,7 @@ on:
   push:
     branches: [ "main" ]
 
+
 jobs:
   build:
     name: Build Backend
@@ -21,6 +22,8 @@ jobs:
       AWS_S3_REGION: ${{ secrets.AWS_S3_REGION }}
       UPLOAD_RATE_TTL: ${{ secrets.UPLOAD_RATE_TTL }}
       UPLOAD_RATE_LIMIT: ${{ secrets.UPLOAD_RATE_LIMIT }}
+      COOKIE_SECURE: ${{ secrets.COOKIE_SECURE }}
+      COOKIE_SAMESITE: ${{secrets.COOKIE_SAMESITE}}
 
     steps:
       # Checkout the code from GitHub repository
@@ -30,7 +33,10 @@ jobs:
       - name: Set up Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: ${{ matrix.node-version }}
+
+
+
 
       # Install dependencies in the backend directory
       - name: Install Dependencies
@@ -56,6 +62,10 @@ jobs:
           echo "AWS_S3_REGION=${{ secrets.AWS_S3_REGION }}" >> .env
           echo "UPLOAD_RATE_TTL=${{ secrets.UPLOAD_RATE_TTL }}" >> .env
           echo "UPLOAD_RATE_LIMIT=${{ secrets.UPLOAD_RATE_LIMIT }}" >> .env
+
+          echo "COOKIE_SAMESITE=${{ secrets.COOKIE_SAMESITE }}" >> .env
+          echo "COOKIE_SECURE=${{ secrets.COOKIE_SECURE }}" >> .env
+
 
       # Build the backend in the production directory
       - name: Build the backend
