@@ -1,7 +1,6 @@
 "use client";
 import Image from "next/image";
 import React from "react";
-import vendorBanner from "../../assets/images/vendor/vendorBanner.jpg";
 import { FiHome } from "react-icons/fi";
 interface VendorBannerProps {
   businessName: string;
@@ -11,7 +10,7 @@ const VendorBanner: React.FC<VendorBannerProps> = ({ businessName }) => {
     <div className="container relative w-screen h-[305px]">
       {/* Banner image */}
       <Image
-        src={vendorBanner}
+        src='images/vendorBanner'
         alt="vendor banner dashboard image"
         fill={true}
         style={{ objectFit: "cover" }}

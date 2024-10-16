@@ -1,7 +1,6 @@
 "use client";
-import React, { useRef, useState } from "react";
-import Image, { StaticImageData } from "next/image";
-import profilePicPlaceholder from "../../assets/images/dashboardProfilePic.jpg";
+import React, { useRef } from "react";
+import Image from "next/image";
 import { useAuth } from "@/contexts/VisitorAuthContext";
 import { uploadProfilePicture } from "@/api/upload/visitor.upload";
 import { ProfilePictureProps } from "@/types/uploadTypes";
@@ -21,7 +20,7 @@ const ProfilePicture: React.FC<ProfilePictureProps> = ({ profilePic, setProfileP
     if (file && visitor?.id) {
       try {
         const fileUrl = await uploadProfilePicture(file, visitor.id);
-        setProfilePic(fileUrl || profilePicPlaceholder); // Update the profile picture
+        setProfilePic(fileUrl || 'images/dashboardProfilePic.jpg');
       } catch (error) {
         console.error("Error uploading profile picture:", error);
       }

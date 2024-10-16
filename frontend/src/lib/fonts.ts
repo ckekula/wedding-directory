@@ -5,13 +5,13 @@ export const montserrat = Montserrat({
     weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
     variable: "--font-montserrat",
 });
-  
+
 export  const merriweather = Merriweather({
     subsets: ["latin"],
     weight: ["300", "400", "700", "900"],
     variable: "--font-merriweather",
 });
-  
+
 export const montez = Montez({
     subsets: ["latin"],
     weight: ["400"],

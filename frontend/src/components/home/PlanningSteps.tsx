@@ -1,7 +1,6 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import leftImage from "../../assets/images/bridaldressing.jpg";
 import { Button } from "../ui/button";
 
 const cards = [
@@ -45,7 +44,7 @@ const PlanningSteps = () => {
         <div className="flex flex-wrap">
           <div className="w-full md:w-1/2 lg:w-2/5 p-4">
             <Image
-              src={leftImage}
+              src='/images/bridaldressing.jpg'
               alt="Wedding Planning"
               className="rounded-lg"
               layout="responsive"
