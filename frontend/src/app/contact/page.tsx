@@ -17,7 +17,7 @@ const ContactPage: React.FC = () => {
               Get in Touch
             </h2>
             <p className="text-gray-600 text-center">
-              We're here to assist you with any questions or concerns.
+              We&apos;re here to assist you with any questions or concerns.
             </p>
           </div>
 

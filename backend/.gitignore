@@ -11,3 +11,4 @@ logs/
 # Other common exclusions
 dist/
 coverage/
+.idea/
