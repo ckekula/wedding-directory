@@ -47,9 +47,17 @@ export class PackageService {
     return this.packageRepository.deletePackage(id);
   }
 
+  async findPackageById(id: string): Promise<PackageEntity> {
+    return this.packageRepository.findPackageById(id);
+  }
+
   async findPackagesByFilters(filterInput: PackageFilterInput): Promise<PackageEntity[]> {
     const { category, city } = filterInput;
     return this.packageRepository.findPackagesByFilters(category, city);
+  }
+
+  async findPackagesByVendor(vendorId: string): Promise<PackageEntity[]> {
+    return this.packageRepository.findPackagesByVendor(vendorId);
   }
 
   async updatePackageBanner(packageId: string, fileUrl: string): Promise<PackageEntity> {

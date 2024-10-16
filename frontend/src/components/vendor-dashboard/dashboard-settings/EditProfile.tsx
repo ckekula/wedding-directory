@@ -1,28 +1,43 @@
 "use client";
+
 import React, { Fragment, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import BusinessCategory from "@/components/vendor-signup/CategoryInput";
-
-interface ProfileData {
-  firstName: string;
-  lastName: string;
-  businessName: string;
-  phoneNumber: string;
-  category: string;
-}
+import { ProfileData } from "@/types/vendorTypes";
+import { useVendorAuth } from "@/contexts/VendorAuthContext";
+import { useMutation, useQuery } from "@apollo/client";
+import { GET_VENDOR_BY_ID } from "@/api/graphql/queries";
+import CityInput from "@/components/vendor-signup/CityInput";
+import { UPDATE_VENDOR } from "@/api/graphql/mutations";
+import LocationInput from "@/components/vendor-signup/LocationInput";
 
 const EditProfile: React.FC = () => {
-  // Form state with demo data
-  const [profile, setProfile] = useState<ProfileData>({
-    firstName: "John",
-    lastName: "Doe",
-    businessName: "John's Flower Shop",
-    phoneNumber: "123-456-7890",
-    category: "Florist",
+  const { vendor } = useVendorAuth();
+  const { data, loading, error } = useQuery(GET_VENDOR_BY_ID, {
+    variables: { id: vendor?.id },
+    skip: !vendor?.id,
   });
 
-  // Handle input changes for text fields
+  const vendorData = data?.findVendorById;
+
+  const [profile, setProfile] = useState<ProfileData>({
+    firstName: vendorData?.fname || "Your first name",
+    lastName: vendorData?.lname || "Your last name",
+    businessName: vendorData?.busname || "Your business name",
+    phone: vendorData?.phone || "Your phone number",
+    city: vendorData?.city || "",
+    location: vendorData?.location || "",
+  });
+
+  const [updateVendor] = useMutation(UPDATE_VENDOR, {
+    onCompleted: () => {
+      console.log("Vendor updated successfully!");
+    },
+    onError: (error) => {
+      console.error("Error updating vendor:", error);
+    },
+  });
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setProfile((prevProfile) => ({
@@ -31,20 +46,41 @@ const EditProfile: React.FC = () => {
     }));
   };
 
-  // Handle category change for the dropdown
-  const handleCategoryChange = (category: string) => {
+  const handleCityChange = (city: string) => {
     setProfile((prevProfile) => ({
       ...prevProfile,
-      category,
+      city,
     }));
   };
 
-  // Handle form submission (no backend yet, so this just prevents default behavior)
+  const handleLocationChange = (location: string) => {
+    setProfile((prevProfile) => ({
+      ...prevProfile,
+      location,
+    }));
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    alert("Profile saved successfully!");
-    console.log(profile); // This will log the updated profile in the browser console for now
+    if (!vendor?.id) return;
+
+    updateVendor({
+      variables: {
+        id: vendor.id,
+        input: {
+          fname: profile.firstName,
+          lname: profile.lastName,
+          phone: profile.phone,
+          city: profile.city,
+          location: profile.location,
+          busname: profile.businessName,
+        },
+      },
+    });
   };
+
+  if (loading) return <p>Loading vendor information...</p>;
+  if (error) return <p>Error loading profile information: {error.message}</p>;
 
   return (
     <Fragment>
@@ -82,26 +118,32 @@ const EditProfile: React.FC = () => {
           <div>
             <label className="font-body text-[16px] ">Phone Number</label>
             <Input
-              name="phoneNumber"
-              value={profile.phoneNumber}
+              name="phone"
+              value={profile.phone}
               onChange={handleInputChange}
               className="font-body rounded-md mt-2 mb-3"
             />
           </div>
           <div>
-            <label className="font-body text-[16px] mt- mb-3 ">Category</label>
-            {/* Integrating the BusinessCategory dropdown */}
+            <label className="font-body text-[16px] mt- mb-3 ">City</label>
             <div className="font-body rounded-md mt-2 mb-3">
-              <BusinessCategory onCategoryChange={handleCategoryChange} />
+              <CityInput placeholder={profile.city} onCityChange={handleCityChange} />
             </div>
           </div>
+          <div>
+            <label className="font-body text-[16px] mt- mb-3 ">Location</label>
+            <div className="font-body rounded-md mt-2 mb-3">
+              <LocationInput placeholder={profile.location} onLocationChange={handleLocationChange} />
+            </div>
+          </div>
+          <Button
+            variant="signup"
+            className="m-3 w-full"
+            onClick={handleSubmit}
+          >
+            Save Profile Information
+          </Button>
         </form>
-      </div>
-
-      <div className="bg-white rounded-2xl p-4 px-8 shadow-lg my-8 justify-center flex">
-        <Button variant="signup" className="m-3 w-full">
-          Save Profile Information
-        </Button>
       </div>
     </Fragment>
   );

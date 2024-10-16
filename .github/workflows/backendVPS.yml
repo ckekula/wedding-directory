@@ -1,0 +1,75 @@
+name: Node.js CI Backend
+
+on:
+  push:
+    branches: [ "main" ]
+
+
+jobs:
+  build:
+    name: Build Backend
+    runs-on: self-hosted
+
+    strategy:
+      matrix:
+        node-version: [20.18.0]
+
+    env:
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_S3_REGION: ${{ secrets.AWS_S3_REGION }}
+      UPLOAD_RATE_TTL: ${{ secrets.UPLOAD_RATE_TTL }}
+      UPLOAD_RATE_LIMIT: ${{ secrets.UPLOAD_RATE_LIMIT }}
+      COOKIE_SECURE: ${{ secrets.COOKIE_SECURE }}
+      COOKIE_SAMESITE: ${{secrets.COOKIE_SAMESITE}}
+
+    steps:
+      # Checkout the code from GitHub repository
+      - uses: actions/checkout@v4
+
+      # Set up Node.js with the specified version
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+
+
+
+      # Install dependencies in the backend directory
+      - name: Install Dependencies
+        run: |
+          cd backend
+          npm ci
+
+      # Copy files to the production backend directory
+      - name: Copy files to production backend directory
+        run: |
+          rm -rf /home/janitha/production/backend/*
+          cp -R backend/* /home/janitha/production/backend/
+
+      # Set up environmental variables
+      - name: Add Environmental Variables
+        run: |
+          cd /home/janitha/production/backend
+          touch .env
+          echo "DATABASE_URL=${{ secrets.DATABASE_URL }}" >> .env
+          echo "GOOGLE_MAPS_API_KEY=${{ secrets.GOOGLE_MAPS_API_KEY }}" >> .env
+          echo "AWS_ACCESS_KEY_ID=${{ secrets.AWS_ACCESS_KEY_ID }}" >> .env
+          echo "AWS_SECRET_ACCESS_KEY=${{ secrets.AWS_SECRET_ACCESS_KEY }}" >> .env
+          echo "AWS_S3_REGION=${{ secrets.AWS_S3_REGION }}" >> .env
+          echo "UPLOAD_RATE_TTL=${{ secrets.UPLOAD_RATE_TTL }}" >> .env
+          echo "UPLOAD_RATE_LIMIT=${{ secrets.UPLOAD_RATE_LIMIT }}" >> .env
+
+          echo "COOKIE_SAMESITE=${{ secrets.COOKIE_SAMESITE }}" >> .env
+          echo "COOKIE_SECURE=${{ secrets.COOKIE_SECURE }}" >> .env
+
+
+      # Build the backend in the production directory
+      - name: Build the backend
+        run: |
+          cd /home/janitha/production/backend
+          npm run build --if-present
+          pm2 restart 1

@@ -29,15 +29,12 @@ const VisitorInfo: React.FC<VisitorInfoProps> = ({
         <div className="flex flex-col items-center text-center whitespace-nowrap justify-center">
           <p className="font-title text-4xl font-semibold">Plan your wedding</p>
           <p className="font-body text-lg">All in one place</p>
-          <Link href="budgeter">
-            <p className="font-body text-sm mt-4">Set Budget</p>
-          </Link>
         </div>
       </div>
       <div className="flex m-2 justify-center gap-8 font-body">
         <Link href="#">{wed_date || "Add Date"} </Link>
-        <Link href="#">{wed_venue || "Add Venue"} </Link>
-        <Link href="#">No of Guests</Link>
+        <Link href="#">Your Venue</Link>
+        <Link href="#">No. of Guests</Link>
       </div>
     </div>
   );

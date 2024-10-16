@@ -71,7 +71,7 @@ const PlanningSteps = () => {
                     {card.title}
                   </h3>
                   <p className="text-sm font-body p-4">{card.description}</p>
-                  <Link href="/sign-up">
+                  <Link href="#">
                     <Button variant="ornageOutline" className="pt-2 font-body">
                       Get Started
                     </Button>
@@ -82,7 +82,9 @@ const PlanningSteps = () => {
           </div>
         </div>
         <h2 className="text-5xl font-bold font-title mb-8 text-center mt-8">Join with Say I Do</h2>
-        <Button variant="signup">Sign up with us for free</Button>
+        <Button variant="signup">
+          <Link href={'#'}>Sign up with us for free</Link>
+        </Button>
       </div>
     </section>
   );
