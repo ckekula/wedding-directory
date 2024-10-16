@@ -2,8 +2,7 @@ name: Node.js CI Backend
 
 on:
   push:
-    branches: [ "main" ]
-
+    branches: ["main"]
 
 jobs:
   build:
@@ -20,10 +19,13 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       AWS_S3_REGION: ${{ secrets.AWS_S3_REGION }}
+      AWS_S3_BUCKET_NAME: ${{ secrets.AWS_S3_BUCKET_NAME }}
       UPLOAD_RATE_TTL: ${{ secrets.UPLOAD_RATE_TTL }}
       UPLOAD_RATE_LIMIT: ${{ secrets.UPLOAD_RATE_LIMIT }}
       COOKIE_SECURE: ${{ secrets.COOKIE_SECURE }}
       COOKIE_SAMESITE: ${{secrets.COOKIE_SAMESITE}}
+      TYPEORM_SYNC: ${{ secrets.TYPEORM_SYNC }}
+      CORS_ORIGIN: ${{ secrets.CORS_ORIGIN }}
 
     steps:
       # Checkout the code from GitHub repository
@@ -34,9 +36,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-
-
-
 
       # Install dependencies in the backend directory
       - name: Install Dependencies
@@ -66,10 +65,12 @@ jobs:
           echo "COOKIE_SAMESITE=${{ secrets.COOKIE_SAMESITE }}" >> .env
           echo "COOKIE_SECURE=${{ secrets.COOKIE_SECURE }}" >> .env
 
-
       # Build the backend in the production directory
       - name: Build the backend
         run: |
           cd /home/janitha/production/backend
           npm run build --if-present
-          pm2 restart 1
+
+      - name: Restart pm2
+        run: |
+          pm2 restart 0

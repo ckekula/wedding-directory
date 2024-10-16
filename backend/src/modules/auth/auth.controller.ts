@@ -23,7 +23,7 @@ export class AuthController {
         res.cookie('access_token', access_token, {
             httpOnly: false,
             secure: process.env.COOKIE_SECURE === 'true',
-            sameSite: 'lax',
+            sameSite: process.env.COOKIE_SAMESITE === 'lax' ? 'lax' : 'none',
             maxAge: 24 * 60 * 60 * 1000, // 1 day expiration
         });
 
@@ -42,7 +42,7 @@ export class AuthController {
         res.cookie('access_tokenVendor', access_token, {
             httpOnly: false,
             secure: process.env.COOKIE_SECURE === 'true',
-            sameSite: 'lax',
+            sameSite: process.env.COOKIE_SAMESITE === 'lax' ? 'lax' : 'none',
             maxAge: 24 * 60 * 60 * 1000, // 1 day expiration
         });
         
