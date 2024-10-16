@@ -5,8 +5,6 @@ import { AuthService } from "./auth.service";
 import { LocalAuthGuard } from "./guards/local-auth.guard";
 import { Response } from 'express';
 
-
-
 @Controller('auth')
 export class AuthController {
     constructor (private readonly authService: AuthService){}
@@ -23,9 +21,9 @@ export class AuthController {
 
         // Set access_token as a regular cookie (not HttpOnly, so it is accessible from frontend)
         res.cookie('access_token', access_token, {
-            httpOnly: false,  // Set this to false so the cookie is accessible to frontend JavaScript
-            secure: process.env.COOKIE_SECURE === 'true',  // Convert environment variable to boolean
-            sameSite: sameSiteValue,  // Properly typed value
+            httpOnly: false,
+            secure: process.env.COOKIE_SECURE === 'true',
+            sameSite: process.env.COOKIE_SAMESITE === 'lax' ? 'lax' : 'none',
             maxAge: 24 * 60 * 60 * 1000, // 1 day expiration
         });
 
@@ -42,23 +40,12 @@ export class AuthController {
         }
         const { access_token } = this.authService.loginVendor(vendor);
         res.cookie('access_tokenVendor', access_token, {
-            httpOnly: false,  // Set this to false so the cookie is accessible to frontend JavaScript
-            secure: process.env.COOKIE_SECURE === 'true',  // Convert environment variable to boolean
-            sameSite: sameSiteValue,  // Properly typed value
+            httpOnly: false,
+            secure: process.env.COOKIE_SECURE === 'true',
+            sameSite: process.env.COOKIE_SAMESITE === 'lax' ? 'lax' : 'none',
             maxAge: 24 * 60 * 60 * 1000, // 1 day expiration
         });
+        
         res.status(HttpStatus.OK).json({ message: 'Login successful' });
     }
 }
-
-
-
-
-const sameSiteValue = (process.env.COOKIE_SAMESITE === 'none'
-    ? 'none'
-    : process.env.COOKIE_SAMESITE === 'strict'
-    ? 'strict'
-    : 'lax') as 'lax' | 'strict' | 'none'; // TypeScript strict type checking
-
-
-
