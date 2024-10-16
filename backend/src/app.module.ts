@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { ConfigService, ConfigModule } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { VendorModule } from './modules/vendor/vendor.module';
@@ -12,18 +12,17 @@ import { UploadModule } from './modules/upload/upload.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({ isGlobal: true }),
+    ConfigModule.forRoot({isGlobal: true}),
 
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: (configService: ConfigService) => ({
+      useFactory: () => ({
         type: 'postgres',
-        url: configService.get<string>('DATABASE_URL'),
+        url: process.env.DATABASE_URL,
         ssl: true,
         entities: [join(__dirname, '**', '*.entity.{ts,js}')],
-        synchronize: false, // Set to false in production
+        synchronize: process.env.TYPEORM_SYNC === 'true',
       }),
-      inject: [ConfigService],
     }),
 
     GraphQLModule.forRoot<ApolloDriverConfig>({
