@@ -10,7 +10,7 @@ import { CgLoadbar } from "react-icons/cg";
 import { IoMdShare } from "react-icons/io";
 import Image from "next/image";
 import { useParams } from 'next/navigation';
-import { FIND_PACKAGE_BY_ID } from '../../../graphql/queries';
+import { FIND_PACKAGE_BY_ID } from '@/api/graphql/queries';
 import { useQuery } from '@apollo/client';
 
 const mediaURLs = ["/photography.jpg",
@@ -53,6 +53,7 @@ const Package: React.FC = () => {
                             <div className="columns-1 sm:columns-2 lg:columns-3 gap-1 space-y-1 p-4">
                                 {mediaURLs.map((photo) => (
                                     <div
+                                        key={photo}
                                         className="relative group overflow-hidden rounded-lg break-inside-avoid"
                                     >
                                         <Image
