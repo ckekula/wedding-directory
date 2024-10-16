@@ -7,7 +7,7 @@ import ProfileMenu from "@/components/visitor-profile/ProfileMenu";
 import React, { useState } from "react";
 import Footer from "@/components/shared/Footer";
 
-const visitorProfile = () => {
+const VisitorProfile = () => {
   // Set default active section to "Public Profile"
   const [activeSection, setActiveSection] = useState("weddingDetails");
 
@@ -43,4 +43,4 @@ const visitorProfile = () => {
   );
 };
 
-export default visitorProfile;
+export default VisitorProfile;
