@@ -4,20 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fe9e803b-a74e-4952-bf96-9a931fe40db4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/visitor-onboarding/OnboardingPageOne.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/visitor-onboarding/OnboardingPageThree.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/visitor-onboarding/OnboardingPageTwo.tsx" afterDir="false" />
+    <list default="true" id="fe9e803b-a74e-4952-bf96-9a931fe40db4" name="Changes" comment="adsfd">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/graphql/inputs/update-visitor.input.pageone.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/graphql/inputs/update-visitor.input.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/graphql/resolvers/visitor.resolver.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/graphql/resolvers/visitor.resolver.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/graphql/schema.gql" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/graphql/schema.gql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/modules/visitor/visitor.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/modules/visitor/visitor.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/api/graphql/mutations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/api/graphql/mutations.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/(onboarding)/pageone/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/(onboarding)/pageone/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/(onboarding)/pagethree/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/(onboarding)/pagethree/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/(onboarding)/pagetwo/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/(onboarding)/pagetwo/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/shared/VisitorSignup.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/shared/VisitorSignup.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.eslintrc.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/.eslintrc.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/contact/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/contact/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/packages/[id]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/packages/[id]/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/about-us/AboutUsSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/about-us/AboutUsSection.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/vendor-dashboard/ProfileInfo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/vendor-dashboard/ProfileInfo.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,7 +44,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "com.codeium.enabled": "true",
-    "git-widget-placeholder": "feature/janitha-visitor-onboarding",
+    "git-widget-placeholder": "develop",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "D:/Web Development/My Projects/UniExchange",
     "node.js.detected.package.eslint": "true",
@@ -110,6 +107,15 @@
       <workItem from="1727856623693" duration="9277000" />
       <workItem from="1727880325458" duration="8637000" />
     </task>
+    <task id="LOCAL-00001" summary="adsfd">
+      <option name="closed" value="true" />
+      <created>1728748032645</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1728748032645</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -125,6 +131,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="adsfd" />
+    <option name="LAST_COMMIT_MESSAGE" value="adsfd" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

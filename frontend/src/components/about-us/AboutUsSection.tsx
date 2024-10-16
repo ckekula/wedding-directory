@@ -11,7 +11,7 @@ const AboutUsSection: React.FC = () => {
         personalized, helping you bring your dream celebration to life. From
         photographers and florists to breathtaking venues, Sayido.lk is your
         go-to destination for finding trusted professionals who understand the
-        unique charm and traditions of Sri Lankan weddings. Whether you're
+        unique charm and traditions of Sri Lankan weddings. Whether you&apos;re
         planning an intimate gathering or a grand celebration, we’re here to
         guide you every step of the way, turning inspiration into action with
         ease.
