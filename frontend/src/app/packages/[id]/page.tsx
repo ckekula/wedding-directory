@@ -10,15 +10,15 @@ import { CgLoadbar } from "react-icons/cg";
 import { IoMdShare } from "react-icons/io";
 import Image from "next/image";
 import { useParams } from 'next/navigation';
-import { FIND_PACKAGE_BY_ID } from '@/graphql/queries';
+import { FIND_SERVICE_BY_ID } from '@/graphql/queries';
 import { useQuery } from '@apollo/client';
 
-const mediaURLs = ["/photography.jpg",
-    "/photography.jpg",
-    "/photography.jpg",
-    "/photography.jpg",
-    "/photography.jpg",
-    "/photography.jpg"
+const mediaURLs = ["/images/photography.jpg",
+    "/images/photography.jpg",
+    "/images/photography.jpg",
+    "/images/photography.jpg",
+    "/images/photography.jpg",
+    "/images/photography.jpg"
 ]
 
 const Package: React.FC = () => {
@@ -26,14 +26,14 @@ const Package: React.FC = () => {
     const params = useParams();
     const { id } = params;
 
-    const { loading, error, data } = useQuery(FIND_PACKAGE_BY_ID, {
+    const { loading, error, data } = useQuery(FIND_SERVICE_BY_ID, {
         variables: { id },
     });
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
 
-    const pkg = data?.findPackageById;
+    const pkg = data?.findOfferingById;
 
     return (
         <div className='bg-lightYellow font-body'>

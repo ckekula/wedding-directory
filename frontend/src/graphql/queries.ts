@@ -21,9 +21,9 @@ export const AUTOCOMPLETE_QUERY = gql`
     }
 `;
 
-export const FIND_PACKAGES = gql`
-  query FindPackages($filter: PackageFilterInput!) {
-    findPackages(filter: $filter) {
+export const FIND_SERVICES = gql`
+  query FindOfferings($filter: PackageOfferingInput!) {
+    findOfferings(filter: $filter) {
       id
       name
       vendor {
@@ -38,9 +38,9 @@ export const FIND_PACKAGES = gql`
   }
 `;
 
-export const FIND_PACKAGE_BY_ID = gql`
-  query FindPackageById($id: String!) {
-    findPackageById(id: $id) {
+export const FIND_SERVICE_BY_ID = gql`
+  query FindOfferingById($id: String!) {
+    findOfferingById(id: $id) {
       id
       name
       category
@@ -60,9 +60,9 @@ export const FIND_PACKAGE_BY_ID = gql`
   }
 `;
 
-export const FIND_PACKAGES_BY_VENDOR = gql`
-  query FindPackagesByVendor($id: String!) {
-    findPackagesByVendor(id: $id) {
+export const FIND_SERVICES_BY_VENDOR = gql`
+  query FindOfferingsByVendor($id: String!) {
+    findOfferingsByVendor(id: $id) {
       id
       name
       category
@@ -107,22 +107,6 @@ export const GET_VENDOR_BY_ID = gql`
       phone
       city
       createdAt
-    }
-  }
-`;
-
-export const GET_PACKAGE_BY_ID = gql`
-  query GetPackageById($id: String!) {
-    findPackageById(id: $id) {
-      id
-      category
-      start_price
-      experience
-      vendor {
-        id
-        busname
-        city
-      }
     }
   }
 `;

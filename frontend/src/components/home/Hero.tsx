@@ -7,7 +7,7 @@ const Hero = () => {
   return (
     <div className="relative w-full h-[300px] md:h-[600px]">
       <Image
-        src="/hero.jpg"
+        src="/images/hero.jpg"
         fill
         objectFit="cover"
         className="object-cover w-full h-full"
@@ -16,7 +16,7 @@ const Hero = () => {
       <div className=" absolute inset-0 bg-black opacity-30"></div>
       <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center">
         <h1 className="text-2xl md:text-5xl font-bold font-title">
-          Plan your wedding Hassel free with Us!
+          Plan your wedding Hassle free with Us!
         </h1>
         <p className="mt-4 text-lg md:text-xl font-body">
           Search, Add to the checklist and Plan your Wedding!

@@ -8,7 +8,7 @@ import QuickActions from "@/components/vendor-dashboard/QuickActions";
 import ToDo from "@/components/vendor-dashboard/ToDo";
 import VendorResult from "@/components/vendor-search/VendorResult";
 import Link from "next/link";
-import { GET_VENDOR_BY_ID, FIND_PACKAGES_BY_VENDOR } from "@/graphql/queries";
+import { GET_VENDOR_BY_ID, FIND_SERVICES_BY_VENDOR } from "@/graphql/queries";
 import { useVendorAuth } from "@/contexts/VendorAuthContext";
 import { useQuery } from "@apollo/client";
 import { CiCirclePlus } from "react-icons/ci";
@@ -24,18 +24,18 @@ const VendorDashBoard = () => {
     skip: !vendor?.id,
   });
 
-  // Query to get packages by vendor
-  const { data: packagesData, loading: packagesLoading, error: packagesError } = useQuery(FIND_PACKAGES_BY_VENDOR, {
+  // Query to get services by vendor
+  const { data: servicesData, loading: servicesLoading, error: servicesError } = useQuery(FIND_SERVICES_BY_VENDOR, {
     variables: { id: vendor?.id },
     skip: !vendor?.id,
   });
 
-  if (vendorLoading || packagesLoading) return <p>Loading vendor information...</p>;
+  if (vendorLoading || servicesLoading) return <p>Loading vendor information...</p>;
   if (vendorError) return <p>Error loading vendor information: {vendorError.message}</p>;
-  if (packagesError) return <p>Error loading packages: {packagesError.message}</p>;
+  if (servicesError) return <p>Error loading services: {servicesError.message}</p>;
 
   const vendorInfo = vendorData?.findVendorById;
-  const packages = packagesData?.findPackagesByVendor || [];
+  const services = servicesData?.findOfferingsByVendor || [];
 
   return (
     <div>
@@ -88,26 +88,26 @@ const VendorDashBoard = () => {
             </div>
           </div>
 
-          {packages.length > 0 ? (
+          {services.length > 0 ? (
             <div className="grid grid-cols-3 gap-6 overflow-x-auto">
-              {packages.map((pkg: any) => (
+              {services.map((service: any) => (
                 <VendorResult
-                  key={pkg.id}
-                  vendor={pkg.vendor?.busname}
-                  name={pkg.name}
-                  city={pkg.vendor?.city}
+                  key={service.id}
+                  vendor={service.vendor?.busname}
+                  name={service.name}
+                  city={service.vendor?.city}
                   rating="4.5/5"
                   price="$$$"
-                  about={pkg.about}
-                  banner={"/banner.jpg"}
+                  about={service.about}
+                  banner={"/images/banner.jpg"}
                   showStats={false}
                   buttonText="View details"
-                  link={`/packages/${pkg.id}`}
+                  link={`/services/${service.id}`}
                 />
               ))}
             </div>
           ) : (
-            <div className="my-4 text-2xl">No packages found</div>
+            <div className="my-4 text-2xl">No Services found</div>
           )}
 
           <hr className="border-t border-gray-300 my-4" />

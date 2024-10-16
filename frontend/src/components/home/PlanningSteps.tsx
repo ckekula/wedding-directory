@@ -11,7 +11,7 @@ const cards = [
     description:
       "We'll help you find the perfect vendors for your wedding, tailored to your specific needs!",
     buttonText: "Get Started",
-    image: "/venue.jpg",
+    image: "/images/venue.jpg",
   },
   {
     id: 2,
@@ -20,7 +20,7 @@ const cards = [
     description:
       "Setup your budget and manage your finances with our easy-to-use budgeting tool!",
     buttonText: "Get Started",
-    image: "/cakes.jpg",
+    image: "/images/cakes.jpg",
   },
   {
     id: 3,
@@ -29,7 +29,7 @@ const cards = [
     description:
       "We'll walk you through every part of planning, so you can plan your big day in no time!",
     buttonText: "Get Started",
-    image: "/florists.jpg",
+    image: "/images/florists.jpg",
   },
 ];
 
