@@ -8,10 +8,10 @@ export const VendorRepository = (dataSource: DataSource): VendorRepositoryType =
   dataSource.getRepository(VendorEntity).extend({
 
   findVendorById(id: string): Promise<VendorEntity | null> {
-    return this.findOne({ where: { id }, relations: ['package'] });
+    return this.findOne({ where: { id }, relations: ['offering'] });
   },
 
   findAllVendors(): Promise<VendorEntity[]> {
-    return this.find({ relations: ['package'] });
+    return this.find({ relations: ['offering'] });
   }
 });

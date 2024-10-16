@@ -1,21 +1,21 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
 import { VendorEntity } from './vendor.entity';
 
-@Entity({ name: 'package' })
-export class PackageEntity {
+@Entity({ name: 'offering' })
+export class OfferingEntity {
     @PrimaryGeneratedColumn('uuid')
     id: string;
 
     @Column({ type: 'varchar', length: 100 })
     name: string;
 
-    @Column({ type: 'varchar', length: 100 })
+    @Column({ type: 'varchar', length: 20 })
     category: string;
 
-    @Column({ type: 'varchar', length: 100, nullable: true })
+    @Column({ type: 'varchar', length: 10, nullable: true })
     bus_phone: string;
 
-    @Column({ type: 'varchar', length: 100, nullable: true })
+    @Column({ type: 'varchar', length: 50, nullable: true })
     bus_email: string;
 
     @Column({ type: 'varchar', length: 100, nullable: true })
@@ -54,7 +54,7 @@ export class PackageEntity {
     @UpdateDateColumn({ name: 'updated_at', type: 'timestamp' })
     updatedAt: Date;
 
-    @ManyToOne(() => VendorEntity, v => v.package)
+    @ManyToOne(() => VendorEntity, v => v.offering)
     @JoinColumn({ name: 'vendor_id' })
     vendor: VendorEntity;
 }
