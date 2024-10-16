@@ -4,7 +4,7 @@ import { useLazyQuery } from '@apollo/client';
 import React, { useState } from 'react'
 import { Input } from '../ui/input';
 import { LocationProps } from '@/types/signupInput';
-import { AUTOCOMPLETE_QUERY } from '@/api/graphql/queries';
+import { AUTOCOMPLETE_QUERY } from '@/graphql/queries';
 
 const LocationInput: React.FC<LocationProps> = ({ onLocationChange, disabled, placeholder }) => {
     const [input, setInput] = useState('');

@@ -11,7 +11,7 @@ import WeddingPlanningGuide from "@/components/visitor-dashboard/WeddingPlanning
 import AccordionItemBlock from "@/components/visitor-dashboard/AccordianItemsBlock";
 import profilePicPlaceholder from "../../../public/dashboard_profile_pic_placeholder.jpg"
 import { StaticImageData } from "next/image";
-import { GET_VISITOR_BY_ID } from "@/api/graphql/queries";
+import { GET_VISITOR_BY_ID } from "@/graphql/queries";
 
 // Placeholder for profile picture
 //const profilePicPlaceholder = "/path/to/default/profilePic.png";

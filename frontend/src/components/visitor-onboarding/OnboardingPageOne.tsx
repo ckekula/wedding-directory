@@ -10,7 +10,7 @@ import { GoHorizontalRule } from "react-icons/go";
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/VisitorAuthContext';
 import { useMutation } from '@apollo/client';
-import { UPDATE_VISITOR } from '@/api/graphql/mutations';
+import { UPDATE_VISITOR } from '@/graphql/mutations';
 
 const OnboardingPageOne = () => {
   const { visitor } = useAuth(); // get visitor info from auth context

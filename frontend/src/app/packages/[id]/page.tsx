@@ -10,7 +10,7 @@ import { CgLoadbar } from "react-icons/cg";
 import { IoMdShare } from "react-icons/io";
 import Image from "next/image";
 import { useParams } from 'next/navigation';
-import { FIND_PACKAGE_BY_ID } from '../../../api/graphql/queries';
+import { FIND_PACKAGE_BY_ID } from '../../../graphql/queries';
 import { useQuery } from '@apollo/client';
 
 const mediaURLs = ["/photography.jpg",

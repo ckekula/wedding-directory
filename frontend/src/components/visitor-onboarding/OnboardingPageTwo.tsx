@@ -12,7 +12,7 @@ import { GoHorizontalRule } from "react-icons/go";
 import { useRouter } from 'next/navigation';
 import { useMutation, gql } from '@apollo/client';
 import { useAuth } from '@/contexts/VisitorAuthContext';
-import { UPDATE_VISITOR } from '@/api/graphql/mutations';
+import { UPDATE_VISITOR } from '@/graphql/mutations';
 
 const OnboardingPageTwo = () => {
   const router = useRouter();

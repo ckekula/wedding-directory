@@ -1,7 +1,7 @@
 'use client'
 import React from 'react';
 import { useQuery } from '@apollo/client';
-import {GET_ALL_VISITORS} from '../../api/graphql/queries'
+import {GET_ALL_VISITORS} from '../../graphql/queries'
 
 export default function VisitorsPage() {
   const { loading, error, data } = useQuery(GET_ALL_VISITORS);

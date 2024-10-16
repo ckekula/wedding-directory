@@ -8,7 +8,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useMutation } from '@apollo/client';
-import { CREATE_VENDOR } from "@/api/graphql/mutations";
+import { CREATE_VENDOR } from "@/graphql/mutations";
 import CityInput from "@/components/vendor-signup/CityInput";
 import LocationInput from "@/components/vendor-signup/LocationInput";
 import { useRouter } from "next/navigation";
