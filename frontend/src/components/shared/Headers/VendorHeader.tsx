@@ -3,7 +3,6 @@ import React, { Fragment, useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import Image from "next/image";
-import profile from "../../../assets/images/profilePic.jpg";
 import { useVendorAuth } from "@/contexts/VendorAuthContext"; // Added vendor auth context
 
 const VendorHeader = () => {
@@ -69,7 +68,7 @@ const VendorHeader = () => {
             {/* Profile dropdown */}
             <div className="relative" ref={profileMenuRef}>
               <Image
-                src={profile}
+                src='images/profilePic.jpg'
                 alt="vendor-profile-image"
                 className="rounded-full cursor-pointer"
                 width={50}

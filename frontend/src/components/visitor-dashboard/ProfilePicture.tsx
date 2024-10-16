@@ -1,17 +1,9 @@
 "use client";
-import React, { useRef, useState } from "react";
-import Image, { StaticImageData } from "next/image";
-import profilePicPlaceholder from "../../assets/images/dashboardProfilePic.jpg";
-//import profilePic from "../../../public/dashboard_profile_pic_placeholder.jpg"
+import React, { useRef } from "react";
+import Image from "next/image";
 import { useAuth } from "@/contexts/VisitorAuthContext";
-import request from "@/utils/request";
-
-
-interface ProfilePictureProps {
-  profilePic: string | StaticImageData;
-  setProfilePic: React.Dispatch<React.SetStateAction<string | StaticImageData>>;
-}
-
+import { uploadProfilePicture } from "@/api/upload/visitor.upload";
+import { ProfilePictureProps } from "@/types/uploadTypes";
 
 const ProfilePicture: React.FC<ProfilePictureProps> = ({ profilePic, setProfilePic }) => {
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -26,22 +18,11 @@ const ProfilePicture: React.FC<ProfilePictureProps> = ({ profilePic, setProfileP
   const handleProfilePicChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file && visitor?.id) {
-      const formData = new FormData();
-      formData.append('file', file); // Append image file
-      formData.append('visitorId', visitor.id); // Append visitor ID
-
       try {
-        const response = await request.post('/upload/profile-picture', formData, {
-          headers: {
-            'Content-Type': 'multipart/form-data', // Required for file upload
-          },
-        });
-
-        // Assuming the backend responds with the uploaded file URL
-        const { fileUrl } = response.data;
-        setProfilePic(fileUrl || profilePicPlaceholder); // Set the uploaded image URL
+        const fileUrl = await uploadProfilePicture(file, visitor.id);
+        setProfilePic(fileUrl || 'images/dashboardProfilePic.jpg');
       } catch (error) {
-        console.error('Error uploading profile picture:', error);
+        console.error("Error uploading profile picture:", error);
       }
     }
   };

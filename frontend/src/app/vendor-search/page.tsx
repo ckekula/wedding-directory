@@ -5,7 +5,7 @@ import Footer from "@/components/shared/Footer";
 import Header from "@/components/shared/Headers/Header";
 import VendorResult from "@/components/vendor-search/VendorResult";
 import { Button } from "@/components/ui/button";
-import { FIND_PACKAGES } from "@/api/graphql/queries";
+import { FIND_PACKAGES } from "@/graphql/queries";
 import { useLazyQuery } from "@apollo/client";
 import FilterSearchBar from "@/components/vendor-search/FilterSearchBar";
 

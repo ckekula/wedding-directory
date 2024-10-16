@@ -2,7 +2,7 @@ import { ObjectType, Field } from '@nestjs/graphql';
 import { VendorModel } from './vendor.model';
 
 @ObjectType()
-export class PackageModel {
+export class OfferingModel {
   @Field()
   id: string;
 

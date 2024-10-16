@@ -1,7 +1,7 @@
 import { InputType, Field } from '@nestjs/graphql';
 
 @InputType()
-export class CreatePackageInput {
+export class CreateOfferingInput {
 
     @Field()
     vendor_id: string;

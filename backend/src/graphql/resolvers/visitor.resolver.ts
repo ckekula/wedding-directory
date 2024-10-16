@@ -16,12 +16,12 @@ export class VisitorResolver {
 
   @Query(() => [VisitorModel])
   async findAllVisitors(): Promise<VisitorEntity[]> {
-    return this.visitorService.findAll();
+    return this.visitorService.findAllVisitors();
   }
 
   @Query(() => VisitorModel, { nullable: true })
   async findVisitorById(@Args('id') id: string): Promise<VisitorEntity> {
-    return this.visitorService.findOne(id);
+    return this.visitorService.findVisitorById(id);
   }
 
   @Mutation(() => Boolean)

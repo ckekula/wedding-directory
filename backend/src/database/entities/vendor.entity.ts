@@ -6,7 +6,7 @@ import {
   UpdateDateColumn,
   OneToMany,
 } from 'typeorm';
-import { PackageEntity } from './package.entity';
+import { OfferingEntity } from './offering.entity';
 
 @Entity({ name: 'vendor' })
 export class VendorEntity {
@@ -48,9 +48,9 @@ export class VendorEntity {
 
   updatedAt: Date;
 
-  @OneToMany(() => PackageEntity, (p) => p.vendor, {
+  @OneToMany(() => OfferingEntity, (o) => o.vendor, {
     cascade: true,
     onDelete: 'CASCADE',
   })
-  package: PackageEntity[];
+  offering: OfferingEntity[];
 }

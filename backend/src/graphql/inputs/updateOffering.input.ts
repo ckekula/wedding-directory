@@ -1,7 +1,7 @@
 import { InputType, Field } from '@nestjs/graphql';
 
 @InputType()
-export class UpdatePackageInput {
+export class UpdateOfferingInput {
 
     @Field({ nullable: true })
     category: string;

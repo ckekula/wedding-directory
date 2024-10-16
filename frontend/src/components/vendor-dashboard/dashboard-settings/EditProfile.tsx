@@ -6,9 +6,9 @@ import { Button } from "@/components/ui/button";
 import { ProfileData } from "@/types/vendorTypes";
 import { useVendorAuth } from "@/contexts/VendorAuthContext";
 import { useMutation, useQuery } from "@apollo/client";
-import { GET_VENDOR_BY_ID } from "@/api/graphql/queries";
+import { GET_VENDOR_BY_ID } from "@/graphql/queries";
 import CityInput from "@/components/vendor-signup/CityInput";
-import { UPDATE_VENDOR } from "@/api/graphql/mutations";
+import { UPDATE_VENDOR } from "@/graphql/mutations";
 import LocationInput from "@/components/vendor-signup/LocationInput";
 
 const EditProfile: React.FC = () => {

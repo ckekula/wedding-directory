@@ -8,10 +8,11 @@ import QuickActions from "@/components/vendor-dashboard/QuickActions";
 import ToDo from "@/components/vendor-dashboard/ToDo";
 import VendorResult from "@/components/vendor-search/VendorResult";
 import Link from "next/link";
-import { GET_VENDOR_BY_ID, FIND_PACKAGES_BY_VENDOR } from "@/api/graphql/queries";
+import { GET_VENDOR_BY_ID, FIND_PACKAGES_BY_VENDOR } from "@/graphql/queries";
 import { useVendorAuth } from "@/contexts/VendorAuthContext";
 import { useQuery } from "@apollo/client";
 import { CiCirclePlus } from "react-icons/ci";
+import Footer from "@/components/shared/Footer";
 
 const VendorDashBoard = () => {
 
@@ -115,6 +116,7 @@ const VendorDashBoard = () => {
           <p className="mb-8">Coming soon!</p>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };
