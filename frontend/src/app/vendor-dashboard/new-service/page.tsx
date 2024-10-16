@@ -10,6 +10,7 @@ import { useMutation } from "@apollo/client";
 import { useVendorAuth } from "@/contexts/VendorAuthContext";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import Footer from "@/components/shared/Footer";
 
 const AddNewService: React.FC = () => {
   const { vendor } = useVendorAuth();
@@ -108,6 +109,7 @@ const AddNewService: React.FC = () => {
           </div>
         </form>
       </div>
+      <Footer/>
     </div>
   );
 };

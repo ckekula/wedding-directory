@@ -12,6 +12,7 @@ import AccordionItemBlock from "@/components/visitor-dashboard/AccordianItemsBlo
 import profilePicPlaceholder from "../../../public/dashboard_profile_pic_placeholder.jpg"
 import { StaticImageData } from "next/image";
 import { GET_VISITOR_BY_ID } from "@/graphql/queries";
+import Footer from "@/components/shared/Footer";
 
 // Placeholder for profile picture
 //const profilePicPlaceholder = "/path/to/default/profilePic.png";
@@ -92,6 +93,7 @@ const VisitorDashboard = () => {
           </div>
         </div>
       </div>
+      <Footer/>
     </Fragment>
   );
 };

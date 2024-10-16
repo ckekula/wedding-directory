@@ -5,6 +5,7 @@ import WeddingDetails from "@/components/visitor-profile/WeddingDetails";
 import AccountDetails from "@/components/visitor-profile/AccountDetails";
 import ProfileMenu from "@/components/visitor-profile/ProfileMenu";
 import React, { useState } from "react";
+import Footer from "@/components/shared/Footer";
 
 const visitorProfile = () => {
   // Set default active section to "Public Profile"
@@ -37,6 +38,7 @@ const visitorProfile = () => {
           <div className="w-3/4">{renderSection()}</div>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };

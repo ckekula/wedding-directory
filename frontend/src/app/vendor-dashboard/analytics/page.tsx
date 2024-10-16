@@ -1,3 +1,4 @@
+import Footer from '@/components/shared/Footer'
 import Header from '@/components/shared/Headers/Header'
 import React from 'react'
 
@@ -8,6 +9,7 @@ const Analytics = () => {
       <div className='flex flex-grow items-center justify-center'>
         <p className='text-center'>Coming soon!</p>
       </div>
+      <Footer/>
     </div>
   )
 }

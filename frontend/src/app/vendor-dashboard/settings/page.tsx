@@ -3,6 +3,7 @@ import Header from "@/components/shared/Headers/Header";
 import VendorBanner from "@/components/vendor-dashboard/VendorBanner";
 import Settings from "@/components/vendor-dashboard/dashboard-settings/SettingsMenu";
 import EditProfile from "@/components/vendor-dashboard/dashboard-settings/EditProfile";
+import Footer from "@/components/shared/Footer";
 
 const VendorDashBoardSettings = () => {
 
@@ -27,6 +28,7 @@ const VendorDashBoardSettings = () => {
           </div>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };

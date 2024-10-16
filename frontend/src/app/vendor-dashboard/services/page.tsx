@@ -7,6 +7,7 @@ import EditServiceSettings from "@/components/vendor-dashboard/dahboard-services
 import ServicesMenu from "@/components/vendor-dashboard/dahboard-services/ServicesMenu";
 import VendorBanner from "@/components/vendor-dashboard/VendorBanner";
 import React, { useState } from "react";
+import Footer from "@/components/shared/Footer";
 
 const Services = () => {
   // Set default active section to "Public Profile"
@@ -47,6 +48,7 @@ const Services = () => {
           <div className="w-3/4">{renderSection()}</div>
         </div>
       </div>
+      <Footer/>
     </div>
   );
 };
