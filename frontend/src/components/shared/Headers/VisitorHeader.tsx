@@ -68,6 +68,8 @@ const VisitorHeader = () => {
                 src='/images/profilePic.jpg'
                 alt="profile picture"
                 className="w-[50px] h-[50px] rounded-full cursor-pointer"
+                width={50}
+                height={50}
                 onClick={handleProfileClick}
               />
               {showProfileMenu && (
