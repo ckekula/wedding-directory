@@ -12,7 +12,7 @@ const Help = () => {
         <div className="relative z-10 w-10/12 h-[1000px] md:h-[300px] mx-auto flex justify-center items-center ">
           <div className="absolute inset-0 border-solid rounded-md">
             <Image
-              src='/photography.jpg'
+              src='/images/photography.jpg'
               layout="fill"
               objectFit="cover"
               alt="sign image"

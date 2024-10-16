@@ -9,7 +9,7 @@ const ProfileInfo = () => {
             <div className='w-1/4 pl-4'>
                 <Image
                     className="w-32 h-32 rounded-full"
-                    src="/dashboard_profile_pic_placeholder.jpg"
+                    src="/images/visitor_profile_pic.jpg"
                     alt="profile"
                 />
             </div>

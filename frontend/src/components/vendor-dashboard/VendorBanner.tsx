@@ -10,7 +10,7 @@ const VendorBanner: React.FC<VendorBannerProps> = ({ businessName }) => {
     <div className="container relative w-screen h-[305px]">
       {/* Banner image */}
       <Image
-        src='images/vendorBanner'
+        src='/images/vendorBanner'
         alt="vendor banner dashboard image"
         fill={true}
         style={{ objectFit: "cover" }}

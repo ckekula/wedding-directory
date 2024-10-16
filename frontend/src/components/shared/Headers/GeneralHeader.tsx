@@ -74,7 +74,7 @@ const GeneralHeader = () => {
               // If authenticated, show profile picture or icon
               <div className="relative" ref={profileMenuRef}>
                 <Image
-                  src='images/profilePic.jpg'
+                  src='/images/profilePic.jpg'
                   alt="profile picture"
                   className=" rounded-full border border-gray-300 cursor-pointer" // Circle styling
                   onClick={handleProfileClick}

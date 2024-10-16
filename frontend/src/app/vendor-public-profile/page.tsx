@@ -13,37 +13,37 @@ const VendorPublicProfile = () => {
     const photos = [
         {
             id: 1,
-            src: "/photography.jpg",
+            src: "/images/photography.jpg",
             alt: "Photographers",
             label: "Browse galleries to find your look",
         },
         {
             id: 2,
-            src: "/photography.jpg",
+            src: "/images/photography.jpg",
             alt: "Photographers",
             label: "Browse galleries to find your look",
         },
         {
             id: 3,
-            src: "/photography.jpg",
+            src: "/images/photography.jpg",
             alt: "Photographers",
             label: "Browse galleries to find your look",
         },
         {
             id: 4,
-            src: "/photography.jpg",
+            src: "/images/photography.jpg",
             alt: "Photographers",
             label: "Browse galleries to find your look",
         },
         {
             id: 5,
-            src: "/photography.jpg",
+            src: "/images/photography.jpg",
             alt: "Photographers",
             label: "Browse galleries to find your look",
         },
         {
             id: 6,
-            src: "/photography.jpg",
+            src: "/images/photography.jpg",
             alt: "Photographers",
             label: "Browse galleries to find your look",
         }]

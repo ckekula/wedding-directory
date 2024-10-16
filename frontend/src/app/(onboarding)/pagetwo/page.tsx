@@ -63,7 +63,7 @@ const OnboardingPageTwo = () => {
         {/* Left Image Section */}
         <div className="relative w-full md:w-6/12 h-96 md:h-auto">
           <Image
-            src="/onboard2.jpg"
+            src="/images/onboard2.jpg"
             layout="fill"
             objectFit="cover"
             alt="onboard image"
