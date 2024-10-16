@@ -6,7 +6,7 @@ import AccountDetails from "@/components/visitor-profile/AccountDetails";
 import ProfileMenu from "@/components/visitor-profile/ProfileMenu";
 import React, { useState } from "react";
 
-const Page = () => {
+const visitorProfile = () => {
   // Set default active section to "Public Profile"
   const [activeSection, setActiveSection] = useState("weddingDetails");
 
@@ -41,25 +41,4 @@ const Page = () => {
   );
 };
 
-export default Page;
-
-/* import { Input } from "@/components/ui/input";
-
-//components
-import Header from "@/components/shared/Headers/Header";
-import Footer from "@/components/shared/Footer";
-import ProfileSetting from "@/components/ProfileSetting";
-
-const page = () => {
-  return (
-    <div className="bg-lightYellow">
-      <Header />
-
-      <ProfileSetting />
-
-      <Footer />
-    </div>
-  );
-};
-
-export default page; */
+export default visitorProfile;
