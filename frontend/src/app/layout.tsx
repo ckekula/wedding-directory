@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { AuthProvider as VisitorAuthProvider } from "@/contexts/VisitorAuthContext";
 import ApolloWrapper from "@/apollo/ApolloWrapper";
-import { montserrat, merriweather, montez } from "@/assets/fonts/fonts";
+import { montserrat, merriweather, montez } from "@/lib/fonts";
 import "./globals.css";
 import PageTransition from "@/components/PageTransition";
 import { VendorAuthProvider } from '@/contexts/VendorAuthContext';

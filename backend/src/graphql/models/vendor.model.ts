@@ -1,5 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { PackageModel } from './package.model';
+import { OfferingModel } from './offering.model';
 
 @ObjectType()
 export class VendorModel {
@@ -39,6 +39,6 @@ export class VendorModel {
   @Field()
   updatedAt: Date;
 
-  @Field(() => PackageModel, { nullable: true })
-  package?: PackageModel;
+  @Field(() => OfferingModel, { nullable: true })
+  offering?: OfferingModel;
 }

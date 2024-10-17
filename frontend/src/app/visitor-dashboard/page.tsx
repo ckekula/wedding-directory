@@ -1,4 +1,5 @@
 "use client";
+
 import React, { Fragment, useState } from "react";
 import Header from "@/components/shared/Headers/Header";
 import LeftSideBar from "@/components/visitor-dashboard/LeftSideBar";
@@ -9,9 +10,9 @@ import VisitorInfo from "@/components/visitor-dashboard/VisitorInfo";
 import ProfilePicture from "@/components/visitor-dashboard/ProfilePicture";
 import WeddingPlanningGuide from "@/components/visitor-dashboard/WeddingPlanningGuide";
 import AccordionItemBlock from "@/components/visitor-dashboard/AccordianItemsBlock";
-import profilePicPlaceholder from "../../../public/dashboard_profile_pic_placeholder.jpg"
 import { StaticImageData } from "next/image";
-import { GET_VISITOR_BY_ID } from "@/api/graphql/queries";
+import { GET_VISITOR_BY_ID } from "@/graphql/queries";
+import Footer from "@/components/shared/Footer";
 
 // Placeholder for profile picture
 //const profilePicPlaceholder = "/path/to/default/profilePic.png";
@@ -19,7 +20,7 @@ import { GET_VISITOR_BY_ID } from "@/api/graphql/queries";
 const VisitorDashboard = () => {
   const [isSideBarCollapsed, setIsSideBarCollapsed] = useState(true);
   const { visitor } = useAuth();
-  const [profilePic, setProfilePic] = useState<string | StaticImageData>(profilePicPlaceholder);
+  const [profilePic, setProfilePic] = useState<string | StaticImageData>('/images/visitorProfilePic.jpg');
 
   // Fetch visitor data including profile_pic_url
   const { data, loading, error } = useQuery(GET_VISITOR_BY_ID, {
@@ -92,6 +93,7 @@ const VisitorDashboard = () => {
           </div>
         </div>
       </div>
+      <Footer/>
     </Fragment>
   );
 };

@@ -22,11 +22,11 @@ export class VisitorService {
     return this.visitorRepository.save(visitor);
   }
 
-  async findAll(): Promise<VisitorEntity[]> {
+  async findAllVisitors(): Promise<VisitorEntity[]> {
     return this.visitorRepository.find();
   }
 
-  async findOne(id: string): Promise<VisitorEntity> {
+  async findVisitorById(id: string): Promise<VisitorEntity> {
     return this.visitorRepository.findOne({ where: { id } });
   }
 
@@ -49,7 +49,7 @@ export class VisitorService {
     }
     
     await this.visitorRepository.update(id, updateVisitorInput);
-    return this.findOne(id);
+    return this.findVisitorById(id);
   }
 
   async updateProfilePicture(visitorId: string, fileUrl: string): Promise<VisitorEntity> {

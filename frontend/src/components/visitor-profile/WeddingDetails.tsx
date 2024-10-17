@@ -3,10 +3,10 @@ import React, { Fragment, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useMutation, useQuery } from "@apollo/client";
-import { GET_VISITOR_BY_ID } from "@/api/graphql/queries";
+import { GET_VISITOR_BY_ID } from "@/graphql/queries";
 import { WeddingDetailsData } from "@/types/visitorProfileTypes";
 import { useAuth } from "@/contexts/VisitorAuthContext";
-import { UPDATE_VISITOR } from "@/api/graphql/mutations";
+import { UPDATE_VISITOR } from "@/graphql/mutations";
 
 
 const WeddingDetails: React.FC = () => {

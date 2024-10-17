@@ -55,7 +55,7 @@ const VendorLoginPage = () => {
 
           <div className="relative z-10 w-full h-[500px] md:h-[650px]">
               <Image
-                src="/login-signup.jpg"
+                src="/images/login-signup.jpg"
                 layout="fill"
                 objectFit="cover"
                 alt="sign image"

@@ -5,7 +5,7 @@ import React, { Fragment } from "react";
 //components
 import Header from "@/components/shared/Headers/Header";
 import VendorBanner from "@/components/vendor-dashboard/VendorBanner";
-const page = () => {
+const vendorDashboard = () => {
   return (
     <Fragment>
       <div>
@@ -22,4 +22,4 @@ const page = () => {
   );
 };
 
-export default page;
+export default vendorDashboard;

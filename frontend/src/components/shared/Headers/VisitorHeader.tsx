@@ -3,7 +3,6 @@ import Link from "next/link";
 import { Fragment, useState, useEffect, useRef } from "react";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import Image from "next/image";
-import profile from "../../../assets/images/profilePic.jpg";
 import { useAuth } from "@/contexts/VisitorAuthContext"; // Added visitor auth context
 import SearchBar from "../SearchBar";
 const VisitorHeader = () => {
@@ -66,9 +65,11 @@ const VisitorHeader = () => {
             {/* Profile dropdown */}
             <div className="relative" ref={profileMenuRef}>
               <Image
-                src={profile}
+                src='/images/profilePic.jpg'
                 alt="profile picture"
                 className="w-[50px] h-[50px] rounded-full cursor-pointer"
+                width={50}
+                height={50}
                 onClick={handleProfileClick}
               />
               {showProfileMenu && (

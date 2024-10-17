@@ -9,7 +9,6 @@ import { useAuth } from "@/contexts/VisitorAuthContext";
 import Nav from "../Nav";
 import VisitorSignup from "../VisitorSignup";
 import VisitorLogin from "../VisitorLogin";
-import profilePic from "../../../assets/images/profilePic.jpg";
 import Image from "next/image";
 
 const GeneralHeader = () => {
@@ -75,7 +74,7 @@ const GeneralHeader = () => {
               // If authenticated, show profile picture or icon
               <div className="relative" ref={profileMenuRef}>
                 <Image
-                  src={profilePic}
+                  src='/images/profilePic.jpg'
                   alt="profile picture"
                   className=" rounded-full border border-gray-300 cursor-pointer" // Circle styling
                   onClick={handleProfileClick}

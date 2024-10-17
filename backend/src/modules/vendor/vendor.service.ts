@@ -43,7 +43,7 @@ export class VendorService {
       throw new Error('Vendor not found');
     }
     
-    // Delete the vendor and related packages
+    // Delete the vendor and related service offerings
     await this.vendorRepository.remove(vendor);
   }
 

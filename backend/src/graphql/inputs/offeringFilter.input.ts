@@ -1,7 +1,7 @@
 import { InputType, Field } from '@nestjs/graphql';
 
 @InputType()
-export class PackageFilterInput {
+export class OfferingFilterInput {
   @Field({ nullable: true })
   category?: string;
 

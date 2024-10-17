@@ -5,11 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import CategoryInput from "@/components/vendor-signup/CategoryInput";
 import Header from "@/components/shared/Headers/Header";
-import { CREATE_PACKAGE } from "@/api/graphql/mutations";
+import { CREATE_PACKAGE } from "@/graphql/mutations";
 import { useMutation } from "@apollo/client";
 import { useVendorAuth } from "@/contexts/VendorAuthContext";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import Footer from "@/components/shared/Footer";
 
 const AddNewService: React.FC = () => {
   const { vendor } = useVendorAuth();
@@ -108,6 +109,7 @@ const AddNewService: React.FC = () => {
           </div>
         </form>
       </div>
+      <Footer/>
     </div>
   );
 };

@@ -4,8 +4,8 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/contexts/VisitorAuthContext";
 import { useMutation, useQuery } from "@apollo/client";
-import { GET_VISITOR_BY_ID } from "@/api/graphql/queries";
-import { UPDATE_VISITOR } from "@/api/graphql/mutations";
+import { GET_VISITOR_BY_ID } from "@/graphql/queries";
+import { UPDATE_VISITOR } from "@/graphql/mutations";
 import { AccountDetailsData } from "@/types/visitorProfileTypes";
 
 const AccountDetails: React.FC = () => {

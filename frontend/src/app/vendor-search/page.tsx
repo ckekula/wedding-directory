@@ -5,7 +5,7 @@ import Footer from "@/components/shared/Footer";
 import Header from "@/components/shared/Headers/Header";
 import VendorResult from "@/components/vendor-search/VendorResult";
 import { Button } from "@/components/ui/button";
-import { FIND_PACKAGES } from "@/api/graphql/queries";
+import { FIND_SERVICES } from "@/graphql/queries";
 import { useLazyQuery } from "@apollo/client";
 import FilterSearchBar from "@/components/vendor-search/FilterSearchBar";
 
@@ -13,7 +13,7 @@ const VendorSearch = () => {
   const [city, setCity] = useState("");
   const [category, setCategory] = useState("");
 
-  const [getPackages, { loading, data, error }] = useLazyQuery(FIND_PACKAGES, {
+  const [getServices, { loading, data, error }] = useLazyQuery(FIND_SERVICES, {
     variables: {
       filter: {
         city: null,
@@ -24,11 +24,11 @@ const VendorSearch = () => {
 
   // Execute query on page load (no filters)
   useEffect(() => {
-    getPackages();
-  }, [getPackages]);
+    getServices();
+  }, [getServices]);
 
   const handleSearch = () => {
-    getPackages({
+    getServices({
       variables: {
         filter: {
           city: city || null,
@@ -55,7 +55,7 @@ const VendorSearch = () => {
       return banner;
     }
     // If not valid or missing, return the default image path
-    return "/photography.jpg";
+    return "/images/photography.jpg";
   };
 
   return (
@@ -97,25 +97,25 @@ const VendorSearch = () => {
           {loading && <div className="my-4 text-2xl">Loading...</div>}
           {error && <div className="my-4 text-2xl">Error: {error.message}</div>}
 
-          {!loading && data && data.findPackages.length > 0 ? (
+          {!loading && data && data.findOfferings.length > 0 ? (
             <>
               <div className="my-4 text-2xl">
-                Found {data.findPackages.length} vendors
+                Found {data.findOfferings.length} vendors
               </div>
               <div className="grid grid-cols-3 gap-6 overflow-x-auto">
-                {data.findPackages.map((pkg: any) => (
+                {data.findOfferings.map((service: any) => (
                   <VendorResult
-                    key={pkg.id}
-                    name={pkg.name}
-                    vendor={pkg.vendor.busname}
-                    city={pkg.vendor.city}
-                    banner={"/photography.jpg"}
+                    key={service.id}
+                    name={service.name}
+                    vendor={service.vendor.busname}
+                    city={service.vendor.city}
+                    banner={"/images/photography.jpg"}
                     rating="⭐ 4.9 (154)" // customize the rating
                     price="$$-$$$" // customize the price
-                    about={pkg.about}
+                    about={service.about}
                     showStats={true}
                     buttonText="View Details"
-                    link={`/packages/${pkg.id}`}
+                    link={`/services/${service.id}`}
                   />
                 ))}
               </div>

@@ -7,12 +7,12 @@ import PurposeAndVision from "@/components/about-us/PurposeAndVision";
 
 const AboutUsPage: React.FC = () => {
   const images = [
-    "/Carousel_1.jpg",
-    "/Carousel_2.jpg",
-    "/Carousel_3.jpg",
-    "/Carousel_4.jpg",
-    "/Carousel_5.jpg",
-  ]; // Add your images here
+    "/images/Carousel_1.jpg",
+    "/images/Carousel_2.jpg",
+    "/images/Carousel_3.jpg",
+    "/images/Carousel_4.jpg",
+    "/images/Carousel_5.jpg",
+  ];
 
   return (
     <div className="bg-lightYellow font-body ">
