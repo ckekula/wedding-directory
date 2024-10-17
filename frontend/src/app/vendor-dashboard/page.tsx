@@ -99,7 +99,7 @@ const VendorDashBoard = () => {
                   rating="4.5/5"
                   price="$$$"
                   about={service.about}
-                  banner={"/images/banner.jpg"}
+                  banner={"/images/banner.webp"}
                   showStats={false}
                   buttonText="View details"
                   link={`/services/${service.id}`}

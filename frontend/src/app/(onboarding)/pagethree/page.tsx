@@ -19,7 +19,7 @@ const OnboardingPageThree = () => {
   const { visitor } = useAuth(); // Get visitor from the auth context
 
   const [weddingVenue, setWeddingVenue] = useState('');
-  const [contactno, setContactno] = useState('');
+  const [contactNo, setContactNo] = useState('');
   const [isStillDeciding, setIsStillDeciding] = useState(false);
 
   const [updateVisitor] = useMutation(UPDATE_VISITOR);
@@ -58,7 +58,7 @@ const OnboardingPageThree = () => {
         {/* Left Image Section */}
         <div className="relative w-full md:w-6/12 h-96 md:h-auto">
           <Image
-            src="/images/onBoard3.jpg"
+            src="/images/onBoard3.webp"
             layout="fill"
             objectFit="cover"
             alt="onboard image"
@@ -105,8 +105,8 @@ const OnboardingPageThree = () => {
               <Input
                 className="h-10 w-full rounded-xl border-2 border-gray-300"
                 type="text"
-                value={contactno}
-                onChange={(e) => setContactno(e.target.value)}  // Update state
+                value={contactNo}
+                onChange={(e) => setContactNo(e.target.value)}  // Update state
                 placeholder="Contact Number"
               />
             </div>

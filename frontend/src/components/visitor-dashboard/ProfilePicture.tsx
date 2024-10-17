@@ -20,7 +20,7 @@ const ProfilePicture: React.FC<ProfilePictureProps> = ({ profilePic, setProfileP
     if (file && visitor?.id) {
       try {
         const fileUrl = await uploadProfilePicture(file, visitor.id);
-        setProfilePic(fileUrl || '/images/dashboardProfilePic.jpg');
+        setProfilePic(fileUrl || '/images/dashboardProfilePic.webp');
       } catch (error) {
         console.error("Error uploading profile picture:", error);
       }

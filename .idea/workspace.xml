@@ -5,16 +5,83 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fe9e803b-a74e-4952-bf96-9a931fe40db4" name="Changes" comment="adsfd">
+      <change afterPath="$PROJECT_DIR$/frontend/public/images/Carousel_1.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/images/Carousel_2.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/images/Carousel_3.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/images/Carousel_4.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/images/Carousel_5.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/images/DJ.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/images/banner.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/images/bridaldressing.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/images/bride.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/images/budget.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/images/cakes.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/images/dashboardProfilePic.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/images/florists.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/images/hero.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/images/invitation.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/images/jewellery.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/images/login-signup.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/images/onBoard1.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/images/onBoard2.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/images/onBoard3.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/images/photography.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/images/preshoot.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/images/profilePic.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/images/tablesetting.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/images/testimonial.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/images/tom-the-photographer-8yPA6ZYq0-s-unsplash-_1_.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/images/transportation.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/images/venue.webp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/public/images/visitorProfilePic.webp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/.eslintrc.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/.eslintrc.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/contact/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/contact/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/images/Carousel_1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/images/Carousel_2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/images/Carousel_3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/images/Carousel_4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/images/Carousel_5.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/images/DJ.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/images/banner.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/images/bridaldressing.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/images/bride.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/images/budget.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/images/cakes.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/images/dashboardProfilePic.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/images/florists.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/images/hero.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/images/invitation.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/images/jewellery.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/images/login-signup.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/images/onBoard1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/images/onBoard2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/images/onBoard3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/images/photography.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/images/preshoot.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/images/profilePic.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/images/tablesetting.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/images/testimonial.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/images/tom-the-photographer-8yPA6ZYq0-s-unsplash (1).jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/images/transportation.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/images/venue.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/public/images/visitorProfilePic.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/(onboarding)/pageone/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/(onboarding)/pageone/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/(onboarding)/pagethree/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/(onboarding)/pagethree/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/(onboarding)/pagetwo/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/(onboarding)/pagetwo/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/about/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/about/page.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/packages/[id]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/packages/[id]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/about-us/AboutUsSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/about-us/AboutUsSection.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/vendor-dashboard/ProfileInfo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/vendor-dashboard/ProfileInfo.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/sign-up/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/sign-up/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/vendor-dashboard/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/vendor-dashboard/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/vendor-public-profile/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/vendor-public-profile/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/vendor-search/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/vendor-search/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/visitor-dashboard/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/visitor-dashboard/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/home/Hero.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/home/Hero.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/home/MasonaryGrid.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/home/MasonaryGrid.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/home/PlanningSteps.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/home/PlanningSteps.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/home/Testimonials.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/home/Testimonials.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/shared/Headers/VendorHeader.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/shared/Headers/VendorHeader.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/shared/Headers/VisitorHeader.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/shared/Headers/VisitorHeader.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/vendor-dashboard/VendorBanner.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/vendor-dashboard/VendorBanner.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/visitor-dashboard/ProfilePicture.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/visitor-dashboard/ProfilePicture.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +113,7 @@
     "com.codeium.enabled": "true",
     "git-widget-placeholder": "develop",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "D:/Web Development/My Projects/UniExchange",
+    "last_opened_file_path": "D:/UOR/5thSem/Software Project/dev/root/wedding-directory/frontend/public/images",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -58,7 +125,11 @@
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\UOR\5thSem\Software Project\dev\root\wedding-directory\frontend\public\images" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\UOR\5thSem\Software Project\dev\root\wedding-directory\frontend\public\images" />
       <recent name="D:\UOR\5thSem\Software Project\dev\root\wedding-directory\frontend\public" />
     </key>
   </component>

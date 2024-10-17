@@ -13,12 +13,12 @@ import { useParams } from 'next/navigation';
 import { FIND_SERVICE_BY_ID } from '@/graphql/queries';
 import { useQuery } from '@apollo/client';
 
-const mediaURLs = ["/images/photography.jpg",
-    "/images/photography.jpg",
-    "/images/photography.jpg",
-    "/images/photography.jpg",
-    "/images/photography.jpg",
-    "/images/photography.jpg"
+const mediaURLs = ["/images/photography.webp",
+    "/images/photography.webp",
+    "/images/photography.webp",
+    "/images/photography.webp",
+    "/images/photography.webp",
+    "/images/photography.webp"
 ]
 
 const Package: React.FC = () => {
