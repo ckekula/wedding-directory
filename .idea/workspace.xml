@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fe9e803b-a74e-4952-bf96-9a931fe40db4" name="Changes" comment="adsfd">
+      <change beforePath="$PROJECT_DIR$/.github/workflows/backendVPS.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/backendVPS.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/frontendVPS.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/frontendVPS.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/next.config.mjs" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/next.config.mjs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/home/MasonaryGrid.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/home/MasonaryGrid.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
