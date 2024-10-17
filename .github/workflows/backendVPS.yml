@@ -37,6 +37,11 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
+      # Stop pm2
+      - name: Stop pm2
+        run: |
+          pm2 stop 1
+
       # Install dependencies in the backend directory
       - name: Install Dependencies
         run: |
@@ -48,6 +53,11 @@ jobs:
         run: |
           rm -rf /home/janitha/production/backend/*
           cp -R backend/* /home/janitha/production/backend/
+
+      # Delete existing .env file from backend production directory
+      - name: Remove old .env file from backend
+        run: |
+          rm -f /home/janitha/production/backend/.env
 
       # Set up environmental variables
       - name: Add Environmental Variables
@@ -61,8 +71,10 @@ jobs:
           echo "AWS_S3_REGION=${{ secrets.AWS_S3_REGION }}" >> .env
           echo "UPLOAD_RATE_TTL=${{ secrets.UPLOAD_RATE_TTL }}" >> .env
           echo "UPLOAD_RATE_LIMIT=${{ secrets.UPLOAD_RATE_LIMIT }}" >> .env
-          echo "COOKIE_SAMESITE=none" >> .env
-          echo "COOKIE_SECURE=true" >> .env
+          echo "COOKIE_SAMESITE=${{secrets.COOKIE_SAMESITE}}" >> .env
+          echo "COOKIE_SECURE=${{ secrets.COOKIE_SECURE }}" >> .env
+          echo "TYPEORM_SYNC=${{ secrets.TYPEORM_SYNC }}" >> .env
+          echo "CORS_ORIGIN=${{ secrets.CORS_ORIGIN }}" >> .env
 
       # Build the backend in the production directory
       - name: Build the backend
@@ -72,4 +84,4 @@ jobs:
 
       - name: Restart pm2
         run: |
-          pm2 restart 0
+          pm2 restart 1
