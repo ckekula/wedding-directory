@@ -36,17 +36,19 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      # Install dependencies in the frontend directory
-      - name: Install dependencies
-        run: |
-          cd frontend
-          npm ci
+
 
       # Copy build files to the production directory
       - name: Copy files to production directory
         run: |
           rm -rf /home/janitha/production/frontend/*
           cp -R frontend/* /home/janitha/production/frontend/
+           
+      # Install dependencies in the frontend directory
+      - name: Install dependencies
+        run: |
+          cd /home/janitha/production/frontend
+          npm ci
 
       - name: Build production directory
         run: |
