@@ -7,11 +7,11 @@ import PurposeAndVision from "@/components/about-us/PurposeAndVision";
 
 const AboutUsPage: React.FC = () => {
   const images = [
-    "/images/Carousel_1.jpg",
-    "/images/Carousel_2.jpg",
-    "/images/Carousel_3.jpg",
-    "/images/Carousel_4.jpg",
-    "/images/Carousel_5.jpg",
+    "/images/Carousel_1.webp",
+    "/images/Carousel_2.webp",
+    "/images/Carousel_3.webp",
+    "/images/Carousel_4.webp",
+    "/images/Carousel_5.webp",
   ];
 
   return (

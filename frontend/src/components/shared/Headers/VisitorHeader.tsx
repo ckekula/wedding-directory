@@ -65,7 +65,7 @@ const VisitorHeader = () => {
             {/* Profile dropdown */}
             <div className="relative" ref={profileMenuRef}>
               <Image
-                src='/images/profilePic.jpg'
+                src='/images/profilePic.webp'
                 alt="profile picture"
                 className="w-[50px] h-[50px] rounded-full cursor-pointer"
                 width={50}
