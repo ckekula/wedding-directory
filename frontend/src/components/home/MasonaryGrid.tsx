@@ -42,7 +42,7 @@ const photos = [
   },
   {
     id: 7,
-    src: "/images/Dj.webp",
+    src: "/images/DJ.webp",
     alt: "Wedding DJ",
     label: "Find the perfect DJ to keep the party going",
   },
