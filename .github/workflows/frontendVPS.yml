@@ -27,27 +27,34 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      # Restore npm cache
-      - name: Restore npm cache
-        uses: actions/cache@v3
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**frontend/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+      # stop pm2
+      - name: Stop pm2
+        run: |
+          pm2 stop 0
 
-
-
-      # Copy build files to the production directory
+      # Copy files to the production directory
       - name: Copy files to production directory
         run: |
           rm -rf /home/janitha/production/frontend/*
           cp -R frontend/* /home/janitha/production/frontend/
-           
+
+      #Delete existing .env file from frontend production directory
+      - name: Remove old .env file from frontend
+        run: |
+          rm -f /home/janitha/production/frontend/.env.production
+
+      # Set up environmental variables
+      - name: Add Environmental Variables
+        run: |
+          cd /home/janitha/production/frontend
+          touch .env.production
+          echo "NEXT_PUBLIC_GRAPHQL_URL=${{ secrets.NEXT_PUBLIC_GRAPHQL_URL }}" >> .env.production
+          echo "NEXT_PUBLIC_API_URL=${{ secrets.NEXT_PUBLIC_API_URL }}" >> .env.production
+
       # Install dependencies in the frontend directory
       - name: Install dependencies
         run: |
-          cd /home/janitha/production/frontend
+          cd frontend
           npm ci
 
       - name: Build production directory
