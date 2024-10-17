@@ -10,14 +10,14 @@ const testimonials = [
     name: "Sanduni & Tharindu",
     location: "Hapugala, Galle",
     text: "Our wedding day was everything we dreamed of, and it was all thanks to the amazing vendors we found through Say I Do. The process was seamless, and we were able to find everything we needed in one place. Highly recommended!",
-    image: "/testimonial.png",
+    image: "/images/testimonial.webp",
   },
   {
     id: 2,
     name: "Sandun & Imasha",
     location: "Peradeniya, Kandy",
     text: "From the moment we started planning until the last dance at our reception, Say I Do was there for us. Their tools made budgeting and organizing stress-free, allowing us to enjoy every moment leading up to the big day.",
-    image: "/testimonial.png",
+    image: "/images/testimonial.webp",
   },
 ];
 

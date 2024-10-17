@@ -126,7 +126,7 @@ const Signup = () => {
       <Header />
       <div className="relative z-10 w-full h-[1000px] md:h-[800px]">
         <Image
-          src="/images/login-signup.jpg"
+          src="/images/login-signup.webp"
           layout="fill"
           objectFit="cover"
           alt="sign image"

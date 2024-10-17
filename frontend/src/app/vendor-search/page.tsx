@@ -55,7 +55,7 @@ const VendorSearch = () => {
       return banner;
     }
     // If not valid or missing, return the default image path
-    return "/images/photography.jpg";
+    return "/images/photography.webp";
   };
 
   return (
@@ -109,7 +109,7 @@ const VendorSearch = () => {
                     name={service.name}
                     vendor={service.vendor.busname}
                     city={service.vendor.city}
-                    banner={"/images/photography.jpg"}
+                    banner={"/images/photography.webp"}
                     rating="⭐ 4.9 (154)" // customize the rating
                     price="$$-$$$" // customize the price
                     about={service.about}

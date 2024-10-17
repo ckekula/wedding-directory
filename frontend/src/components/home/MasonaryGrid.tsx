@@ -6,49 +6,49 @@ import { useRouter } from "next/navigation";
 const photos = [
   {
     id: 1,
-    src: "/images/photography.jpg",
+    src: "/images/photography.webp",
     alt: "Photographers",
     label: "Browse galleries to find your look",
   },
   {
     id: 2,
-    src: "/images/cakes.jpg",
+    src: "/images/cakes.webp",
     alt: "Wedding Cakes",
     label: "Discover the perfect cake for your big day",
   },
   {
     id: 3,
-    src: "/images/invitation.jpg",
+    src: "/images/invitation.webp",
     alt: "Invitations",
     label: "Explore elegant invitation designs",
   },
   {
     id: 4,
-    src: "/images/preshoot.jpg",
+    src: "/images/preshoot.webp",
     alt: "Pre-wedding Shoots",
     label: "Capture memories with a pre-wedding shoot",
   },
   {
     id: 5,
-    src: "/images/tablesetting.jpg",
+    src: "/images/tablesetting.webp",
     alt: "Table Settings",
     label: "Find inspiration for your wedding table settings",
   },
   {
     id: 6,
-    src: "/images/transportation.jpg",
+    src: "/images/transportation.webp",
     alt: "Transportation",
     label: "Arrange stylish transportation for your wedding",
   },
   {
     id: 7,
-    src: "/images/Dj.jpg",
+    src: "/images/Dj.webp",
     alt: "Wedding DJ",
     label: "Find the perfect DJ to keep the party going",
   },
   {
     id: 8,
-    src: "/images/bride.jpg",
+    src: "/images/bride.webp",
     alt: "Bridal Looks",
     label: "Get inspired by stunning bridal looks",
   },
@@ -80,7 +80,6 @@ const MasonaryGrid = () => {
                   src={photo.src}
                   alt={photo.alt}
                   className="w-full h-full object-cover"
-                  layout="responsive"
                   width={500}
                   height={500}
                 />

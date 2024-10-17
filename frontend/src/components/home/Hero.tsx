@@ -7,9 +7,8 @@ const Hero = () => {
   return (
     <div className="relative w-full h-[300px] md:h-[600px]">
       <Image
-        src="/images/hero.jpg"
+        src="/images/hero.webp"
         fill
-        objectFit="cover"
         className="object-cover w-full h-full"
         alt="hero image"
       />
