@@ -11,6 +11,7 @@ import { useVendorAuth } from "@/contexts/VendorAuthContext";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import Footer from "@/components/shared/Footer";
+import Image from "next/image";
 
 const AddNewService: React.FC = () => {
   const { vendor } = useVendorAuth();
@@ -72,43 +73,55 @@ const AddNewService: React.FC = () => {
   return (
     <div>
       <Header />
-      <div className="bg-lightYellow rounded-lg p-6 w-full">
-        <h2 className="text-xl mb-4">Add New Service</h2>
+      <div className="bg-lightYellow font-title min-h-screen flex items-center justify-center">
+        <div className="flex flex-col md:flex-row h-[800px] w-full md:w-10/12 lg:w-8/12 shadow-lg rounded-lg overflow-hidden md:h-[700px]">
 
-        <form onSubmit={onSubmit}>
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Service Name
-            </label>
-            <Input
-              type="text"
-              className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
+          {/* Left Image Section */}
+          <div className="relative w-full md:w-6/12 h-96 md:h-auto">
+            <Image src="/images/onboard1.webp" layout="fill" objectFit="cover" alt="onboard image" />
           </div>
 
-          <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Category
-            </label>
-            <CategoryInput onCategoryChange={handleCategoryChange} />
+          {/* Right Form Section */}
+          <div className="relative w-full md:w-6/12 p-8 md:p-10 bg-white border-l-2 border-gray-200 flex flex-col items-center">
+            {/* Form Heading */}
+            <h2 className="text-3xl mt-10 mb-16 text-center font-semibold">Add New Service</h2>
+            {/* Input Fields */}
+            <div className="flex flex-wrap mx-4 mb-10">
+              <form onSubmit={onSubmit}>
+                <div className="mb-4 w-80">
+                  <label className="block text-lg font-medium text-gray-700 mb-2">
+                    Service Name
+                  </label>
+                  <Input
+                    type="text"
+                    className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+                <div className="mb-6 w-80">
+                  <label className="block text-lg font-medium text-gray-700 mb-2">
+                    Category
+                  </label>
+                  <CategoryInput onCategoryChange={handleCategoryChange} />
+                </div>
+                <div className="flex justify-start space-x-4">
+                  <Button
+                    type="submit"
+                    variant="signup"
+                    disabled={loading}
+                  >
+                    {loading ? "Submitting..." : "Submit"}
+                  </Button>
+                </div>
+              </form>
+            </div>
           </div>
-
-          <div className="flex justify-end space-x-4">
-            <Button
-              type="submit"
-              className="bg-blue-500 text-white"
-              disabled={loading}
-            >
-              {loading ? "Submitting..." : "Submit"}
-            </Button>
-          </div>
-        </form>
+        </div>
       </div>
-      <Footer/>
+      <Footer />
     </div>
   );
 };
