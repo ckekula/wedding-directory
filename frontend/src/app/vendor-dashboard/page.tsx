@@ -79,7 +79,7 @@ const VendorDashBoard = () => {
 
           {/* Services Section */}
           <div className="flex flex-row mt-8">
-            <div className="w-5/6 text-2xl font-bold mb-8">Your Services</div>
+            <div className="w-5/6 text-2xl font-bold mb-8">Your Service Offerings</div>
             <div className="w-1/6 ml-10">
               <Link href="/vendor-dashboard/new-service" className="flex items-center">
                 <CiCirclePlus className="mr-2" />
