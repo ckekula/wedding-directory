@@ -80,7 +80,7 @@ const VendorDashBoard = () => {
           {/* Services Section */}
           <div className="flex flex-row mt-8">
             <div className="w-5/6 text-2xl font-bold mb-8">Your Service Offerings</div>
-            <div className="w-1/6 ml-10">
+            <div className="w-1/6 ml-10 hover:text-orange">
               <Link href="/vendor-dashboard/new-service" className="flex items-center">
                 <CiCirclePlus className="mr-2" />
                 Add new Service
@@ -98,7 +98,7 @@ const VendorDashBoard = () => {
                   city={service.vendor?.city}
                   rating="4.5/5"
                   price="$$$"
-                  about={service.about}
+                  about={service.description}
                   banner={"/images/banner.webp"}
                   showStats={false}
                   buttonText="View details"

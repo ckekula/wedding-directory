@@ -45,6 +45,9 @@ export const FIND_SERVICE_BY_ID = gql`
       name
       category
       description
+      bus_phone
+      bus_email
+      pricing
       banner
       website
       facebook

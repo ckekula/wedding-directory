@@ -55,3 +55,26 @@ export const UPDATE_VENDOR = gql`
     }
   }
 `;
+
+export const UPDATE_SERVICE_PROFILE = gql`
+  mutation UpdateOffering($id: String!, $input: UpdateOfferingInput!) {
+    updateOffering(id: $id, input: $input) {
+      category
+      bus_phone
+      bus_email
+      description 
+      pricing
+    }
+  }
+`;
+
+export const UPDATE_SERVICE_SOCIALS = gql`
+  mutation UpdateOffering($id: String!, $input: UpdateOfferingInput!) {
+    updateOffering(id: $id, input: $input) {
+      facebook
+      instagram
+      tiktok
+      x
+    }
+  }
+`;

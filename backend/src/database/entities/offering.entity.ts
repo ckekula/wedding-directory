@@ -24,9 +24,6 @@ export class OfferingEntity {
     @Column({ type: 'varchar', length: 100, nullable: true })
     description: string;
 
-    @Column({ type: 'varchar', length: 100, nullable: true })
-    details: string;
-
     @Column({ type: 'varchar', length: 100, nullable: true  })
     banner: string;
 

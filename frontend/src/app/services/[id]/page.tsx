@@ -2,16 +2,16 @@
 
 import Header from '@/components/shared/Headers/Header'
 import React from 'react'
-import { CiStar, CiHeart, CiTwitter } from "react-icons/ci";
-import { SlSocialFacebook, SlSocialInstagram } from "react-icons/sl";
-import { GoGlobe } from "react-icons/go";
-import { FiPhoneCall } from "react-icons/fi";
-import { CgLoadbar } from "react-icons/cg";
-import { IoMdShare } from "react-icons/io";
+import { CiStar, CiBookmark } from "react-icons/ci";
 import Image from "next/image";
 import { useParams } from 'next/navigation';
 import { FIND_SERVICE_BY_ID } from '@/graphql/queries';
 import { useQuery } from '@apollo/client';
+import SocialIcons from '@/components/vendor-dashboard/dahboard-services/socialIcons';
+import { FiEdit } from "react-icons/fi";
+import Reviews from '@/components/vendor-dashboard/dahboard-services/reviews';
+import { useVendorAuth } from '@/contexts/VendorAuthContext';
+import Link from 'next/link';
 
 const mediaURLs = ["/images/photography.webp",
     "/images/photography.webp",
@@ -21,8 +21,9 @@ const mediaURLs = ["/images/photography.webp",
     "/images/photography.webp"
 ]
 
-const Package: React.FC = () => {
+const Service: React.FC = () => {
 
+    const {vendor} = useVendorAuth();
     const params = useParams();
     const { id } = params;
 
@@ -33,7 +34,7 @@ const Package: React.FC = () => {
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error.message}</p>;
 
-    const pkg = data?.findOfferingById;
+    const service = data?.findOfferingById;
 
     return (
         <div className='bg-lightYellow font-body'>
@@ -74,62 +75,38 @@ const Package: React.FC = () => {
                     <div className='bg-white rounded-2xl p-4 mb-4'>
                         <div className='flex flex-row'>
                             <div className='w-8/12 flex flex-col'>
-                                <p>{pkg?.vendor.busname}</p>
+                                <p>{service?.vendor.busname || "Vendor name not available"}</p>
                                 <div className='flex flex-row text-2xl font-bold'>
-                                    {pkg?.name}
+                                    {service?.name}
                                     <div className='ml-2 flex flex-row justify-center items-center gap-x-1'>
-                                        <CiHeart />
-                                        <IoMdShare />
+                                    {service?.vendor.id === vendor?.id ? (
+                                            <Link href={`/services/${service?.id}/edit`}>
+                                              <FiEdit />
+                                            </Link>  // Show the edit icon if the logged-in user is the vendor
+                                        ) : (
+                                            <CiBookmark /> // Show the heart icon otherwise
+                                        )}
                                     </div>
                                 </div>
                                 <div className=' flex flex-row items-center text-lg'>
                                     <CiStar /><CiStar /><CiStar /><CiStar /><CiStar /><span>  -/-(0)</span>
                                 </div>
                                 <div className=''>
-                                    {pkg?.vendor.city}
+                                    {service?.vendor.city}
                                 </div>
                             </div>
-                            <div className='w-4/12 flex flex-row text-2xl items-center justify-end gap-x-4 mr-3'>
-                                <div
-                                    onClick={() => window.open(pkg?.website, '_blank')}
-                                    className='cursor-pointer'
-                                    title="Visit Website"
-                                >
-                                    <GoGlobe />
-                                </div>
-                                <div
-                                    onClick={() => window.open(pkg?.facebook, '_blank')}
-                                    className='cursor-pointer'
-                                    title="Visit Facebook Page"
-                                >
-                                    <SlSocialFacebook />
-                                </div>
-                                <div
-                                    onClick={() => window.open(pkg?.instagram, '_blank')}
-                                    className='cursor-pointer'
-                                    title="Visit Instagram Page"
-                                >
-                                    <SlSocialInstagram />
-                                </div>
-                                <div
-                                    onClick={() => window.open(pkg?.x, '_blank')}
-                                    className='cursor-pointer'
-                                    title="Visit X Page"
-                                >
-                                    <CiTwitter />
-                                </div>
-                            </div>
-
+                            
+                            <SocialIcons service={service} />
                         </div>
                     </div>
 
                     <div className='flex flex-row gap-x-5'>
                         <div className='bg-white rounded-2xl w-3/4 p-4 flex flex-col '>
                             <div className='mb-3 text-2xl font-bold font-title'>
-                                About this vendor
+                                About the Vendor
                             </div>
                             <div>
-                            {pkg?.about}
+                                <p>{service.vendor.about || "About section not available"}</p>
                             </div>
                             <hr className="border-t border-gray-300 my-4" />
 
@@ -137,18 +114,15 @@ const Package: React.FC = () => {
                                 Details
                             </div>
                             <div>
-                                Business Attributes
-                                MC Services
-                                Recorded Music
-                                Sound Equipment
+                                <p>{service.description || "Description not available"}</p>
                             </div>
                             <hr className="border-t border-gray-300 my-4" />
+
                             <div className='mb-3 text-2xl font-bold font-title'>
                                 Pricing
                             </div>
                             <div>
-                                <p>$$$ - Moderate</p>
-                                <p>Want to know more? Ask about pricing</p>
+                                <p>{service.pricing || "Pricing details not available"}</p>
                             </div>
                             <hr className="border-t border-gray-300 my-4" />
                             <div className='mb-3 text-2xl font-bold font-title'>
@@ -156,50 +130,17 @@ const Package: React.FC = () => {
                             </div>
                             <div className='flex flex-row'>
                                 <div className='w-1/2'>
-                                    <p>5 out of 5</p>
-                                    <p>From 49 reviews</p>
+                                    <p>Not available right now</p>
                                 </div>
-                                <div className='w-1/2 flex flex-col'>
-                                    <div className='flex items-center'>
-                                        <span className='mr-2'>5 Stars</span>
-                                        <CgLoadbar className='mx-4' />
-                                        <span>100%</span>
-                                    </div>
-                                    <div className='flex items-center'>
-                                        <span className='mr-2'>4 Stars</span>
-                                        <CgLoadbar className='mx-4' />
-                                        <span>100%</span>
-                                    </div>
-                                    <div className='flex items-center'>
-                                        <span className='mr-2'>3 Stars</span>
-                                        <CgLoadbar className='mx-4' />
-                                        <span>100%</span>
-                                    </div>
-                                    <div className='flex items-center'>
-                                        <span className='mr-2'>2 Stars</span>
-                                        <CgLoadbar className='mx-4' />
-                                        <span>100%</span>
-                                    </div>
-                                    <div className='flex items-center'>
-                                        <span className='mr-3'>1 Star</span>
-                                        <CgLoadbar className='mx-4' />
-                                        <span>100%</span>
-                                    </div>
-                                </div>
+                                <Reviews />
                             </div>
                             <hr className="border-t border-gray-300 my-4" />
                             <div className='mb-3 text-2xl font-bold font-title'>
                                 Contact
                             </div>
                             <div className='flex flex-col gap-y-1'>
-                                <div>Address: Nuwara Eliya</div>
-                                <div> Phone: 01xxxxxxxx</div>
-                                <div className='w-4/12 mt-2 flex flex-row text-2xl items-start gap-x-4 mr-3'>
-                                    <SlSocialFacebook />
-                                    <SlSocialInstagram />
-                                    <GoGlobe />
-                                    <FiPhoneCall />
-                                </div>
+                                <div>Email: {service.bus_email || "Email not available"}</div>
+                                <div>Phone number: {service.bus_phone || "Phone number not available"}</div>
                             </div>
                         </div>
                         <div className='bg-white rounded-2xl w-1/4 p-4 text-xl font-bold font-title'>
@@ -212,4 +153,4 @@ const Package: React.FC = () => {
     )
 }
 
-export default Package;
+export default Service;

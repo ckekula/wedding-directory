@@ -38,9 +38,8 @@ export class OfferingService {
   async updateOffering(
     id: string,
     input: UpdateOfferingInput,
-    mediaUrls: string[]
   ): Promise<OfferingEntity> {
-    return this.offeringRepository.updateOffering(id, input, mediaUrls);
+    return this.offeringRepository.updateOffering(id, input);
   }
 
   async deleteOffering(id: string): Promise<boolean> {

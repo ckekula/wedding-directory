@@ -19,9 +19,6 @@ export class UpdateOfferingInput {
     description?: string;
 
     @Field({ nullable: true })
-    experience?: string;
-
-    @Field({ nullable: true })
     pricing?: string;
 
     @Field({ nullable: true })

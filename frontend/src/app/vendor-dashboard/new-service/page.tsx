@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import CategoryInput from "@/components/vendor-signup/CategoryInput";
 import Header from "@/components/shared/Headers/Header";
-import { CREATE_PACKAGE } from "@/graphql/mutations";
+import { CREATE_SERVICE } from "@/graphql/mutations";
 import { useMutation } from "@apollo/client";
 import { useVendorAuth } from "@/contexts/VendorAuthContext";
 import toast from "react-hot-toast";
@@ -17,8 +17,7 @@ const AddNewService: React.FC = () => {
   const router = useRouter();
 
   const [category, setCategory] = useState<string>("");
-  const [serviceName, setServiceName] = useState<string>("");
-  const [createPackage, { loading }] = useMutation(CREATE_PACKAGE);
+  const [createService, { loading }] = useMutation(CREATE_SERVICE);
   const [formData, setFormData] = useState({
     name: "",
     category: "",
@@ -45,7 +44,7 @@ const AddNewService: React.FC = () => {
     e.preventDefault(); // Prevent the default form submission
 
     try {
-      const response = await createPackage({
+      const response = await createService({
         variables: {
           input: {
             name: formData.name,
@@ -56,15 +55,15 @@ const AddNewService: React.FC = () => {
       });
 
       if (response.data) {
-        toast.success("Package created successfully!", {
+        toast.success("Service created successfully!", {
           style: { background: "#333", color: "#fff" },
         });
       }
 
       router.push('/vendor-dashboard')
     } catch (err) {
-      console.error("Error creating package:", err);
-      toast.error("Could not create new package", {
+      console.error("Error creating service:", err);
+      toast.error("Could not create new service", {
         style: { background: "#333", color: "#fff" },
       });
     }
