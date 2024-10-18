@@ -30,9 +30,9 @@ export const UPDATE_VISITOR = gql`
     }
 `;
 
-export const CREATE_PACKAGE = gql`
-  mutation CreatePackage($input: CreatePackageInput!) {
-    createPackage(input: $input) {
+export const CREATE_SERVICE = gql`
+  mutation CreateOffering($input: CreateOfferingInput!) {
+    createOffering(input: $input) {
       id
       name
       category

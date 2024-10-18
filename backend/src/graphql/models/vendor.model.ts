@@ -33,6 +33,9 @@ export class VendorModel {
   @Field({ nullable: true })
   profile_pic_url: string;
 
+  @Field({ nullable: true })
+  about: string;
+
   @Field()
   createdAt: Date;
 

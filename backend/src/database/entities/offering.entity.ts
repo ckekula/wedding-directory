@@ -12,6 +12,9 @@ export class OfferingEntity {
     @Column({ type: 'varchar', length: 20 })
     category: string;
 
+    @Column({ type: 'boolean', default: 'false' })
+    visible: boolean;
+
     @Column({ type: 'varchar', length: 10, nullable: true })
     bus_phone: string;
 
@@ -19,7 +22,10 @@ export class OfferingEntity {
     bus_email: string;
 
     @Column({ type: 'varchar', length: 100, nullable: true })
-    about: string;
+    description: string;
+
+    @Column({ type: 'varchar', length: 100, nullable: true })
+    details: string;
 
     @Column({ type: 'varchar', length: 100, nullable: true  })
     banner: string;
@@ -28,10 +34,7 @@ export class OfferingEntity {
     media: string[];
 
     @Column({ type: 'varchar', length: 100, nullable: true })
-    experience: string;
-
-    @Column({ type: 'varchar', length: 100, nullable: true })
-    start_price: string;
+    pricing: string;
 
     @Column({ type: 'varchar', length: 100, nullable: true })
     website : string;
