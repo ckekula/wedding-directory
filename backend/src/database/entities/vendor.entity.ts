@@ -40,6 +40,8 @@ export class VendorEntity {
   @Column({ type: 'varchar', length: 50, nullable: true })
   profile_pic_url: string;
 
+  @Column({ type: 'varchar', length: 100, nullable: true })
+  about: string;
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamp', nullable: false })
   createdAt: Date;

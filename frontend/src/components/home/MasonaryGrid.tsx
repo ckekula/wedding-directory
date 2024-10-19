@@ -1,7 +1,7 @@
 'use client';
 import React from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 const photos = [
   {
@@ -56,8 +56,6 @@ const photos = [
 
 const MasonaryGrid = () => {
 
-  const router = useRouter();
-
   return (
     <div>
       <section className=" bg-background p-16">
@@ -70,11 +68,10 @@ const MasonaryGrid = () => {
         <div className="container mx-auto">
           <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4 p-4">
             {photos.map((photo) => (
-              <div
+              <Link
+                href="/vendor-search"
                 key={photo.id}
                 className="relative group overflow-hidden rounded-lg break-inside-avoid"
-                onClick={() => router.push('/vendor-search')}
-
               >
                 <Image
                   src={photo.src}
@@ -91,7 +88,7 @@ const MasonaryGrid = () => {
                     {photo.label}
                   </p>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

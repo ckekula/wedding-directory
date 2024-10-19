@@ -4,35 +4,35 @@ import { InputType, Field } from '@nestjs/graphql';
 export class UpdateOfferingInput {
 
     @Field({ nullable: true })
-    category: string;
+    category?: string;
 
     @Field({ nullable: true })
-    bus_phone: string;
+    visible?: boolean;
 
     @Field({ nullable: true })
-    bus_email: string;
+    bus_phone?: string;
 
     @Field({ nullable: true })
-    about: string;
+    bus_email?: string;
 
     @Field({ nullable: true })
-    experience: string;
+    description?: string;
 
     @Field({ nullable: true })
-    start_price: string;
+    pricing?: string;
 
     @Field({ nullable: true })
-    website : string;
+    website?: string;
 
     @Field({ nullable: true })
-    instagram: string;
+    instagram?: string;
 
     @Field({ nullable: true })
-    facebook: string;
+    facebook?: string;
 
     @Field({ nullable: true })
-    x: string;
+    x?: string;
 
     @Field({ nullable: true })
-    tiktok: string;
+    tiktok?: string;
 }
