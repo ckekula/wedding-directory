@@ -6,7 +6,7 @@ import { CreateVendorInput } from 'src/graphql/inputs/createVendor.input';
 import * as bcrypt from 'bcryptjs';
 import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
-import { VendorRepositoryType } from 'src/graphql/types/vendorTypes';
+import { VendorRepositoryType } from 'src/database/types/vendorTypes';
 import { UpdateVendorInput } from 'src/graphql/inputs/updateVendor.input';
 
 
