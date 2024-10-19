@@ -10,7 +10,8 @@ const ToDo = () => {
       <hr className="w-[250px] h-px my-4 bg-gray-400 border-0 dark:bg-gray-700"></hr>
       <div className="mt-4 font-body text-[16px]">
         <Link href="#" className="flex items-center gap-2">
-          <MdOpenInFull size={24} /> Reply to john about his inquiry
+          <MdOpenInFull size={24} /> Write about your services
+          <MdOpenInFull size={24} /> Add a banner to your page
         </Link>
       </div>
     </div>

@@ -94,6 +94,7 @@ const VendorDashBoard = () => {
 
           {/* Services Section */}
           <div className="flex flex-row mt-8">
+
             <div className="w-5/6 text-2xl font-bold mb-8">
               Your Service Offerings
             </div>
@@ -106,6 +107,7 @@ const VendorDashBoard = () => {
                   <MdAdd className="mr-2" size={25} />
                   Add new Service
                 </Button>
+
               </Link>
             </div>
           </div>
@@ -120,7 +122,7 @@ const VendorDashBoard = () => {
                   city={service.vendor?.city}
                   rating="4.5/5"
                   price="$$$"
-                  about={service.about}
+                  about={service.description}
                   banner={"/images/banner.webp"}
                   showStats={false}
                   buttonText="View details"

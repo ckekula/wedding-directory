@@ -24,9 +24,8 @@ export class OfferingResolver {
   async updateOffering(
     @Args('id') id: string,
     @Args('input') input: UpdateOfferingInput,
-    @Args({ name: 'mediaUrls', type: () => [String] }) mediaUrls: string[],
   ): Promise<OfferingEntity> {
-    return this.offeringService.updateOffering(id, input, mediaUrls);
+    return this.offeringService.updateOffering(id, input);
   }
 
   @Mutation(() => Boolean)
