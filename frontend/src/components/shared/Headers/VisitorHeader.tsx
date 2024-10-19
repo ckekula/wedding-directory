@@ -3,12 +3,27 @@ import Link from "next/link";
 import { Fragment, useState, useEffect, useRef } from "react";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import Image from "next/image";
-import { useAuth } from "@/contexts/VisitorAuthContext"; // Added visitor auth context
+import { useAuth } from "@/contexts/VisitorAuthContext"; // Import visitor auth context
 import SearchBar from "../SearchBar";
+import { useQuery } from "@apollo/client"; // Apollo client to fetch visitor data
+import { GET_VISITOR_BY_ID } from "@/graphql/queries"; // Your GraphQL query to fetch visitor data
+
 const VisitorHeader = () => {
-  const { logout } = useAuth(); // Added logout function from context
+  const { visitor, logout } = useAuth(); // Get visitor and logout function from context
+  const [profilePic, setProfilePic] = useState<string>("/images/profilePic.webp"); // Default placeholder
   const [showProfileMenu, setShowProfileMenu] = useState(false); // State for the profile dropdown
   const profileMenuRef = useRef<HTMLDivElement>(null);
+
+  // Fetch visitor data including profile_pic_url on component load
+  const { data, loading, error } = useQuery(GET_VISITOR_BY_ID, {
+    variables: { id: visitor?.id },
+    skip: !visitor?.id, // Skip the query if visitor is not logged in
+    onCompleted: (data) => {
+      if (data?.findVisitorById?.profile_pic_url) {
+        setProfilePic(data.findVisitorById.profile_pic_url); // Set the visitor's profile picture URL
+      }
+    },
+  });
 
   // Handle dropdown toggle
   const handleProfileClick = () => {
@@ -23,7 +38,10 @@ const VisitorHeader = () => {
   // Close the dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (profileMenuRef.current && !profileMenuRef.current.contains(event.target as Node)) {
+      if (
+        profileMenuRef.current &&
+        !profileMenuRef.current.contains(event.target as Node)
+      ) {
         setShowProfileMenu(false); // Close the menu
       }
     };
@@ -36,6 +54,9 @@ const VisitorHeader = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [showProfileMenu]);
+
+  if (loading) return null;  
+  if (error) return <p>Error loading profile picture</p>;
 
   return (
     <Fragment>
@@ -52,7 +73,10 @@ const VisitorHeader = () => {
 
           {/* Search bar */}
           <div className="flex flex-1 justify-center">
-            <SearchBar showIcon={false} placehHolderText="search venues, caterers, etc." />
+            <SearchBar
+              showIcon={false}
+              placehHolderText="search venues, caterers, etc."
+            />
           </div>
 
           {/* Dashboard, Notifications, and Profile dropdown */}
@@ -65,7 +89,7 @@ const VisitorHeader = () => {
             {/* Profile dropdown */}
             <div className="relative" ref={profileMenuRef}>
               <Image
-                src='/images/profilePic.webp'
+                src={profilePic} // Display the fetched profile picture URL or placeholder
                 alt="profile picture"
                 className="w-[50px] h-[50px] rounded-full cursor-pointer"
                 width={50}
@@ -79,7 +103,10 @@ const VisitorHeader = () => {
                       Profile
                     </p>
                   </Link>
-                  <p className="px-4 py-2 hover:bg-gray-100 cursor-pointer font-title text-lg" onClick={handleLogout}>
+                  <p
+                    className="px-4 py-2 hover:bg-gray-100 cursor-pointer font-title text-lg"
+                    onClick={handleLogout}
+                  >
                     Logout
                   </p>
                 </div>
