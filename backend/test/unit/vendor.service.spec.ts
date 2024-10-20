@@ -12,9 +12,9 @@ const mockVendorRepository = {
 };
 
 // Utility function to create a VendorEntity for testing
-const createVendor = (id: string, fname: string): VendorEntity => ({
-  id,
-  fname,
+const createVendor = (): VendorEntity => ({
+  id: '',
+  fname: '',
   email: '',
   password: '',
   lname: '',
@@ -65,8 +65,8 @@ describe('VendorService', () => {
   describe('findAllVendors', () => {
     it('should return all vendors', async () => {
       const vendors: VendorEntity[] = [
-        createVendor('1', 'Vendor 1'),
-        createVendor('2', 'Vendor 2'),
+        createVendor(),
+        createVendor(),
       ];
 
       mockVendorRepository.findAllVendors.mockResolvedValue(vendors);
@@ -87,7 +87,7 @@ describe('VendorService', () => {
   describe('findVendorById', () => {
     it('should return a vendor entity when the id is valid', async () => {
       const id = '123';
-      const vendor = createVendor(id, 'Vendor 123');
+      const vendor = createVendor();
 
       mockVendorRepository.findVendorById.mockResolvedValue(vendor);
 
