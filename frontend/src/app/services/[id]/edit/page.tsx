@@ -1,6 +1,7 @@
 "use client";
+
 import Header from "@/components/shared/Headers/Header";
-import EditPublicProfile from "@/components/vendor-dashboard/dahboard-services/EditPublicProfile";
+import EditGeneral from "@/components/vendor-dashboard/dahboard-services/EditGeneral";
 import EditSocialContact from "@/components/vendor-dashboard/dahboard-services/EditSocialContact";
 import EditPortfolio from "@/components/vendor-dashboard/dahboard-services/EditPortfolio";
 import EditServiceSettings from "@/components/vendor-dashboard/dahboard-services/EditServiceSettings";
@@ -9,7 +10,7 @@ import VendorBanner from "@/components/vendor-dashboard/VendorBanner";
 import React, { useState } from "react";
 import Footer from "@/components/shared/Footer";
 
-const Services = () => {
+const EditService = () => {
   // Set default active section to "Public Profile"
   const [activeSection, setActiveSection] = useState("publicProfile");
 
@@ -17,7 +18,7 @@ const Services = () => {
   const renderSection = () => {
     switch (activeSection) {
       case "publicProfile":
-        return <EditPublicProfile isServiceVisible={true} />;
+        return <EditGeneral isServiceVisible={true} />;
       case "socialContact":
         return <EditSocialContact />;
       case "portfolio":
@@ -25,7 +26,7 @@ const Services = () => {
       case "serviceSettings":
         return <EditServiceSettings />;
       default:
-        return <EditPublicProfile isServiceVisible={true} />;
+        return <EditGeneral isServiceVisible={true} />;
     }
   };
 
@@ -53,4 +54,4 @@ const Services = () => {
   );
 };
 
-export default Services;
+export default EditService;

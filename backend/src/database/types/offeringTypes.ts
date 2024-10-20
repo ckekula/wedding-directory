@@ -10,8 +10,7 @@ export type OfferingRepositoryType = Repository<OfferingEntity> & {
 
     updateOffering(
       id: string,
-      updateOfferingInput: Partial<OfferingEntity>,
-      mediaUrls: string[],
+      updateOfferingInput: Partial<OfferingEntity>
     ): Promise<OfferingEntity>;
 
     deleteOffering(id: string): Promise<boolean>;

@@ -11,28 +11,39 @@ import Link from "next/link";
 import { GET_VENDOR_BY_ID, FIND_SERVICES_BY_VENDOR } from "@/graphql/queries";
 import { useVendorAuth } from "@/contexts/VendorAuthContext";
 import { useQuery } from "@apollo/client";
-import { CiCirclePlus } from "react-icons/ci";
+import { MdAdd } from "react-icons/md";
 import Footer from "@/components/shared/Footer";
+import { Button } from "@/components/ui/button";
 
 const VendorDashBoard = () => {
-
   const { vendor } = useVendorAuth();
 
   // Query to get vendor data
-  const { data: vendorData, loading: vendorLoading, error: vendorError } = useQuery(GET_VENDOR_BY_ID, {
+  const {
+    data: vendorData,
+    loading: vendorLoading,
+    error: vendorError,
+  } = useQuery(GET_VENDOR_BY_ID, {
     variables: { id: vendor?.id },
     skip: !vendor?.id,
   });
 
   // Query to get services by vendor
-  const { data: servicesData, loading: servicesLoading, error: servicesError } = useQuery(FIND_SERVICES_BY_VENDOR, {
+  const {
+    data: servicesData,
+    loading: servicesLoading,
+    error: servicesError,
+  } = useQuery(FIND_SERVICES_BY_VENDOR, {
     variables: { id: vendor?.id },
     skip: !vendor?.id,
   });
 
-  if (vendorLoading || servicesLoading) return <p>Loading vendor information...</p>;
-  if (vendorError) return <p>Error loading vendor information: {vendorError.message}</p>;
-  if (servicesError) return <p>Error loading services: {servicesError.message}</p>;
+  if (vendorLoading || servicesLoading)
+    return <p>Loading vendor information...</p>;
+  if (vendorError)
+    return <p>Error loading vendor information: {vendorError.message}</p>;
+  if (servicesError)
+    return <p>Error loading services: {servicesError.message}</p>;
 
   const vendorInfo = vendorData?.findVendorById;
   const services = servicesData?.findOfferingsByVendor || [];
@@ -43,7 +54,9 @@ const VendorDashBoard = () => {
 
       <div className="bg-lightYellow">
         <div className="container mx-auto px-4">
-          <h1 className="font-title text-[36px] text-black text-center py-4">Welcome</h1>
+          <h1 className="font-title text-[36px] text-black text-center py-4">
+            Welcome
+          </h1>
 
           {/* Vendor Banner */}
           <VendorBanner businessName={vendorInfo?.busname} />
@@ -56,7 +69,9 @@ const VendorDashBoard = () => {
             </div>
             <div className="flex flex-col justify-center items-center">
               <p className="font-body text-[20px]">Member Since</p>
-              <p className="font-body text-[15px]">{new Date(vendorInfo?.createdAt).getFullYear()}</p>
+              <p className="font-body text-[15px]">
+                {new Date(vendorInfo?.createdAt).getFullYear()}
+              </p>
             </div>
             <div className="flex flex-col justify-center items-center">
               <p className="font-body text-[20px]">Rating</p>
@@ -79,11 +94,20 @@ const VendorDashBoard = () => {
 
           {/* Services Section */}
           <div className="flex flex-row mt-8">
-            <div className="w-5/6 text-2xl font-bold mb-8">Your Service Offerings</div>
-            <div className="w-1/6 ml-10">
-              <Link href="/vendor-dashboard/new-service" className="flex items-center">
-                <CiCirclePlus className="mr-2" />
-                Add new Service
+
+            <div className="w-5/6 text-2xl font-bold mb-8">
+              Your Service Offerings
+            </div>
+            <div className="w-1/6 ml-10 ">
+              <Link
+                href="/vendor-dashboard/new-service"
+                className="flex items-center  "
+              >
+                <Button variant="signup">
+                  <MdAdd className="mr-2" size={25} />
+                  Add new Service
+                </Button>
+
               </Link>
             </div>
           </div>
@@ -98,7 +122,7 @@ const VendorDashBoard = () => {
                   city={service.vendor?.city}
                   rating="4.5/5"
                   price="$$$"
-                  about={service.about}
+                  about={service.description}
                   banner={"/images/banner.webp"}
                   showStats={false}
                   buttonText="View details"
@@ -112,11 +136,15 @@ const VendorDashBoard = () => {
 
           <hr className="border-t border-gray-300 my-4" />
 
-          <div className="text-2xl font-bold mb-8">Messages and Inquiries</div>
-          <p className="mb-8">Coming soon!</p>
+          <div className="pb-8">
+            <h2 className="text-2xl font-bold">Messages and Inquiries</h2>
+            <p className="font-body py-8">Coming soon!</p>
+          </div>
         </div>
       </div>
-      <Footer/>
+      <div className=""> <Footer  /></div>
+
+     
     </div>
   );
 };

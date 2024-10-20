@@ -44,7 +44,10 @@ export const FIND_SERVICE_BY_ID = gql`
       id
       name
       category
-      about
+      description
+      bus_phone
+      bus_email
+      pricing
       banner
       website
       facebook
@@ -55,6 +58,7 @@ export const FIND_SERVICE_BY_ID = gql`
         id
         busname
         city
+        about
       }
     }
   }
@@ -66,7 +70,7 @@ export const FIND_SERVICES_BY_VENDOR = gql`
       id
       name
       category
-      about
+      description
       banner
       vendor {
         id
@@ -90,6 +94,7 @@ export const GET_VISITOR_BY_ID = gql`
       engaged_date
       wed_date
       wed_venue
+      profile_pic_url
     }
   }
 `;

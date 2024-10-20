@@ -5,18 +5,19 @@ import {
   ParseFilePipe,
   Post,
   UploadedFile,
-  Body, // Import Body to receive visitorId
+  Body,
   UseInterceptors,
+  BadRequestException,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { UploadService } from './upload.service';
-import { VisitorService } from '../visitor/visitor.service'; // Import VisitorService
+import { VisitorService } from '../visitor/visitor.service';
 
 @Controller('upload')
 export class UploadController {
   constructor(
     private readonly uploadService: UploadService,
-    private readonly visitorService: VisitorService, // Inject VisitorService
+    private readonly visitorService: VisitorService,
   ) {}
 
   @Post('profile-picture')
@@ -25,23 +26,29 @@ export class UploadController {
     @UploadedFile(
       new ParseFilePipe({
         validators: [
-          new MaxFileSizeValidator({ maxSize: 5 * 1024 * 1024 }), // 5MB size limit
+          new MaxFileSizeValidator({ maxSize: 5 * 1024 * 1024 }), // 5MB
           new FileTypeValidator({ fileType: 'image/jpeg|image/png' }),
         ],
       }),
     )
     file: Express.Multer.File,
-    @Body('visitorId') visitorId: string, // Get the visitorId from the request body
+    @Body('visitorId') visitorId: string, // Expecting the visitorId in the body
   ) {
-    const fileName = `${Date.now()}-${file.originalname}`;
-    
-    // Upload the file to S3
-    const fileUrl = await this.uploadService.upload(fileName, file.buffer);
-    
-    // Update the visitor profile picture URL in the database
-    await this.visitorService.updateProfilePicture(visitorId, fileUrl);
+    // Check if file and visitorId exist
+    if (!file || !visitorId) {
+      throw new BadRequestException('File or Visitor ID is missing.');
+    }
 
-    // Return the file URL in the response
-    return { fileUrl };
+    const fileName = `${Date.now()}-${file.originalname}`;
+
+    // Try to upload the file
+    try {
+      const fileUrl = await this.uploadService.upload(fileName, file.buffer);
+      await this.visitorService.updateProfilePicture(visitorId, fileUrl);
+      return { fileUrl };
+    } catch (error) {
+      console.error('Upload failed:', error); // Log the error for debugging
+      throw new BadRequestException('Error uploading the file.');
+    }
   }
 }
