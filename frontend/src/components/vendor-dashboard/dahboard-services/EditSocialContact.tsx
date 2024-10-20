@@ -1,42 +1,88 @@
 "use client";
-import React, { Fragment, useState } from "react";
+
+import React, { Fragment, useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-
-interface SocialContactData {
-  websiteURL: string;
-  xURL: string;
-  tiktokURL: string;
-  instagramURL: string;
-  facebookURL: string;
-  youtubeURL: string;
-}
+import { SocialData } from "@/types/serviceTypes";
+import { useParams } from "next/navigation";
+import { useMutation, useQuery } from "@apollo/client";
+import { FIND_SERVICE_BY_ID } from "@/graphql/queries";
+import { UPDATE_SERVICE_SOCIALS } from "@/graphql/mutations";
+import toast from "react-hot-toast";
 
 const EditSocialContact: React.FC = () => {
   // Form state with demo data
-  const [socialContact, setSocialContact] = useState<SocialContactData>({
-    websiteURL: "https://mybusiness.com",
-    xURL: "https://x.com/mybusiness",
-    tiktokURL: "https://tiktok.com/@mybusiness",
-    instagramURL: "https://instagram.com/mybusiness",
-    facebookURL: "https://facebook.com/mybusiness",
-    youtubeURL: "https://youtube.com/mybusiness",
+  const params = useParams();
+  const { id } = params;
+  const { loading, error, data } = useQuery(FIND_SERVICE_BY_ID, {
+    variables: { id },
   });
 
-  // Handle input changes
+  const serviceData = data?.findOfferingById;
+
+  // Form state
+  const [profile, setProfile] = useState<SocialData>({
+    websiteURL: "",
+    xURL: "",
+    tiktokURL: "",
+    facebookURL: "",
+    instagramURL: "",
+  });
+
+  // Update state with fetched data
+  useEffect(() => {
+    if (serviceData) {
+      setProfile({
+        websiteURL: "",
+        xURL: "",
+        tiktokURL: "",
+        facebookURL: "",
+        instagramURL: "",
+      });
+    }
+  }, [serviceData]);
+
+  const [updateVendor] = useMutation(UPDATE_SERVICE_SOCIALS, {
+    onCompleted: () => {
+      console.log("Vendor updated successfully!");
+    },
+    onError: (error) => {
+      console.error("Error updating vendor:", error);
+    },
+  });
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
+  
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setSocialContact((prevSocialContact) => ({
-      ...prevSocialContact,
+    setProfile((prevProfile) => ({
+      ...prevProfile,
       [name]: value,
     }));
   };
 
-  // Handle form submission (no backend yet, so this just prevents default behavior)
-  const handleSubmit = (e: React.FormEvent) => {
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert("Social contact information saved successfully!");
-    console.log(socialContact); // This will log the updated social contact data in the browser console for now
+
+    try {
+      await updateVendor({
+        variables: {
+          id,
+          input: {
+            website: profile.websiteURL,
+            x: profile.xURL,
+            tiktok: profile.tiktokURL,
+            facebook: profile.facebookURL,
+            instagram: profile.instagramURL,
+          },
+        },
+      });
+      toast.success("Profile saved successfully!");
+    } catch (err) {
+      console.error("Failed to update profile:", err);
+    }
   };
 
   return (
@@ -49,7 +95,7 @@ const EditSocialContact: React.FC = () => {
             <label className="font-body text-[16px]">Website URL</label>
             <Input
               name="websiteURL"
-              value={socialContact.websiteURL}
+              value={profile.websiteURL || ""}
               onChange={handleInputChange}
               className="font-body rounded-md mt-2 mb-3"
             />
@@ -58,7 +104,7 @@ const EditSocialContact: React.FC = () => {
             <label className="font-body text-[16px]">X URL</label>
             <Input
               name="xURL"
-              value={socialContact.xURL}
+              value={profile.xURL || ""}
               onChange={handleInputChange}
               className="font-body rounded-md mt-2 mb-3"
             />
@@ -67,7 +113,7 @@ const EditSocialContact: React.FC = () => {
             <label className="font-body text-[16px]">TikTok URL</label>
             <Input
               name="tiktokURL"
-              value={socialContact.tiktokURL}
+              value={profile.tiktokURL || ""}
               onChange={handleInputChange}
               className="font-body rounded-md mt-2 mb-3"
             />
@@ -76,7 +122,7 @@ const EditSocialContact: React.FC = () => {
             <label className="font-body text-[16px]">Instagram URL</label>
             <Input
               name="instagramURL"
-              value={socialContact.instagramURL}
+              value={profile.instagramURL || ""}
               onChange={handleInputChange}
               className="font-body rounded-md mt-2 mb-3"
             />
@@ -85,16 +131,7 @@ const EditSocialContact: React.FC = () => {
             <label className="font-body text-[16px]">Facebook Page URL</label>
             <Input
               name="facebookURL"
-              value={socialContact.facebookURL}
-              onChange={handleInputChange}
-              className="font-body rounded-md mt-2 mb-3"
-            />
-          </div>
-          <div>
-            <label className="font-body text-[16px]">YouTube Channel URL</label>
-            <Input
-              name="youtubeURL"
-              value={socialContact.youtubeURL}
+              value={profile.facebookURL || ""}
               onChange={handleInputChange}
               className="font-body rounded-md mt-2 mb-3"
             />
@@ -103,8 +140,8 @@ const EditSocialContact: React.FC = () => {
       </div>
 
       <div className="bg-white rounded-2xl p-4 px-8 shadow-lg my-8 justify-center flex">
-        <Button variant="signup" className="m-3 w-full">
-          Save Social and Contact Links
+        <Button variant="signup" onClick={handleSubmit} className="m-3 w-full">
+          Save Social Links
         </Button>
       </div>
     </Fragment>

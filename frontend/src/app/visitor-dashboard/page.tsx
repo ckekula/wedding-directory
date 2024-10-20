@@ -14,8 +14,6 @@ import { StaticImageData } from "next/image";
 import { GET_VISITOR_BY_ID } from "@/graphql/queries";
 import Footer from "@/components/shared/Footer";
 
-// Placeholder for profile picture
-//const profilePicPlaceholder = "/path/to/default/profilePic.png";
 
 const VisitorDashboard = () => {
   const [isSideBarCollapsed, setIsSideBarCollapsed] = useState(true);

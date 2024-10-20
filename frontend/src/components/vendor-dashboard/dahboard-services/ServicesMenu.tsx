@@ -1,9 +1,6 @@
-import Link from "next/link";
+import { ServicesMenuProps } from "@/types/serviceTypes";
 import React from "react";
 
-interface ServicesMenuProps {
-  setActiveSection: (section: string) => void;
-}
 
 const ServicesMenu: React.FC<ServicesMenuProps> = ({ setActiveSection }) => {
   return (
@@ -18,13 +15,13 @@ const ServicesMenu: React.FC<ServicesMenuProps> = ({ setActiveSection }) => {
           onClick={() => setActiveSection("publicProfile")}
           className="text-left"
         >
-          Public Profile
+          General
         </button>
         <button
           onClick={() => setActiveSection("socialContact")}
           className="text-left"
         >
-          Social and Contact
+          Social Links
         </button>
         <button
           onClick={() => setActiveSection("portfolio")}
@@ -36,7 +33,7 @@ const ServicesMenu: React.FC<ServicesMenuProps> = ({ setActiveSection }) => {
           onClick={() => setActiveSection("serviceSettings")}
           className="text-left"
         >
-          Service Settings
+          Settings
         </button>
       </div>
     </div>

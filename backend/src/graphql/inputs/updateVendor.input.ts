@@ -3,27 +3,29 @@ import { InputType, Field } from '@nestjs/graphql';
 @InputType()
 export class UpdateVendorInput {
   @Field({ nullable: true })
-  email: string;
+  email?: string;
 
   @Field({ nullable: true })
-  password: string;
+  password?: string;
 
   @Field({ nullable: true })
-  fname: string;
+  fname?: string;
 
   @Field({ nullable: true })
-  lname: string;
+  lname?: string;
 
   @Field({ nullable: true })
-  busname: string;
+  busname?: string;
 
   @Field({ nullable: true })
-  phone: string;
+  phone?: string;
 
   @Field({ nullable: true })
-  city: string;
+  city?: string;
 
   @Field({ nullable: true })
-  location: string;
+  location?: string;
 
+  @Field({ nullable: true })
+  about?: string;
 }

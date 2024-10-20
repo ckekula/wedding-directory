@@ -21,7 +21,6 @@ export const OfferingRepository = (dataSource: DataSource): OfferingRepositoryTy
     async updateOffering(
       id: string,
       updateOfferingInput: Partial<OfferingEntity>,
-      mediaUrls: string[],
     ): Promise<OfferingEntity> {
       const offering = await this.findOne({ where: { id } });
       if (!offering) {
@@ -29,8 +28,7 @@ export const OfferingRepository = (dataSource: DataSource): OfferingRepositoryTy
       }
       return this.save({
         ...offering,
-        ...updateOfferingInput,
-        media: mediaUrls,
+        ...updateOfferingInput
       });
     },
 
