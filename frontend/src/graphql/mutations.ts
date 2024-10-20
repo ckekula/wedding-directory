@@ -15,6 +15,18 @@ export const CREATE_VENDOR = gql`
   }
 `;
 
+export const CREATE_VISITOR_MUTATION = gql`
+    mutation CreateVisitor($email: String!, $password: String!) {
+        createVisitor(createVisitorInput: {
+            email: $email,
+            password: $password
+        }) {
+            id
+            email
+        }
+    }
+`;
+
 export const UPDATE_VISITOR = gql`
     mutation UpdateVisitor($id: String!, $input: UpdateVisitorInput!) {
         updateVisitor(id: $id, input: $input) {
