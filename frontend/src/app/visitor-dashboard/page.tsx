@@ -14,13 +14,11 @@ import { StaticImageData } from "next/image";
 import { GET_VISITOR_BY_ID } from "@/graphql/queries";
 import Footer from "@/components/shared/Footer";
 
-// Placeholder for profile picture
-//const profilePicPlaceholder = "/path/to/default/profilePic.png";
 
 const VisitorDashboard = () => {
   const [isSideBarCollapsed, setIsSideBarCollapsed] = useState(true);
   const { visitor } = useAuth();
-  const [profilePic, setProfilePic] = useState<string | StaticImageData>('/images/visitorProfilePic.jpg');
+  const [profilePic, setProfilePic] = useState<string | StaticImageData>('/images/visitorProfilePic.webp');
 
   // Fetch visitor data including profile_pic_url
   const { data, loading, error } = useQuery(GET_VISITOR_BY_ID, {

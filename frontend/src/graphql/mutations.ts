@@ -30,9 +30,9 @@ export const UPDATE_VISITOR = gql`
     }
 `;
 
-export const CREATE_PACKAGE = gql`
-  mutation CreatePackage($input: CreatePackageInput!) {
-    createPackage(input: $input) {
+export const CREATE_SERVICE = gql`
+  mutation CreateOffering($input: CreateOfferingInput!) {
+    createOffering(input: $input) {
       id
       name
       category
@@ -52,6 +52,29 @@ export const UPDATE_VENDOR = gql`
       phone 
       city 
       location
+    }
+  }
+`;
+
+export const UPDATE_SERVICE_PROFILE = gql`
+  mutation UpdateOffering($id: String!, $input: UpdateOfferingInput!) {
+    updateOffering(id: $id, input: $input) {
+      category
+      bus_phone
+      bus_email
+      description 
+      pricing
+    }
+  }
+`;
+
+export const UPDATE_SERVICE_SOCIALS = gql`
+  mutation UpdateOffering($id: String!, $input: UpdateOfferingInput!) {
+    updateOffering(id: $id, input: $input) {
+      facebook
+      instagram
+      tiktok
+      x
     }
   }
 `;

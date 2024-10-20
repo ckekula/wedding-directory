@@ -20,7 +20,7 @@ const ProfilePicture: React.FC<ProfilePictureProps> = ({ profilePic, setProfileP
     if (file && visitor?.id) {
       try {
         const fileUrl = await uploadProfilePicture(file, visitor.id);
-        setProfilePic(fileUrl || '/images/dashboardProfilePic.jpg');
+        setProfilePic(fileUrl || '/images/dashboardProfilePic.webp');
       } catch (error) {
         console.error("Error uploading profile picture:", error);
       }
@@ -29,7 +29,7 @@ const ProfilePicture: React.FC<ProfilePictureProps> = ({ profilePic, setProfileP
 
   return (
     <div
-      className="rounded-xl overflow-hidden transform -rotate-12 shadow-lg cursor-pointer"
+      className="rounded-xl overflow-hidden transform  shadow-lg cursor-pointer"
       onClick={handleProfilePicClick}
     >
       <Image

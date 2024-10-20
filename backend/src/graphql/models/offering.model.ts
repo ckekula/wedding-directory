@@ -12,6 +12,9 @@ export class OfferingModel {
   @Field()
   category: string;
 
+  @Field({ defaultValue: false })
+  visible: boolean;
+
   @Field({ nullable: true })
   bus_phone: string;
 
@@ -19,7 +22,7 @@ export class OfferingModel {
   bus_email: string;
 
   @Field({ nullable: true })
-  about: string;
+  description: string;
 
   @Field({ nullable: true })
   banner: string;
@@ -31,7 +34,7 @@ export class OfferingModel {
   experience: string;
 
   @Field({ nullable: true })
-  start_price: string;
+  pricing: string;
 
   @Field({ nullable: true })
   website : string;

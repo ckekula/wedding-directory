@@ -6,7 +6,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { VendorEntity } from 'src/database/entities/vendor.entity';
 import { OfferingFilterInput } from 'src/graphql/inputs/offeringFilter.input';
 import { OfferingRepository } from 'src/database/repositories/offering.repository';
-import { OfferingRepositoryType } from 'src/graphql/types/offeringTypes';
+import { OfferingRepositoryType } from 'src/database/types/offeringTypes';
 import { UpdateOfferingInput } from 'src/graphql/inputs/updateOffering.input';
 
 @Injectable()
@@ -38,9 +38,8 @@ export class OfferingService {
   async updateOffering(
     id: string,
     input: UpdateOfferingInput,
-    mediaUrls: string[]
   ): Promise<OfferingEntity> {
-    return this.offeringRepository.updateOffering(id, input, mediaUrls);
+    return this.offeringRepository.updateOffering(id, input);
   }
 
   async deleteOffering(id: string): Promise<boolean> {
