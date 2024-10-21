@@ -6,7 +6,7 @@ import request from "@/utils/request";
  * @param {string} offeringId - The ID of the offering.
  * @returns {Promise<string[]>} - Array of uploaded video URLs.
  */
-export const uploadOfferingVideoShowcase = async (files: File[], offeringId: string) => {
+export const uploadOfferingVideoShowcase = async (files: File[], offeringId: string): Promise<string[]> => {
   if (files.length === 0) {
     throw new Error("You need to upload at least one video.");
   }
@@ -27,7 +27,7 @@ export const uploadOfferingVideoShowcase = async (files: File[], offeringId: str
       },
     });
 
-    return response.data; // Assuming the response contains an array of uploaded video URLs
+    return response.data.uploadedUrls; // Assuming the response contains an array of uploaded video URLs
   } catch (error) {
     if (error instanceof Error) {
       console.error("Error uploading videos:", error.message);
