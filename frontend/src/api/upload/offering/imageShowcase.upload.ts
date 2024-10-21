@@ -6,7 +6,7 @@ import request from "@/utils/request";
  * @param {string} offeringId - The ID of the offering.
  * @returns {Promise<string[]>} - Array of uploaded file URLs.
  */
-export const uploadOfferingImageShowcase = async (files: File[], offeringId: string) => {
+export const uploadOfferingImageShowcase = async (files: File[], offeringId: string): Promise<string[]> => {
   if (files.length > 5) {
     throw new Error("You can upload a maximum of 5 images.");
   }
@@ -27,7 +27,7 @@ export const uploadOfferingImageShowcase = async (files: File[], offeringId: str
       },
     });
 
-    return response.data.fileUrls; // Assuming the response contains an array of uploaded file URLs
+    return response.data.uploadedUrls; // Assuming the response contains an array of uploaded file URLs
   } catch (error) {
     if (error instanceof Error) {
       console.error("Error uploading showcase images:", error.message);
