@@ -28,7 +28,10 @@ export class OfferingEntity {
     banner: string;
 
     @Column('text', { array: true, nullable: true })
-    media: string[];
+    video_showcase: string[];
+
+    @Column('text', { array: true, nullable: true })
+    photo_showcase: string[];
 
     @Column({ type: 'varchar', length: 100, nullable: true })
     pricing: string;

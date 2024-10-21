@@ -62,15 +62,11 @@ export class OfferingService {
   async updateOfferingBanner(id: string, fileUrl: string): Promise<OfferingEntity> {
     // Find the offering by ID
     const offering = await this.offeringRepository.findOne({ where: { id } });
-
     if (!offering) {
       throw new Error('Offering not found');
     }
 
-    // Update the profile_pic_url field
-    offering.banner = fileUrl;
-
-    // Save the updated vendor to the database
-    return await this.vendorRepository.save(offering);
+    const newOffering = { ...offering, banner: fileUrl };
+    return await this.offeringRepository.save(newOffering);
   }
 }

@@ -4,17 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fe9e803b-a74e-4952-bf96-9a931fe40db4" name="Changes" comment="adsfd">
+    <list default="true" id="fe9e803b-a74e-4952-bf96-9a931fe40db4" name="Changes" comment="pull main">
+      <change afterPath="$PROJECT_DIR$/frontend/src/api/upload/offeringBanner.upload.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/.eslintrc.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/.eslintrc.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/contact/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/contact/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/packages/[id]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/packages/[id]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/about-us/AboutUsSection.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/about-us/AboutUsSection.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/vendor-dashboard/ProfileInfo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/vendor-dashboard/ProfileInfo.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/database/entities/offering.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/database/entities/offering.entity.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/graphql/inputs/updateOffering.input.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/graphql/inputs/updateOffering.input.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/graphql/models/offering.model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/graphql/models/offering.model.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/modules/offering/offering.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/modules/offering/offering.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/modules/upload/upload.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/modules/upload/upload.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/modules/upload/upload.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/modules/upload/upload.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/modules/upload/upload.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/modules/upload/upload.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/api/auth/visitor.auth.api.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/api/auth/visitor.auth.api.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +44,7 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;com.codeium.enabled&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;bugfix/janitha-cookieError&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;D:/Web Development/My Projects/UniExchange&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -82,7 +82,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-WS-242.22855.79" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-WS-242.23339.15" />
       </set>
     </attachedChunks>
   </component>
@@ -106,6 +106,9 @@
       <workItem from="1727843484330" duration="2062000" />
       <workItem from="1727856623693" duration="9277000" />
       <workItem from="1727880325458" duration="8637000" />
+      <workItem from="1729425002668" duration="4972000" />
+      <workItem from="1729479396376" duration="4194000" />
+      <workItem from="1729489175556" duration="329000" />
     </task>
     <task id="LOCAL-00001" summary="adsfd">
       <option name="closed" value="true" />
@@ -115,7 +118,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728748032645</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="pull main">
+      <option name="closed" value="true" />
+      <created>1729410172443</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1729410172443</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -134,7 +145,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="adsfd" />
-    <option name="LAST_COMMIT_MESSAGE" value="adsfd" />
+    <MESSAGE value="pull main" />
+    <option name="LAST_COMMIT_MESSAGE" value="pull main" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
