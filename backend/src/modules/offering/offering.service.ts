@@ -6,7 +6,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { VendorEntity } from 'src/database/entities/vendor.entity';
 import { OfferingFilterInput } from 'src/graphql/inputs/offeringFilter.input';
 import { OfferingRepository } from 'src/database/repositories/offering.repository';
-import { OfferingRepositoryType } from 'src/graphql/types/offeringTypes';
+import { OfferingRepositoryType } from 'src/database/types/offeringTypes';
 import { UpdateOfferingInput } from 'src/graphql/inputs/updateOffering.input';
 
 @Injectable()
@@ -62,15 +62,29 @@ export class OfferingService {
   async updateOfferingBanner(id: string, fileUrl: string): Promise<OfferingEntity> {
     // Find the offering by ID
     const offering = await this.offeringRepository.findOne({ where: { id } });
-
     if (!offering) {
       throw new Error('Offering not found');
     }
 
-    // Update the profile_pic_url field
-    offering.banner = fileUrl;
+    const newOffering = { ...offering, banner: fileUrl };
+    return await this.offeringRepository.save(newOffering);
+  }
 
-    // Save the updated vendor to the database
-    return await this.vendorRepository.save(offering);
+  async updateOfferingShowcaseImages(id: string, fileUrls: string[]): Promise<OfferingEntity> {
+    const offering = await this.offeringRepository.findOne({ where: { id } });
+    if (!offering) {
+      throw new Error('Offering not found');
+    }
+    const newOffering = { ...offering, photo_showcase: fileUrls };
+    return await this.offeringRepository.save(newOffering);
+  }
+
+  async updateOfferingVideos(id: string, fileUrls: string[]): Promise<OfferingEntity> {
+    const offering = await this.offeringRepository.findOne({ where: { id } });
+    if (!offering) {
+      throw new Error('Offering not found');
+    }
+    const newOffering = { ...offering, video_showcase: fileUrls };
+    return await this.offeringRepository.save(newOffering);
   }
 }

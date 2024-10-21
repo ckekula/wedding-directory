@@ -4,10 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fe9e803b-a74e-4952-bf96-9a931fe40db4" name="Changes" comment="adsfd">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/backendVPS.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/backendVPS.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/workflows/frontendVPS.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/frontendVPS.yml" afterDir="false" />
+    <list default="true" id="fe9e803b-a74e-4952-bf96-9a931fe40db4" name="Changes" comment="pull main">
+      <change afterPath="$PROJECT_DIR$/frontend/src/api/upload/offering/imageShowcase.upload.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/api/upload/offering/videoShowcase.upload.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/modules/offering/offering.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/modules/offering/offering.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/modules/upload/upload.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/modules/upload/upload.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/modules/upload/upload.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/modules/upload/upload.service.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,29 +36,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "com.codeium.enabled": "true",
-    "git-widget-placeholder": "develop",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "D:/UOR/5thSem/Software Project/dev/root/wedding-directory/frontend/public/images",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "D:\\UOR\\5thSem\\Software Project\\dev\\root\\wedding-directory\\backend\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;com.codeium.enabled&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;bugfix/janitha-cookieError&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Web Development/My Projects/UniExchange&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\UOR\\5thSem\\Software Project\\dev\\root\\wedding-directory\\backend\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\UOR\5thSem\Software Project\dev\root\wedding-directory\frontend\public\images" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\UOR\5thSem\Software Project\dev\root\wedding-directory\frontend\public\images" />
+      <recent name="D:\UOR\5thSem\Software Project\dev\root\wedding-directory\frontend\src\api\upload\offerings" />
       <recent name="D:\UOR\5thSem\Software Project\dev\root\wedding-directory\frontend\public" />
     </key>
   </component>
@@ -79,7 +79,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-WS-242.22855.79" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-WS-242.23339.15" />
       </set>
     </attachedChunks>
   </component>
@@ -103,6 +103,9 @@
       <workItem from="1727843484330" duration="2062000" />
       <workItem from="1727856623693" duration="9277000" />
       <workItem from="1727880325458" duration="8637000" />
+      <workItem from="1729425002668" duration="4972000" />
+      <workItem from="1729479396376" duration="4194000" />
+      <workItem from="1729489175556" duration="6382000" />
     </task>
     <task id="LOCAL-00001" summary="adsfd">
       <option name="closed" value="true" />
@@ -112,7 +115,15 @@
       <option name="project" value="LOCAL" />
       <updated>1728748032645</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="pull main">
+      <option name="closed" value="true" />
+      <created>1729410172443</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1729410172443</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -131,7 +142,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="adsfd" />
-    <option name="LAST_COMMIT_MESSAGE" value="adsfd" />
+    <MESSAGE value="pull main" />
+    <option name="LAST_COMMIT_MESSAGE" value="pull main" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
