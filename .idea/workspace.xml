@@ -5,12 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fe9e803b-a74e-4952-bf96-9a931fe40db4" name="Changes" comment="pull main">
-      <change afterPath="$PROJECT_DIR$/frontend/src/api/upload/offering/imageShowcase.upload.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/api/upload/offering/videoShowcase.upload.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/modules/offering/offering.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/modules/offering/offering.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/modules/upload/upload.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/modules/upload/upload.controller.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/modules/upload/upload.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/modules/upload/upload.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/services/[id]/edit/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/[id]/edit/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/vendor-dashboard/dahboard-services/EditPortfolio.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/vendor-dashboard/dahboard-services/EditPortfolio.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,7 +102,7 @@
       <workItem from="1727880325458" duration="8637000" />
       <workItem from="1729425002668" duration="4972000" />
       <workItem from="1729479396376" duration="4194000" />
-      <workItem from="1729489175556" duration="6382000" />
+      <workItem from="1729489175556" duration="14604000" />
     </task>
     <task id="LOCAL-00001" summary="adsfd">
       <option name="closed" value="true" />
