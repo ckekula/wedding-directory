@@ -69,4 +69,22 @@ export class OfferingService {
     const newOffering = { ...offering, banner: fileUrl };
     return await this.offeringRepository.save(newOffering);
   }
+
+  async updateOfferingShowcaseImages(id: string, fileUrls: string[]): Promise<OfferingEntity> {
+    const offering = await this.offeringRepository.findOne({ where: { id } });
+    if (!offering) {
+      throw new Error('Offering not found');
+    }
+    const newOffering = { ...offering, photo_showcase: fileUrls };
+    return await this.offeringRepository.save(newOffering);
+  }
+
+  async updateOfferingVideos(id: string, fileUrls: string[]): Promise<OfferingEntity> {
+    const offering = await this.offeringRepository.findOne({ where: { id } });
+    if (!offering) {
+      throw new Error('Offering not found');
+    }
+    const newOffering = { ...offering, video_showcase: fileUrls };
+    return await this.offeringRepository.save(newOffering);
+  }
 }

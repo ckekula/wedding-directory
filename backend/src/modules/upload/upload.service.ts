@@ -50,7 +50,7 @@ export class UploadService {
       Bucket: bucket,
       Key: fileName,
       Body: fileBuffer,
-      ContentType: 'video/mp4', // Or 'image/png'
+      ContentType: 'video/mp4|video/webm', // Or 'image/png'
     }
 
     await this.s3Client.send(new PutObjectCommand(params));
