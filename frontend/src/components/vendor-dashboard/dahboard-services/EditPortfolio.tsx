@@ -1,42 +1,36 @@
 "use client";
-
 import React, { Fragment, useState } from "react";
-import { IoMdCloudUpload } from "react-icons/io";
-import { CiCirclePlus } from "react-icons/ci";
+import { Button } from "@/components/ui/button";
 import Image from "next/image";
+import { CiCirclePlus } from "react-icons/ci";
+import { IoMdCloudUpload } from "react-icons/io";
 import { uploadOfferingBanner } from "@/api/upload/offering/banner.upload";
 import { uploadOfferingImageShowcase } from "@/api/upload/offering/imageShowcase.upload";
+import { uploadOfferingVideoShowcase } from "@/api/upload/offering/videoShowcase.upload";
 
 interface EditPortfolioProps {
-  offeringId: string | string[] | undefined;
+  offeringId: string | string[] | undefined; // Define the type for offeringId
 }
 
 const EditPortfolio: React.FC<EditPortfolioProps> = ({ offeringId }) => {
-  // State for Banner File Upload
+  // States for banner upload
   const [bannerFile, setBannerFile] = useState<File | null>(null);
   const [bannerPreview, setBannerPreview] = useState<string | null>(null);
 
-  // State for Showcase Images (5 max)
-  const [showcaseFiles, setShowcaseFiles] = useState<(File | null)[]>([
-    null,
-    null,
-    null,
-    null,
-    null,
-  ]);
-  const [showcasePreviews, setShowcasePreviews] = useState<(string | null)[]>([
-    null,
-    null,
-    null,
-    null,
-    null,
-  ]);
+  // States for photo showcase upload
+  const [showcaseFiles, setShowcaseFiles] = useState<(File | null)[]>([null, null, null, null, null]);
+  const [showcasePreviews, setShowcasePreviews] = useState<(string | null)[]>([null, null, null, null, null]);
+
+  // States for video upload
+  const [videoFile, setVideoFile] = useState<File | null>(null);
+  const [videoPreview, setVideoPreview] = useState<string | null>(null);
 
   // Handle Banner File Selection
   const handleBannerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]; // Get the selected file
+
     if (file) {
-      setBannerFile(file); // Update the banner file state
+      setBannerFile(file); // Update the state with the selected file
 
       // Generate a preview URL to display the selected image
       const previewUrl = URL.createObjectURL(file);
@@ -44,14 +38,40 @@ const EditPortfolio: React.FC<EditPortfolioProps> = ({ offeringId }) => {
     }
   };
 
-  // Handle Save Button Click (Upload Banner)
+  // Handle Showcase Image Selection
+  const handleShowcaseChange = (index: number) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]; // Get the selected file
+
+    if (file) {
+      const newFiles = [...showcaseFiles];
+      const newPreviews = [...showcasePreviews];
+
+      newFiles[index] = file; // Replace file at the specified index
+      newPreviews[index] = URL.createObjectURL(file); // Generate preview for the new file
+
+      setShowcaseFiles(newFiles);
+      setShowcasePreviews(newPreviews);
+    }
+  };
+
+  // Handle Video File Selection
+  const handleVideoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]; // Get the selected file
+
+    if (file) {
+      setVideoFile(file); // Update the state with the selected video
+
+      // Generate a preview URL to display the selected video
+      const previewUrl = URL.createObjectURL(file);
+      setVideoPreview(previewUrl); // Update the preview
+    }
+  };
+
+  // Handle Save Banner
   const handleSaveBanner = async () => {
     if (bannerFile && offeringId) {
       try {
-        const uploadedUrl = await uploadOfferingBanner(
-          bannerFile,
-          offeringId as string // Cast offeringId to string if necessary
-        );
+        const uploadedUrl = await uploadOfferingBanner(bannerFile, offeringId as string);
         console.log("Banner uploaded successfully. URL:", uploadedUrl);
       } catch (error) {
         console.error("Failed to upload banner:", error);
@@ -61,63 +81,34 @@ const EditPortfolio: React.FC<EditPortfolioProps> = ({ offeringId }) => {
     }
   };
 
-  // Handle individual showcase image selection
-  const handleShowcaseChange = (
-    index: number,
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const file = e.target.files?.[0]; // Get the selected file
-    if (file) {
-      const newShowcaseFiles = [...showcaseFiles];
-      newShowcaseFiles[index] = file; // Replace the image at the specific index
-      setShowcaseFiles(newShowcaseFiles); // Update the state
-
-      // Generate a preview URL for the selected image
-      const previewUrl = URL.createObjectURL(file);
-      const newShowcasePreviews = [...showcasePreviews];
-      newShowcasePreviews[index] = previewUrl;
-      setShowcasePreviews(newShowcasePreviews); // Update the preview state
-    }
-  };
-
-  // Handle Save Button Click (Upload Showcase Images)
+  // Handle Save Showcase Images
   const handleSaveShowcase = async () => {
-    // Filter out null values from the showcaseFiles array
-    const filesToUpload = showcaseFiles.filter(
-      (file) => file !== null
-    ) as File[];
+    const filesToUpload = showcaseFiles.filter((file) => file !== null) as File[]; // Filter out null values
 
     if (filesToUpload.length > 0 && offeringId) {
       try {
-        const uploadedUrls = await uploadOfferingImageShowcase(
-          filesToUpload,
-          offeringId as string
-        );
-        console.log(
-          "Showcase images uploaded successfully. URLs:",
-          uploadedUrls
-        );
+        const uploadedUrls = await uploadOfferingImageShowcase(filesToUpload, offeringId as string);
+        console.log("Showcase images uploaded successfully. URLs:", uploadedUrls);
       } catch (error) {
         console.error("Failed to upload showcase images:", error);
       }
     } else {
-      console.error("No images selected or offeringId not found.");
+      console.error("No showcase files or offeringId found.");
     }
   };
 
-  // Function to render preview or placeholder for each image slot
-  const renderPreview = (preview: string | null) => {
-    return preview ? (
-      <Image
-        src={preview}
-        alt="Preview"
-        className="object-cover w-full h-full"
-        width={100}
-        height={100}
-      />
-    ) : (
-      <CiCirclePlus size={30} className="text-orange" />
-    );
+  // Handle Save Video
+  const handleSaveVideo = async () => {
+    if (videoFile && offeringId) {
+      try {
+        const uploadedUrl = await uploadOfferingVideoShowcase([videoFile], offeringId as string);
+        console.log("Video uploaded successfully. URL:", uploadedUrl);
+      } catch (error) {
+        console.error("Failed to upload video:", error);
+      }
+    } else {
+      console.error("No video file or offeringId found.");
+    }
   };
 
   return (
@@ -130,17 +121,11 @@ const EditPortfolio: React.FC<EditPortfolioProps> = ({ offeringId }) => {
         <div className="mb-6">
           <div className="flex justify-between items-center">
             <label className="font-body text-[16px]">Upload Banner</label>
-            {/* Save Button */}
             <button type="button" onClick={handleSaveBanner}>
               <IoMdCloudUpload size={25} className="text-orange" />
             </button>
           </div>
-
-          {/* Banner Upload Area */}
-          <div
-            className="mt-3 w-container h-[100px] border border-gray-400 rounded-md flex justify-center items-center relative"
-            onClick={() => document.getElementById("bannerUpload")?.click()} // Trigger the file explorer
-          >
+          <div className="mt-3 w-container h-[250px] border border-gray-400 rounded-md flex justify-center items-center relative">
             <input
               id="bannerUpload"
               type="file"
@@ -148,15 +133,8 @@ const EditPortfolio: React.FC<EditPortfolioProps> = ({ offeringId }) => {
               className="absolute inset-0 opacity-0 cursor-pointer"
               onChange={handleBannerChange}
             />
-
             {bannerPreview ? (
-              <Image
-                src={bannerPreview}
-                alt="Banner Preview"
-                className="object-cover w-full h-full"
-                width={900}
-                height={600}
-              />
+              <Image src={bannerPreview} alt="Banner Preview" className="object-cover w-full h-full" width={900} height={600} />
             ) : (
               <>
                 <CiCirclePlus size={30} className="text-orange" />
@@ -168,38 +146,56 @@ const EditPortfolio: React.FC<EditPortfolioProps> = ({ offeringId }) => {
           </div>
         </div>
 
-        {/* Upload Showcase Images Section */}
+        {/* Upload Showcase Section */}
         <div className="mb-6">
           <div className="flex justify-between items-center">
-            <label className="font-body text-[16px]">
-              Upload Showcase Images
-            </label>
-            {/* Save Button */}
+            <label className="font-body text-[16px]">Upload photo showcase</label>
             <button type="button" onClick={handleSaveShowcase}>
               <IoMdCloudUpload size={25} className="text-orange" />
             </button>
           </div>
-
-          {/* Showcase Upload Area */}
-          <div className="flex space-x-2 mt-3">
+          <div className="mt-3 flex space-x-2 w-container">
             {showcasePreviews.map((preview, index) => (
-              <div
-                key={index}
-                className="w-screen h-[100px] border border-gray-400 rounded-md flex justify-center items-center relative"
-                onClick={() =>
-                  document.getElementById(`showcaseUpload-${index}`)?.click()
-                }
-              >
+              <div key={index} className="w-screen h-[100px] border border-gray-400 rounded-md flex justify-center items-center relative">
                 <input
-                  id={`showcaseUpload-${index}`}
                   type="file"
                   accept="image/*"
                   className="absolute inset-0 opacity-0 cursor-pointer"
-                  onChange={(e) => handleShowcaseChange(index, e)}
+                  onChange={handleShowcaseChange(index)}
                 />
-                {renderPreview(preview)}
+                {preview ? (
+                  <Image src={preview} alt={`Showcase Preview ${index}`} className="object-cover w-full h-full" width={100} height={100} />
+                ) : (
+                  <CiCirclePlus size={30} className="text-orange" />
+                )}
               </div>
             ))}
+          </div>
+        </div>
+
+        {/* Upload Video Section */}
+        <div className="mb-6">
+          <div className="flex justify-between items-center">
+            <label className="font-body text-[16px]">Upload a video</label>
+            <button type="button" onClick={handleSaveVideo}>
+              <IoMdCloudUpload size={25} className="text-orange" />
+            </button>
+          </div>
+          <div className="mt-3 w-container h-[250px] border border-gray-400 rounded-md flex justify-center items-center relative">
+            <input
+              id="videoUpload"
+              type="file"
+              accept="video/*"
+              className="absolute inset-0 opacity-0 cursor-pointer"
+              onChange={handleVideoChange}
+            />
+            {videoPreview ? (
+              <video className="object-cover w-full h-full" controls>
+                <source src={videoPreview} type="video/mp4" />
+              </video>
+            ) : (
+              <CiCirclePlus size={30} className="text-orange" />
+            )}
           </div>
         </div>
       </div>
