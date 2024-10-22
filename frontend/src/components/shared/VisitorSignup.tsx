@@ -10,23 +10,8 @@ import VisitorLogin from "./VisitorLogin";
 import { useAuth } from "@/contexts/VisitorAuthContext";  // Import the login method from the context
 import { loginVisitor as loginApi } from '@/api/auth/visitor.auth.api';   // Import the login API call
 import { toast } from 'react-hot-toast';
-
-interface VisitorSignupProps {
-    isVisible: boolean;
-    onClose: () => void;
-}
-
-const CREATE_VISITOR_MUTATION = gql`
-    mutation CreateVisitor($email: String!, $password: String!) {
-        createVisitor(createVisitorInput: {
-            email: $email,
-            password: $password
-        }) {
-            id
-            email
-        }
-    }
-`;
+import { VisitorSignupProps } from '@/types/signupInput';
+import { CREATE_VISITOR_MUTATION } from '@/graphql/mutations';
 
 const VisitorSignup: React.FC<VisitorSignupProps> = ({ isVisible, onClose }) => {
     const [email, setEmail] = useState<string>('');
@@ -60,6 +45,11 @@ const VisitorSignup: React.FC<VisitorSignupProps> = ({ isVisible, onClose }) => 
                 variables: {
                     email,
                     password,
+                },
+                context: {
+                    fetchOptions: {
+                        credentials: 'include',
+                    },
                 },
             });
 
