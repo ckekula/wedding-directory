@@ -3,11 +3,16 @@ import { VendorService } from 'src/modules/vendor/vendor.service';
 import { VendorEntity } from 'src/database/entities/vendor.entity';
 import { DataSource } from 'typeorm';
 import { HttpService } from '@nestjs/axios';
+import { CreateVendorInput } from 'src/graphql/inputs/createVendor.input';
+import { bcrypt } from 'bcryptjs';
 
 // Mock the vendor repository
 const mockVendorRepository = {
   findAllVendors: jest.fn(),
   findVendorById: jest.fn(),
+  remove: jest.fn(),
+  create: jest.fn(),
+  save: jest.fn(),
   extend: jest.fn().mockReturnThis(),
 };
 
@@ -79,7 +84,7 @@ describe('VendorService', () => {
     it('should throw an error when repository throws an error', async () => {
       mockVendorRepository.findAllVendors.mockRejectedValue(new Error('Repository error'));
 
-      await expect(service.findAllVendors()).rejects.toThrowError('Repository error');
+      await expect(service.findAllVendors()).rejects.toThrow('Repository error');
       expect(mockVendorRepository.findAllVendors).toHaveBeenCalledTimes(1);
     });
   });
@@ -113,7 +118,7 @@ describe('VendorService', () => {
 
       expect.assertions(invalidIds.length);
       for (const id of invalidIds) {
-        await expect(service.findVendorById(id)).rejects.toThrowError('Invalid ID');
+        await expect(service.findVendorById(id)).rejects.toThrow('Invalid ID');
       }
     });
 
@@ -121,9 +126,122 @@ describe('VendorService', () => {
       const id = '123';
       mockVendorRepository.findVendorById.mockRejectedValue(new Error('Repository error'));
 
-      await expect(service.findVendorById(id)).rejects.toThrowError('Repository error');
+      await expect(service.findVendorById(id)).rejects.toThrow('Repository error');
       expect(mockVendorRepository.findVendorById).toHaveBeenCalledWith(id);
       expect(mockVendorRepository.findVendorById).toHaveBeenCalledTimes(1);
     });
   });
+
+  describe('deleteVendorById', () => {
+    it('should delete vendor successfully', async () => {
+      const id = '123';
+      const vendor = createVendor();
+      mockVendorRepository.findVendorById.mockResolvedValue(vendor);
+      mockVendorRepository.remove.mockResolvedValue(undefined);
+      await service.deleteVendor(id);
+
+      expect(mockVendorRepository.findVendorById).toHaveBeenCalledWith(id);
+      expect(mockVendorRepository.findVendorById).toHaveBeenCalledTimes(1);
+      expect(mockVendorRepository.remove).toHaveBeenCalledTimes(1);
+      expect(mockVendorRepository.remove).toHaveBeenCalledWith(vendor);
+    });
+  
+    it('should throw error if vendor does not exist', async () => {
+      const id = '123';
+      mockVendorRepository.findVendorById.mockResolvedValue(null);
+      await expect(service.deleteVendor(id)).rejects.toThrow('Vendor not found');
+
+      expect(mockVendorRepository.findVendorById).toHaveBeenCalledWith(id);
+      expect(mockVendorRepository.findVendorById).toHaveBeenCalledTimes(1);
+    });
+  
+    it('should throw error if invalid ID input', async () => {
+      const invalidIds = [undefined, null, ''];
+
+      expect.assertions(invalidIds.length);
+      for (const id of invalidIds) {
+        await expect(service.deleteVendor(id)).rejects.toThrow('Invalid ID');
+      }
+    });
+  })
+
+  describe('createVendor', () => {
+    it('should create a new vendor', async () => {
+      const createVendorInput: CreateVendorInput = {
+        fname: 'John',
+        lname: 'Doe',
+        email: 'H9Vt2@example.com',
+        password: 'password123',
+        busname: 'ABC Corp.',
+        phone: '555-1234',
+        city: 'New York',
+        location: '123 Main St',
+      };
+
+      const hashedPassword = 'hashed_password123';
+      jest.spyOn(bcrypt, 'hash').mockResolvedValue(hashedPassword);
+      
+      const savedVendor = { ...createVendorInput, password: hashedPassword, id: '123' };
+      mockVendorRepository.create.mockReturnValue(savedVendor);
+      mockVendorRepository.save.mockResolvedValue(savedVendor);
+  
+      const result = await service.createVendor(createVendorInput);
+  
+      expect(bcrypt.hash).toHaveBeenCalledWith(createVendorInput.password, 12);
+      expect(mockVendorRepository.create).toHaveBeenCalledWith({ ...createVendorInput, password: hashedPassword });
+      expect(mockVendorRepository.save).toHaveBeenCalledWith(savedVendor);
+      expect(result).toEqual(savedVendor);
+    });
+
+    it('should throw an error if any of the required fields are missing', async () => {
+      const invalidVendorInputs: Partial<CreateVendorInput>[] = [
+        { fname: 'John', lname: 'Doe', email: 'john.doe@example.com' },
+        { fname: 'John', lname: 'Doe', password: 'password123' },
+        { fname: 'John', email: 'john.doe@example.com', password: 'password123' },
+        { lname: 'Doe', email: 'john.doe@example.com', password: 'password123' },
+      ];
+  
+      expect.assertions(invalidVendorInputs.length);
+      for (const input of invalidVendorInputs) {
+        await expect(service.createVendor(input as CreateVendorInput)).rejects.toThrow('Validation error: Missing required fields');
+      }
+    });
+  
+    it('should throw an error if the email already exists', async () => {
+      const createVendorInput: CreateVendorInput = {
+        fname: 'John',
+        lname: 'Doe',
+        email: 'existing.email@example.com',
+        password: 'password123',
+        busname: 'ABC Corp.',
+        phone: '555-1234',
+        city: 'New York',
+        location: '123 Main St',
+      };
+  
+      mockVendorRepository.findVendorById.mockResolvedValue(createVendorInput); // Simulate existing vendor with the same email
+  
+      await expect(service.createVendor(createVendorInput)).rejects.toThrow('Email already exists');
+      expect(mockVendorRepository.findVendorById).toHaveBeenCalledWith({ where: { email: createVendorInput.email } });
+    });
+  
+    it('should handle repository errors gracefully', async () => {
+      const createVendorInput: CreateVendorInput = {
+        fname: 'John',
+        lname: 'Doe',
+        email: 'john.doe@example.com',
+        password: 'password123',
+        busname: 'ABC Corp.',
+        phone: '555-1234',
+        city: 'New York',
+        location: '123 Main St',
+      };
+  
+      mockVendorRepository.save.mockRejectedValue(new Error('Repository error'));
+  
+      await expect(service.createVendor(createVendorInput)).rejects.toThrow('Repository error');
+      expect(mockVendorRepository.save).toHaveBeenCalledWith(expect.any(Object));
+    });
+
+  })
 });

@@ -34,18 +34,24 @@ export class VendorService {
   }
 
   async findVendorById(id: string): Promise<VendorEntity | null> {
+    if (!id) {
+      throw new Error('Invalid ID');
+    }
     return this.vendorRepository.findVendorById(id);
   }
 
   async deleteVendor(id: string): Promise<void> {
+    if (!id) {
+      throw new Error('Invalid ID');
+    }
     const vendor = await this.vendorRepository.findVendorById(id);
     if (!vendor) {
       throw new Error('Vendor not found');
     }
-    
-    // Delete the vendor and related service offerings
+  
     await this.vendorRepository.remove(vendor);
   }
+  
 
   async createVendor(createVendorInput: CreateVendorInput): Promise<VendorEntity> {
     const hashedPassword = await bcrypt.hash(createVendorInput.password, 12);
