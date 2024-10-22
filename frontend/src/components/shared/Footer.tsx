@@ -7,7 +7,7 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <footer className="bg-white py-10">
+    <footer className="bg-white py-6">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-3 gap-8 mb-8">
           {/* Brand Description */}
@@ -102,7 +102,8 @@ const Footer = () => {
           </div>
         </div>
         <hr className="border-t border-black pt-4" />
-        <div className="flex flex-col justify-between items-center m-4">
+        <div className="flex justify-between items-center my-4">
+          <p className="font-body">All Copyrights Reserved by The Team Say I Do - &copy;2024</p>
           {/* Social Media Icons */}
           <div className="flex space-x-4">
             <a href="#" className="text-black hover:text-orange">
@@ -119,10 +120,6 @@ const Footer = () => {
             </a>
           </div>
           {/* Copyright Information */}
-          <div className="flex-col text-sm text-black font-body text-center m-4">
-            <p>All rights reserved</p>
-            <p className="">Copyrights &copy;2024 sayido.lk</p>
-          </div>
         </div>
       </div>
     </footer>
