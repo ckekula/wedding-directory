@@ -28,7 +28,10 @@ export class OfferingModel {
   banner: string;
 
   @Field(() => [String], { nullable: true })
-  media: string[];
+  photo_showcase: string[];
+
+  @Field(() => [String], { nullable: true })
+  video_showcase: string[];
 
   @Field({ nullable: true })
   experience: string;

@@ -19,6 +19,15 @@ export class UpdateOfferingInput {
     description?: string;
 
     @Field({ nullable: true })
+    banner: string;
+
+    @Field(() => [String], { nullable: true })
+    photo_showcase: string[];
+
+    @Field(() => [String], { nullable: true })
+    video_showcase: string[];
+
+    @Field({ nullable: true })
     pricing?: string;
 
     @Field({ nullable: true })
