@@ -1,6 +1,6 @@
-"use client"; // This ensures the page is client-rendered
+"use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Header from "@/components/shared/Headers/Header";
 import EditGeneral from "@/components/vendor-dashboard/dahboard-services/EditGeneral";
 import EditSocialContact from "@/components/vendor-dashboard/dahboard-services/EditSocialContact";
@@ -9,23 +9,19 @@ import EditServiceSettings from "@/components/vendor-dashboard/dahboard-services
 import ServicesMenu from "@/components/vendor-dashboard/dahboard-services/ServicesMenu";
 import VendorBanner from "@/components/vendor-dashboard/VendorBanner";
 import Footer from "@/components/shared/Footer";
-import { useRouter } from "next/navigation"; // Use next/navigation for app directory
+import { useQuery } from "@apollo/client";
+import { GET_VENDOR_BY_ID } from "@/graphql/queries";
+import { useVendorAuth } from "@/contexts/VendorAuthContext";
 
 const EditService = () => {
-  const router = useRouter(); // from next/navigation
-  const [offeringId, setOfferingId] = useState("");
+  const { vendor } = useVendorAuth();
 
-  useEffect(() => {
-    // No router.isReady in next/navigation, so we handle this differently
-    const currentPath = window.location.pathname; // Get current path
-    const pathParts = currentPath.split("/"); // Split by "/"
-    const id = pathParts[2]; // Assuming the ID is in the third segment of the URL (after /services/)
+  const {data: vendorData} = useQuery(GET_VENDOR_BY_ID, {
+    variables: { id: vendor?.id },
+    skip: !vendor?.id,
+  });
 
-    if (id) {
-      setOfferingId(id); // Set the offeringId based on URL
-    }
-  }, []);
-
+  const vendorInfo = vendorData?.findVendorById;
   const [activeSection, setActiveSection] = useState("publicProfile");
 
   const renderSection = () => {
@@ -35,7 +31,7 @@ const EditService = () => {
       case "socialContact":
         return <EditSocialContact />;
       case "portfolio":
-        return <EditPortfolio offeringId={offeringId} />; // Pass the offeringId to the EditPortfolio component
+        return <EditPortfolio />; // Pass the offeringId to the EditPortfolio component
       case "serviceSettings":
         return <EditServiceSettings />;
       default:
@@ -49,7 +45,7 @@ const EditService = () => {
       <div className="bg-lightYellow min-h-screen">
         <div className="p-20">
           {/* Vendor Banner */}
-          <VendorBanner businessName="John's Flower Shop" />
+          <VendorBanner businessName={vendorInfo?.busname} />
         </div>
 
         <div className="container mx-auto flex space-x-10">
