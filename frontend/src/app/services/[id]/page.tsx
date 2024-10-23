@@ -13,14 +13,6 @@ import Reviews from '@/components/vendor-dashboard/dahboard-services/reviews';
 import { useVendorAuth } from '@/contexts/VendorAuthContext';
 import Link from 'next/link';
 
-const mediaURLs = ["/images/photography.webp",
-    "/images/photography.webp",
-    "/images/photography.webp",
-    "/images/photography.webp",
-    "/images/photography.webp",
-    "/images/photography.webp"
-]
-
 const Service: React.FC = () => {
 
     const {vendor} = useVendorAuth();
@@ -35,26 +27,34 @@ const Service: React.FC = () => {
     if (error) return <p>Error: {error.message}</p>;
 
     const service = data?.findOfferingById;
+    const portfolioImages = service.photo_showcase || ["/images/photography.webp",
+    "/images/photography.webp",
+    "/images/photography.webp",
+    "/images/photography.webp",
+    "/images/photography.webp",
+    "/images/photography.webp"];
+
+    console.log(portfolioImages)
 
     return (
         <div className='bg-lightYellow font-body'>
             <Header />
             <div className='mx-40 my-4 p-4'>
 
-                <div>
+                <Link href="/vendor-dashboard">
                     <button className=" text-black font-body hover:text-gray-500 mr-2">
                         &larr;
                     </button>
                     back
-                </div>
+                </Link>
                 <div>
                     <section >
 
                         <div className="container mx-auto">
                             <div className="columns-1 sm:columns-2 lg:columns-3 gap-1 space-y-1 p-4">
-                                {mediaURLs.map((photo) => (
+                                {portfolioImages.map((photo: string, index: number) => (
                                     <div
-                                        key={photo}
+                                    key={index}
                                         className="relative group overflow-hidden rounded-lg break-inside-avoid"
                                     >
                                         <Image
@@ -80,7 +80,7 @@ const Service: React.FC = () => {
                                     {service?.name}
                                     <div className='ml-2 flex flex-row justify-center items-center gap-x-1'>
                                     {service?.vendor.id === vendor?.id ? (
-                                            <Link href={`/services/${service?.id}/edit`}>
+                                            <Link href={`/services/edit/${service?.id}`}>
                                               <FiEdit />
                                             </Link>  // Show the edit icon if the logged-in user is the vendor
                                         ) : (

@@ -6,6 +6,8 @@ export const loginVisitor = async (email: string, password: string) => {
         const response = await request.post('/auth/loginVisitor', { // No need to repeat the base URL
             email,
             password,
+        },{
+            withCredentials: true, // Include cookies in every request
         });
 
         return response.data;

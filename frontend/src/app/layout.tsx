@@ -10,6 +10,8 @@ import { Toaster } from "react-hot-toast";
 export const metadata: Metadata = {
   title: "Say I Do",
   description: "Crafting Timeless Celebrations ",
+  icons : {
+    icon : "/favicon.ico"}
 };
 
 const montserrat = Montserrat({
@@ -43,7 +45,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <link rel="icon" href="/favicon.ico" />
+      
 
       <body
         className={`${montserrat.variable} ${merriweather.variable} ${montez.variable} ${outfit.variable}`}

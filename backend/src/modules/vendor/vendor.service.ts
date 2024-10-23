@@ -48,7 +48,7 @@ export class VendorService {
     if (!vendor) {
       throw new Error('Vendor not found');
     }
-  
+    
     await this.vendorRepository.remove(vendor);
   }
   

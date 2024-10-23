@@ -18,7 +18,8 @@ export class UploadService {
     });
   }
 
-  async upload(fileName: string, fileBuffer: Buffer) {
+  // Method to upload an image
+  async uploadImage(fileName: string, fileBuffer: Buffer) {
     const bucket = this.configService.get<string>('AWS_S3_BUCKET_NAME');
     const region = this.configService.get<string>('AWS_S3_REGION');
 
@@ -34,6 +35,25 @@ export class UploadService {
 
     await this.s3Client.send(new PutObjectCommand(params));
 
+    return `https://${bucket}.s3.${region}.amazonaws.com/${fileName}`;
+  }
+
+  // Method to upload a video
+  async uploadVideo(fileName: string, fileBuffer: Buffer) {
+    const bucket = this.configService.get<string>('AWS_S3_BUCKET_NAME');
+    const region = this.configService.get<string>('AWS_S3_REGION');
+
+    if (!bucket || !region) {
+      throw new Error('S3 bucket name or region not configured properly');
+    }
+    const params = {
+      Bucket: bucket,
+      Key: fileName,
+      Body: fileBuffer,
+      ContentType: 'video/mp4|video/webm', // Or 'image/png'
+    }
+
+    await this.s3Client.send(new PutObjectCommand(params));
     return `https://${bucket}.s3.${region}.amazonaws.com/${fileName}`;
   }
 }
