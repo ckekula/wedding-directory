@@ -54,10 +54,17 @@ export class VendorService {
   
 
   async createVendor(createVendorInput: CreateVendorInput): Promise<VendorEntity> {
+    // Check if a vendor with the same email already exists
+    const existingVendor = await this.vendorRepository.findOne({ where: { email: createVendorInput.email } });
+    if (existingVendor) {
+      throw new Error('Email already exists');
+    }
+  
     const hashedPassword = await bcrypt.hash(createVendorInput.password, 12);
     const vendor = this.vendorRepository.create({ ...createVendorInput, password: hashedPassword });
     return this.vendorRepository.save(vendor);
   }
+  
 
   async updateVendor(id: string, updateVendorInput: UpdateVendorInput): Promise<VendorEntity> {
     // Check if a password is provided in the update input
