@@ -1,18 +1,25 @@
 "use client";
-import React, { Fragment, useState } from "react";
-import { Button } from "@/components/ui/button";
+import React, { Fragment, useEffect, useState } from "react";
 import Image from "next/image";
 import { CiCirclePlus } from "react-icons/ci";
 import { IoMdCloudUpload } from "react-icons/io";
 import { uploadOfferingBanner } from "@/api/upload/offering/banner.upload";
 import { uploadOfferingImageShowcase } from "@/api/upload/offering/imageShowcase.upload";
 import { uploadOfferingVideoShowcase } from "@/api/upload/offering/videoShowcase.upload";
+import toast from "react-hot-toast";
+import { useParams } from "next/navigation";
+import { useQuery } from "@apollo/client";
+import { FIND_PORTFOLIO_BY_ID } from "@/graphql/queries";
 
-interface EditPortfolioProps {
-  offeringId: string | string[] | undefined; // Define the type for offeringId
-}
+const EditPortfolio: React.FC = () => {
 
-const EditPortfolio: React.FC<EditPortfolioProps> = ({ offeringId }) => {
+  const { id } = useParams();
+  const { loading, error, data } = useQuery(FIND_PORTFOLIO_BY_ID, {
+      variables: { id },
+  });
+
+  const portfolio = data?.findOfferingById;
+
   // States for banner upload
   const [bannerFile, setBannerFile] = useState<File | null>(null);
   const [bannerPreview, setBannerPreview] = useState<string | null>(null);
@@ -24,6 +31,24 @@ const EditPortfolio: React.FC<EditPortfolioProps> = ({ offeringId }) => {
   // States for video upload
   const [videoFile, setVideoFile] = useState<File | null>(null);
   const [videoPreview, setVideoPreview] = useState<string | null>(null);
+
+  // Update the state when data is fetched
+  useEffect(() => {
+    if (portfolio) {
+      if (portfolio.banner) {
+        setBannerPreview(portfolio.banner);
+      }
+      if (portfolio.photo_showcase && Array.isArray(portfolio.photo_showcase)) {
+        setShowcasePreviews(portfolio.photo_showcase);
+      }
+      if (portfolio.video_showcase) {
+        setVideoPreview(portfolio.video_showcase);
+      }
+    }
+  }, [portfolio]);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
 
   // Handle Banner File Selection
   const handleBannerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -69,12 +94,14 @@ const EditPortfolio: React.FC<EditPortfolioProps> = ({ offeringId }) => {
 
   // Handle Save Banner
   const handleSaveBanner = async () => {
-    if (bannerFile && offeringId) {
+    if (bannerFile && id) {
       try {
-        const uploadedUrl = await uploadOfferingBanner(bannerFile, offeringId as string);
+        const uploadedUrl = await uploadOfferingBanner(bannerFile, id as string);
         console.log("Banner uploaded successfully. URL:", uploadedUrl);
+        toast.success("Banner uploaded successfully!");
       } catch (error) {
         console.error("Failed to upload banner:", error);
+        toast.error("Failed to upload banner.");
       }
     } else {
       console.error("No banner file or offeringId found.");
@@ -85,12 +112,14 @@ const EditPortfolio: React.FC<EditPortfolioProps> = ({ offeringId }) => {
   const handleSaveShowcase = async () => {
     const filesToUpload = showcaseFiles.filter((file) => file !== null) as File[]; // Filter out null values
 
-    if (filesToUpload.length > 0 && offeringId) {
+    if (filesToUpload.length > 0 && id) {
       try {
-        const uploadedUrls = await uploadOfferingImageShowcase(filesToUpload, offeringId as string);
+        const uploadedUrls = await uploadOfferingImageShowcase(filesToUpload, id as string);
         console.log("Showcase images uploaded successfully. URLs:", uploadedUrls);
+        toast.success("Images uploaded successfully!");
       } catch (error) {
         console.error("Failed to upload showcase images:", error);
+        toast.error("Failed to upload images.");
       }
     } else {
       console.error("No showcase files or offeringId found.");
@@ -99,12 +128,14 @@ const EditPortfolio: React.FC<EditPortfolioProps> = ({ offeringId }) => {
 
   // Handle Save Video
   const handleSaveVideo = async () => {
-    if (videoFile && offeringId) {
+    if (videoFile && id) {
       try {
-        const uploadedUrl = await uploadOfferingVideoShowcase([videoFile], offeringId as string);
+        const uploadedUrl = await uploadOfferingVideoShowcase([videoFile], id as string);
         console.log("Video uploaded successfully. URL:", uploadedUrl);
+        toast.success("Video uploaded successfully!");
       } catch (error) {
         console.error("Failed to upload video:", error);
+        toast.error("Failed to upload video.");
       }
     } else {
       console.error("No video file or offeringId found.");
