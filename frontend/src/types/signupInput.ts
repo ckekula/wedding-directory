@@ -12,3 +12,8 @@ export interface LocationProps {
     disabled?: boolean;
     placeholder: string;
 }
+
+export interface VisitorSignupProps {
+    isVisible: boolean;
+    onClose: () => void;
+}

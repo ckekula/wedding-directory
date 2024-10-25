@@ -54,12 +54,26 @@ export const FIND_SERVICE_BY_ID = gql`
       instagram
       x
       tiktok
+      banner
+      photo_showcase
+      video_showcase
       vendor {
         id
         busname
         city
         about
       }
+    }
+  }
+`;
+
+export const FIND_PORTFOLIO_BY_ID = gql`
+  query FindOfferingById($id: String!) {
+    findOfferingById(id: $id) {
+      id
+      banner
+      photo_showcase
+      video_showcase
     }
   }
 `;
@@ -71,7 +85,6 @@ export const FIND_SERVICES_BY_VENDOR = gql`
       name
       category
       description
-      banner
       vendor {
         id
         busname
