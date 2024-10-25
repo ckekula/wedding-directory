@@ -21,6 +21,7 @@ export class AuthController {
 
         // Set access_token as a regular cookie (not HttpOnly, so it is accessible from frontend)
         res.cookie('access_token', access_token, {
+            domain: '.sayido.lk',
             httpOnly: false,
             secure: process.env.COOKIE_SECURE === 'true',
             sameSite: process.env.COOKIE_SAMESITE === 'lax' ? 'lax' : 'none',
@@ -40,6 +41,7 @@ export class AuthController {
         }
         const { access_token } = this.authService.loginVendor(vendor);
         res.cookie('access_tokenVendor', access_token, {
+            domain: '.sayido.lk',
             httpOnly: false,
             secure: process.env.COOKIE_SECURE === 'true',
             sameSite: process.env.COOKIE_SAMESITE === 'lax' ? 'lax' : 'none',

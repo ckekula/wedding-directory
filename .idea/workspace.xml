@@ -5,21 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fe9e803b-a74e-4952-bf96-9a931fe40db4" name="Changes" comment="changes in queries.ts">
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/vendor-dashboard/dashboard-settings/EditAccount.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/vendor-dashboard/dashboard-settings/EditGeneral.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/types/offeringTypes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/modules/vendor/vendor.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/modules/vendor/vendor.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/test/unit/vendor.service.spec.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/test/unit/vendor.service.spec.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/help/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/help/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/services/[id]/edit/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/edit/[id]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/services/[id]/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/[id]/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/vendor-dashboard/settings/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/vendor-dashboard/settings/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/shared/VisitorSignup.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/shared/VisitorSignup.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/vendor-dashboard/dahboard-services/EditPortfolio.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/vendor-dashboard/dahboard-services/EditPortfolio.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/vendor-dashboard/dashboard-settings/SettingsMenu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/vendor-dashboard/dashboard-settings/SettingsMenu.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/graphql/mutations.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/graphql/mutations.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/graphql/queries.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/graphql/queries.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/types/signupInput.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/types/signupInput.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/modules/auth/auth.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/modules/auth/auth.controller.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +36,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "com.codeium.enabled": "true",
-    "git-widget-placeholder": "Merging bugfix/janitha-cookieError",
+    "git-widget-placeholder": "bugfix/janitha-cookieError",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "D:/Web Development/My Projects/UniExchange",
     "node.js.detected.package.eslint": "true",
@@ -118,7 +105,7 @@
       <workItem from="1729522388779" duration="20000" />
       <workItem from="1729593141231" duration="1091000" />
       <workItem from="1729596061422" duration="1875000" />
-      <workItem from="1729879170404" duration="290000" />
+      <workItem from="1729879170404" duration="500000" />
     </task>
     <task id="LOCAL-00001" summary="adsfd">
       <option name="closed" value="true" />
@@ -144,7 +131,15 @@
       <option name="project" value="LOCAL" />
       <updated>1729879229288</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="changes in queries.ts">
+      <option name="closed" value="true" />
+      <created>1729879505000</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1729879505000</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
