@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="fe9e803b-a74e-4952-bf96-9a931fe40db4" name="Changes" comment="pull main">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/services/[id]/edit/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/services/[id]/edit/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/vendor-dashboard/dahboard-services/EditPortfolio.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/vendor-dashboard/dahboard-services/EditPortfolio.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/graphql/queries.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/graphql/queries.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,7 +101,10 @@
       <workItem from="1727880325458" duration="8637000" />
       <workItem from="1729425002668" duration="4972000" />
       <workItem from="1729479396376" duration="4194000" />
-      <workItem from="1729489175556" duration="14604000" />
+      <workItem from="1729489175556" duration="14921000" />
+      <workItem from="1729522388779" duration="20000" />
+      <workItem from="1729593141231" duration="1091000" />
+      <workItem from="1729596061422" duration="1875000" />
     </task>
     <task id="LOCAL-00001" summary="adsfd">
       <option name="closed" value="true" />
