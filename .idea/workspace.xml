@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fe9e803b-a74e-4952-bf96-9a931fe40db4" name="Changes" comment="adsfd">
-      <change beforePath="$PROJECT_DIR$/.github/workflows/backendVPS.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/backendVPS.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/workflows/frontendVPS.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/frontendVPS.yml" afterDir="false" />
+    <list default="true" id="fe9e803b-a74e-4952-bf96-9a931fe40db4" name="Changes" comment="changes in queries.ts">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/modules/auth/auth.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/modules/auth/auth.controller.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,9 +36,9 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "com.codeium.enabled": "true",
-    "git-widget-placeholder": "develop",
+    "git-widget-placeholder": "bugfix/janitha-cookieError",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "D:/UOR/5thSem/Software Project/dev/root/wedding-directory/frontend/public/images",
+    "last_opened_file_path": "D:/Web Development/My Projects/UniExchange",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -51,11 +50,8 @@
   }
 }]]></component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\UOR\5thSem\Software Project\dev\root\wedding-directory\frontend\public\images" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\UOR\5thSem\Software Project\dev\root\wedding-directory\frontend\public\images" />
+      <recent name="D:\UOR\5thSem\Software Project\dev\root\wedding-directory\frontend\src\api\upload\offerings" />
       <recent name="D:\UOR\5thSem\Software Project\dev\root\wedding-directory\frontend\public" />
     </key>
   </component>
@@ -79,7 +75,7 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-WS-242.22855.79" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-WS-242.23339.15" />
       </set>
     </attachedChunks>
   </component>
@@ -103,6 +99,13 @@
       <workItem from="1727843484330" duration="2062000" />
       <workItem from="1727856623693" duration="9277000" />
       <workItem from="1727880325458" duration="8637000" />
+      <workItem from="1729425002668" duration="4972000" />
+      <workItem from="1729479396376" duration="4194000" />
+      <workItem from="1729489175556" duration="14921000" />
+      <workItem from="1729522388779" duration="20000" />
+      <workItem from="1729593141231" duration="1091000" />
+      <workItem from="1729596061422" duration="1875000" />
+      <workItem from="1729879170404" duration="500000" />
     </task>
     <task id="LOCAL-00001" summary="adsfd">
       <option name="closed" value="true" />
@@ -112,7 +115,31 @@
       <option name="project" value="LOCAL" />
       <updated>1728748032645</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="pull main">
+      <option name="closed" value="true" />
+      <created>1729410172443</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1729410172443</updated>
+    </task>
+    <task id="LOCAL-00003" summary="changes in queries.ts">
+      <option name="closed" value="true" />
+      <created>1729879229288</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1729879229288</updated>
+    </task>
+    <task id="LOCAL-00004" summary="changes in queries.ts">
+      <option name="closed" value="true" />
+      <created>1729879505000</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1729879505000</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -131,7 +158,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="adsfd" />
-    <option name="LAST_COMMIT_MESSAGE" value="adsfd" />
+    <MESSAGE value="pull main" />
+    <MESSAGE value="changes in queries.ts" />
+    <option name="LAST_COMMIT_MESSAGE" value="changes in queries.ts" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

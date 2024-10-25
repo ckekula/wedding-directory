@@ -34,24 +34,37 @@ export class VendorService {
   }
 
   async findVendorById(id: string): Promise<VendorEntity | null> {
+    if (!id) {
+      throw new Error('Invalid ID');
+    }
     return this.vendorRepository.findVendorById(id);
   }
 
   async deleteVendor(id: string): Promise<void> {
+    if (!id) {
+      throw new Error('Invalid ID');
+    }
     const vendor = await this.vendorRepository.findVendorById(id);
     if (!vendor) {
       throw new Error('Vendor not found');
     }
     
-    // Delete the vendor and related service offerings
     await this.vendorRepository.remove(vendor);
   }
+  
 
   async createVendor(createVendorInput: CreateVendorInput): Promise<VendorEntity> {
+    // Check if a vendor with the same email already exists
+    const existingVendor = await this.vendorRepository.findOne({ where: { email: createVendorInput.email } });
+    if (existingVendor) {
+      throw new Error('Email already exists');
+    }
+  
     const hashedPassword = await bcrypt.hash(createVendorInput.password, 12);
     const vendor = this.vendorRepository.create({ ...createVendorInput, password: hashedPassword });
     return this.vendorRepository.save(vendor);
   }
+  
 
   async updateVendor(id: string, updateVendorInput: UpdateVendorInput): Promise<VendorEntity> {
     // Check if a password is provided in the update input
