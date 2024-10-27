@@ -22,7 +22,7 @@ import { VisitorEntity } from './visitor.entity';
     @ManyToOne(() => OfferingEntity, o => o.review, { onDelete: 'CASCADE' })
     offering: OfferingEntity;
 
-    @ManyToOne(() => VisitorEntity, v => v.reviews, { onDelete: 'SET NULL', nullable: true })
+    @ManyToOne(() => VisitorEntity, v => v.reviews, { onDelete: 'SET NULL' })
     visitor: VisitorEntity;
 
     @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
