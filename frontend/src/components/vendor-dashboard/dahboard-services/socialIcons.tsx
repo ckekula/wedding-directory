@@ -5,38 +5,38 @@ import { FaXTwitter } from "react-icons/fa6";
 
 const SocialIcons = (service: any) => {
   return (
-    <div>
-        <div className='w-4/12 flex flex-row text-2xl items-center justify-end gap-x-4 mr-3'>
+    
+        <div className=' flex flex-row text-2xl items-center justify-end gap-x-4 container'>
             <div
                 onClick={() => window.open(service?.website, '_blank')}
                 className='cursor-pointer'
                 title="Visit Website"
             >
-                <GoGlobe />
+                <GoGlobe className=" hover:text-orange"/>
             </div>
             <div
                 onClick={() => window.open(service?.facebook, '_blank')}
                 className='cursor-pointer'
                 title="Visit Facebook Page"
             >
-                <SlSocialFacebook />
+                <SlSocialFacebook className=" hover:text-orange"/>
             </div>
             <div
                 onClick={() => window.open(service?.instagram, '_blank')}
                 className='cursor-pointer'
                 title="Visit Instagram Page"
             >
-                <SlSocialInstagram />
+                <SlSocialInstagram className=" hover:text-orange"/>
             </div>
             <div
                 onClick={() => window.open(service?.x, '_blank')}
                 className='cursor-pointer'
                 title="Visit X Page"
             >
-                <FaXTwitter/>
+                <FaXTwitter className=" hover:text-orange"/>
             </div>
         </div>
-    </div>
+    
   )
 }
 
