@@ -12,6 +12,7 @@ import { FiEdit } from "react-icons/fi";
 import Reviews from '@/components/vendor-dashboard/dahboard-services/reviews';
 import { useVendorAuth } from '@/contexts/VendorAuthContext';
 import Link from 'next/link';
+import LoaderQuantum from '@/components/shared/Loaders/LoaderQuantum';
 
 const Service: React.FC = () => {
 
@@ -23,7 +24,7 @@ const Service: React.FC = () => {
         variables: { id },
     });
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) return <LoaderQuantum/>;
     if (error) return <p>Error: {error.message}</p>;
 
     const service = data?.findOfferingById;

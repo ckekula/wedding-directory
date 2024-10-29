@@ -13,6 +13,8 @@ import AccordionItemBlock from "@/components/visitor-dashboard/AccordianItemsBlo
 import { StaticImageData } from "next/image";
 import { GET_VISITOR_BY_ID } from "@/graphql/queries";
 import Footer from "@/components/shared/Footer";
+import LoaderHelix from "@/components/shared/Loaders/LoaderHelix";
+
 
 
 const VisitorDashboard = () => {
@@ -31,7 +33,7 @@ const VisitorDashboard = () => {
     },
   });
 
-  if (loading) return <p>Loading visitor information...</p>;
+  if (loading) return <LoaderHelix/>;
   if (error) return <p>Error loading profile information: {error.message}</p>;
 
   const visitorData = data?.findVisitorById;
