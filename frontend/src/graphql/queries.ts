@@ -22,7 +22,7 @@ export const AUTOCOMPLETE_QUERY = gql`
 `;
 
 export const FIND_SERVICES = gql`
-  query FindOfferings($filter: OfferingInput!) {
+  query FindOfferings($filter: OfferingFilterInput) {
     findOfferings(filter: $filter) {
       id
       name

@@ -4,7 +4,7 @@ import { IoIosSearch } from "react-icons/io";
 import CategoryInput from "./CategoryInput";
 import CityInput from "./CityInput";
 import { Button } from "../ui/button";
-import { FilterSearchBarProps } from "@/types/packageTypes";
+import { FilterSearchBarProps } from "@/types/offeringTypes";
 
 const FilterSearchBar: React.FC<FilterSearchBarProps> = ({
   onCategoryChange, onCityChange, handleSearch }) => {
