@@ -32,7 +32,7 @@ export const FIND_SERVICES = gql`
         city
       }
       category
-      about
+      description
       banner
     }
   }
