@@ -52,11 +52,11 @@ const SearchBar: React.FC<SearchBarProps> = ({
 
         {/* Autocomplete dropdown */}
         {filteredCategories.length > 0 && (
-          <ul className="absolute mt-1 w-full bg-white border border-gray-300 rounded-md shadow-lg z-10">
+          <ul className="absolute mt-1 w-full bg-white border border-gray-300 rounded-xl shadow-lg z-10 hover:bg-white">
             {filteredCategories.map((category, index) => (
               <li
                 key={index}
-                className="px-4 py-2 text-black hover:bg-gray-200 cursor-pointer"
+                className="px-4 py-2 text-black hover:bg-gray-200 rounded-lg cursor-pointer"
                 onClick={() => {
                   setSearchTerm(category); // Set selected category to input
                   setFilteredCategories([]); // Hide dropdown after selection

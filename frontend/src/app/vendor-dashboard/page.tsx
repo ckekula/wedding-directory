@@ -14,6 +14,7 @@ import { useQuery } from "@apollo/client";
 import { MdAdd } from "react-icons/md";
 import Footer from "@/components/shared/Footer";
 import { Button } from "@/components/ui/button";
+import LoaderJelly from "@/components/shared/Loaders/LoaderJelly";
 
 const VendorDashBoard = () => {
   const { vendor } = useVendorAuth();
@@ -39,7 +40,12 @@ const VendorDashBoard = () => {
   });
 
   if (vendorLoading || servicesLoading)
-    return <p>Loading vendor information...</p>;
+    return (
+      <div>
+        <p>oading vendor information...</p>
+        <LoaderJelly />
+      </div>
+    );
   if (vendorError)
     return <p>Error loading vendor information: {vendorError.message}</p>;
   if (servicesError)
@@ -94,7 +100,6 @@ const VendorDashBoard = () => {
 
           {/* Services Section */}
           <div className="flex flex-row mt-8">
-
             <div className="w-5/6 text-2xl font-bold mb-8">
               Your Service Offerings
             </div>
@@ -107,7 +112,6 @@ const VendorDashBoard = () => {
                   <MdAdd className="mr-2" size={25} />
                   Add new Service
                 </Button>
-
               </Link>
             </div>
           </div>
@@ -142,9 +146,10 @@ const VendorDashBoard = () => {
           </div>
         </div>
       </div>
-      <div className=""> <Footer  /></div>
-
-     
+      <div className="">
+        {" "}
+        <Footer />
+      </div>
     </div>
   );
 };
