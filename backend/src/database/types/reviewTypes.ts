@@ -10,9 +10,5 @@ export type ReviewRepositoryType = Repository<ReviewEntity> & {
 
     deleteReview(id: string): Promise<boolean>;
 
-    findReviewById(id: string): Promise<ReviewEntity>;
-  
-    findReviewsByFilters(category?: string, city?: string): Promise<ReviewEntity[]>;
-
     findReviewsByOffering(id: string): Promise<ReviewEntity[]>;
 };
