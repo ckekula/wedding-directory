@@ -126,10 +126,7 @@ const Service: React.FC = () => {
               </div>
               <hr className="border-t border-gray-300 my-4" />
               <div className="mb-3 text-2xl font-bold font-title">Reviews</div>
-              <div className="flex flex-row">
-                <div className="w-1/2">
-                  <p>Not available right now</p>
-                </div>
+              <div>
                 <Reviews />
               </div>
               <hr className="border-t border-gray-300 my-4" />
