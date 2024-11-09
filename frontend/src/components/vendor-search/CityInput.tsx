@@ -17,72 +17,71 @@ import cities from "../../utils/city.json";
 import { Button } from "../ui/button";
 import { CityProps } from "@/types/signupInput";
 import { useState } from "react";
-import { ChevronDown } from "lucide-react"; // Import the ChevronDown icon
+import { ChevronDown } from "lucide-react";
 
 const CityInput: React.FC<CityProps> = ({ onCityChange }) => {
-  const [selectedCity, setSelectedCity] = useState<string | null>(null); // State to store selected city
+  const [selectedCity, setSelectedCity] = useState<string | null>(null);
 
   const handleCitySelect = (city: string) => {
-    setSelectedCity(city); // Update the selected city
-    onCityChange(city); // Call the parent handler
+    setSelectedCity(city);
+    onCityChange(city);
   };
 
   const provinces = [...new Set(cities.map((city) => city.Province))];
 
   const getDistrictsByProvince = (province: string) => {
-    const districts = [
+    return [
       ...new Set(
         cities
           .filter((city) => city.Province === province)
           .map((city) => city.District)
       ),
     ];
-    return districts;
   };
 
   const getCitiesByDistrict = (district: string) => {
-    const citiesByDistrict = cities
+    return cities
       .filter((city) => city.District === district)
       .map((city) => city.City);
-    return citiesByDistrict;
   };
 
   return (
-    <div className="rounded-lg flex flex-row space-y-1.5 bg-white font-body ">
+    <div className="rounded-lg bg-white/20 font-body backdrop-blur-sm transition duration-150">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button className="flex flex-row justify-between items-center w-full text-left space-y-1.5 text-black hover:bg-white bg-white h-8 text-lg font-title font-light ">
-            <span>{selectedCity ? selectedCity : "Select City"}</span>
+          <Button className="flex justify-between items-center w-full text-left px-3 py-2 text-black bg-white/30 rounded-lg hover:bg-white/40 transition duration-150 font-light font-title h-10">
+            <span className="font-title font-normal text-[16px]">
+              {selectedCity || "Select City"}
+            </span>
             <ChevronDown className="ml-2 h-4 w-4 text-gray-500" />
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-56 font-body">
-          <DropdownMenuLabel className="font-body">
+        <DropdownMenuContent className="w-56 bg-white/80 backdrop-blur-sm rounded-lg shadow-lg max-h-60 overflow-y-auto font-body z-10">
+          <DropdownMenuLabel className="font-body px-4 py-2 text-gray-500">
             Find Your City
           </DropdownMenuLabel>
           <DropdownMenuGroup>
-            {/* Provinces */}
             {provinces.map((province, provinceIndex) => (
               <DropdownMenuSub key={provinceIndex}>
-                <DropdownMenuSubTrigger>{province}</DropdownMenuSubTrigger>
+                <DropdownMenuSubTrigger className="px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-lg cursor-pointer transition duration-150">
+                  {province}
+                </DropdownMenuSubTrigger>
                 <DropdownMenuPortal>
-                  <DropdownMenuSubContent className="font-body">
-                    {/* Districts */}
+                  <DropdownMenuSubContent className="bg-white/90 rounded-lg shadow-lg backdrop-blur-sm max-h-60 overflow-y-auto">
                     {getDistrictsByProvince(province).map(
                       (district, districtIndex) => (
                         <DropdownMenuSub key={districtIndex}>
-                          <DropdownMenuSubTrigger>
+                          <DropdownMenuSubTrigger className="px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-lg cursor-pointer transition duration-150">
                             {district}
                           </DropdownMenuSubTrigger>
                           <DropdownMenuPortal>
-                            <DropdownMenuSubContent className="font-body">
-                              {/* Cities */}
+                            <DropdownMenuSubContent className="bg-white/90 rounded-lg shadow-lg backdrop-blur-sm max-h-60 overflow-y-auto">
                               {getCitiesByDistrict(district).map(
                                 (city, cityIndex) => (
                                   <DropdownMenuItem
                                     key={cityIndex}
                                     onClick={() => handleCitySelect(city)}
-                                    
+                                    className="px-4 py-2 text-gray-800 hover:bg-gray-100 rounded-lg cursor-pointer transition duration-150"
                                   >
                                     {city}
                                   </DropdownMenuItem>

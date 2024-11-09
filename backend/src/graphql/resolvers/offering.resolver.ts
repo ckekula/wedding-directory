@@ -1,7 +1,7 @@
 import { Resolver, Args, Mutation } from '@nestjs/graphql';
-import { OfferingService } from 'src/modules/offering/offering.service';
+import { OfferingService } from '../../modules/offering/offering.service';
 import { OfferingModel } from '../models/offering.model';
-import { OfferingEntity } from 'src/database/entities/offering.entity';
+import { OfferingEntity } from '../../database/entities/offering.entity';
 import { CreateOfferingInput } from '../inputs/createOffering.input';
 import { Query } from '@nestjs/graphql';
 import { OfferingFilterInput } from '../inputs/offeringFilter.input';
