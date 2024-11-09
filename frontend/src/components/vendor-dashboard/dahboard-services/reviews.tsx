@@ -2,14 +2,13 @@ import React from 'react'
 import { Progress } from "@/components/ui/progress"
 import { FaRegStar } from "react-icons/fa";
 import { FaStar } from "react-icons/fa";
-
-
+import { Button } from '@/components/ui/button';
 
 const Reviews = () => {
     return (
         <div>
             <div className='flex w-full font-body'>
-                <div className='w-1/2 flex flex-col font-body text-2xl ml-4 mt-2'>
+                <div className='w-1/2 flex flex-col font-body text-xl ml-4'>
                 {4} out of 5
                 <div className='flex flex-row text-3xl text-yellow-400 my-2 '>
                 <FaStar/>
@@ -18,9 +17,12 @@ const Reviews = () => {
                 <FaStar/>
                 <FaRegStar/>
                 </div>
-                <div className='text-xl'>
+                <div className='text-lg'>
                 {20} Reviews
                 </div>
+                {/* <Button className='mt-2 w-36 font-bold hover:border-orange hover:text-orange hover:bg-orange/15' variant="ornageOutline">
+                    Write a Review
+                </Button> */}
                  </div>
 
                 <div className='w-1/2 flex flex-col -ml-10'>
