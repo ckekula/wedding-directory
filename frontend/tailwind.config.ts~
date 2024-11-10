@@ -11,7 +11,7 @@ const config = {
   prefix: "",
   theme: {
   	container: {
-  		center: true,
+  		center: 'true',
   		padding: '35px',
   		screens: {
   			sm: '640px',
@@ -45,8 +45,7 @@ const config = {
   			body: ["var(--font-montserrat)", "sans-serif"],
   			merriweather: ["var(--font-merriweather)", "serif"],
   			montez: ["var(--font-montez)", "cursive"],
-  			title: ["var(--font-outfit)", "cursive"],
-				marck: ["var(--font-marck-script)", "cursive"]
+  			title: ["var(--font-outfit)", "cursive"]
   		},
   		keyframes: {
   			'accordion-down': {

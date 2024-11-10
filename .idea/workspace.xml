@@ -5,18 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fe9e803b-a74e-4952-bf96-9a931fe40db4" name="Changes" comment="changes in queries.ts">
-      <change afterPath="$PROJECT_DIR$/backend/src/scripts/generate-schema.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/workflows/backendVPS.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/backendVPS.yml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/visitor-dashboard/WeddingCoupleCard.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/types/weddingCoupleCardTypes.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/graphql/resolvers/offering.resolver.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/graphql/resolvers/offering.resolver.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/graphql/resolvers/vendor.resolver.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/graphql/resolvers/vendor.resolver.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/graphql/resolvers/visitor.resolver.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/graphql/resolvers/visitor.resolver.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/modules/offering/offering.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/modules/offering/offering.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/modules/upload/upload.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/modules/upload/upload.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/modules/vendor/vendor.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/modules/vendor/vendor.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/modules/visitor/visitor.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/modules/visitor/visitor.service.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/backend/tsconfig.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/globals.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/visitor-dashboard/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/visitor-dashboard/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/visitor-profile/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/visitor-profile/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/ui/button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ui/button.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/visitor-dashboard/ProfilePicture.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/visitor-dashboard/ProfilePicture.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/visitor-profile/AccountDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/visitor-profile/AccountDetails.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/visitor-profile/ProfileMenu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/visitor-profile/ProfileMenu.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/visitor-profile/WeddingDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/visitor-profile/WeddingDetails.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/types/uploadTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/types/uploadTypes.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/tailwind.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/tailwind.config.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,7 +50,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "com.codeium.enabled": "true",
-    "git-widget-placeholder": "bugfix/janitha-schemaError",
+    "git-widget-placeholder": "feature/janitha-budgeter",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "D:/Web Development/My Projects/UniExchange",
     "node.js.detected.package.eslint": "true",

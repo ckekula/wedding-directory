@@ -35,9 +35,9 @@ const ProfilePicture: React.FC<ProfilePictureProps> = ({ profilePic, setProfileP
       <Image
         src={profilePic}
         alt="dashboard profile picture"
-        className="w-[175px] h-[175px] object-cover text-center"
-        width={175}
-        height={175}
+        width={288}
+        height={160}
+        className="object-cover rounded-lg"
       />
       <input
         type="file"
