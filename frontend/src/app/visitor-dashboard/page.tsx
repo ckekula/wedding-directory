@@ -2,23 +2,18 @@
 
 import React, { Fragment, useState } from "react";
 import Header from "@/components/shared/Headers/Header";
-import LeftSideBar from "@/components/visitor-dashboard/LeftSideBar";
 import { useQuery } from "@apollo/client";
 import { useAuth } from "@/contexts/VisitorAuthContext";
-import { Accordion } from "@/components/ui/accordion";
-import VisitorInfo from "@/components/visitor-dashboard/VisitorInfo";
-import ProfilePicture from "@/components/visitor-dashboard/ProfilePicture";
+import WeddingCoupleCard from '@/components/visitor-dashboard/WeddingCoupleCard';
 import WeddingPlanningGuide from "@/components/visitor-dashboard/WeddingPlanningGuide";
-import AccordionItemBlock from "@/components/visitor-dashboard/AccordianItemsBlock";
 import { StaticImageData } from "next/image";
 import { GET_VISITOR_BY_ID } from "@/graphql/queries";
 import Footer from "@/components/shared/Footer";
 import LoaderHelix from "@/components/shared/Loaders/LoaderHelix";
-
-
+import { Accordion } from '@/components/ui/accordion';
+import AccordionItemBlock from "@/components/visitor-dashboard/AccordianItemsBlock";
 
 const VisitorDashboard = () => {
-  const [isSideBarCollapsed, setIsSideBarCollapsed] = useState(true);
   const { visitor } = useAuth();
   const [profilePic, setProfilePic] = useState<string | StaticImageData>('/images/visitorProfilePic.webp');
 
@@ -33,43 +28,28 @@ const VisitorDashboard = () => {
     },
   });
 
-  if (loading) return <LoaderHelix/>;
+  if (loading) return <LoaderHelix />;
   if (error) return <p>Error loading profile information: {error.message}</p>;
 
   const visitorData = data?.findVisitorById;
 
   return (
     <Fragment>
-      <div className="container">
+      <div className="container mx-auto px-4">
         <Header />
       </div>
-      <div className="bg-lightYellow flex">
-        <div className="flex w-1/5 h-[calc(100vh-100px)] items-center">
-          <LeftSideBar
-            isCollapsed={isSideBarCollapsed}
-            setIsCollapsed={setIsSideBarCollapsed}
-          />
-        </div>
-        <div
-          className={`transition-all duration-300 py-10 ${
-            isSideBarCollapsed ? "w-[calc(100%-55px)]" : "w-[calc(100%-16rem)]"
-          }`}
-        >
-          <div className="mr-52 w-container">
-            <div className="flex justify-between p-10">
-              <ProfilePicture
-                profilePic={profilePic}
-                setProfilePic={setProfilePic}
-              />
-              <VisitorInfo
-                visitor_fname={visitorData?.visitor_fname}
-                partner_fname={visitorData?.partner_fname}
-                wed_date={visitorData?.wed_date}
-                wed_venue={visitorData?.wed_venue}
-              />
-            </div>
-
-            <Accordion type="multiple" className="grid grid-cols-2 gap-8 p-8">
+      <div className="bg-lightYellow py-10 px-4 sm:px-8 md:px-16">
+        <div className="max-w-5xl mx-auto">
+          <div className="w-full pb-8">
+            <WeddingCoupleCard
+              brideName={visitorData?.partner_fname}
+              groomName={visitorData?.visitor_fname}
+              weddingDate={visitorData?.wed_date}
+              profilePic={profilePic}
+              setProfilePic={setProfilePic}
+            />
+          </div>
+            <Accordion type="multiple" className="grid grid-cols-2 gap-8">
               <AccordionItemBlock
                 title="Vendors"
                 description="Get in touch with photographers, DJs, florists, and more."
@@ -87,13 +67,12 @@ const VisitorDashboard = () => {
                 description="Start spreading the word with save the dates."
               />
             </Accordion>
-            <div className="pt-5 pb-10 px-10">
-              <WeddingPlanningGuide />
-            </div>
+          <div className="pt-5 pb-10">
+            <WeddingPlanningGuide />
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </Fragment>
   );
 };
