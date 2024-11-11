@@ -79,13 +79,14 @@ const GeneralHeader = () => {
           {/* Authentication Buttons */}
           <div className="flex items-center gap-4">
             <Button
-              className="sm:hidden"
+              className=""
               variant="login"
               onClick={() => router.push("/visitor-login")}
             >
               Login
             </Button>
             <Button
+              className=""
               variant="signup"
               onClick={() => router.push("/visitor-signup")}
             >
