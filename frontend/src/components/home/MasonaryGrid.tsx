@@ -56,8 +56,8 @@ const MasonaryGrid = () => {
   ];
 
   return (
-    <div>
-      <section className="bg-background p-16">
+    <div className="hidden md:block">
+      <section className="bg-background p-16 ">
         <h2 className="text-5xl font-bold text-center font-title pt-8 pb-4">
           Locate Vendors For Every Vibe
         </h2>
