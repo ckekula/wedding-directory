@@ -1,3 +1,4 @@
+// visitor-dashboard.tsx
 "use client";
 
 import React, { Fragment, useState } from "react";
@@ -13,7 +14,7 @@ import LoaderHelix from "@/components/shared/Loaders/LoaderHelix";
 import { Accordion } from "@/components/ui/accordion";
 import AccordionItemBlock from "@/components/visitor-dashboard/AccordianItemsBlock";
 import LeftSideBar from "@/components/visitor-dashboard/LeftSideBar";
-import WeddingPlanningDock from '@/components/visitor-dashboard/WeddingPlanningDock';
+import BottomNavigationBar from '@/components/visitor-dashboard/BottomNavigationBar';
 
 const VisitorDashboard = () => {
   const { visitor } = useAuth();
@@ -40,6 +41,8 @@ const VisitorDashboard = () => {
       <div className="container mx-auto px-4">
         <Header />
       </div>
+
+
 
       <div className="bg-lightYellow min-h-screen">
         <div className="max-w-6xl mx-auto px-4">
@@ -107,12 +110,10 @@ const VisitorDashboard = () => {
                 <WeddingPlanningGuide />
               </div>
             </div>
-            <WeddingPlanningDock/>
           </div>
         </div>
-
       </div>
-
+      <BottomNavigationBar />
       <Footer />
     </Fragment>
   );

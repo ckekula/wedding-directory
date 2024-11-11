@@ -5,15 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fe9e803b-a74e-4952-bf96-9a931fe40db4" name="Changes" comment="changes in queries.ts">
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/motion-ui/Dock.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/visitor-dashboard/WeddingPlanningDock.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/visitor-dashboard/BottomNavigationBar.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/hooks/useMediaQuery.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/visitor-dashboard/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/visitor-dashboard/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/visitor-dashboard/LeftSideBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/visitor-dashboard/LeftSideBar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/visitor-dashboard/ProfilePicture.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/visitor-dashboard/ProfilePicture.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/visitor-dashboard/WeddingCoupleCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/visitor-dashboard/WeddingCoupleCard.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/visitor-dashboard/WeddingPlanningDock.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/visitor-dashboard/WeddingPlanningDock.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,7 +119,7 @@
       <workItem from="1730610639137" duration="6228000" />
       <workItem from="1731159866163" duration="6526000" />
       <workItem from="1731258747277" duration="7862000" />
-      <workItem from="1731295902331" duration="5970000" />
+      <workItem from="1731295902331" duration="9497000" />
     </task>
     <task id="LOCAL-00001" summary="adsfd">
       <option name="closed" value="true" />

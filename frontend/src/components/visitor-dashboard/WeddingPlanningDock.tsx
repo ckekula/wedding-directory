@@ -6,7 +6,15 @@ const WeddingPlanningDock = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 shadow-lg">
+    <div
+      className="fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 shadow-lg md:hidden"
+      style={{
+        width: '100vw',           // Full width on mobile screens
+        overflowX: 'hidden',        // Allows horizontal scrolling if needed
+        whiteSpace: 'nowrap',     // Keeps items in one line
+        zIndex: 50,               // High z-index to stay above other content
+      }}
+    >
       <Dock className="flex justify-between items-center px-4 py-2">
         <DockItem
           className={`flex flex-col items-center ${activeTab === 'dashboard' ? 'text-blue-600' : 'text-gray-600'}`}
