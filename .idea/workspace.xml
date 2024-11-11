@@ -5,22 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fe9e803b-a74e-4952-bf96-9a931fe40db4" name="Changes" comment="changes in queries.ts">
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/visitor-dashboard/WeddingCoupleCard.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/types/weddingCoupleCardTypes.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/motion-ui/Dock.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/visitor-dashboard/WeddingPlanningDock.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/globals.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/globals.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/layout.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/app/visitor-dashboard/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/visitor-dashboard/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/visitor-profile/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/visitor-profile/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/ui/button.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/ui/button.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/visitor-dashboard/LeftSideBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/visitor-dashboard/LeftSideBar.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/visitor-dashboard/ProfilePicture.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/visitor-dashboard/ProfilePicture.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/visitor-profile/AccountDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/visitor-profile/AccountDetails.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/visitor-profile/ProfileMenu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/visitor-profile/ProfileMenu.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/visitor-profile/WeddingDetails.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/visitor-profile/WeddingDetails.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/types/uploadTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/types/uploadTypes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/tailwind.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/tailwind.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/visitor-dashboard/WeddingCoupleCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/visitor-dashboard/WeddingCoupleCard.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -46,23 +39,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "com.codeium.enabled": "true",
-    "git-widget-placeholder": "feature/janitha-budgeter",
-    "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "D:/Web Development/My Projects/UniExchange",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "D:\\UOR\\5thSem\\Software Project\\dev\\root\\wedding-directory\\backend\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;com.codeium.enabled&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/janitha-budgeter&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Web Development/My Projects/UniExchange&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\UOR\\5thSem\\Software Project\\dev\\root\\wedding-directory\\backend\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\UOR\5thSem\Software Project\dev\root\wedding-directory\backend\src\scripts" />
@@ -129,6 +122,8 @@
       <workItem from="1730302799414" duration="6575000" />
       <workItem from="1730610639137" duration="6228000" />
       <workItem from="1731159866163" duration="6526000" />
+      <workItem from="1731258747277" duration="7862000" />
+      <workItem from="1731295902331" duration="5970000" />
     </task>
     <task id="LOCAL-00001" summary="adsfd">
       <option name="closed" value="true" />
