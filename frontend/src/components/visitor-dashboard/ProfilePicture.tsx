@@ -36,7 +36,7 @@ const ProfilePicture: React.FC<ProfilePictureProps> = ({ profilePic, setProfileP
         src={profilePic}
         alt="dashboard profile picture"
         width={288}
-        height={160}
+        height={200}
         className="object-cover rounded-lg"
       />
       <input
