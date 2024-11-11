@@ -5,14 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fe9e803b-a74e-4952-bf96-9a931fe40db4" name="Changes" comment="changes in queries.ts">
-      <change afterPath="$PROJECT_DIR$/frontend/src/app/visitor-login/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/app/visitor-signup/page.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/middleware.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/visitor-dashboard/BottomNavigationBar.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/hooks/useMediaQuery.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/(onboarding)/pageone/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/(onboarding)/pageone/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/app/(onboarding)/pagetwo/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/(onboarding)/pagetwo/page.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/shared/Headers/GeneralHeader.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/shared/Headers/GeneralHeader.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/app/visitor-dashboard/page.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/app/visitor-dashboard/page.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/visitor-dashboard/WeddingPlanningDock.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/visitor-dashboard/WeddingPlanningDock.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +39,7 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;com.codeium.enabled&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/janitha-protected-routes&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/janitha-budgeter&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;D:/Web Development/My Projects/UniExchange&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
@@ -57,6 +54,7 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\UOR\5thSem\Software Project\dev\root\wedding-directory\backend\src\scripts" />
       <recent name="D:\UOR\5thSem\Software Project\dev\root\wedding-directory\frontend\src" />
       <recent name="D:\UOR\5thSem\Software Project\dev\root\wedding-directory\frontend\src\app" />
       <recent name="D:\UOR\5thSem\Software Project\dev\root\wedding-directory\frontend\src\api\upload\offerings" />
@@ -119,6 +117,9 @@
       <workItem from="1730221775449" duration="1972000" />
       <workItem from="1730302799414" duration="6575000" />
       <workItem from="1730610639137" duration="6228000" />
+      <workItem from="1731159866163" duration="6526000" />
+      <workItem from="1731258747277" duration="7862000" />
+      <workItem from="1731295902331" duration="9497000" />
     </task>
     <task id="LOCAL-00001" summary="adsfd">
       <option name="closed" value="true" />
