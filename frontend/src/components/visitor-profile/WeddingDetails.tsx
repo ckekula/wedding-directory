@@ -106,7 +106,7 @@ const WeddingDetails: React.FC = () => {
             <div className="space-y-4">
               <div>
                 <label className="font-body text-sm sm:text-base text-gray-700 mb-1 block">
-                  Partner's First Name
+                  Partner&apos;s First Name
                 </label>
                 <Input
                   name="partnerFirstName"
@@ -117,7 +117,7 @@ const WeddingDetails: React.FC = () => {
               </div>
               <div>
                 <label className="font-body text-sm sm:text-base text-gray-700 mb-1 block">
-                  Partner's Last Name
+                  Partner&apos;s Last Name
                 </label>
                 <Input
                   name="partnerLastName"

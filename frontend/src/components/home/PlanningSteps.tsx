@@ -42,15 +42,17 @@ const PlanningSteps = () => {
         </h2>
         <div className="flex flex-wrap md:flex-nowrap">
           {/* Responsive image container */}
-          <div className="w-full md:w-1/2 lg:w-2/5 p-4">
-            <Image
-              src="/images/bridaldressing.webp"
-              alt="Wedding Planning"
-              className="rounded-lg object-cover"
-              layout="responsive"
-              width={500}
-              height={750}
-            />
+          <div className="hidden md:block">
+            <div className="w-full lg:w-2/5 p-4">
+              <Image
+                src="/images/bridaldressing.webp"
+                alt="Wedding Planning"
+                className="rounded-lg object-cover"
+                layout="responsive"
+                width={500}
+                height={750}
+              />
+            </div>
           </div>
           {/* Responsive cards container */}
           <div className="w-full md:w-1/2 lg:w-3/5 flex flex-col justify-between space-y-6 md:space-y-8 lg:space-y-10 p-4">
