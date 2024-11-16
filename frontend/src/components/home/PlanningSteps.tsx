@@ -43,7 +43,7 @@ const PlanningSteps = () => {
         <div className="flex flex-wrap md:flex-nowrap">
           {/* Responsive image container */}
           <div className="hidden md:block">
-            <div className="w-full lg:w-2/5 p-4">
+            <div className="w-full md:w-1/2 lg:w-2/5 p-4">
               <Image
                 src="/images/bridaldressing.webp"
                 alt="Wedding Planning"

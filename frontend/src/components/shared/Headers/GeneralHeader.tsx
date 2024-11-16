@@ -62,17 +62,18 @@ const GeneralHeader = () => {
               </h1>
             </Link>
           </div>
-  
+
           {/* Navigation Column */}
           <div className="hidden xl:flex justify-center items-center">
             <Nav />
           </div>
-  
+
           {/* Authentication Buttons Column */}
-          <div className="flex justify-end items-center gap-4">
+          <div className="flex justify-end items-center gap-4 sm:justify-center sm:flex-col sm:gap-2 md:flex-row">
             <Button
               variant="login"
               onClick={() => setLoginVisible(true)}
+              className="w-full sm:w-auto"
             >
               Login
             </Button>
@@ -82,12 +83,13 @@ const GeneralHeader = () => {
               data-tally-width="752"
               data-tally-layout="modal"
               data-tally-auto-close="0"
+              className="w-full sm:w-auto"
             >
               Get Started
             </Button>
           </div>
         </div>
-  
+
         {/* Mobile Menu */}
         <div className="xl:hidden flex justify-between items-center">
           <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
@@ -98,7 +100,7 @@ const GeneralHeader = () => {
             )}
           </button>
         </div>
-  
+
         {isMobileMenuOpen && (
           <div>
             {/* Overlay */}
@@ -106,7 +108,7 @@ const GeneralHeader = () => {
               className="fixed inset-0 bg-black bg-opacity-40 backdrop-blur-sm z-30"
               onClick={() => setIsMobileMenuOpen(false)}
             ></div>
-  
+
             {/* Slide-in Menu */}
             <div
               className="fixed inset-y-0 left-0 w-2/4 max-w-sm bg-white shadow-lg z-40 transform transition-transform duration-300 ease-in-out"
@@ -141,7 +143,7 @@ const GeneralHeader = () => {
             </div>
           </div>
         )}
-  
+
         {/* Visitor Login and Signup */}
         <VisitorLogin
           isVisible={isLoginVisible}
@@ -153,7 +155,7 @@ const GeneralHeader = () => {
         />
       </header>
     </Fragment>
-  );  
+  );
 };
 
 export default GeneralHeader;

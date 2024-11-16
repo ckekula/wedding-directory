@@ -63,8 +63,8 @@ const MasonaryGrid = () => {
       <p className="text-center mb-8 font-body text-xl pb-4">
         Find Top-Rated Pros for Every Budget, Background, and Style
       </p>
-        <div className="container mx-auto">
-          <div className="columns-2 sm:columns-2 lg:columns-3 gap-4 space-y-4 p-4">
+      <div className="container mx-auto max-w-full sm:max-w-screen-sm lg:max-w-screen-xl">
+      <div className="columns-2 sm:columns-2 lg:columns-3 gap-4 space-y-4 p-4">
             {photos.map((photo) => (
               <div
                 key={photo.id}
