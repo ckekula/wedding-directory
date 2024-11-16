@@ -8,12 +8,16 @@ import { useAuth } from "@/contexts/VisitorAuthContext";
 import Image from "next/image";
 import { HiMenu, HiX } from "react-icons/hi";
 import Nav from "../Nav";
+import VisitorLogin from "@/components/shared/VisitorLogin";
+import VisitorSignup from "@/components/shared/VisitorSignup";
 
 const GeneralHeader = () => {
   const { isAuthenticated, logout } = useAuth();
   const profileMenuRef = useRef<HTMLDivElement>(null);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isLoginVisible, setLoginVisible] = useState(false);
+  const [isSignupVisible, setSignupVisible] = useState(false);
   const pathname = usePathname();
 
   const router = useRouter();
@@ -79,16 +83,19 @@ const GeneralHeader = () => {
           {/* Authentication Buttons */}
           <div className="flex items-center gap-4">
             <Button
-              className=""
               variant="login"
-              onClick={() => router.push("/visitor-login")}
+              onClick={() => setLoginVisible(true)}
             >
               Login
             </Button>
             <Button
-              className=""
               variant="signup"
-              onClick={() => router.push("/visitor-signup")}
+              // onClick={() => setSignupVisible(true)} // Visitor Signup logic
+              // Waitlist logic
+              data-tally-open="wv0AKQ"
+              data-tally-width="752"
+              data-tally-layout="modal"
+              data-tally-auto-close="0"
             >
               Get Started
             </Button>
@@ -140,6 +147,11 @@ const GeneralHeader = () => {
             </div>
           </div>
         )}
+
+      {/* Pass `isVisible` prop to control visibility */}
+      <VisitorLogin isVisible={isLoginVisible} onClose={() => setLoginVisible(false)} />
+      <VisitorSignup isVisible={isSignupVisible} onClose={() => setSignupVisible(false)} />
+
       </header>
     </Fragment>
   );

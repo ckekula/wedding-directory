@@ -94,8 +94,10 @@ const Footer = () => {
               Work with us to find more couples and help them make their big
               day unforgettable!
             </p>
-            <Link href="/sign-up">
-              <Button className="font-body font-bold w-full md:w-auto" variant="signup">
+            {/* Redirect to visitor signup */}
+            <Link href="https://tally.so/r/nGBVMp" target="_blank">
+              <Button className="font-body font-bold w-full md:w-auto" variant="signup"
+              >
                 Register Now
               </Button>
             </Link>

@@ -53,7 +53,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      
+      <head>
+        <script async src="https://tally.so/widgets/embed.js"></script>
+      </head>
 
       <body
         className={`${montserrat.variable} ${merriweather.variable} ${montez.variable} ${outfit.variable} ${marck_Script.variable}`}
