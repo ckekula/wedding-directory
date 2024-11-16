@@ -1,8 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Image from "next/image";
-import { Button } from "../ui/button";
-import { MoveRight, MoveLeft } from "lucide-react";
+import { FaCaretLeft, FaCaretRight } from "react-icons/fa";
 
 const testimonials = [
   {
@@ -36,42 +35,42 @@ const Testimonials = () => {
 
   return (
     <section className="flex justify-center py-16 bg-white">
-      <div className="container mx-auto my-auto ">
-        <h2 className="text-5xl font-bold font-title text-center mb-7">
+      <div className="container mx-auto">
+        <h2 className="text-3xl md:text-5xl font-bold font-title text-center mb-7">
           What other couples say about us
         </h2>
-        <div className=" flex items-center justify-center w-auto">
-          <MoveLeft
+        <div className="flex items-center justify-center w-full">
+          <FaCaretLeft
             onClick={prevTestimonial}
-            className=" cursor-pointer hover:text-gray-700 mx-10"
-            size={30}
+            className="cursor-pointer hover:text-gray-700 mx-2 md:mx-10"
+            size={25}
           />
-          <div className="relative flex items-center justify-center">
-            <div className="flex items-center space-x-4 p-6 border rounded-lg shadow-lg">
+          <div className="relative flex flex-col md:flex-row items-center justify-center w-full md:w-auto p-4">
+            <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-4 p-6 border rounded-lg shadow-lg">
               <Image
                 src={testimonials[currentTestimonial].image}
                 alt={testimonials[currentTestimonial].name}
-                className=" ml-10"
+                className="w-28 h-28 md:w-48 md:h-48 rounded-full"
                 width={200}
                 height={200}
               />
-              <div className="flex flex-col">
-                <p className="text-m font-body ml-10 pl-4 pb-4 pr-4">
+              <div className="flex flex-col text-center md:text-left ">
+                <p className="text-sm md:text-base font-body px-2 md:px-4 pb-4">
                   {testimonials[currentTestimonial].text}
                 </p>
-                <h3 className="text-2xl  ml-10 pl-4  font-montez">
+                <h3 className="text-xl md:text-2xl px-2 font-montez">
                   {testimonials[currentTestimonial].name}
                 </h3>
-                <p className="text-sm font-body font-bold ml-10 pl-4">
+                <p className="text-sm font-body font-bold px-2">
                   {testimonials[currentTestimonial].location}
                 </p>
               </div>
             </div>
           </div>
-          <MoveRight
+          <FaCaretRight
             onClick={nextTestimonial}
-            className="cursor-pointer hover:text-gray-700 mx-10"
-            size={30}
+            className="cursor-pointer hover:text-gray-700 mx-2 md:mx-10"
+            size={25}
           />
         </div>
       </div>

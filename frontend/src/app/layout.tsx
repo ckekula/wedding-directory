@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { AuthProvider as VisitorAuthProvider } from "@/contexts/VisitorAuthContext";
 import ApolloWrapper from "@/apollo/ApolloWrapper";
-import { Montserrat, Merriweather, Montez, Outfit } from "next/font/google";
+import { Montserrat, Merriweather, Montez, Outfit, Marck_Script } from "next/font/google";
 import "./globals.css";
 import PageTransition from "@/components/PageTransition";
 import { VendorAuthProvider } from "@/contexts/VendorAuthContext";
@@ -38,6 +38,14 @@ const outfit = Outfit({
   variable: "--font-outfit",
 });
 
+const marck_Script = Marck_Script({
+  subsets: ["latin-ext"],
+  style:["normal"],
+  weight: ["400"],
+  variable: "--font-marck-script",
+  display: "swap",
+})
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -45,10 +53,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      
+      <head>
+        <script async src="https://tally.so/widgets/embed.js"></script>
+      </head>
 
       <body
-        className={`${montserrat.variable} ${merriweather.variable} ${montez.variable} ${outfit.variable}`}
+        className={`${montserrat.variable} ${merriweather.variable} ${montez.variable} ${outfit.variable} ${marck_Script.variable}`}
       >
         <ApolloWrapper>
           {/* Wrapping the application with VisitorProvider */}

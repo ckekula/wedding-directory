@@ -19,9 +19,8 @@ const VisitorSignup: React.FC<VisitorSignupProps> = ({ isVisible, onClose }) => 
     const [error, setError] = useState<string | null>(null);
     const [showVisitorLogin, setShowVisitorLogin] = useState(false);
     const router = useRouter();
-    const { login } = useAuth();  // Access the login method from VisitorAuthContext
+    const { login } = useAuth();
 
-    // Use Apollo's useMutation for the signup mutation
     const [createVisitor, { loading }] = useMutation(CREATE_VISITOR_MUTATION);
 
     if (!isVisible) return null;

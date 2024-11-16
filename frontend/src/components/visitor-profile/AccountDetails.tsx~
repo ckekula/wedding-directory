@@ -28,11 +28,11 @@ const AccountDetails: React.FC = () => {
   const [updateVisitor] = useMutation(UPDATE_VISITOR, {
     onCompleted: () => {
       console.log("Visitor updated successfully!");
-      toast.success('Account details updated successfully!', {style: {background: '#333',color: '#fff',},});
+      toast.success("Account details updated successfully!");
     },
     onError: (error) => {
       console.error("Error updating visitor:", error);
-      toast.error('Account details update failed!', {style: {background: '#333',color: '#fff',},});
+      toast.error("Failed to update account details.");
     },
   });
 

@@ -8,20 +8,16 @@ import { WeddingDetailsData } from "@/types/visitorProfileTypes";
 import { useAuth } from "@/contexts/VisitorAuthContext";
 import { UPDATE_VISITOR } from "@/graphql/mutations";
 
-
 const WeddingDetails: React.FC = () => {
-
   const { visitor } = useAuth();
 
-  // Fetch visitor data from the server using the visitor ID
   const { data, loading, error } = useQuery(GET_VISITOR_BY_ID, {
     variables: { id: visitor?.id },
-    skip: !visitor?.id, // Skip query if visitor ID is not available
+    skip: !visitor?.id,
   });
 
   const visitorData = data?.findVisitorById;
 
-  // Form state to hold the wedding details
   const [weddingDetails, setWeddingDetails] = useState<WeddingDetailsData>({
     firstName: visitorData?.visitor_fname || "Your first name",
     lastName: visitorData?.visitor_lname || "Your last name",
@@ -32,19 +28,15 @@ const WeddingDetails: React.FC = () => {
     weddingVenue: visitorData?.wed_venue || "Your wedding venue",
   });
 
-    // Mutation for updating visitor details
-    const [updateVisitor] = useMutation(UPDATE_VISITOR, {
-      onCompleted: () => {
-        // Optionally handle success (e.g., show a message, redirect, etc.)
-        console.log("Visitor updated successfully!");
-      },
-      onError: (error) => {
-        // Handle error (e.g., show an error message)
-        console.error("Error updating visitor:", error);
-      },
-    });
+  const [updateVisitor] = useMutation(UPDATE_VISITOR, {
+    onCompleted: () => {
+      console.log("Visitor updated successfully!");
+    },
+    onError: (error) => {
+      console.error("Error updating visitor:", error);
+    },
+  });
 
-  // Handle input changes
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setWeddingDetails((prevDetails) => ({
@@ -53,7 +45,6 @@ const WeddingDetails: React.FC = () => {
     }));
   };
 
-  // Handle form submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -73,89 +64,117 @@ const WeddingDetails: React.FC = () => {
     });
   };
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error loading visitor details: {error.message}</p>;
+  if (loading) return <p className="text-center p-4">Loading...</p>;
+  if (error) return <p className="text-center p-4 text-red-500">Error loading visitor details: {error.message}</p>;
 
   return (
     <Fragment>
-      <div className="bg-white rounded-2xl p-8 shadow-lg">
-        <h2 className="font-title text-[30px]">Wedding Details</h2>
-        <hr className="w-[210px] h-px my-4 bg-gray-500 border-0 dark:bg-gray-700"></hr>
-        <form onSubmit={handleSubmit}>
-          <div className="grid grid-cols-2 gap-8 mb-6">
-            <div>
-              <label className="font-body text-[16px]">First Name</label>
-              <Input
-                name="firstName"
-                value={weddingDetails.firstName}
-                onChange={handleInputChange}
-                className="font-body rounded-md mt-2 "
-              />
+      <div className="bg-white rounded-2xl p-4 sm:p-8 shadow-lg max-w-4xl mx-auto">
+        <h2 className="font-title text-2xl sm:text-[30px] text-text">Wedding Details</h2>
+        <div className="w-full h-px my-4 bg-gray-300"></div>
+
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Grid container with responsive columns */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8">
+            {/* Your Details Section */}
+            <div className="space-y-4">
+              <div>
+                <label className="font-body text-sm sm:text-base text-gray-700 mb-1 block">
+                  First Name
+                </label>
+                <Input
+                  name="firstName"
+                  value={weddingDetails.firstName}
+                  onChange={handleInputChange}
+                  className="font-body rounded-lg border-gray-400 focus:border-gray-600 focus:ring-gray-600"
+                />
+              </div>
+              <div>
+                <label className="font-body text-sm sm:text-base text-gray-700 mb-1 block">
+                  Last Name
+                </label>
+                <Input
+                  name="lastName"
+                  value={weddingDetails.lastName}
+                  onChange={handleInputChange}
+                  className="font-body rounded-lg border-gray-400 focus:border-gray-600 focus:ring-gray-600"
+                />
+              </div>
             </div>
-            <div>
-              <label className="font-body text-[16px]">Last Name</label>
-              <Input
-                name="lastName"
-                value={weddingDetails.lastName}
-                onChange={handleInputChange}
-                className="font-body rounded-md mt-2 "
-              />
+
+            {/* Partner's Details Section */}
+            <div className="space-y-4">
+              <div>
+                <label className="font-body text-sm sm:text-base text-gray-700 mb-1 block">
+                  Partner&apos;s First Name
+                </label>
+                <Input
+                  name="partnerFirstName"
+                  value={weddingDetails.partnerFirstName}
+                  onChange={handleInputChange}
+                  className="font-body rounded-lg border-gray-400 focus:border-gray-600 focus:ring-gray-600"
+                />
+              </div>
+              <div>
+                <label className="font-body text-sm sm:text-base text-gray-700 mb-1 block">
+                  Partner&apos;s Last Name
+                </label>
+                <Input
+                  name="partnerLastName"
+                  value={weddingDetails.partnerLastName}
+                  onChange={handleInputChange}
+                  className="font-body rounded-lg border-gray-400 focus:border-gray-600 focus:ring-gray-600"
+                />
+              </div>
             </div>
+
+            {/* Date Section */}
             <div>
-              <label className="font-body text-[16px]">
-                Partner’s First Name
+              <label className="font-body text-sm sm:text-base text-gray-700 mb-1 block">
+                Engagement Date
               </label>
-              <Input
-                name="partnerFirstName"
-                value={weddingDetails.partnerFirstName}
-                onChange={handleInputChange}
-                className="font-body rounded-md mt-2 "
-              />
-            </div>
-            <div>
-              <label className="font-body text-[16px]">
-                Partner’s Last Name
-              </label>
-              <Input
-                name="partnerLastName"
-                value={weddingDetails.partnerLastName}
-                onChange={handleInputChange}
-                className="font-body rounded-md mt-2 "
-              />
-            </div>
-            <div>
-              <label className="font-body text-[16px]">Engagement Date</label>
               <Input
                 type="date"
                 name="engagementDate"
                 value={weddingDetails.engagementDate}
                 onChange={handleInputChange}
-                className="font-body rounded-md mt-2 "
+                className="font-body rounded-lg border-gray-400 focus:border-gray-600 focus:ring-gray-600"
               />
             </div>
             <div>
-              <label className="font-body text-[16px]">Wedding Date</label>
+              <label className="font-body text-sm sm:text-base text-gray-700 mb-1 block">
+                Wedding Date
+              </label>
               <Input
                 type="date"
                 name="weddingDate"
                 value={weddingDetails.weddingDate}
                 onChange={handleInputChange}
-                className="font-body rounded-md mt-2 "
+                className="font-body rounded-lg border-gray-400 focus:border-gray-600 focus:ring-gray-600"
               />
             </div>
           </div>
 
-          <div className="mb-6">
-            <label className="font-body text-[16px]">Wedding Venue</label>
+          {/* Venue Section - Full Width */}
+          <div>
+            <label className="font-body text-sm sm:text-base text-gray-700 mb-1 block">
+              Wedding Venue
+            </label>
             <Input
               name="weddingVenue"
               value={weddingDetails.weddingVenue}
               onChange={handleInputChange}
-              className="font-body rounded-md mt-2 "
+              className="font-body rounded-lg border-gray-400 focus:border-gray-600 focus:ring-gray-600"
             />
           </div>
-          <div className="bg-white rounded-2xl p-4 px-8 shadow-lg my-8 justify-center flex">
-            <Button variant="signup" className="m-3 w-full">
+
+          {/* Save Button Container */}
+          <div className="flex justify-center mt-8">
+            <Button
+              variant="signup"
+              className="w-full sm:w-auto px-8 py-2.5 bg-orange hover:bg-primary text-white font-medium rounded-xl transition-colors duration-300 shadow-md hover:shadow-lg"
+              type="submit"
+            >
               Save Wedding Details
             </Button>
           </div>
