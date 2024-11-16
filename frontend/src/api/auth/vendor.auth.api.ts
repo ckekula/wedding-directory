@@ -6,6 +6,7 @@ export const loginVendor = async (email: string, password: string) => {
     const response = await request.post('/auth/loginVendor', { // No need to repeat the base URL
       email,
       password,
+      
     });
 
     return response.data;

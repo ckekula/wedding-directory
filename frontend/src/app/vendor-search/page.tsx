@@ -13,14 +13,7 @@ const VendorSearch = () => {
   const [city, setCity] = useState("");
   const [category, setCategory] = useState("");
 
-  const [getServices, { loading, data, error }] = useLazyQuery(FIND_SERVICES, {
-    variables: {
-      filter: {
-        city: null,
-        category: null,
-      },
-    },
-  });
+  const [getServices, { loading, data, error }] = useLazyQuery(FIND_SERVICES);
 
   // Execute query on page load (no filters)
   useEffect(() => {
@@ -94,8 +87,8 @@ const VendorSearch = () => {
             </Button>
           </div>
 
-          {loading && <div className="my-4 text-2xl">Loading...</div>}
-          {error && <div className="my-4 text-2xl">Error: {error.message}</div>}
+          {/* {loading && <div className="my-4 text-2xl">Loading...</div>}
+          {error && <div className="my-4 text-2xl">Error: {error.message}</div>} */}
 
           {!loading && data && data.findOfferings.length > 0 ? (
             <>

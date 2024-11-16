@@ -18,7 +18,7 @@ const cards = [
     tagLine: "sample tag line",
     title: "Your Budget",
     description:
-      "Setup your budget and manage your finances with our easy-to-use budgeting tool!",
+      "Set up your budget and manage your finances with our easy-to-use budgeting tool!",
     buttonText: "Get Started",
     image: "/images/cakes.webp",
   },
@@ -34,29 +34,30 @@ const cards = [
 ];
 
 const PlanningSteps = () => {
-
   return (
     <section className="flex justify-center py-16 bg-white">
       <div className="container mx-auto flex flex-col items-center">
-        <h2 className="text-5xl font-bold font-title mb-8 text-center">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-title mb-8 text-center">
           Wedding planning has never been easier
         </h2>
-        <div className="flex flex-wrap">
+        <div className="flex flex-wrap md:flex-nowrap">
+          {/* Responsive image container */}
           <div className="w-full md:w-1/2 lg:w-2/5 p-4">
             <Image
-              src='/images/bridaldressing.webp'
+              src="/images/bridaldressing.webp"
               alt="Wedding Planning"
-              className="rounded-lg"
+              className="rounded-lg object-cover"
               layout="responsive"
               width={500}
               height={750}
             />
           </div>
+          {/* Responsive cards container */}
           <div className="w-full md:w-1/2 lg:w-3/5 flex flex-col justify-between space-y-6 md:space-y-8 lg:space-y-10 p-4">
             {cards.map((card) => (
               <div
                 key={card.id}
-                className="flex items-center space-x-4 p-4 border rounded-lg shadow-lg"
+                className="flex flex-col sm:flex-row items-center sm:items-start space-y-4 sm:space-y-0 sm:space-x-4 p-4 border rounded-lg shadow-lg"
               >
                 <Image
                   src={card.image}
@@ -65,14 +66,16 @@ const PlanningSteps = () => {
                   width={100}
                   height={100}
                 />
-                <div className="flex flex-col">
-                  <h3 className="text-xl font-semibold font-body">
+                <div className="flex flex-col text-center sm:text-left">
+                  <h3 className="text-lg sm:text-xl font-semibold font-body">
                     {card.title}
                   </h3>
-                  <p className="text-sm font-body p-4">{card.description}</p>
+                  <p className="text-sm font-body mt-2 sm:mt-4">
+                    {card.description}
+                  </p>
                   <Link href="#">
-                    <Button variant="ornageOutline" className="pt-2 font-body">
-                      Get Started
+                    <Button variant="ornageOutline" className="mt-4 font-body">
+                      {card.buttonText}
                     </Button>
                   </Link>
                 </div>
@@ -80,9 +83,12 @@ const PlanningSteps = () => {
             ))}
           </div>
         </div>
-        <h2 className="text-5xl font-bold font-title mb-8 text-center mt-8">Join with Say I Do</h2>
+        {/* Signup section */}
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-title mb-8 text-center mt-8">
+          Join with Say I Do
+        </h2>
         <Button variant="signup">
-          <Link href={'#'}>Sign up with us for free</Link>
+          <Link href="#">Sign up with us for free</Link>
         </Button>
       </div>
     </section>

@@ -2,7 +2,7 @@ import Image from "next/image";
 import React from "react";
 import { CiHeart } from "react-icons/ci";
 import { Button } from "../ui/button";
-import { PackageProps } from "@/types/packageTypes";
+import { OfferingProps } from "../../types/offeringTypes";
 import Link from "next/link";
 
 // Utility function to truncate the description
@@ -26,7 +26,7 @@ const VendorResult = ({
   showStats,
   link,
   buttonText,
-}: PackageProps) => {
+}: OfferingProps) => {
   // Truncate the description to a maximum of 100 characters
   const truncatedDescription = truncateDescription(about, 100);
 
