@@ -5,7 +5,6 @@ import { Button } from "../../ui/button";
 import { Fragment, useState, useEffect, useRef } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { useAuth } from "@/contexts/VisitorAuthContext";
-import Image from "next/image";
 import { HiMenu, HiX } from "react-icons/hi";
 import Nav from "../Nav";
 import VisitorLogin from "@/components/shared/VisitorLogin";
@@ -54,34 +53,23 @@ const GeneralHeader = () => {
   return (
     <Fragment>
       <header className="py-6 xl:py-6 text-black bg-white relative">
-        <div className="container mx-auto flex justify-between items-center">
-          {/* Mobile Menu Button */}
-          <div className="xl:hidden">
-            <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-              {isMobileMenuOpen ? (
-                <HiX className="text-3xl" size={30} />
-              ) : (
-                <HiMenu className="text-3xl" />
-              )}
-            </button>
-          </div>
-
-          {/* Logo */}
-          <div className="flex items-center">
+        <div className="container mx-auto grid grid-cols-3 items-center">
+          {/* Logo Column */}
+          <div className="flex justify-start items-center">
             <Link href="/">
               <h1 className="text-2xl font-bold text-black font-title ml-2">
                 Say I Do
               </h1>
             </Link>
           </div>
-
-          {/* Desktop Nav (visible on larger screens) */}
-          <div className="hidden xl:flex flex-1 justify-center items-center gap-8">
+  
+          {/* Navigation Column */}
+          <div className="hidden xl:flex justify-center items-center">
             <Nav />
           </div>
-
-          {/* Authentication Buttons */}
-          <div className="flex items-center gap-4">
+  
+          {/* Authentication Buttons Column */}
+          <div className="flex justify-end items-center gap-4">
             <Button
               variant="login"
               onClick={() => setLoginVisible(true)}
@@ -90,8 +78,6 @@ const GeneralHeader = () => {
             </Button>
             <Button
               variant="signup"
-              // onClick={() => setSignupVisible(true)} // Visitor Signup logic
-              // Waitlist logic
               data-tally-open="wv0AKQ"
               data-tally-width="752"
               data-tally-layout="modal"
@@ -101,23 +87,31 @@ const GeneralHeader = () => {
             </Button>
           </div>
         </div>
-
-        {/* Overlay and Mobile Menu */}
+  
+        {/* Mobile Menu */}
+        <div className="xl:hidden flex justify-between items-center">
+          <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+            {isMobileMenuOpen ? (
+              <HiX className="text-3xl" size={30} />
+            ) : (
+              <HiMenu className="text-3xl" />
+            )}
+          </button>
+        </div>
+  
         {isMobileMenuOpen && (
           <div>
-            {/* Overlay to blur the background */}
+            {/* Overlay */}
             <div
               className="fixed inset-0 bg-black bg-opacity-40 backdrop-blur-sm z-30"
               onClick={() => setIsMobileMenuOpen(false)}
             ></div>
-
-            {/* Slide-in Mobile Menu */}
+  
+            {/* Slide-in Menu */}
             <div
               className="fixed inset-y-0 left-0 w-2/4 max-w-sm bg-white shadow-lg z-40 transform transition-transform duration-300 ease-in-out"
               style={{
-                transform: isMobileMenuOpen
-                  ? "translateX(0)"
-                  : "translateX(-100%)",
+                transform: isMobileMenuOpen ? "translateX(0)" : "translateX(-100%)",
               }}
             >
               <div className="p-6 space-y-4 flex flex-col">
@@ -147,14 +141,19 @@ const GeneralHeader = () => {
             </div>
           </div>
         )}
-
-      {/* Pass `isVisible` prop to control visibility */}
-      <VisitorLogin isVisible={isLoginVisible} onClose={() => setLoginVisible(false)} />
-      <VisitorSignup isVisible={isSignupVisible} onClose={() => setSignupVisible(false)} />
-
+  
+        {/* Visitor Login and Signup */}
+        <VisitorLogin
+          isVisible={isLoginVisible}
+          onClose={() => setLoginVisible(false)}
+        />
+        <VisitorSignup
+          isVisible={isSignupVisible}
+          onClose={() => setSignupVisible(false)}
+        />
       </header>
     </Fragment>
-  );
+  );  
 };
 
 export default GeneralHeader;

@@ -11,7 +11,7 @@ const Footer = () => {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           {/* Brand Description */}
-          <div>
+          <div className="hidden md:block">
             <h3 className="text-lg md:text-xl font-bold font-title mb-2">Say I Do</h3>
             <p className="text-xs md:text-sm font-body">
               Say I Do is your one-stop destination for all wedding planning
@@ -96,7 +96,7 @@ const Footer = () => {
             </p>
             {/* Redirect to visitor signup */}
             <Link href="https://tally.so/r/nGBVMp" target="_blank">
-              <Button className="font-body font-bold w-full md:w-auto" variant="signup"
+              <Button className="font-body font-bold w-full md:w-auto sm:w-fit" variant="signup"
               >
                 Register Now
               </Button>
