@@ -13,6 +13,8 @@ import Reviews from "@/components/vendor-dashboard/dahboard-services/reviews";
 import { useVendorAuth } from "@/contexts/VendorAuthContext";
 import Link from "next/link";
 import LoaderQuantum from "@/components/shared/Loaders/LoaderQuantum";
+import Comments from "@/components/vendor-dashboard/dahboard-services/Comments";
+import WriteReview from "@/components/vendor-dashboard/dahboard-services/WriteReview";
 
 const Service: React.FC = () => {
   const { vendor } = useVendorAuth();
@@ -126,11 +128,16 @@ const Service: React.FC = () => {
               </div>
               <hr className="border-t border-gray-300 my-4" />
               <div className="mb-3 text-2xl font-bold font-title">Reviews</div>
-              <div className="flex flex-row">
-                <div className="w-1/2">
-                  <p>Not available right now</p>
-                </div>
+              <div>
                 <Reviews />
+              </div>
+              <hr className="border-t border-gray-300 my-4" />
+              <div className="mb-3 text-2xl font-bold font-title">Write a Review</div>
+              <div>
+                <WriteReview/>
+              </div>
+              <div>
+                <Comments />
               </div>
               <hr className="border-t border-gray-300 my-4" />
               <div className="mb-3 text-2xl font-bold font-title">Contact</div>

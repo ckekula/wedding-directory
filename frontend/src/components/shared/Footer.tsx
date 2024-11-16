@@ -9,11 +9,11 @@ const Footer = () => {
   return (
     <footer className="bg-white py-6">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-3 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           {/* Brand Description */}
-          <div>
-            <h3 className="text-xl font-bold font-title mb-2">Say I Do</h3>
-            <p className="text-sm font-body">
+          <div className="hidden md:block">
+            <h3 className="text-lg md:text-xl font-bold font-title mb-2">Say I Do</h3>
+            <p className="text-xs md:text-sm font-body">
               Say I Do is your one-stop destination for all wedding planning
               needs. From finding the perfect venue to hiring the best vendors,
               we make sure your big day is as magical and stress-free as
@@ -23,12 +23,12 @@ const Footer = () => {
             </p>
           </div>
           {/* Navigation Links */}
-          <div className="grid grid-cols-2 gap-8">
+          <div className="grid grid-cols-2 gap-4 md:gap-8">
             <div>
-              <h4 className="text-lg font-semibold font-title mb-2">
+              <h4 className="text-md md:text-lg font-semibold font-title mb-2">
                 Navigate
               </h4>
-              <ul className="text-sm font-body">
+              <ul className="text-xs md:text-sm font-body space-y-1">
                 <li>
                   <Link href="/" className="hover:text-orange">
                     Home
@@ -52,8 +52,8 @@ const Footer = () => {
               </ul>
             </div>
             <div>
-              <h4 className="text-lg font-semibold font-title mb-2">About</h4>
-              <ul className="text-sm font-body">
+              <h4 className="text-md md:text-lg font-semibold font-title mb-2">About</h4>
+              <ul className="text-xs md:text-sm font-body space-y-1">
                 <li>
                   <Link href="/about" className="hover:text-orange">
                     About Us
@@ -87,39 +87,42 @@ const Footer = () => {
           </div>
           {/* Call to Action */}
           <div>
-            <h4 className="text-lg font-semibold font-title mb-2">
+            <h4 className="text-md md:text-lg font-semibold font-title mb-2">
               Are you a wedding service provider?
             </h4>
-            <p className="text-sm font-body mb-4">
-              Work with us to find more couples and help them to make their big
+            <p className="text-xs md:text-sm font-body mb-4">
+              Work with us to find more couples and help them make their big
               day unforgettable!
             </p>
-            <Link href="/sign-up" className="font-body font-bold">
-              <Button className="font-body font-bold" variant="signup">
+            {/* Redirect to visitor signup */}
+            <Link href="https://tally.so/r/nGBVMp" target="_blank">
+              <Button className="font-body font-bold w-full md:w-auto sm:w-fit" variant="signup"
+              >
                 Register Now
               </Button>
             </Link>
           </div>
         </div>
         <hr className="border-t border-black pt-4" />
-        <div className="flex justify-between items-center my-4">
-          <p className="font-body">All Copyrights Reserved by The Team Say I Do - &copy;2024</p>
+        <div className="flex flex-col md:flex-row justify-between items-center my-4 space-y-4 md:space-y-0">
+          <p className="font-body text-xs md:text-sm text-center md:text-left">
+            &copy; 2024 All Rights Reserved by The Team Say I Do
+          </p>
           {/* Social Media Icons */}
           <div className="flex space-x-4">
             <a href="#" className="text-black hover:text-orange">
-              <FaFacebook size={24} />
+              <FaFacebook size={20} />
             </a>
             <a href="#" className="text-black hover:text-orange">
-              <FaXTwitter size={24} />
+              <FaXTwitter size={20} />
             </a>
             <a href="#" className="text-black hover:text-orange">
-              <AiFillInstagram size={24} />
+              <AiFillInstagram size={20} />
             </a>
             <a href="#" className="text-black hover:text-orange">
-              <FaPinterest size={24} />
+              <FaPinterest size={20} />
             </a>
           </div>
-          {/* Copyright Information */}
         </div>
       </div>
     </footer>
