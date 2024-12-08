@@ -40,22 +40,23 @@ const PlanningSteps = () => {
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-title mb-8 text-center">
           Wedding planning has never been easier
         </h2>
-        <div className="flex flex-wrap md:flex-nowrap">
+
+        <div className="flex flex-col lg:flex-row lg:items-stretch lg:space-x-8 w-full">
           {/* Responsive image container */}
-          <div className="hidden md:block">
-            <div className="w-full md:w-1/2 lg:w-2/5 p-4">
+          <div className="hidden lg:block lg:w-1/3">
+            <div className="relative h-full">
               <Image
                 src="/images/bridaldressing.webp"
                 alt="Wedding Planning"
-                className="rounded-lg object-cover"
-                layout="responsive"
-                width={500}
-                height={750}
+                className="rounded-lg object-cover w-full h-full"
+                layout="fill"
+                objectFit="cover"
               />
             </div>
           </div>
+
           {/* Responsive cards container */}
-          <div className="w-full md:w-1/2 lg:w-3/5 flex flex-col justify-between space-y-6 md:space-y-8 lg:space-y-10 p-4">
+          <div className="w-full lg:w-2/3 flex flex-col space-y-6 md:space-y-8 lg:space-y-8">
             {cards.map((card) => (
               <div
                 key={card.id}
@@ -64,7 +65,7 @@ const PlanningSteps = () => {
                 <Image
                   src={card.image}
                   alt={card.title}
-                  className="rounded-lg "
+                  className="rounded-lg"
                   width={100}
                   height={100}
                 />
@@ -85,6 +86,7 @@ const PlanningSteps = () => {
             ))}
           </div>
         </div>
+
         {/* Signup section */}
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold font-title mb-8 text-center mt-8">
           Join with Say I Do
