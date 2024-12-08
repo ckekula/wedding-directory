@@ -20,7 +20,7 @@ const AboutUsPage: React.FC = () => {
 
       <div className="mx-10">
         {/* Carousel Section */}
-        <div className="w-full h-[500px] md:h-[400px] mx-auto flex justify-center items-center">
+        <div className="hidden sm:flex w-full h-[500px] md:h-[400px] mx-auto justify-center items-center">
           <Carousel images={images} />
         </div>
 

@@ -10,7 +10,7 @@ const Help = () => {
       <Header />
       <div className="mx-4 md:mx-10">
         {/* Image Section */}
-        <div className="relative z-10 w-full md:w-10/12 h-72 md:h-96 mx-auto flex justify-center items-center">
+        <div className="hidden sm:flex relative z-10 w-full md:w-10/12 h-72 md:h-96 mx-auto justify-center items-center">
           <div className="absolute inset-0 border-solid rounded-md overflow-hidden">
             <Image
               src="/images/photography.webp"
@@ -22,7 +22,7 @@ const Help = () => {
         </div>
 
         {/* Help Content Section */}
-        <div className="mt-4 bg-white rounded-lg py-5 px-4 md:px-6 mx-2 md:mx-auto md:w-10/12 lg:w-8/12">
+        <div className="my-4 bg-white rounded-lg py-5 px-4 md:px-6 mx-2 md:mx-auto md:w-10/12 lg:w-8/12">
           <div className="font-title font-bold text-2xl md:text-3xl mb-4">
             Help
           </div>

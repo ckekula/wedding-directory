@@ -102,74 +102,75 @@ const GeneralHeader = () => {
           </div>
         </div>
 
-        {isMobileMenuOpen && (
-          <div>
-            {/* Overlay */}
-            <div
-              className="fixed inset-0 bg-black bg-opacity-40 backdrop-blur-sm z-30"
-              onClick={() => setIsMobileMenuOpen(false)}
-            ></div>
+        {/* Mobile Menu (Always rendered) */}
+        <div className={`${isMobileMenuOpen ? 'pointer-events-auto' : 'pointer-events-none'}`}>
+          {/* Overlay */}
+          <div
+            className={`fixed inset-0 bg-black z-30 transition-all duration-300 ease-in-out ${
+              isMobileMenuOpen ? 'opacity-40' : 'opacity-0'
+            }`}
+            onClick={() => setIsMobileMenuOpen(false)}
+          ></div>
 
-            {/* Slide-in Menu */}
-            <div
-              className="fixed inset-y-0 left-0 w-2/4 max-w-sm bg-white shadow-lg z-40 transform transition-transform duration-300 ease-in-out"
-              style={{
-                transform: isMobileMenuOpen ? "translateX(0)" : "translateX(-100%)",
-              }}
-            >
-              <div className="p-6 space-y-4 flex flex-col">
-                {/* Navigation Links */}
-                {[
-                  { name: "home", path: "/" },
-                  { name: "about", path: "/about" },
-                  { name: "contact", path: "/contact" },
-                  { name: "help", path: "/help" },
-                ].map((link, index) => {
-                  const isActive = pathname === link.path;
-                  return (
-                    <Link
-                      href={link.path}
-                      key={index}
-                      className={`text-lg font-title capitalize transition-all ${
-                        isActive
-                          ? "font-bold text-black"
-                          : "text-black hover:text-orange "
-                      }`}
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      {link.name}
-                    </Link>
-                  );
-                })}
-                
-                {/* Authentication Buttons */}
-                <div className="pt-4 space-y-3">
-                  <Button
-                    variant="login"
-                    onClick={() => {
-                      setLoginVisible(true);
-                      setIsMobileMenuOpen(false);
-                    }}
-                    className="w-full"
-                  >
-                    Login
-                  </Button>
-                  <Button
-                    variant="signup"
-                    data-tally-open="wv0AKQ"
-                    data-tally-width="752"
-                    data-tally-layout="modal"
-                    data-tally-auto-close="0"
-                    className="w-full"
+          {/* Slide-in Menu */}
+          <div
+            className="fixed inset-y-0 left-0 w-2/4 max-w-sm bg-white shadow-lg z-40 transition-transform duration-300 ease-in-out"
+            style={{
+              transform: isMobileMenuOpen ? "translateX(0)" : "translateX(-100%)",
+            }}
+          >
+            <div className="p-6 space-y-4 flex flex-col">
+              {/* Navigation Links */}
+              {[
+                { name: "home", path: "/" },
+                { name: "about", path: "/about" },
+                { name: "contact", path: "/contact" },
+                { name: "help", path: "/help" },
+              ].map((link, index) => {
+                const isActive = pathname === link.path;
+                return (
+                  <Link
+                    href={link.path}
+                    key={index}
+                    className={`text-lg font-title capitalize transition-all ${
+                      isActive
+                        ? "font-bold text-black"
+                        : "text-black hover:text-orange "
+                    }`}
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
-                    Get Started
-                  </Button>
-                </div>
+                    {link.name}
+                  </Link>
+                );
+              })}
+              
+              {/* Authentication Buttons */}
+              <div className="pt-4 space-y-3">
+                <Button
+                  variant="login"
+                  onClick={() => {
+                    setLoginVisible(true);
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="w-full"
+                >
+                  Login
+                </Button>
+                <Button
+                  variant="signup"
+                  data-tally-open="wv0AKQ"
+                  data-tally-width="752"
+                  data-tally-layout="modal"
+                  data-tally-auto-close="0"
+                  className="w-full"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Get Started
+                </Button>
               </div>
             </div>
           </div>
-        )}
+        </div>
 
         {/* Visitor Login and Signup */}
         <VisitorLogin
