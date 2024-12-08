@@ -54,8 +54,19 @@ const GeneralHeader = () => {
     <Fragment>
       <header className="py-6 xl:py-6 text-black bg-white relative">
         <div className="container mx-auto grid grid-cols-3 items-center">
+          {/* Mobile Menu Button - Only visible on mobile */}
+          <div className="xl:hidden flex justify-start items-center">
+            <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+              {isMobileMenuOpen ? (
+                <HiX className="text-3xl" size={30} />
+              ) : (
+                <HiMenu className="text-3xl" />
+              )}
+            </button>
+          </div>
+
           {/* Logo Column */}
-          <div className="flex justify-start items-center">
+          <div className="flex justify-center items-center">
             <Link href="/">
               <h1 className="text-2xl font-bold text-black font-title ml-2">
                 Say I Do
@@ -68,8 +79,8 @@ const GeneralHeader = () => {
             <Nav />
           </div>
 
-          {/* Authentication Buttons Column */}
-          <div className="flex justify-end items-center gap-4 sm:justify-center sm:flex-col sm:gap-2 md:flex-row">
+          {/* Authentication Buttons Column - Only visible on desktop */}
+          <div className="hidden xl:flex justify-end items-center gap-4">
             <Button
               variant="login"
               onClick={() => setLoginVisible(true)}
@@ -77,6 +88,7 @@ const GeneralHeader = () => {
             >
               Login
             </Button>
+            {/* Add the sign up component after the waitlist is over */}
             <Button
               variant="signup"
               data-tally-open="wv0AKQ"
@@ -88,17 +100,6 @@ const GeneralHeader = () => {
               Get Started
             </Button>
           </div>
-        </div>
-
-        {/* Mobile Menu */}
-        <div className="xl:hidden flex justify-between items-center">
-          <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-            {isMobileMenuOpen ? (
-              <HiX className="text-3xl" size={30} />
-            ) : (
-              <HiMenu className="text-3xl" />
-            )}
-          </button>
         </div>
 
         {isMobileMenuOpen && (
@@ -117,6 +118,7 @@ const GeneralHeader = () => {
               }}
             >
               <div className="p-6 space-y-4 flex flex-col">
+                {/* Navigation Links */}
                 {[
                   { name: "home", path: "/" },
                   { name: "about", path: "/about" },
@@ -139,6 +141,31 @@ const GeneralHeader = () => {
                     </Link>
                   );
                 })}
+                
+                {/* Authentication Buttons */}
+                <div className="pt-4 space-y-3">
+                  <Button
+                    variant="login"
+                    onClick={() => {
+                      setLoginVisible(true);
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="w-full"
+                  >
+                    Login
+                  </Button>
+                  <Button
+                    variant="signup"
+                    data-tally-open="wv0AKQ"
+                    data-tally-width="752"
+                    data-tally-layout="modal"
+                    data-tally-auto-close="0"
+                    className="w-full"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    Get Started
+                  </Button>
+                </div>
               </div>
             </div>
           </div>
