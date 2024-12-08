@@ -1,10 +1,6 @@
 import { withSentryConfig } from '@sentry/nextjs';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    webpack(config) {
-        config.devtool = 'hidden-source-map';
-        return config;
-    },
     images: {
         remotePatterns: [
             {
@@ -15,7 +11,7 @@ const nextConfig = {
             },
         ],
     },
-    optimizeFonts: false,
+    optimizeFonts: true,
 };
 
 export default withSentryConfig(nextConfig, {
