@@ -159,7 +159,7 @@ export const metadata: Metadata = {
         url: "/images/hero.webp",
         width: 1200,
         height: 630,
-        alt: "Say I Do - Your central hub for all things wedding",
+        alt: "Say I Do - Your central hub for all things wedding-related",
       },
     ],
   },

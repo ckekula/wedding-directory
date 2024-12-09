@@ -1,24 +1,27 @@
 import type { MetadataRoute } from 'next'
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+export default function sitemap(): MetadataRoute.Sitemap {
+
+
   return [
     {
-      url: 'https://sayido.lk',
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}`,
       lastModified: new Date(),
-      changeFrequency: 'yearly',
+      changeFrequency: 'daily',
       priority: 1,
     },
     {
-      url: 'https://acme.com/about',
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}/about`,
       lastModified: new Date(),
-      changeFrequency: 'monthly',
+      changeFrequency: 'always',
       priority: 0.8,
     },
     {
-      url: 'https://acme.com/blog',
+      url: `${process.env.NEXT_PUBLIC_BASE_URL}/vendor-search`,
       lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.5,
-    },
+      changeFrequency: 'always',
+      priority: 0.8,
+    }
+
   ]
 }
