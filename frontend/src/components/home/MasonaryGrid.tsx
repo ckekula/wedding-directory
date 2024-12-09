@@ -57,7 +57,7 @@ const MasonaryGrid = () => {
 
   return (
     <section className="bg-background p-4 md:p-8 sm:p-16">
-      <h2 className="text-5xl font-bold text-center font-title pt-8 pb-4">
+      <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center font-title pt-8 pb-4">
         Locate Vendors For Every Vibe
       </h2>
       <p className="text-center mb-8 font-body text-xl pb-4">
