@@ -4,6 +4,11 @@ import Footer from "@/components/shared/Footer";
 import Carousel from "@/components/about-us/Carousel";
 import AboutUsSection from "@/components/about-us/AboutUsSection";
 import PurposeAndVision from "@/components/about-us/PurposeAndVision";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About Us",
+}
 
 const AboutUsPage: React.FC = () => {
   const images = [
