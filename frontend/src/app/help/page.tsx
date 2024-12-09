@@ -36,7 +36,7 @@ const Help = () => {
           </div>
           <Link
             className="font-bold text-orange hover:underline"
-            href="/contact-us"
+            href="/contact"
           >
             Contact Us
           </Link>

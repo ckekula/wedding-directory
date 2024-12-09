@@ -10,10 +10,6 @@ import Testimonials from "@/components/home/Testimonials";
 import Subscribe from "@/components/home/Subscribe";
 import Footer from "@/components/shared/Footer";
 
-export const metadata: Metadata = {
-  title: "Say I Do",
-};
-
 export default function Page() {
   return (
     <div>
