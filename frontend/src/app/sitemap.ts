@@ -5,19 +5,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return [
     {
-      url: `${process.env.NEXT_PUBLIC_BASE_URL}`,
+      url: "https://sayido.lk",
       lastModified: new Date(),
       changeFrequency: 'daily',
       priority: 1,
     },
     {
-      url: `${process.env.NEXT_PUBLIC_BASE_URL}/about`,
+      url: "https://sayido.lk/about",
       lastModified: new Date(),
       changeFrequency: 'always',
       priority: 0.8,
     },
     {
-      url: `${process.env.NEXT_PUBLIC_BASE_URL}/vendor-search`,
+      url: "https://sayido.lk/vendor-search",
       lastModified: new Date(),
       changeFrequency: 'always',
       priority: 0.9,
