@@ -5,6 +5,7 @@ import "./globals.css";
 import PageTransition from "@/components/PageTransition";
 import { VendorAuthProvider } from "@/contexts/VendorAuthContext";
 import { Toaster } from "react-hot-toast";
+import Script from "next/script"
 
 import localFont from "next/font/local";
 
@@ -135,24 +136,30 @@ const marckScriptFont = localFont({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://sayido.lk"),
-  title: "Say I Do",
+  title: {
+    default: "Say I Do",
+    template: "%s | Say I Do",
+  },
   description: "Your central hub for all things wedding",
   icons : {
     icon : "/favicon.ico"
+  },
+  verification: {
+    google:"LzToS2ShoWRSCnzqc98_lGewVgkZIN-LHglx_5QpS6M"
   },
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://sayido.lk",
     title: "Say I Do",
-    description: "Your central hub for all things wedding",
+    description: "Your central hub for all things wedding-related",
     siteName: "Say I Do",
     images: [
       {
         url: "/images/hero.webp",
         width: 1200,
         height: 630,
-        alt: "Say I Do - Your central hub for all things wedding",
+        alt: "Say I Do - Your central hub for all things wedding-related",
       },
     ],
   },
@@ -165,10 +172,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
-        <script async src="https://tally.so/widgets/embed.js"></script>
-      </head>
-
       <body
         className={`${montserratFont.variable} ${merriweatherFont.variable} ${montezFont.variable} ${outfitFont.variable} ${marckScriptFont.variable}`}
       >
@@ -185,6 +188,7 @@ export default function RootLayout({
           </VisitorAuthProvider>
         </ApolloWrapper>
       </body>
+    <Script async src="https://tally.so/widgets/embed.js"/>
     </html>
   );
 }

@@ -19,7 +19,7 @@ const Hero = () => {
       {/* Text and Search Bar */}
       <div className="absolute inset-0 flex flex-col items-center justify-center text-white text-center p-4 md:p-0">
         <h1 className="text-xl sm:text-3xl md:text-5xl font-bold font-title leading-tight">
-          Plan your wedding hassle-free with Us!
+          Plan your wedding hassle-free with us!
         </h1>
 
         <p className="mt-2 sm:mt-4 text-base sm:text-lg md:text-xl font-body leading-snug">
