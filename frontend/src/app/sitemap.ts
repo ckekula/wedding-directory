@@ -20,7 +20,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${process.env.NEXT_PUBLIC_BASE_URL}/vendor-search`,
       lastModified: new Date(),
       changeFrequency: 'always',
-      priority: 0.8,
+      priority: 0.9,
     }
 
   ]
