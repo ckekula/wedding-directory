@@ -145,7 +145,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://sayido.lk",
     title: "Say I Do",
-    description: "Your central hub for all things wedding",
+    description: "Your central hub for all things wedding-related",
     siteName: "Say I Do",
     images: [
       {
