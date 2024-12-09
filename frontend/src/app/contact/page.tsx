@@ -4,6 +4,11 @@ import Footer from "@/components/shared/Footer";
 import ContactInfo from "@/components/contact/ContactInfo";
 import ContactForm from "@/components/contact/ContactForm";
 import { FiMail, FiPhone, FiMapPin } from "react-icons/fi";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Contact",
+}
 
 const ContactPage: React.FC = () => {
   return (

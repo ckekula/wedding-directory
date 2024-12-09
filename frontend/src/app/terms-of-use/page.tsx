@@ -1,6 +1,11 @@
 import Footer from '@/components/shared/Footer'
 import Header from '@/components/shared/Headers/Header'
 import React from 'react'
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Terms of Use",
+}
 
 const TermsofUse = () => {
   return (

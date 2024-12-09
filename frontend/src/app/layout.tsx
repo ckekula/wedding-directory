@@ -135,7 +135,10 @@ const marckScriptFont = localFont({
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://sayido.lk"),
-  title: "Say I Do",
+  title: {
+    default: "Say I Do",
+    template: "%s | Say I Do",
+  },
   description: "Your central hub for all things wedding",
   icons : {
     icon : "/favicon.ico"

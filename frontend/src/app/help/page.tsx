@@ -3,6 +3,11 @@ import Image from "next/image";
 import Header from "@/components/shared/Headers/Header";
 import Footer from "@/components/shared/Footer";
 import Link from "next/link";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Help",
+}
 
 const Help = () => {
   return (
