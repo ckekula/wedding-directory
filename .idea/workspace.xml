@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fe9e803b-a74e-4952-bf96-9a931fe40db4" name="Changes" comment="changes in queries.ts" />
+    <list default="true" id="fe9e803b-a74e-4952-bf96-9a931fe40db4" name="Changes" comment="changes in queries.ts">
+      <change beforePath="$PROJECT_DIR$/.github/workflows/frontendVPS.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/frontendVPS.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -33,7 +36,7 @@
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "com.codeium.enabled": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "develop",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "D:/Web Development/My Projects/UniExchange",
     "node.js.detected.package.eslint": "true",
@@ -42,8 +45,8 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "npm.dev.executor": "Run",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "ts.external.directory.path": "D:\\UOR\\5thSem\\Software Project\\dev\\root\\wedding-directory\\backend\\node_modules\\typescript\\lib",
+    "settings.editor.selected.configurable": "configurable.group.tools",
+    "ts.external.directory.path": "D:\\UOR\\5thSem\\Software Project\\dev\\root\\wedding-directory\\frontend\\node_modules\\typescript\\lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -133,6 +136,7 @@
       <workItem from="1733414402091" duration="35000" />
       <workItem from="1733414467480" duration="787000" />
       <workItem from="1733673963123" duration="23000" />
+      <workItem from="1733837961380" duration="357000" />
     </task>
     <task id="LOCAL-00001" summary="adsfd">
       <option name="closed" value="true" />
