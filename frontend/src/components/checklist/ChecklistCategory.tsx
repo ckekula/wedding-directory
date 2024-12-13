@@ -72,7 +72,7 @@ const ChecklistCategory: React.FC<ChecklistCategoryProps> = ({
   };
 
   return (
-    <div className="border rounded-lg p-4">
+    <div className="border rounded-lg p-4 bg-white">
       <div
         className="flex justify-between items-center cursor-pointer"
         onClick={() => setIsExpanded(!isExpanded)}
