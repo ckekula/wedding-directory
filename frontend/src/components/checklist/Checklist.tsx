@@ -30,14 +30,15 @@ const Checklist: React.FC<ChecklistProps> = ({ categories }) => {
   const progress = Math.round((completedTasks / totalTasks) * 100);
 
   return (
-    <div className="max-w-4xl mx-auto p-6">
-      <h1 className="text-2xl font-bold mb-4">Your checklist</h1>
+    <div className="max-w-4xl mx-auto p-6 font-merriweather">
       <p className="text-sm text-gray-600 mb-2">
         Based on your wedding date:{" "}
-        <span className="font-medium">April 21, 2027</span>
+        <span className=" font-merriweather text-decoration: underline">
+          April 21, 2027
+        </span>
       </p>
 
-      <div className="w-full bg-gray-200 rounded-full h-2 mb-4">
+      <div className="w-full bg-gray-200 rounded-full h-2 mb-4  font-merriweather">
         <div
           className="bg-blue-500 h-2 rounded-full"
           style={{ width: `${progress}%` }}
