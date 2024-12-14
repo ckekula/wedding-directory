@@ -43,7 +43,7 @@ const Service: React.FC = () => {
   return (
     <div className="bg-lightYellow font-body">
       <Header />
-      <div className="mx-40 my-4 p-4">
+      <div className="md:mx-40 my-4 p-4">
         <Link href="/vendor-dashboard">
           <button className=" text-black font-body hover:text-gray-500 mr-2">
             &larr;
