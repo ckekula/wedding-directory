@@ -18,6 +18,7 @@ export class BudgetItemResolver {
     return this.budgetItemService.create(createBudgetItemInput);
   }
 
+
   @Mutation(() => BudgetItemModel)
   updateBudgetItem(@Args('id') id: string, @Args('updateBudgetItemInput') updateBudgetItemInput: UpdateBudgetItemInput) {
     return this.budgetItemService.update(id, updateBudgetItemInput);

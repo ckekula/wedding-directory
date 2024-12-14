@@ -6,8 +6,11 @@ import { BudgetToolEntity } from 'src/database/entities/budget_tool.entity';
 import { VisitorModule } from '../visitor/visitor.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([BudgetToolEntity]), VisitorModule],
+  imports: [
+    TypeOrmModule.forFeature([BudgetToolEntity]),
+    VisitorModule,
+  ],
   providers: [BudgetToolService, BudgetToolResolver],
-  exports: [BudgetToolService],
+  exports: [TypeOrmModule, BudgetToolService], // Exporting TypeOrmModule to share BudgetToolEntityRepository
 })
 export class BudgetToolModule {}

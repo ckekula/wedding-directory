@@ -20,7 +20,7 @@ export class BudgetToolEntity {
   totalBudget?: number;
 
   @OneToOne(() => VisitorEntity, { onDelete: 'CASCADE' })
-  @JoinColumn()
+  @JoinColumn({ name: 'visitorId' })
   visitor: VisitorEntity;
 
   @OneToMany(() => BudgetItemEntity, (item) => item.budgetTool, { cascade: true })

@@ -19,7 +19,7 @@ export class BudgetToolService {
   async findByVisitorId(visitorId: string): Promise<BudgetToolEntity> {
     return this.budgetToolRepository.findOne({
       where: { visitor: { id: visitorId } },
-      relations: ['budgetItems'],
+      relations: ['budgetItems','visitor'],
     });
   }
 

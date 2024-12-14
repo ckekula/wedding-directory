@@ -128,3 +128,26 @@ export const GET_VENDOR_BY_ID = gql`
     }
   }
 `;
+
+export const GET_BUDGET_TOOL = gql`
+    query GetBudgetTool($visitorId: String!) {
+        budgetTool(visitorId: $visitorId) {
+            id
+            totalBudget
+            visitor {
+                id
+                email
+            }
+            budgetItems {
+                id
+                itemName
+                category
+                estimatedCost
+                amountPaid
+                isPaidInFull
+            }
+            createdAt
+            updatedAt
+        }
+    }
+`
