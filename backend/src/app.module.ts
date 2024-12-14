@@ -10,6 +10,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { OfferingModule } from './modules/offering/offering.module';
 import { UploadModule } from './modules/upload/upload.module';
 import { BudgetToolModule} from './modules/budget/budget_tool.module';
+import { BudgetItemModule } from './modules/budget/budget_item.module';
 
 @Module({
   imports: [
@@ -37,7 +38,8 @@ import { BudgetToolModule} from './modules/budget/budget_tool.module';
     AuthModule,
     OfferingModule,
     UploadModule,
-    BudgetToolModule
+    BudgetToolModule,
+    BudgetItemModule
   ],
 })
 export class AppModule {}
