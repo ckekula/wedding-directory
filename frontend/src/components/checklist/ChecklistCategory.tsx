@@ -6,6 +6,7 @@ import {
   FaUtensils,
   FaAngleDown,
   FaAngleUp,
+  FaTrash, // Delete icon
 } from "react-icons/fa";
 import { GoFileMedia } from "react-icons/go";
 import { GiAmpleDress } from "react-icons/gi";
@@ -13,6 +14,8 @@ import { IoMdMusicalNotes, IoMdAddCircleOutline } from "react-icons/io";
 import { FaGift } from "react-icons/fa6";
 import { MdMail } from "react-icons/md";
 import { IoFlowerOutline } from "react-icons/io5";
+import { BsThreeDots } from "react-icons/bs";
+
 interface ChecklistCategoryProps {
   category: TaskCategory;
   showCompleted: boolean;
@@ -26,6 +29,7 @@ const ChecklistCategory: React.FC<ChecklistCategoryProps> = ({
 }) => {
   const [tasks, setTasks] = useState(category.tasks);
   const [isExpanded, setIsExpanded] = useState(false);
+  const [hoveredTaskId, setHoveredTaskId] = useState<number | null>(null);
 
   const filteredTasks = showCompleted
     ? tasks
@@ -52,14 +56,12 @@ const ChecklistCategory: React.FC<ChecklistCategoryProps> = ({
         return <GiAmpleDress className="text-pink-500 mr-2" size={28} />;
       case "Music":
         return <IoMdMusicalNotes className="text-purple-500 mr-2" size={28} />;
-
       case "Flowers & Decor":
         return <IoFlowerOutline className="text-green-500 mr-2" size={28} />;
       case "Registry":
         return <FaGift className="text-blue-500 mr-2" size={28} />;
       case "Invitations and Paper":
         return <MdMail className="text-yellow-500 mr-2" size={28} />;
-
       default:
         return <FaUtensils className="text-yellow-500 mr-2" size={28} />;
     }
@@ -79,15 +81,18 @@ const ChecklistCategory: React.FC<ChecklistCategoryProps> = ({
       </div>
       {isExpanded && (
         <div>
-          <ul className="mt-4 space-y-2">
+          <ul className="mt-4 space-y-2 py-4">
             {filteredTasks.map((task) => (
               <li
                 key={task.id}
-                className={`flex justify-between items-center p-2 hover:shadow-md hover:bg-gray-50 transition-shadow rounded ${
-                  task.completed ? "line-through text-gray-500" : ""
+                className={`flex justify-between items-center py-2 hover:shadow-lg  hover:bg-gray-50 transition-shadow rounded relative ${
+                  task.completed ? "line-through text-slate-500" : ""
                 }`}
+                onMouseEnter={() => setHoveredTaskId(task.id)}
+                onMouseLeave={() => setHoveredTaskId(null)}
               >
-                <label className="flex items-center space-x-2">
+                {/* Checkbox and Task Name */}
+                <label className="flex-1 items-center space-x-2 p-4 ">
                   <input
                     type="checkbox"
                     checked={task.completed}
@@ -99,8 +104,29 @@ const ChecklistCategory: React.FC<ChecklistCategoryProps> = ({
                     }`}
                   />
                   <span>{task.name}</span>
+                  <div className="text-sm text-slate-500 absolute bottom-0  mt-2">
+                    Due {task.dueDate}
+                  </div>
                 </label>
-                <span className="text-sm text-gray-500">{task.dueDate}</span>
+
+                {/* Hover Menu */}
+                {hoveredTaskId === task.id && (
+                  <div className="absolute  right-2 flex space-x-2 items-center bg-white  rounded p-1">
+                    <button className="text-slate-500 hover:text-red-600">
+                      <FaTrash size={16} />
+                    </button>
+                    <p className="text-slate-500">|</p>
+                    <button className="text-blue-500 hover:	text-decoration-line: underline text-sm">
+                      View Details
+                    </button>
+                  </div>
+                )}
+
+                {/* Task Date at the bottom */}
+                
+
+                {/* Triple dots */}
+                <BsThreeDots className="cursor-pointer text-gray-500" />
               </li>
             ))}
           </ul>
@@ -108,7 +134,7 @@ const ChecklistCategory: React.FC<ChecklistCategoryProps> = ({
             onClick={onAddTask}
             className="mt-4 text-orange hover:underline text-sm"
           >
-            <div className="flex">
+            <div className="flex ml-1">
               <IoMdAddCircleOutline className="mx-2" size={17} /> Add New Task
             </div>
           </button>
