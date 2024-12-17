@@ -90,3 +90,35 @@ export const UPDATE_SERVICE_SOCIALS = gql`
     }
   }
 `;
+
+export const CREATE_CHECKLIST = gql`
+  mutation CreateChecklist($input: CreateChecklistInput!) {
+    createChecklist(input: $input) {
+      id
+      title
+      dueDate
+      category
+      completed
+      notes
+    }
+  }
+`;
+
+export const UPDATE_CHECKLIST = gql`
+  mutation UpdateChecklist($input: UpdateChecklistInput!) {
+    updateChecklist(input: $input) {
+      id
+      title
+      dueDate
+      category
+      completed
+      notes
+    }
+  }
+`;
+
+export const DELETE_CHECKLIST = gql`
+  mutation DeleteChecklist($id: String!) {
+    deleteChecklist(id: $id)
+  }
+`;
