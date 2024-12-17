@@ -45,6 +45,7 @@
     "sharp": "^0.33.5",
     "tailwind-merge": "^2.4.0",
     "tailwindcss-animate": "^1.0.7",
+    "uuid": "^11.0.3",
     "zen-observable-ts": "^1.2.5"
   },
   "devDependencies": {

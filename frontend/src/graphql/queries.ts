@@ -128,3 +128,19 @@ export const GET_VENDOR_BY_ID = gql`
     }
   }
 `;
+
+
+export const GET_VISITOR_CHECKLISTS = gql`
+  query GetVisitorChecklists($visitorId: String!) {
+    getVisitorChecklists(visitorId: $visitorId) {
+      id
+      title
+      due_date
+      category
+      completed
+      notes
+      createdAt
+      updatedAt
+    }
+  }
+`;
