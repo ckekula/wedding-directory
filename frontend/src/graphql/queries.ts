@@ -135,11 +135,12 @@ export const GET_VISITOR_CHECKLISTS = gql`
     getVisitorChecklists(visitorId: $visitorId) {
       id
       title
-      dueDate
+      due_date
       category
       completed
       notes
+      createdAt
+      updatedAt
     }
   }
 `;
-

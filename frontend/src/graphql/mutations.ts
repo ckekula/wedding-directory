@@ -91,15 +91,20 @@ export const UPDATE_SERVICE_SOCIALS = gql`
   }
 `;
 
+
+
+
 export const CREATE_CHECKLIST = gql`
   mutation CreateChecklist($input: CreateChecklistInput!) {
     createChecklist(input: $input) {
       id
       title
-      dueDate
+      due_date
       category
       completed
       notes
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -109,10 +114,11 @@ export const UPDATE_CHECKLIST = gql`
     updateChecklist(input: $input) {
       id
       title
-      dueDate
+      due_date
       category
       completed
       notes
+      updatedAt
     }
   }
 `;
