@@ -3,6 +3,9 @@
 import { useParams, useRouter } from 'next/navigation';
 import { useQuery } from "@apollo/client";
 import { GET_BUDGET_TOOL } from '@/graphql/queries';
+import BudgetHeader from '@/components/visitor-dashboard/budgeter/BudgetHeader';
+import TotalCost from '@/components/visitor-dashboard/budgeter/TotalCost';
+import AmountPaid from '@/components/visitor-dashboard/budgeter/AmountPaid';
 
 
 
@@ -28,7 +31,13 @@ const BudgeterPage = () => {
   const { totalBudget, visitor, budgetItems, createdAt, updatedAt } = budgetTool;
 
   return (
-    <div className="p-6 max-w-4xl mx-auto bg-white shadow-md rounded-lg">
+    <div className="p-6 max-w-4xl mx-auto">
+      <BudgetHeader/>
+      <div className="flex justify-between items-center gap-6">
+        <TotalCost/>
+        <AmountPaid/>
+      </div>
+
       <h1 className="text-2xl font-bold text-gray-800 mb-4">Budget Tool Details</h1>
 
       {/* Budget Summary */}
