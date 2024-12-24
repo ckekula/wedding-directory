@@ -1,8 +1,17 @@
 import React, { useState } from "react";
+import { TaskType } from "@/types/taskTypes";
+import { Button } from "@/components/ui/button";
 import TaskRow from "./TaskRow";
-import { CategoryDropdownProps } from "@/types/taskTypes";
-import { IoIosArrowDown,IoIosArrowUp } from "react-icons/io";
-import { IoAddCircleOutline } from "react-icons/io5";
+import { IoAdd, IoChevronDown, IoChevronUp } from "react-icons/io5";
+
+type CategoryDropdownProps = {
+  category: string;
+  tasks: TaskType[];
+  onAddTask: () => void;
+  onEditTask: (task: TaskType) => void;
+  onDeleteTask: (id: string) => void;
+  onToggleComplete: (id: string, completed: boolean) => void;
+};
 
 const CategoryDropdown: React.FC<CategoryDropdownProps> = ({
   category,
@@ -12,30 +21,45 @@ const CategoryDropdown: React.FC<CategoryDropdownProps> = ({
   onDeleteTask,
   onToggleComplete,
 }) => {
-  const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleDropdown = () => setIsOpen((prev) => !prev);
+
   return (
-    <div className="border-b p-3 m-2 border-slate-400">
+    <div className="mb-6">
       <div
-        className="flex justify-between items-center cursor-pointer"
-        onClick={() => setOpen(!open)}
+        className="flex justify-between items-center bg-white border-b-slate-200 p-4 rounded-lg cursor-pointer"
+        onClick={toggleDropdown}
       >
-        <h3 className="text-xl font-bold font-title">{category}</h3>
-        <span>{open ? <IoIosArrowUp/> : <IoIosArrowDown/>}</span>
-      </div>
-      {open && (
+        <h2 className="text-lg font-bold font-title text-slate-800">
+          {category} ({tasks.length})
+        </h2>
         <div>
-          {tasks.map((task) => (
-            <TaskRow
-              key={task.id}
-              task={task}
-              onEdit={() => onEditTask(task)}
-              onDelete={() => onDeleteTask(task.id)}
-              onToggleComplete={onToggleComplete}
-            />
-          ))}
-          <button className="text-blue-600 mt-2 flex" onClick={onAddTask}>
-            <IoAddCircleOutline className="m-2"/> Add Task
-          </button>
+          {isOpen ? (
+            <IoChevronUp className="text-xl text-slate-600" />
+          ) : (
+            <IoChevronDown className="text-xl text-slate-600" />
+          )}
+        </div>
+      </div>
+      {isOpen && (
+        <div className="bg-white shadow p-4 rounded-b-lg">
+          {tasks.length > 0 ? (
+            tasks.map((task) => (
+              <TaskRow
+                key={task.id}
+                task={task}
+                onEdit={() => onEditTask(task)}
+                onDelete={() => onDeleteTask(task.id)}
+                onToggleComplete={onToggleComplete}
+              />
+            ))
+          ) : (
+            <p className="text-slate-600 italic">No tasks in this category.</p>
+          )}
+          <Button variant="login" className="mt-2 text-sm ml-2" onClick={onAddTask}>
+           Add Task
+          </Button>
         </div>
       )}
     </div>
