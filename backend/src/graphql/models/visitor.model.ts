@@ -41,7 +41,6 @@ export class VisitorModel {
   @Field({ nullable: true })
   city?: string;
 
-
   @Field()
   createdAt: Date;
 

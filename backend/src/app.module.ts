@@ -9,6 +9,8 @@ import { VisitorModule } from './modules/visitor/visitor.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { OfferingModule } from './modules/offering/offering.module';
 import { UploadModule } from './modules/upload/upload.module';
+import { BudgetToolModule} from './modules/budget/budget_tool.module';
+import { BudgetItemModule } from './modules/budget/budget_item.module';
 import { ChecklistModule } from './modules/checklist/checklist.module';
 
 @Module({
@@ -36,6 +38,9 @@ import { ChecklistModule } from './modules/checklist/checklist.module';
     VisitorModule,
     AuthModule,
     OfferingModule,
+    UploadModule,
+    BudgetToolModule,
+    BudgetItemModule,
     UploadModule,
     ChecklistModule
   ],
