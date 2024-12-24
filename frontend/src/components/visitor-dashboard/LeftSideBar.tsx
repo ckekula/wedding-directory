@@ -10,9 +10,10 @@ import { usePathname } from "next/navigation";
 interface LeftSideBarProps {
   isCollapsed: boolean;
   onToggleCollapse: () => void;
+  visitorId: string | null;
 }
 
-const LeftSideBar: React.FC<LeftSideBarProps> = ({ isCollapsed, onToggleCollapse }) => {
+const LeftSideBar: React.FC<LeftSideBarProps> = ({ isCollapsed, onToggleCollapse, visitorId }) => {
   const pathname = usePathname();
 
   const menuItems = [
@@ -27,7 +28,7 @@ const LeftSideBar: React.FC<LeftSideBarProps> = ({ isCollapsed, onToggleCollapse
       label: "Checklist"
     },
     {
-      href: "/budgeter",
+      href: `visitor-dashboard/budgeter/${visitorId}`,
       icon: <FiDollarSign className="w-5 h-5" />,
       label: "Budgeter"
     },

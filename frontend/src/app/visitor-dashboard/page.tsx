@@ -57,6 +57,7 @@ const VisitorDashboard = () => {
             >
               <div className="sticky top-4 pb-4">
                 <LeftSideBar
+                  visitorId={visitor?.id || null}
                   isCollapsed={isSidebarCollapsed}
                   onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
                 />
