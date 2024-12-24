@@ -9,6 +9,7 @@ import { VisitorModule } from './modules/visitor/visitor.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { OfferingModule } from './modules/offering/offering.module';
 import { UploadModule } from './modules/upload/upload.module';
+import { ChecklistModule } from './modules/checklist/checklist.module';
 
 @Module({
   imports: [
@@ -35,7 +36,8 @@ import { UploadModule } from './modules/upload/upload.module';
     VisitorModule,
     AuthModule,
     OfferingModule,
-    UploadModule
+    UploadModule,
+    ChecklistModule
   ],
 })
 export class AppModule {}
