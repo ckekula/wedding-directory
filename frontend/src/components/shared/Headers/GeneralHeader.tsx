@@ -91,11 +91,8 @@ const GeneralHeader = () => {
             {/* Add the sign up component after the waitlist is over */}
             <Button
               variant="signup"
-              data-tally-open="wv0AKQ"
-              data-tally-width="752"
-              data-tally-layout="modal"
-              data-tally-auto-close="0"
               className="w-full sm:w-auto"
+              onClick={() => setSignupVisible(true)}
             >
               Get Started
             </Button>
@@ -158,12 +155,11 @@ const GeneralHeader = () => {
                 </Button>
                 <Button
                   variant="signup"
-                  data-tally-open="wv0AKQ"
-                  data-tally-width="752"
-                  data-tally-layout="modal"
-                  data-tally-auto-close="0"
                   className="w-full"
-                  onClick={() => setIsMobileMenuOpen(false)}
+                  onClick={() => {
+                    setSignupVisible(true);
+                    setIsMobileMenuOpen(false);
+                  }}
                 >
                   Get Started
                 </Button>

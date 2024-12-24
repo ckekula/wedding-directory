@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 import { ReviewEntity } from './review.entity';
 import { BudgetToolEntity } from './budget_tool.entity';
+import { ChecklistEntity } from './checklist.entity';
 
 @Entity({ name: 'visitor' })
 export class VisitorEntity {
@@ -54,7 +55,7 @@ export class VisitorEntity {
   @OneToOne(() => BudgetToolEntity, (budgetTool) => budgetTool.visitor)
   budgetTool: BudgetToolEntity;
 
-  @OneToMany(() => ReviewEntity, r => r.visitor)
+  @OneToMany(() => ReviewEntity, (r) => r.visitor)
   reviews: ReviewEntity[];
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
@@ -62,4 +63,9 @@ export class VisitorEntity {
 
   @UpdateDateColumn({ name: 'updated_at', type: 'timestamp' })
   updatedAt: Date;
+
+  @OneToMany(() => ChecklistEntity, (checklist) => checklist.visitor, {
+    cascade: true,
+  })
+  checklists: ChecklistEntity[];
 }

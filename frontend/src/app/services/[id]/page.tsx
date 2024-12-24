@@ -38,18 +38,18 @@ const Service: React.FC = () => {
     "/images/photography.webp",
   ];
 
-  console.log(portfolioImages);
-
   return (
     <div className="bg-lightYellow font-body">
       <Header />
       <div className="md:mx-40 my-4 p-4">
         <Link href="/vendor-dashboard">
-          <button className=" text-black font-body hover:text-gray-500 mr-2">
+          <button className="text-black font-body hover:text-gray-500 mr-2">
             &larr;
           </button>
           back
         </Link>
+
+        {/* Portfolio Image Section */}
         <div>
           <section>
             <div className="container mx-auto">
@@ -73,46 +73,41 @@ const Service: React.FC = () => {
             </div>
           </section>
         </div>
-        <div>
-          <div className="bg-white rounded-2xl p-4 mb-4">
-            <div className="flex flex-row ">
-              <div className="w-8/12 flex flex-col">
-                <p>{service?.vendor.busname || "Vendor name not available"}</p>
-                <div className="flex flex-row text-2xl font-bold">
-                  {service?.name}
-                  <div className="ml-2 flex flex-row justify-center items-center gap-x-1">
-                    {service?.vendor.id === vendor?.id ? (
-                      <Link href={`/services/edit/${service?.id}`}>
-                        <FiEdit className=" hover:text-orange"/>
-                      </Link> // Show the edit icon if the logged-in user is the vendor
-                    ) : (
-                      <CiBookmark /> // Show the heart icon otherwise
-                    )}
-                  </div>
-                </div>
-                <div className=" flex flex-row items-center text-lg">
-                  <CiStar />
-                  <CiStar />
-                  <CiStar />
-                  <CiStar />
-                  <CiStar />
-                  <span> -/-(0)</span>
-                </div>
-                <div className="">{service?.vendor.city}</div>
-              </div>
-              
-                <SocialIcons service={service} />
-              
-            </div>
-          </div>
 
-          <div className="flex flex-row gap-x-5">
-            <div className="bg-white rounded-2xl w-3/4 p-4 flex flex-col ">
+        <div className="flex flex-row gap-x-5">
+          <div className="w-3/4">
+            {/* General Section */}
+            <div className="bg-white rounded-2xl p-4 mb-4">
+              <div className="flex flex-row">
+                <div className="w-8/12 flex flex-col">
+                  <div className="text-xl">
+                    {service?.vendor.busname || "Vendor name not available"}
+                  </div>
+                  <div className="flex flex-row text-3xl font-bold">
+                    {service?.name}
+                    <div className="ml-2 flex flex-row justify-center items-center gap-x-1">
+                      {service?.vendor.id === vendor?.id ? (
+                        <Link href={`/services/edit/${service?.id}`}>
+                          <FiEdit className="text-orange hover:text-black"/>
+                        </Link>
+                      ) : (
+                        <CiBookmark />
+                      )}
+                    </div>
+                  </div>
+                  <div>{service?.vendor.city}</div>
+                </div>
+                <SocialIcons service={service} />
+              </div>
+            </div>
+
+            {/* Details Section */}
+            <div className="bg-white rounded-2xl p-4 flex flex-col">
               <div className="mb-3 text-2xl font-bold font-title">
                 About the Vendor
               </div>
               <div>
-                <p>{service.vendor.about || "About section not available"}</p>
+                <p>{service.vendor.about || "About not available"}</p>
               </div>
               <hr className="border-t border-gray-300 my-4" />
 
@@ -144,15 +139,16 @@ const Service: React.FC = () => {
               <div className="flex flex-col gap-y-1">
                 <div>Email: {service.bus_email || "Email not available"}</div>
                 <div>
-                  Phone number:{" "}
-                  {service.bus_phone || "Phone number not available"}
+                  Phone number: {service.bus_phone || "Phone number not available"}
                 </div>
               </div>
             </div>
-            <div className="bg-white rounded-2xl w-1/4 p-4 flex flex-col ">
-              <p className="text-xl font-bold font-title">Message Vendor</p>
-              <p className="text-sm font-body  mt-10">Coming soon !</p>
+          </div>
 
+          <div className="w-1/4">
+            <div className="bg-white rounded-2xl p-4 flex flex-col sticky top-4">
+              <p className="text-xl font-bold font-title">Message Vendor</p>
+              <p className="text-sm font-body mt-10">Coming soon!</p>
             </div>
           </div>
         </div>
