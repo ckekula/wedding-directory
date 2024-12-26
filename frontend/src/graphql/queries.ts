@@ -151,7 +151,21 @@ export const GET_BUDGET_TOOL = gql`
         }
     }
 `
-
+export const GET_BUDGET_ITEMS = gql`
+    query GetBudgetItems($budgetToolId: String!) {
+        budgetItems(budgetToolId: $budgetToolId) {
+            id
+            itemName
+            category
+            estimatedCost
+            amountPaid
+            specialNotes
+            isPaidInFull
+            createdAt
+            updatedAt
+        }
+    }
+`
 
 export const GET_VISITOR_CHECKLISTS = gql`
   query GetVisitorChecklists($visitorId: String!) {
