@@ -10,6 +10,7 @@ import {
 import { ReviewEntity } from './review.entity';
 import { BudgetToolEntity } from './budget_tool.entity';
 import { ChecklistEntity } from './checklist.entity';
+import { MyVendorsEntity } from './myvendors.entity';
 
 @Entity({ name: 'visitor' })
 export class VisitorEntity {
@@ -68,4 +69,9 @@ export class VisitorEntity {
     cascade: true,
   })
   checklists: ChecklistEntity[];
+
+  @OneToMany(() => MyVendorsEntity, (myVendors) => myVendors.visitor, {
+    cascade: true,
+  })
+  myVendors: MyVendorsEntity[];
 }

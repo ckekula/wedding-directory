@@ -1,6 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn, OneToMany, ManyToMany } from 'typeorm';
 import { VendorEntity } from './vendor.entity';
 import { ReviewEntity } from './review.entity';
+import { MyVendorsEntity } from './myvendors.entity';
 
 @Entity({ name: 'offering' })
 export class OfferingEntity {
@@ -65,5 +66,9 @@ export class OfferingEntity {
     @OneToMany(() => ReviewEntity, r => r.offering)
     @JoinColumn({ name: 'Review_id' })
     review: ReviewEntity[];
+
+    @ManyToMany(() => MyVendorsEntity, { nullable: false, onDelete: 'CASCADE' })
+    @JoinColumn({ name: 'myvendors_id' })
+    myvendors: MyVendorsEntity[];
     
 }
