@@ -123,24 +123,11 @@ const VisitorLogin: React.FC<VisitorLoginProps> = ({ isVisible, onClose }) => {
                 className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
               >
                 Don&apos;t have an account?{" "}
-                {/* <Link
+                <Link
                   href=""
                   onClick={(e) => {
                     e.preventDefault();
                     setShowVisitorSignup(true);
-                  }}
-                  className="underline"
-                >
-                  Sign Up
-                </Link> */}
-                <Link
-                  href=""
-                  data-tally-open="wv0AKQ"
-                  data-tally-width="752"
-                  data-tally-layout="modal"
-                  data-tally-auto-close="0"
-                  onClick={(e) => {
-                    e.preventDefault();
                   }}
                   className="underline"
                 >

@@ -38,9 +38,9 @@ const LeftSideBar: React.FC<LeftSideBarProps> = ({ isCollapsed, onToggleCollapse
       label: "Guest List"
     },
     {
-      href: "/vendors",
+      href: "/my-vendors",
       icon: <HiOutlineBriefcase className="w-5 h-5" />,
-      label: "Vendors"
+      label: "MyVendors"
     }
   ];
 
