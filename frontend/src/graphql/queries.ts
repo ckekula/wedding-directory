@@ -128,3 +128,17 @@ export const GET_VENDOR_BY_ID = gql`
     }
   }
 `;
+
+export const GET_GUESTLIST_BY_ID = gql`
+  query GetGuestListById($id: String!) {
+    findGuestListById(id: $id) {
+      id
+      name
+      number
+      address
+      contact
+      email
+      status
+      }
+  }
+`;

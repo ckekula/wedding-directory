@@ -90,3 +90,32 @@ export const UPDATE_SERVICE_SOCIALS = gql`
     }
   }
 `;
+
+export const CREATE_GUESTLIST = gql`
+  mutation CreateGuestList($input: CreateGuestListInput!) {
+    createGuestList(input: $input) {
+      id
+      name
+      number
+      address
+      contact
+      email
+      status
+      visitor {
+        id
+      }
+    }
+  }
+`;
+
+export const UPDATE_GUESTLIST = gql`
+  mutation UpdateGuestList($id: String!, $input: UpdateGuestListInput!) {
+    updateGuestList(id: $id, input: $input) {
+      number
+      address
+      contact
+      email
+      status
+    }
+  }
+`;

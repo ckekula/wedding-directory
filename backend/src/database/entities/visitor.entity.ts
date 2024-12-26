@@ -7,6 +7,7 @@ import {
   OneToMany,
 } from 'typeorm';
 import { ReviewEntity } from './review.entity';
+import { GuestListEntity } from './guestlist.entity';
 
 @Entity({ name: 'visitor' })
 export class VisitorEntity {
@@ -57,4 +58,10 @@ export class VisitorEntity {
 
   @UpdateDateColumn({ name: 'updated_at', type: 'timestamp' })
   updatedAt: Date;
+
+    @OneToMany(() => GuestListEntity, (o) => o.visitor, {
+      cascade: true,
+      onDelete: 'CASCADE',
+    })
+    guestlist: GuestListEntity[];
 }
