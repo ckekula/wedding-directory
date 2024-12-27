@@ -3,8 +3,9 @@ import { useMutation, useQuery } from '@apollo/client';
 import { GET_BUDGET_ITEMS } from '@/graphql/queries';
 import BudgetItem from '@/components/visitor-dashboard/budgeter/BudgetItem';
 import { Search, Plus } from 'lucide-react';
-import { UPDATE_BUDGET_ITEM } from '@/graphql/mutations';
+import { DELETE_BUDGET_ITEM, UPDATE_BUDGET_ITEM } from '@/graphql/mutations';
 import BudgetItemPopup from '@/components/visitor-dashboard/budgeter/BudgetItemPopup';
+import { toast } from 'react-hot-toast';
 
 const BudgetItemsPanel = ({ budgetToolId }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -31,6 +32,16 @@ const BudgetItemsPanel = ({ budgetToolId }) => {
     }
   });
 
+  const [deleteBudgetItem] = useMutation(DELETE_BUDGET_ITEM, {
+    onCompleted: () => {
+      refetchBudgetItems();
+      toast.success('Budget item deleted successfully');
+    },
+    onError: (error) => {
+      toast.error('Error deleting budget item: ' + error.message);
+    }
+  });
+
   const handleUpdateBudgetItem = async (itemId, data) => {
     try {
       const input = {
@@ -50,6 +61,18 @@ const BudgetItemsPanel = ({ budgetToolId }) => {
       });
     } catch (error) {
       console.error('Error in handleUpdateBudgetItem:', error);
+    }
+  };
+
+  const handleDeleteBudgetItem = async (itemId) => {
+    try {
+      await deleteBudgetItem({
+        variables: {
+          id: itemId
+        }
+      });
+    } catch (error) {
+      console.error('Error in handleDeleteBudgetItem:', error);
     }
   };
 
@@ -128,9 +151,7 @@ const BudgetItemsPanel = ({ budgetToolId }) => {
             onSave={(data) => {
               handleUpdateBudgetItem(item.id, data);
             }}
-            onDelete={(data) => {
-              console.log('Deleting:', data);
-            }}
+            onDelete={() => handleDeleteBudgetItem(item.id)}
           />
         ))}
       </div>

@@ -157,3 +157,8 @@ export const CREATE_BUDGET_ITEM = gql`
         }
     }
 `
+export const DELETE_BUDGET_ITEM = gql `
+    mutation DeleteBudgetItem($id: String!) {
+        deleteBudgetItem(id: $id)
+    }
+`
