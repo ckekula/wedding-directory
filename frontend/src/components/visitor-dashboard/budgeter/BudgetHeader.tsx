@@ -1,7 +1,7 @@
 import React from 'react';
 import Breadcrumbs from '@/components/Breadcrumbs';
 
-const BudgetHeader = ({ budget, totalCost }) => {
+const BudgetHeader = ({ budget = 0.00, totalCost = 0.00 }) => {
   const utilizationPercentage = ((totalCost / budget) * 100).toFixed(2);
 
   const breadcrumbItems = [

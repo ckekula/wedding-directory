@@ -16,11 +16,13 @@ export class BudgetToolService {
     private readonly visitorService: VisitorService,
   ) {}
 
-  async findByVisitorId(visitorId: string): Promise<BudgetToolEntity> {
-    return this.budgetToolRepository.findOne({
+  async findByVisitorId(visitorId: string): Promise<BudgetToolEntity | null> {
+    const budgetTool = await this.budgetToolRepository.findOne({
       where: { visitor: { id: visitorId } },
-      relations: ['budgetItems','visitor'],
+      relations: ['budgetItems', 'visitor'],
     });
+
+    return budgetTool || null;
   }
 
 
@@ -44,7 +46,11 @@ export class BudgetToolService {
 
   async update(id: string, input: UpdateBudgetToolInput): Promise<BudgetToolEntity> {
     await this.budgetToolRepository.update(id, input);
-    return this.budgetToolRepository.findOne({ where: { id } });
+    const updated = await this.budgetToolRepository.findOne({ where: { id } });
+    if (!updated) {
+      throw new NotFoundException(`Budget tool with ID ${id} not found`);
+    }
+    return updated;
   }
 
   async delete(id: string): Promise<boolean> {

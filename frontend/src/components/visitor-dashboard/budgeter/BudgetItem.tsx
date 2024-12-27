@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ChevronUp, Trash2 } from 'lucide-react';
 
 const BudgetItem = ({
+                      itemId,
                       itemName = "Reception Venue & Rentals",
                       estimatedCost = 145000,
                       paidAmount = 50000,
@@ -10,58 +11,119 @@ const BudgetItem = ({
                       onSave = () => {},
                       onDelete = () => {},
                     }) => {
-  const [isOpen, setIsOpen] = useState(true);
-  const [notes, setNotes] = useState(specialNotes || '');
+  const [isOpen, setIsOpen] = useState(false);
+  const [editedValues, setEditedValues] = useState({
+    itemName,
+    estimatedCost,
+    paidAmount,
+    category,
+    specialNotes: specialNotes || '',
+  });
+
+  const handleInputChange = (field, value) => {
+    setEditedValues(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
 
   const handleSave = () => {
+    // Check if estimated cost equals amount paid
+    const isPaidInFull = editedValues.estimatedCost === editedValues.paidAmount;
+
+    // Pass all values including isPaidInFull to the save handler
     onSave({
-      itemName,
-      estimatedCost,
-      paidAmount,
-      category,
-      specialNotes: notes
+      ...editedValues,
+      isPaidInFull
     });
+
+    setIsOpen(false);
   };
 
   const handleDelete = () => {
-    onDelete({
-      itemName,
-      estimatedCost,
-      paidAmount,
-      category,
-      specialNotes: notes
-    });
+    onDelete(editedValues);
   };
 
   return (
-    <div className="bg-white rounded-xl p-2 mx-6 shadow-sm border gap-y-1">
-      <div className="flex items-center justify-between cursor-pointer" onClick={() => setIsOpen(!isOpen)}>
-        <div className="flex-1">
-          <div className="flex items-center justify-between">
-            <h3 className="text-lg font-medium">{itemName}</h3>
-            <div className="flex items-center gap-8">
-              <span className="font-medium">{estimatedCost.toLocaleString()} LKR</span>
-              <span className="font-medium">{paidAmount.toLocaleString()} LKR</span>
-              <ChevronUp className={`transform transition-transform ${isOpen ? '' : 'rotate-180'}`} />
-            </div>
-          </div>
+    <div className="border rounded-lg bg-white shadow-sm">
+      <div
+        className="grid grid-cols-[1fr,200px,200px,50px] gap-4 px-6 py-4 cursor-pointer"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        <div className="font-medium">{itemName}</div>
+        <div className="text-gray-600">{estimatedCost.toLocaleString()} LKR</div>
+        <div className="text-gray-600">{paidAmount.toLocaleString()} LKR</div>
+        <div className="flex justify-end">
+          <ChevronUp
+            className={`transform transition-transform ${
+              isOpen ? '' : 'rotate-180'
+            }`}
+            size={20}
+          />
         </div>
       </div>
 
       {isOpen && (
-        <div className="mt-4 space-y-4">
-          <div className="flex items-center gap-2">
-            <span className="text-gray-600">Category:</span>
-            <span>{category}</span>
+        <div className="px-6 py-4 border-t space-y-4">
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">
+                Item Name
+              </label>
+              <input
+                type="text"
+                value={editedValues.itemName}
+                onChange={(e) => handleInputChange('itemName', e.target.value)}
+                className="w-full px-3 py-2 border rounded-lg"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">
+                Category
+              </label>
+              <input
+                type="text"
+                value={editedValues.category}
+                onChange={(e) => handleInputChange('category', e.target.value)}
+                className="w-full px-3 py-2 border rounded-lg"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">
+                Estimated Cost (LKR)
+              </label>
+              <input
+                type="number"
+                value={editedValues.estimatedCost}
+                onChange={(e) => handleInputChange('estimatedCost', parseFloat(e.target.value))}
+                className="w-full px-3 py-2 border rounded-lg"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">
+                Amount Paid (LKR)
+              </label>
+              <input
+                type="number"
+                value={editedValues.paidAmount}
+                onChange={(e) => handleInputChange('paidAmount', parseFloat(e.target.value))}
+                className="w-full px-3 py-2 border rounded-lg"
+              />
+            </div>
           </div>
 
           <div className="space-y-2">
+            <label className="block text-sm font-medium text-gray-700">
+              Special Notes
+            </label>
             <textarea
-              className="w-full border rounded-lg p-3 text-gray-600"
-              placeholder="Add related notes about your payments, advanced, due dates, options etc."
-              rows={3}
-              value={notes}
-              onChange={(e) => setNotes(e.target.value)}
+              value={editedValues.specialNotes}
+              onChange={(e) => handleInputChange('specialNotes', e.target.value)}
+              className="w-full px-3 py-2 border rounded-lg min-h-[100px]"
+              placeholder="Add any special notes here..."
             />
           </div>
 
