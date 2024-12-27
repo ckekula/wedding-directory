@@ -22,5 +22,5 @@ export type GuestListRepositoryType = Repository<GuestListEntity> & {
   //   status?: string
   // ): Promise<GuestListEntity[]>;
 
-  //findGuestListByOffering(id: string): Promise<GuestListEntity[]>;
+  findGuestListsByVisitor(id: string): Promise<GuestListEntity[]>;
 };

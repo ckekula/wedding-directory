@@ -29,7 +29,7 @@ export class GuestListEntity {
   @Column({ type: 'varchar', length: 50, nullable: true })
   email?: string;
 
-  @Column({ type: 'varchar', length: 10})
+  @Column({ type: 'varchar', length: 15})
   status: string;
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamp' })

@@ -23,14 +23,6 @@ const AddNewGuest: React.FC<AddNewGuest> = ({ isVisible, onClose, onSave }) => {
     const [email, setEmail] = useState("");
     const [status, setStatus] = useState<string>('');
     const [createGuestList, { loading }] = useMutation(CREATE_GUESTLIST);
-    // const [formData, setFormData] = useState({
-    //     name: "",
-    //     address: "",
-    //     contact: "",
-    //     email: "",
-    //     status: "",
-    //   });
-    
 
     if (!isVisible) return null;
 
@@ -95,6 +87,7 @@ const AddNewGuest: React.FC<AddNewGuest> = ({ isVisible, onClose, onSave }) => {
                                 className="border rounded px-3 py-2 w-full"
                                 value={number}
                                 onChange={(e) => setNumber(e.target.value)}required>
+                                <option value="">No</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>

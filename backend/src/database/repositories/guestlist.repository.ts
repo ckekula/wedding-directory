@@ -40,7 +40,7 @@ export const GuestListRepository = (dataSource: DataSource): GuestListRepository
     async findGuestListById(id: string): Promise<GuestListEntity> {
       return this.findOne({ 
         relations: ['visitor'], where: { id } });
-    }
+    },
 
     // async findGuestListsByFilter(status?: string, name?: string ): Promise<GuestListEntity[]> {
     //   const query = this.createQueryBuilder('guestlist')
@@ -57,10 +57,10 @@ export const GuestListRepository = (dataSource: DataSource): GuestListRepository
     //   return query.getMany();
     // },
 
-    // async findGuestListsByVisitor(id: string): Promise<GuestListEntity[]> {
-    //   return this.createQueryBuilder('guestlist')
-    //     .leftJoinAndSelect('guestlist.visitor', 'visitor') // Include visitor details
-    //     .where('visitor.id = :id', { id })
-    //     .getMany();
-    // }
+    async findGuestListsByVisitor(id: string): Promise<GuestListEntity[]> {
+      return this.createQueryBuilder('guestlist')
+        .leftJoinAndSelect('guestlist.visitor', 'visitor') // Include visitor details
+        .where('visitor.id = :id', { id })
+        .getMany();
+    }
   });

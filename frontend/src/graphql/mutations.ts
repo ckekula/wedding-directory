@@ -16,30 +16,27 @@ export const CREATE_VENDOR = gql`
 `;
 
 export const CREATE_VISITOR_MUTATION = gql`
-    mutation CreateVisitor($email: String!, $password: String!) {
-        createVisitor(createVisitorInput: {
-            email: $email,
-            password: $password
-        }) {
-            id
-            email
-        }
+  mutation CreateVisitor($email: String!, $password: String!) {
+    createVisitor(createVisitorInput: { email: $email, password: $password }) {
+      id
+      email
     }
+  }
 `;
 
 export const UPDATE_VISITOR = gql`
-    mutation UpdateVisitor($id: String!, $input: UpdateVisitorInput!) {
-        updateVisitor(id: $id, input: $input) {
-            id
-            visitor_fname
-            visitor_lname
-            partner_fname
-            partner_lname
-            engaged_date
-            wed_date
-            wed_venue
-        }
+  mutation UpdateVisitor($id: String!, $input: UpdateVisitorInput!) {
+    updateVisitor(id: $id, input: $input) {
+      id
+      visitor_fname
+      visitor_lname
+      partner_fname
+      partner_lname
+      engaged_date
+      wed_date
+      wed_venue
     }
+  }
 `;
 
 export const CREATE_SERVICE = gql`
@@ -60,9 +57,9 @@ export const UPDATE_VENDOR = gql`
     updateVendor(id: $id, input: $input) {
       fname
       lname
-      busname 
-      phone 
-      city 
+      busname
+      phone
+      city
       location
     }
   }
@@ -74,7 +71,7 @@ export const UPDATE_SERVICE_PROFILE = gql`
       category
       bus_phone
       bus_email
-      description 
+      description
       pricing
     }
   }

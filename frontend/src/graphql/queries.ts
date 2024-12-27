@@ -129,9 +129,9 @@ export const GET_VENDOR_BY_ID = gql`
   }
 `;
 
-export const GET_GUESTLIST_BY_ID = gql`
-  query GetGuestListById($id: String!) {
-    findGuestListById(id: $id) {
+export const FIND_GUESTLIST_BY_VISITOR = gql`
+  query FindGuestListsByVisitor($id: String!) {
+    findGuestListsByVisitor(id: $id) {
       id
       name
       number
@@ -139,6 +139,9 @@ export const GET_GUESTLIST_BY_ID = gql`
       contact
       email
       status
+       visitor {
+        id
       }
+    }
   }
 `;

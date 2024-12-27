@@ -49,4 +49,8 @@ export class GuestListService {
   async findGuestListById(id: string): Promise<GuestListEntity> {
     return this.guestlistRepository.findGuestListById(id);
   }
+
+    async findGuestListsByVisitor(visitorId: string): Promise<GuestListEntity[]> {
+      return this.guestlistRepository.findGuestListsByVisitor(visitorId);
+    }
 }

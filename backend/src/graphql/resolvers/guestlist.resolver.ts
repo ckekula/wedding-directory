@@ -38,9 +38,6 @@ export class GuestListResolver {
     return this.guestlistService.findGuestListById(id);
   }
 
-  
-  
-
   // @Query(() => [GuestListModel])
   // async findGuestLists(
   //   @Args('filter', { nullable: true }) filter?: GuestListFilterInput
@@ -48,11 +45,11 @@ export class GuestListResolver {
   //   return this.guestlistService.findGuestListsByFilters(filter || {});
   // }
 
-  // @Query(() => [GuestListModel])
-  // async findGuestListsByVendor(
-  //   @Args('id') id: string,
-  // ): Promise<GuestListEntity[]> {
-  //   return this.guestlistService.findGuestListsByVendor(id);
-  // }
+  @Query(() => [GuestListModel])
+  async findGuestListsByVisitor(
+    @Args('id') id: string,
+  ): Promise<GuestListEntity[]> {
+    return this.guestlistService.findGuestListsByVisitor(id);
+  }
 
 }
