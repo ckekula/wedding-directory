@@ -8,8 +8,8 @@ import { UpdateBudgetToolInput } from '../inputs/updateBudgetTool.input';
 export class BudgetToolResolver {
   constructor(private readonly budgetToolService: BudgetToolService) {}
 
-  @Query(() => BudgetToolModel, { name: 'budgetTool' })
-  getBudgetTool(@Args('visitorId') visitorId: string) {
+  @Query(() => BudgetToolModel, { name: 'budgetTool' , nullable: true })
+  getBudgetTool(@Args('visitorId') visitorId: string ){
     return this.budgetToolService.findByVisitorId(visitorId);
   }
 
