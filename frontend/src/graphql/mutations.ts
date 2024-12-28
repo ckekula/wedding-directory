@@ -128,3 +128,37 @@ export const DELETE_CHECKLIST = gql`
     deleteChecklist(id: $id)
   }
 `;
+
+export const UPDATE_BUDGET_ITEM = gql`
+    mutation UpdateBudgetItem($id: String!, $input: UpdateBudgetItemInput!) {
+        updateBudgetItem(id: $id, updateBudgetItemInput: $input) {
+            itemName
+            estimatedCost
+            amountPaid
+            isPaidInFull
+            updatedAt
+        }
+    }
+`
+
+export const CREATE_BUDGET_TOOL = gql`
+    mutation CreateBudgetTool($input: CreateBudgetToolInput!) {
+        createBudgetTool(createBudgetToolInput: $input) {
+            id
+        }
+    }
+
+`
+
+export const CREATE_BUDGET_ITEM = gql`
+    mutation CreateBudgetItem($input: CreateBudgetItemInput!) {
+        createBudgetItem(createBudgetItemInput: $input) {
+            id
+        }
+    }
+`
+export const DELETE_BUDGET_ITEM = gql `
+    mutation DeleteBudgetItem($id: String!) {
+        deleteBudgetItem(id: $id)
+    }
+`
