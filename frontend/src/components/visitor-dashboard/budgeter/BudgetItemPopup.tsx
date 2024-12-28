@@ -63,17 +63,13 @@ const BudgetItemPopup = ({ isOpen, onClose, budgetToolId, onItemAdded }) => {
   };
 
   return (
-    <Dialog
-      open={isOpen}
-      onClose={onClose}
-      className="relative z-50"
-    >
+    <Dialog open={isOpen} onClose={onClose} className="relative z-50">
       <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
 
       <div className="fixed inset-0 flex items-center justify-center p-4">
         <Dialog.Panel className="mx-auto max-w-md rounded-2xl bg-white p-6 w-full">
           <div className="flex items-center justify-between mb-6">
-            <Dialog.Title className="text-2xl font-bold">
+            <Dialog.Title className="text-2xl font-bold font-body">
               Add new Budget Item
             </Dialog.Title>
             <button
@@ -86,26 +82,30 @@ const BudgetItemPopup = ({ isOpen, onClose, budgetToolId, onItemAdded }) => {
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label className="block mb-2">Item Name</label>
+              <label className="block mb-2 font-body">Item Name</label>
               <Input
                 value={formData.itemName}
-                onChange={(e) => setFormData(prev => ({
-                  ...prev,
-                  itemName: e.target.value
-                }))}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    itemName: e.target.value,
+                  }))
+                }
                 placeholder="Enter item name"
                 required
               />
             </div>
 
             <div>
-              <label className="block mb-2">Budget Category</label>
+              <label className="block mb-2 font-body">Budget Category</label>
               <Input
                 value={formData.category}
-                onChange={(e) => setFormData(prev => ({
-                  ...prev,
-                  category: e.target.value
-                }))}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    category: e.target.value,
+                  }))
+                }
                 placeholder="Enter category"
                 required
               />
@@ -113,30 +113,34 @@ const BudgetItemPopup = ({ isOpen, onClose, budgetToolId, onItemAdded }) => {
 
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block mb-2">Estimate/Cost</label>
+                <label className="block mb-2 font-body">Estimate/Cost</label>
                 <Input
                   type="number"
                   step="0.01"
                   value={formData.estimatedCost}
-                  onChange={(e) => setFormData(prev => ({
-                    ...prev,
-                    estimatedCost: e.target.value
-                  }))}
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      estimatedCost: e.target.value,
+                    }))
+                  }
                   placeholder="Enter estimated cost"
                   required
                 />
               </div>
 
               <div>
-                <label className="block mb-2">Amount paid</label>
+                <label className="block mb-2 font-body">Amount paid</label>
                 <Input
                   type="number"
                   step="0.01"
                   value={formData.amountPaid}
-                  onChange={(e) => setFormData(prev => ({
-                    ...prev,
-                    amountPaid: e.target.value
-                  }))}
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      amountPaid: e.target.value,
+                    }))
+                  }
                   placeholder="Enter amount paid"
                   required
                 />
@@ -144,13 +148,15 @@ const BudgetItemPopup = ({ isOpen, onClose, budgetToolId, onItemAdded }) => {
             </div>
 
             <div>
-              <label className="block mb-2">Add Notes</label>
+              <label className="block mb-2 font-body">Add Notes</label>
               <textarea
                 value={formData.specialNotes}
-                onChange={(e) => setFormData(prev => ({
-                  ...prev,
-                  specialNotes: e.target.value
-                }))}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    specialNotes: e.target.value,
+                  }))
+                }
                 placeholder="Add related notes about your payments, advanced, due dates, options etc."
                 className="w-full p-2 border rounded-lg h-24 resize-none"
               />
@@ -158,10 +164,10 @@ const BudgetItemPopup = ({ isOpen, onClose, budgetToolId, onItemAdded }) => {
 
             <Button
               type="submit"
-              className="w-full bg-[#FF7262] hover:bg-[#ff8576] text-white py-6"
+              className="w-full bg-[#FF7262] hover:bg-[#ff8576] text-white py-6 font-body"
               disabled={loading}
             >
-              {loading ? 'Adding...' : 'Add Expense'}
+              {loading ? "Adding..." : "Add Expense"}
             </Button>
           </form>
         </Dialog.Panel>
