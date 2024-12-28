@@ -1,5 +1,5 @@
-import { Repository } from "node_modules/typeorm";
-import { MyVendorsEntity } from "../entities/myvendors.entity";
+import { Repository } from "typeorm";
+import { MyVendorsEntity } from "../entities/myVendors.entity";
 
 export type MyVendorsRepositoryType = Repository<MyVendorsEntity> & {
     findAllMyVendorsByCategory(visitorId: string, category: string): Promise<MyVendorsEntity[]>;

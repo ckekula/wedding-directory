@@ -1,5 +1,5 @@
 import { DataSource } from 'typeorm';
-import { MyVendorsEntity } from '../entities/myvendors.entity';
+import { MyVendorsEntity } from '../entities/myVendors.entity';
 import { OfferingEntity } from '../entities/offering.entity';
 
 export const MyVendorsRepository = (dataSource: DataSource) =>
@@ -23,14 +23,14 @@ export const MyVendorsRepository = (dataSource: DataSource) =>
     
       // If no result is found, return null or throw an error
       if (!myVendor) {
-        throw new Error(`No offering found for visitorId ${visitorId} and offeringId ${offeringId}`);
+        return null;
       }
     
       return myVendor;
     },
 
     async addToMyVendors(visitorId: string, offeringId: string) {
-      const offering = await this.manager.findOne(OfferingEntity, { where: { offeringId } });
+      const offering = await this.manager.findOne(OfferingEntity, { where: { id: offeringId } });
 
       if (!offering) {
         throw new Error("No offering found");

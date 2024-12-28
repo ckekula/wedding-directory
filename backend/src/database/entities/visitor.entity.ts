@@ -10,7 +10,7 @@ import {
 import { ReviewEntity } from './review.entity';
 import { BudgetToolEntity } from './budget_tool.entity';
 import { ChecklistEntity } from './checklist.entity';
-import { MyVendorsEntity } from './myvendors.entity';
+import { MyVendorsEntity } from './myVendors.entity';
 
 @Entity({ name: 'visitor' })
 export class VisitorEntity {
@@ -65,13 +65,9 @@ export class VisitorEntity {
   @UpdateDateColumn({ name: 'updated_at', type: 'timestamp' })
   updatedAt: Date;
 
-  @OneToMany(() => ChecklistEntity, (checklist) => checklist.visitor, {
-    cascade: true,
-  })
+  @OneToMany(() => ChecklistEntity, (c) => c.visitor, {cascade: true})
   checklists: ChecklistEntity[];
 
-  @OneToMany(() => MyVendorsEntity, (myVendors) => myVendors.visitor, {
-    cascade: true,
-  })
+  @OneToMany(() => MyVendorsEntity, (m) => m.visitor, {cascade: true})
   myVendors: MyVendorsEntity[];
 }
