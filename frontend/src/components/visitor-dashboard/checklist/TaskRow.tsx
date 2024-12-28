@@ -14,23 +14,23 @@ const TaskRow: React.FC<TaskRowProps> = ({
   const handleToggleComplete = () => {
     // Toggle the completion status
     onToggleComplete(task.id, !task.completed);
-    };
-    
-    // In TaskRow component
-const formatDate = (timestamp: string | number) => {
-  // Convert timestamp to Date object
-  const date = new Date(parseInt(String(timestamp)));
+  };
 
-  // Check if date is valid
-  if (isNaN(date.getTime())) {
-    return "Invalid Date";
-  }
-  return date.toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
-};
+  // In TaskRow component
+  const formatDate = (timestamp: string | number) => {
+    // Convert timestamp to Date object
+    const date = new Date(parseInt(String(timestamp)));
+
+    // Check if date is valid
+    if (isNaN(date.getTime())) {
+      return "Invalid Date";
+    }
+    return date.toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+    });
+  };
 
   return (
     <div
@@ -61,13 +61,16 @@ const formatDate = (timestamp: string | number) => {
       {hover && (
         <div className="flex gap-2">
           <button
-            onClick={onEdit}
+            onClick={() => onEdit()}
             className="text-blue-500 hover:font-semibold"
           >
             View details
           </button>
           <button onClick={onDelete} className="text-slate-500">
-            <MdDelete size={20}className="hover:text-red-500 hover:text-bold"/>
+            <MdDelete
+              size={20}
+              className="hover:text-red-500 hover:text-bold"
+            />
           </button>
         </div>
       )}

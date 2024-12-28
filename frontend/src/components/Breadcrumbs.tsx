@@ -18,11 +18,11 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items }) => {
         {items.map((item, index) => (
           <li key={index} className="flex items-center">
             {item.href ? (
-              <Link href={item.href} className="text-primary hover:underline">
+              <Link href={item.href} className="text-slate-800 font-title hover:underline">
                 {item.label}
               </Link>
             ) : (
-              <span className="text-gray-500">{item.label}</span>
+              <span className="text-slate-600">{item.label}</span>
             )}
             {index < items.length - 1 && (
               <span className="mx-2 text-gray-400">/</span>
