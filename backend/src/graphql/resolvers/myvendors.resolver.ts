@@ -7,7 +7,7 @@ export class MyVendorsResolver {
 
     constructor(private readonly myVendorsService: MyVendorsService) {}
 
-    @Query(() => [MyVendorsModel])
+    @Query(() => MyVendorsModel)
     async findAllMyVendorsByCategory(
         @Args('visitorId') visitorId: string,
         @Args('category') category: string
@@ -15,7 +15,7 @@ export class MyVendorsResolver {
         return this.myVendorsService.findAllMyVendorsByCategory(visitorId, category);
     }
 
-    @Query(() => [MyVendorsModel])
+    @Query(() => MyVendorsModel)
     async findMyVendorById(
         @Args('visitorId') visitorId: string,
         @Args('offeringId') offeringId: string
@@ -23,7 +23,7 @@ export class MyVendorsResolver {
         return this.myVendorsService.findMyVendorById(visitorId, offeringId);
     }
 
-    @Mutation(() => [MyVendorsModel])
+    @Mutation(() => MyVendorsModel)
     async addToMyVendors(
         @Args('visitorId') visitorId: string,
         @Args('offeringId') offeringId: string
@@ -31,7 +31,7 @@ export class MyVendorsResolver {
         return this.myVendorsService.addToMyVendors(visitorId, offeringId);
     }
 
-    @Mutation(() => [MyVendorsModel])
+    @Mutation(() => MyVendorsModel)
     async removeFromMyVendors(
         @Args('visitorId') visitorId: string,
         @Args('offeringId') offeringId: string

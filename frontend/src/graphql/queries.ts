@@ -181,3 +181,29 @@ export const GET_VISITOR_CHECKLISTS = gql`
     }
   }
 `;
+
+export const FIND_ALL_MY_VENDORS_BY_CATEGORY = gql`
+  query FindAllMyVendorsByCategory($visitorId: String!, $category: String!) {
+    findAllMyVendorsByCategory(visitorId: $visitorId, category: $category) {
+      id
+      offering {
+        id
+        name
+        category
+      }
+    }
+  }
+`;
+
+export const FIND_MY_VENDOR_BY_ID = gql`
+  query FindMyVendorById($visitorId: String!, $offeringId: String!) {
+    findMyVendorById(visitorId: $visitorId, offeringId: $offeringId) {
+      id
+      offering {
+        id
+        name
+      }
+    }
+  }
+`;
+

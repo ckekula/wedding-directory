@@ -1,12 +1,12 @@
 "use client";
 
 import Header from "@/components/shared/Headers/Header";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CiHeart } from "react-icons/ci";
 import Image from "next/image";
 import { useParams } from "next/navigation";
-import { FIND_SERVICE_BY_ID } from "@/graphql/queries";
-import { useQuery } from "@apollo/client";
+import { FIND_MY_VENDOR_BY_ID, FIND_SERVICE_BY_ID } from "@/graphql/queries";
+import { useMutation, useQuery } from "@apollo/client";
 import SocialIcons from "@/components/vendor-dashboard/dahboard-services/socialIcons";
 import { FiEdit } from "react-icons/fi";
 import Reviews from "@/components/vendor-dashboard/dahboard-services/reviews";
@@ -15,15 +15,40 @@ import Link from "next/link";
 import LoaderQuantum from "@/components/shared/Loaders/LoaderQuantum";
 import Comments from "@/components/vendor-dashboard/dahboard-services/Comments";
 import WriteReview from "@/components/vendor-dashboard/dahboard-services/WriteReview";
+import { useAuth } from "@/contexts/VisitorAuthContext";
+import { ADD_TO_MY_VENDORS, REMOVE_FROM_MY_VENDORS } from "@/graphql/mutations";
+import toast from "react-hot-toast";
+import { FaHeart } from "react-icons/fa";
 
 const Service: React.FC = () => {
   const { vendor } = useVendorAuth();
+  const { visitor } = useAuth();
   const params = useParams();
   const { id } = params;
 
   const { loading, error, data } = useQuery(FIND_SERVICE_BY_ID, {
     variables: { id },
   });
+
+  // Query to check if offering is in visitor's my vendors
+  const { loading: myVendorLoading, data: myVendorData } = useQuery(FIND_MY_VENDOR_BY_ID, {
+    variables: { 
+      visitorId: visitor?.id,
+      offeringId: id 
+    },
+    skip: !visitor, // Skip this query if there's no visitor
+  });
+
+  const [isInMyVendors, setIsInMyVendors] = useState(false);
+  const [addToMyVendors] = useMutation(ADD_TO_MY_VENDORS);
+  const [removeFromMyVendors] = useMutation(REMOVE_FROM_MY_VENDORS);
+
+  // Update isInMyVendors when myVendorData changes
+  useEffect(() => {
+    if (myVendorData?.findMyVendorById) {
+      setIsInMyVendors(true);
+    }
+  }, [myVendorData]);
 
   if (loading) return <LoaderQuantum />;
   if (error) return <p>Error: {error.message}</p>;
@@ -38,6 +63,63 @@ const Service: React.FC = () => {
     "/images/photography.webp",
   ];
   const video = service.video_showcase;
+
+  const handleHeartClick = async () => {
+    if (!visitor) {
+      toast.error("Please login to save to your vendors");
+      return;
+    }
+  
+    if (!id) {
+      toast.error("Service does not exist");
+      return;
+    }
+  
+    try {
+      if (isInMyVendors) {
+        const { data } = await removeFromMyVendors({
+          variables: {
+            visitorId: visitor.id,
+            offeringId: id
+          }
+        });
+  
+        if (data?.removeFromMyVendors) {
+          setIsInMyVendors(false);
+          toast.success("Removed from your vendors");
+        } else {
+          throw new Error("Failed to remove from vendors");
+        }
+      } else {
+        const { data } = await addToMyVendors({
+          variables: {
+            visitorId: visitor.id,
+            offeringId: id
+          }
+        });
+  
+        if (data?.addToMyVendors) {
+          setIsInMyVendors(true);
+          toast.success(
+            <div>
+              Saved to your vendors! <br />
+              <Link href={`/visitor-dashboard/my-vendors/${id}`} className="underline">
+                View your vendors
+              </Link>
+            </div>,
+            {
+              duration: 8000,
+            }
+          );          
+        } else {
+          throw new Error("Failed to add to vendors");
+        }
+      }
+    } catch (error) {
+      console.error("Error saving to myVendors:", error);
+      toast.error("An error occurred");
+    }
+  };
     
     return (
       <div className="bg-lightYellow font-body">
@@ -56,7 +138,6 @@ const Service: React.FC = () => {
               <div className="container mx-auto p-4">
                 {/* Photo Showcase */}
                 <div className="mb-8">
-                  <h2 className="text-2xl font-bold mb-4">Photo Showcase</h2>
                   <div className="columns-2 sm:columns-3 lg:columns-4 gap-4">
                     {portfolioImages.map((photo: string, index: number) => (
                       <div
@@ -77,7 +158,7 @@ const Service: React.FC = () => {
                 </div>
 
                 {/* Video Showcase */}
-                {video && (
+                {/* {video && (
                   <div className="mb-8">
                     <h2 className="text-2xl font-bold mb-4">Video Showcase</h2>
                     <div className="relative aspect-video rounded-lg overflow-hidden">
@@ -91,7 +172,7 @@ const Service: React.FC = () => {
                       </video>
                     </div>
                   </div>
-                )}
+                )} */}
               </div>
             </section>
           </div>
@@ -113,7 +194,13 @@ const Service: React.FC = () => {
                             <FiEdit className="text-orange hover:text-black" />
                           </Link>
                         ) : (
-                          <CiHeart />
+                          <button onClick={handleHeartClick}>
+                          {isInMyVendors ? (
+                            <FaHeart className="text-red-500 hover:text-red-600 hover:cursor-pointer" />
+                          ) : (
+                            <CiHeart className="hover:text-red-500 hover:cursor-pointer" />
+                          )}
+                        </button>
                         )}
                       </div>
                     </div>

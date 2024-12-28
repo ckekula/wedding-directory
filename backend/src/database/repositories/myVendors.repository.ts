@@ -46,16 +46,17 @@ export const MyVendorsRepository = (dataSource: DataSource) =>
     },
 
     async removeFromMyVendors(visitorId: string, offeringId: string) {
-      // Find the vendor entries to delete
-      const myVendorsToRemove = await this.createQueryBuilder('myVendors')
-        .innerJoinAndSelect('myVendors.offering', 'offering')
-        .where('myVendors.visitor.id = :visitorId', { visitorId })
-        .andWhere('offering.id = :offeringId', { offeringId })
-        .getMany();
-
-      // Delete entries
-      await this.remove(myVendorsToRemove);
-
-      return myVendorsToRemove;
-    },
+      const myVendor = await this.findMyVendorById(visitorId, offeringId);
+      
+      if (!myVendor) {
+        throw new Error("MyVendor relationship not found");
+      }
+    
+      await this.delete({
+        visitor: { id: visitorId },
+        offering: { id: offeringId }
+      });
+    
+      return myVendor; // Return the deleted relationship
+    }
   });
