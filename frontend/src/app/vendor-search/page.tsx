@@ -108,7 +108,7 @@ const VendorSearch = () => {
                     about={service.about}
                     showStats={true}
                     buttonText="View Details"
-                    link="#"
+                    link={`/services/${service.id}`}
                     // link={`/services/${service.id}`}
                   />
                 ))}
