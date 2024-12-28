@@ -1,8 +1,6 @@
 "use client";
-import React, { useEffect, useState, useMemo } from "react";
-import { parseISO, isValid } from "date-fns";
-import { ApolloProvider } from "@apollo/client";
-import client from "@/apollo/apollo-client";
+
+import React, { useState, useMemo } from "react";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { useQuery, useMutation } from "@apollo/client";
 import { useAuth } from "@/contexts/VisitorAuthContext";

@@ -10,7 +10,7 @@ import {
 import { VisitorEntity } from './visitor.entity';
 import { OfferingEntity } from './offering.entity';
 
-@Entity({ name: 'checklist' })
+@Entity({ name: 'my_vendors' })
 export class MyVendorsEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -19,7 +19,7 @@ export class MyVendorsEntity {
   @JoinColumn({ name: 'offering_id' })
   offering: OfferingEntity;
 
-  @ManyToOne(() => VisitorEntity, (visitor) => visitor.checklists, {
+  @ManyToOne(() => VisitorEntity, (visitor) => visitor.myVendors, {
     onDelete: 'CASCADE',
   })
   @JoinColumn({ name: 'visitor_id' })

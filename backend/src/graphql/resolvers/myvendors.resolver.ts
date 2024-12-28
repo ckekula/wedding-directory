@@ -1,7 +1,6 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { MyVendorsModel } from "../models/myvendors.model";
 import { MyVendorsService } from "src/modules/myvendors/myvendors.service";
-import { myVendorsInput } from '../inputs/myVendors.input';
 
 @Resolver(() => MyVendorsModel)
 export class MyVendorsResolver {
@@ -17,12 +16,18 @@ export class MyVendorsResolver {
     }
 
     @Mutation(() => [MyVendorsModel])
-    async addToMyVendors(@Args('input') input: myVendorsInput) {
-        return this.myVendorsService.addToMyVendors(input);
+    async addToMyVendors(
+        @Args('visitorId') visitorId: string,
+        @Args('category') category: string
+    ) {
+        return this.myVendorsService.addToMyVendors(visitorId, category);
     }
 
     @Mutation(() => [MyVendorsModel])
-    async removeFromMyVendors(@Args('input') input: myVendorsInput) {
-        return this.myVendorsService.removeFromMyVendors(input);
+    async removeFromMyVendors(
+        @Args('visitorId') visitorId: string,
+        @Args('category') category: string
+    ) {
+        return this.myVendorsService.removeFromMyVendors(visitorId, category);
     }
 }

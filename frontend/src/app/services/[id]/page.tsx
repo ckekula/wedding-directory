@@ -2,7 +2,7 @@
 
 import Header from "@/components/shared/Headers/Header";
 import React from "react";
-import { CiStar, CiBookmark } from "react-icons/ci";
+import { CiHeart } from "react-icons/ci";
 import Image from "next/image";
 import { useParams } from "next/navigation";
 import { FIND_SERVICE_BY_ID } from "@/graphql/queries";
@@ -113,7 +113,7 @@ const Service: React.FC = () => {
                             <FiEdit className="text-orange hover:text-black" />
                           </Link>
                         ) : (
-                          <CiBookmark />
+                          <CiHeart />
                         )}
                       </div>
                     </div>

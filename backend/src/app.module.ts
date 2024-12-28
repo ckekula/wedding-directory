@@ -12,6 +12,7 @@ import { UploadModule } from './modules/upload/upload.module';
 import { BudgetToolModule} from './modules/budget/budget_tool.module';
 import { BudgetItemModule } from './modules/budget/budget_item.module';
 import { ChecklistModule } from './modules/checklist/checklist.module';
+import { MyVendorsModule } from './modules/myvendors/myvendors.module';
 
 @Module({
   imports: [
@@ -42,7 +43,8 @@ import { ChecklistModule } from './modules/checklist/checklist.module';
     BudgetToolModule,
     BudgetItemModule,
     UploadModule,
-    ChecklistModule
+    ChecklistModule,
+    MyVendorsModule
   ],
 })
 export class AppModule {}
