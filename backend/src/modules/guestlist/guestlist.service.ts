@@ -11,28 +11,30 @@ import { UpdateGuestListInput } from '../../graphql/inputs/updateGuestList.input
 
 @Injectable()
 export class GuestListService {
-  private guestlistRepository: GuestListRepositoryType
+  private guestlistRepository: GuestListRepositoryType;
   constructor(
     private readonly dataSource: DataSource,
 
     @InjectRepository(VisitorEntity)
     private readonly visitorRepository: Repository<VisitorEntity>,
-
   ) {
     this.guestlistRepository = GuestListRepository(this.dataSource);
   }
 
   async createGuestList(
-    createGuestListInput: CreateGuestListInput
+    createGuestListInput: CreateGuestListInput,
   ): Promise<GuestListEntity> {
-    const visitor = await this.visitorRepository.findOne(
-      { where: { id: createGuestListInput.visitor_id } }
-    );
-    
+    const visitor = await this.visitorRepository.findOne({
+      where: { id: createGuestListInput.visitor_id },
+    });
+
     if (!visitor) {
       throw new Error('Visitor not found');
     }
-    return this.guestlistRepository.createGuestList(createGuestListInput, visitor);
+    return this.guestlistRepository.createGuestList(
+      createGuestListInput,
+      visitor,
+    );
   }
 
   async updateGuestList(
@@ -50,7 +52,7 @@ export class GuestListService {
     return this.guestlistRepository.findGuestListById(id);
   }
 
-    async findGuestListsByVisitor(visitorId: string): Promise<GuestListEntity[]> {
-      return this.guestlistRepository.findGuestListsByVisitor(visitorId);
-    }
+  async findGuestListsByVisitor(visitorId: string): Promise<GuestListEntity[]> {
+    return this.guestlistRepository.findGuestListsByVisitor(visitorId);
+  }
 }

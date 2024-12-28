@@ -70,26 +70,27 @@ const EditGuest: React.FC<EditGuestProps> = ({ isVisible, onClose, guest, onSave
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
             <div className="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full">
-                <h2>Edit Guest</h2>
+                <h2 className="text-xl mb-2">Edit Guest</h2>
                 <form onSubmit={handleSubmit}>
                     <div className="flex flex-col">
                         <div className="flex flex-row">
                             <div className="mb-4 w-3/4 mr-4">
-                                <label className="">Guest Name</label>
+                                <label className="block text-sm mb-1">Guest Name</label>
                                 <Input
-                                    className="border rounded px-3 py-2 w-full"
+                                    className="border text-black font-bold rounded border-transparent px-3 py-2 w-full"
                                     placeholder="Guest Name"
                                     value={formData.name}
                                     onChange={handleChange}
                                     required
+                                    disabled
                                 />
                             </div>
 
                             <div className="mb-4">
-                                <label className="block text-sm font-medium mb-1">Party of</label>
+                                <label className="block text-sm mb-1">Party of</label>
                                 <select
                                     name="number"
-                                    className="border rounded px-3 py-2 w-full"
+                                    className="block text-sm mb-1 border rounded px-3 py-2 w-full"
                                     value={formData.number}
                                     onChange={handleChange}>
                                     <option value="">No</option>
@@ -103,7 +104,7 @@ const EditGuest: React.FC<EditGuestProps> = ({ isVisible, onClose, guest, onSave
                         </div>
 
                         <div className="mb-4">
-                            <label className="block text-sm font-medium mb-1">Address</label>
+                            <label className="block text-sm mb-1">Address</label>
                             <input
                                 name="address"
                                 className="border rounded px-3 py-2 w-full"
@@ -114,7 +115,7 @@ const EditGuest: React.FC<EditGuestProps> = ({ isVisible, onClose, guest, onSave
                         </div>
                         <div className="flex flex-row">
                             <div className="mb-4 mr-4 w-1/2">
-                                <label className="">Contact No</label>
+                                <label className="block text-sm mb-1">Contact No</label>
                                 <input
                                     name="contact"
                                     className="border rounded px-3 py-2 w-full"
@@ -124,7 +125,7 @@ const EditGuest: React.FC<EditGuestProps> = ({ isVisible, onClose, guest, onSave
                                 />
                             </div>
                             <div className="mb-4 w-1/2">
-                                <label className="block text-sm font-medium mb-1">Email</label>
+                                <label className="block text-sm mb-1">Email</label>
                                 <input
                                     name="email"
                                     className="border rounded px-3 py-2 w-full"
@@ -135,10 +136,10 @@ const EditGuest: React.FC<EditGuestProps> = ({ isVisible, onClose, guest, onSave
                             </div>
                         </div>
                         <div className="mb-4 w-1/2">
-                            <label className="block text-sm font-medium mb-1">Status</label>
+                            <label className="block text-sm mb-1">Status</label>
                             <select
                                 name="status"
-                                className="border rounded px-3 py-2 w-full"
+                                className="block text-sm mb-1 border rounded px-3 py-2 w-full"
                                 value={formData.status}
                                 onChange={handleChange}
                                 required>
@@ -151,12 +152,14 @@ const EditGuest: React.FC<EditGuestProps> = ({ isVisible, onClose, guest, onSave
                         </div>
 
                     </div>
-                    <Button type="submit" disabled={loading}>
-                        {loading ? "Updating..." : "Save"}
-                    </Button>
-                    <Button variant="secondary" onClick={onClose}>
-                        Cancel
-                    </Button>
+                    <div className="flex space-x-2">
+                        <Button type="submit" className="text-sm border-2 bg-orange hover:bg-white hover:text-orange hover:border-orange" disabled={loading}>
+                            {loading ? "Updating..." : "Save"}
+                        </Button>
+                        <Button className="text-sm text-black border-2 bg-slate-100 hover:bg-white hover:text-black hover:border-black " onClick={onClose}>
+                            Cancel
+                        </Button>
+                    </div>
                 </form>
             </div>
         </div>

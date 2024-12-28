@@ -116,3 +116,9 @@ export const UPDATE_GUESTLIST = gql`
     }
   }
 `;
+
+export const DELETE_GUESTLIST = gql`
+  mutation DELETE_GUESTLIST($id: String!) {
+    deleteGuestList(id: $id)
+  }
+`;

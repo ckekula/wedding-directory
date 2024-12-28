@@ -2,7 +2,6 @@ import { InputType, Field } from '@nestjs/graphql';
 
 @InputType()
 export class UpdateGuestListInput {
-
   @Field()
   number: string;
 
@@ -17,5 +16,4 @@ export class UpdateGuestListInput {
 
   @Field()
   status: string;
-
 }

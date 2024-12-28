@@ -4,9 +4,10 @@ import { GuestListRepositoryType } from 'src/database/types/guestlistTypes';
 import { GuestListEntity } from '../entities/guestlist.entity';
 
 // Use the DataSource to get the base repository and extend it
-export const GuestListRepository = (dataSource: DataSource): GuestListRepositoryType =>
+export const GuestListRepository = (
+  dataSource: DataSource,
+): GuestListRepositoryType =>
   dataSource.getRepository(GuestListEntity).extend({
-
     async createGuestList(
       createGuestListInput: Partial<GuestListEntity>,
       visitor: VisitorEntity,
@@ -28,7 +29,7 @@ export const GuestListRepository = (dataSource: DataSource): GuestListRepository
       }
       return this.save({
         ...guestlist,
-        ...updateGuestListInput
+        ...updateGuestListInput,
       });
     },
 
@@ -38,8 +39,10 @@ export const GuestListRepository = (dataSource: DataSource): GuestListRepository
     },
 
     async findGuestListById(id: string): Promise<GuestListEntity> {
-      return this.findOne({ 
-        relations: ['visitor'], where: { id } });
+      return this.findOne({
+        relations: ['visitor'],
+        where: { id },
+      });
     },
 
     // async findGuestListsByFilter(status?: string, name?: string ): Promise<GuestListEntity[]> {
@@ -62,5 +65,5 @@ export const GuestListRepository = (dataSource: DataSource): GuestListRepository
         .leftJoinAndSelect('guestlist.visitor', 'visitor') // Include visitor details
         .where('visitor.id = :id', { id })
         .getMany();
-    }
+    },
   });

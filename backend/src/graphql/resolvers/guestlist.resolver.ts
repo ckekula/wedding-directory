@@ -9,9 +9,7 @@ import { UpdateGuestListInput } from '../inputs/updateGuestList.input';
 
 @Resolver()
 export class GuestListResolver {
-  constructor(
-    private readonly guestlistService: GuestListService,
-  ) {}
+  constructor(private readonly guestlistService: GuestListService) {}
 
   @Mutation(() => GuestListModel)
   async createGuestList(
@@ -32,7 +30,7 @@ export class GuestListResolver {
   async deleteGuestList(@Args('id') id: string): Promise<boolean> {
     return this.guestlistService.deleteGuestList(id);
   }
-  
+
   @Query(() => GuestListModel)
   async findGuestListById(@Args('id') id: string): Promise<GuestListEntity> {
     return this.guestlistService.findGuestListById(id);
@@ -51,5 +49,4 @@ export class GuestListResolver {
   ): Promise<GuestListEntity[]> {
     return this.guestlistService.findGuestListsByVisitor(id);
   }
-
 }

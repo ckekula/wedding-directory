@@ -22,5 +22,4 @@ export class CreateGuestListInput {
 
   @Field()
   visitor_id: string;
-
 }

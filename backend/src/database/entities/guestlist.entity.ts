@@ -5,7 +5,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
-  JoinColumn
+  JoinColumn,
 } from 'typeorm';
 import { VisitorEntity } from './visitor.entity';
 
@@ -29,7 +29,7 @@ export class GuestListEntity {
   @Column({ type: 'varchar', length: 50, nullable: true })
   email?: string;
 
-  @Column({ type: 'varchar', length: 15})
+  @Column({ type: 'varchar', length: 15 })
   status: string;
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
@@ -38,7 +38,7 @@ export class GuestListEntity {
   @UpdateDateColumn({ name: 'updated_at', type: 'timestamp' })
   updatedAt: Date;
 
-   @ManyToOne(() => VisitorEntity, v => v.guestlist)
-      @JoinColumn({ name: 'visitor_id' })
-      visitor: VisitorEntity;
+  @ManyToOne(() => VisitorEntity, (v) => v.guestlist)
+  @JoinColumn({ name: 'visitor_id' })
+  visitor: VisitorEntity;
 }

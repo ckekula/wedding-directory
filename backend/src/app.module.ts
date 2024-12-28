@@ -13,7 +13,7 @@ import { GuestListModule } from './modules/guestlist/guestlist.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({isGlobal: true}),
+    ConfigModule.forRoot({ isGlobal: true }),
 
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -29,7 +29,7 @@ import { GuestListModule } from './modules/guestlist/guestlist.module';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: 'dist/graphql/schema.gql',
-      playground: true
+      playground: true,
     }),
 
     VendorModule,
@@ -37,7 +37,7 @@ import { GuestListModule } from './modules/guestlist/guestlist.module';
     AuthModule,
     OfferingModule,
     GuestListModule,
-    UploadModule
+    UploadModule,
   ],
 })
 export class AppModule {}

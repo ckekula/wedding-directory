@@ -6,14 +6,8 @@ import { VisitorEntity } from 'src/database/entities/visitor.entity';
 import { GuestListEntity } from 'src/database/entities/guestlist.entity';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([
-        GuestListEntity, 
-      VisitorEntity
-    ])
-  ],
+  imports: [TypeOrmModule.forFeature([GuestListEntity, VisitorEntity])],
   providers: [GuestListResolver, GuestListService],
-  exports: [GuestListService]
+  exports: [GuestListService],
 })
-
 export class GuestListModule {}
