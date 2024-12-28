@@ -13,15 +13,19 @@ export class MyVendorsService {
     this.myVendorsRepository = MyVendorsRepository(this.dataSource);
   }
 
-  async findAllMyVendorsById(visitorId: string, category: string) {
-    return this.myVendorsRepository.findAllByVisitorAndCategory(visitorId, category);
+  async findAllMyVendorsByCategory(visitorId: string, category: string) {
+    return this.myVendorsRepository.findAllMyVendorsByCategory(visitorId, category);
   }
 
-  async addToMyVendors(visitorId: string, category: string) {
-    return this.myVendorsRepository.addToMyVendors(visitorId, category);
+  async findMyVendorById(visitorId: string, offeringId: string) {
+    return this.myVendorsRepository.findMyVendorById(visitorId, offeringId);
   }
 
-  async removeFromMyVendors(visitorId: string, category: string) {
-    return this.myVendorsRepository.removeFromMyVendors(visitorId, category);
+  async addToMyVendors(visitorId: string, offeringId: string) {
+    return this.myVendorsRepository.addToMyVendors(visitorId, offeringId);
+  }
+
+  async removeFromMyVendors(visitorId: string, offeringId: string) {
+    return this.myVendorsRepository.removeFromMyVendors(visitorId, offeringId);
   }
 }

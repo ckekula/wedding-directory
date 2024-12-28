@@ -12,22 +12,30 @@ export class MyVendorsResolver {
         @Args('visitorId') visitorId: string,
         @Args('category') category: string
     ) {
-        return this.myVendorsService.findAllMyVendorsById(visitorId, category);
+        return this.myVendorsService.findAllMyVendorsByCategory(visitorId, category);
+    }
+
+    @Query(() => [MyVendorsModel])
+    async findMyVendorById(
+        @Args('visitorId') visitorId: string,
+        @Args('offeringId') offeringId: string
+    ) {
+        return this.myVendorsService.findMyVendorById(visitorId, offeringId);
     }
 
     @Mutation(() => [MyVendorsModel])
     async addToMyVendors(
         @Args('visitorId') visitorId: string,
-        @Args('category') category: string
+        @Args('offeringId') offeringId: string
     ) {
-        return this.myVendorsService.addToMyVendors(visitorId, category);
+        return this.myVendorsService.addToMyVendors(visitorId, offeringId);
     }
 
     @Mutation(() => [MyVendorsModel])
     async removeFromMyVendors(
         @Args('visitorId') visitorId: string,
-        @Args('category') category: string
+        @Args('offeringId') offeringId: string
     ) {
-        return this.myVendorsService.removeFromMyVendors(visitorId, category);
+        return this.myVendorsService.removeFromMyVendors(visitorId, offeringId);
     }
 }
