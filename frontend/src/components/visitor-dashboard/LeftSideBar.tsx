@@ -23,7 +23,7 @@ const LeftSideBar: React.FC<LeftSideBarProps> = ({ isCollapsed, onToggleCollapse
       label: "Dashboard"
     },
     {
-      href: "/visitor-dashboard/checklist",
+      href: `/visitor-dashboard/checklist/${visitorId}`,
       icon: <IoMdCheckmarkCircleOutline className="w-5 h-5" />,
       label: "Checklist"
     },
