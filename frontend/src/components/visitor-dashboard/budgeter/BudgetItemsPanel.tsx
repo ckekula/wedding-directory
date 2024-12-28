@@ -91,19 +91,19 @@ const BudgetItemsPanel = ({ budgetToolId }) => {
     <div className="bg-white rounded-lg border p-6 space-y-6">
       {/* Header Section */}
       <div className="flex items-center justify-between border-b-slate-300">
-        <h2 className="text-2xl font-semibold">Budget List</h2>
+        <h2 className="text-2xl font-semibold font-body">Budget List</h2>
         <div className="flex items-center gap-8">
           <div className="flex items-center gap-2">
-            <span className="text-gray-600">Total Budget Items:</span>
+            <span className="text-gray-600 font-body">Total Budget Items:</span>
             <span className="font-semibold">{totalItems}</span>
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-gray-600">Items Paid Full:</span>
+            <span className="text-gray-600 font-body">Items Paid Full:</span>
             <span className="font-semibold">{paidInFullItems}</span>
           </div>
           <button
             onClick={() => setIsAddModalOpen(true)}
-            className="bg-[#FF7262] text-white px-6 py-2 rounded-full flex items-center gap-2 hover:bg-[#ff8576] transition-colors"
+            className="bg-[#FF7262] text-white px-6 py-2 rounded-full flex items-center gap-2 font-body hover:bg-[#ff8576] transition-colors"
           >
             <Plus size={20} />
             Add Budget Item
@@ -131,7 +131,7 @@ const BudgetItemsPanel = ({ budgetToolId }) => {
       </div>
 
       {/* Table Headers */}
-      <div className="grid grid-cols-[1fr,200px,200px,50px] gap-4 px-6 py-2 text-gray-600">
+      <div className="font-body grid grid-cols-[1fr,200px,200px,50px] gap-4 px-6 py-2 text-gray-600">
         <div>Item</div>
         <div>Estimate/Cost</div>
         <div>Paid</div>

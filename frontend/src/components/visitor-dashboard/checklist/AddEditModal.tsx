@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { TaskType } from "@/types/taskTypes";
 import { AddEditTaskModalProps } from "@/types/taskTypes";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 
 const AddEditTaskModal: React.FC<AddEditTaskModalProps> = ({
   isOpen,
@@ -20,13 +20,17 @@ const AddEditTaskModal: React.FC<AddEditTaskModalProps> = ({
 
   // Use useEffect to reset form when modal opens
   useEffect(() => {
-    // Reset form data when modal opens
     if (isOpen) {
       if (initialData) {
+        // Parse due_date to YYYY-MM-DD format if it's provided
+        const formattedDueDate = initialData.due_date
+          ? new Date(Number(initialData.due_date)).toISOString().split("T")[0] // Convert timestamp to "YYYY-MM-DD"
+          : "";
+
         // If editing an existing task, populate with initial data
         setFormData({
           title: initialData.title || "",
-          due_date: initialData.due_date || "",
+          due_date: formattedDueDate,
           category: initialData.category || "",
           notes: initialData.notes || "",
           completed: initialData.completed || false,

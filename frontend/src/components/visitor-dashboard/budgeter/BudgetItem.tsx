@@ -50,13 +50,17 @@ const BudgetItem = ({
         className="grid grid-cols-[1fr,200px,200px,50px] gap-4 px-6 py-4 cursor-pointer"
         onClick={() => setIsOpen(!isOpen)}
       >
-        <div className="font-medium">{itemName}</div>
-        <div className="text-gray-600">{estimatedCost.toLocaleString()} LKR</div>
-        <div className="text-gray-600">{paidAmount.toLocaleString()} LKR</div>
+        <div className="font-medium font-body">{itemName}</div>
+        <div className="text-gray-600 font-body">
+          {estimatedCost.toLocaleString()} LKR
+        </div>
+        <div className="text-gray-600 font-body">
+          {paidAmount.toLocaleString()} LKR
+        </div>
         <div className="flex justify-end">
           <ChevronUp
             className={`transform transition-transform ${
-              isOpen ? '' : 'rotate-180'
+              isOpen ? "" : "rotate-180"
             }`}
             size={20}
           />
@@ -73,7 +77,7 @@ const BudgetItem = ({
               <input
                 type="text"
                 value={editedValues.itemName}
-                onChange={(e) => handleInputChange('itemName', e.target.value)}
+                onChange={(e) => handleInputChange("itemName", e.target.value)}
                 className="w-full px-3 py-2 border rounded-lg"
               />
             </div>
@@ -85,43 +89,49 @@ const BudgetItem = ({
               <input
                 type="text"
                 value={editedValues.category}
-                onChange={(e) => handleInputChange('category', e.target.value)}
+                onChange={(e) => handleInputChange("category", e.target.value)}
                 className="w-full px-3 py-2 border rounded-lg"
               />
             </div>
 
             <div className="space-y-2">
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-gray-700 font-body">
                 Estimated Cost (LKR)
               </label>
               <input
                 type="number"
                 value={editedValues.estimatedCost}
-                onChange={(e) => handleInputChange('estimatedCost', parseFloat(e.target.value))}
+                onChange={(e) =>
+                  handleInputChange("estimatedCost", parseFloat(e.target.value))
+                }
                 className="w-full px-3 py-2 border rounded-lg"
               />
             </div>
 
             <div className="space-y-2">
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="font-body block text-sm font-medium text-gray-700">
                 Amount Paid (LKR)
               </label>
               <input
                 type="number"
                 value={editedValues.paidAmount}
-                onChange={(e) => handleInputChange('paidAmount', parseFloat(e.target.value))}
+                onChange={(e) =>
+                  handleInputChange("paidAmount", parseFloat(e.target.value))
+                }
                 className="w-full px-3 py-2 border rounded-lg"
               />
             </div>
           </div>
 
           <div className="space-y-2">
-            <label className="block text-sm font-medium text-gray-700">
+            <label className=" font-body block text-sm font-medium text-gray-700">
               Special Notes
             </label>
             <textarea
               value={editedValues.specialNotes}
-              onChange={(e) => handleInputChange('specialNotes', e.target.value)}
+              onChange={(e) =>
+                handleInputChange("specialNotes", e.target.value)
+              }
               className="w-full px-3 py-2 border rounded-lg min-h-[100px]"
               placeholder="Add any special notes here..."
             />
@@ -129,14 +139,14 @@ const BudgetItem = ({
 
           <div className="flex justify-end gap-4">
             <button
-              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600 transition-colors"
+              className="flex font-body items-center gap-2 px-4 py-2 rounded-lg bg-red-500 text-white hover:bg-red-600 transition-colors"
               onClick={handleDelete}
             >
               <Trash2 size={20} />
               Delete Item
             </button>
             <button
-              className="px-4 py-2 rounded-lg bg-green-500 text-white hover:bg-green-600 transition-colors"
+              className="px-4 font-body py-2 rounded-lg bg-green-500 text-white hover:bg-green-600 transition-colors"
               onClick={handleSave}
             >
               Save Changes
