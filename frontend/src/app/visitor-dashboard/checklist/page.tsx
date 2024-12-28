@@ -12,10 +12,10 @@ import {
   UPDATE_CHECKLIST,
   DELETE_CHECKLIST,
 } from "@/graphql/mutations";
-import CategoryDropdown from "@/components/checklist/CategoryDropDown";
-import AddEditTaskModal from "@/components/checklist/AddEditModal";
+import CategoryDropdown from "@/components/visitor-dashboard/checklist/CategoryDropDown";
+import AddEditTaskModal from "@/components/visitor-dashboard/checklist/AddEditModal";
 import { TaskType } from "@/types/taskTypes";
-import ProgressBar from "@/components/checklist/ProgressBar";
+import ProgressBar from "@/components/visitor-dashboard/checklist/ProgressBar";
 import { Button } from "@/components/ui/button";
 import { IoAdd } from "react-icons/io5";
 
@@ -28,6 +28,9 @@ const ChecklistPage = () => {
     variables: { visitorId },
     skip: !visitorId,
   });
+
+
+  
 
   const [createTask] = useMutation(CREATE_CHECKLIST);
   const [updateTask] = useMutation(UPDATE_CHECKLIST);
@@ -107,17 +110,39 @@ const ChecklistPage = () => {
     refetch();
   };
 
-  const handleSaveTask = async (taskInput: Partial<TaskType>) => {
+const handleSaveTask = async (taskInput: Partial<TaskType>) => {
+  try {
     if (selectedTask) {
+      // Ensure 'id' is present when updating
+      if (!selectedTask.id) {
+        throw new Error("Task ID is missing for update!");
+      }
+
+      console.log("Updating Task with ID:", selectedTask.id);
       await updateTask({
-        variables: { input: { id: selectedTask.id, ...taskInput } },
+        variables: {
+          input: {
+            id: selectedTask.id,
+            ...taskInput,
+          },
+        },
       });
     } else {
-      await createTask({ variables: { input: { ...taskInput, visitorId } } });
+      // Creating a new task
+      console.log("Creating new Task:", taskInput);
+      await createTask({
+        variables: { input: { ...taskInput, visitorId } },
+      });
     }
     setModalOpen(false);
     refetch();
+  } catch (error) {
+    console.error("Error saving task:", error);
+  }
   };
+  
+  
+
 
   const handleToggleComplete = async (id: string, completed: boolean) => {
     try {
@@ -159,26 +184,20 @@ const ChecklistPage = () => {
     <ApolloProvider client={client}>
       <div className="py-4 px-2 md:py-6 md:px-4">
         {/* Hide breadcrumbs on mobile */}
-        <div className="hidden md:block">
+        <div className="hidden md:block shadow-md bg-white p-4 rounded-lg mb-4 md:mb-6">
           <Breadcrumbs
             items={[
               { label: "Dashboard", href: "/visitor-dashboard" },
               { label: "Checklist", href: "/visitor-dashboard/checklist" },
             ]}
           />
+          <div>
+            <h1 className="text-4xl md:text-3xl font-bold text-black font-title my-3">
+              My Cheklist
+            </h1>
+            <p className="font-body text-xl text-black">Stay Organized and Stress Free.</p>
+          </div>
         </div>
-
-        {/* Header Section */}
-        <div className="text-center mb-4 md:mb-8">
-          <h1 className="text-2xl md:text-3xl font-bold text-slate-800 font-title">
-            Your Checklist
-          </h1>
-          <p className="text-slate-600 text-base md:text-lg font-merriweather">
-            Stay organized and stress-free
-          </p>
-        </div>
-
-        <hr className="border-t-[2px] md:border-t-[3px] border-slate-600 my-2 md:my-4" />
 
         {/* Main Content */}
         <div className="mt-6 md:mt-12 min-h-screen">
@@ -296,6 +315,7 @@ const ChecklistPage = () => {
             initialData={
               selectedTask
                 ? {
+                    id: selectedTask.id,
                     title: selectedTask.title,
                     due_date: selectedTask.due_date,
                     category: selectedTask.category,

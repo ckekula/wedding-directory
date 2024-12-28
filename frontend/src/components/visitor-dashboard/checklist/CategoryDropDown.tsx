@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { TaskType } from "@/types/taskTypes";
 import { Button } from "@/components/ui/button";
-import TaskRow from "./TaskRow";
+import TaskRow from "@/components/visitor-dashboard/checklist/TaskRow";
 import { IoAdd, IoChevronDown, IoChevronUp } from "react-icons/io5";
 
 type CategoryDropdownProps = {
