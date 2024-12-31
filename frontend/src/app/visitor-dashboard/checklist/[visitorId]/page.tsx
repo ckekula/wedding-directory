@@ -5,7 +5,6 @@ import { ApolloProvider } from "@apollo/client";
 import client from "@/apollo/apollo-client";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { useQuery, useMutation } from "@apollo/client";
-import { useAuth } from "@/contexts/VisitorAuthContext";
 import { GET_VISITOR_CHECKLISTS } from "@/graphql/queries";
 import {
   CREATE_CHECKLIST,
@@ -18,12 +17,12 @@ import { TaskType } from "@/types/taskTypes";
 import ProgressBar from "@/components/visitor-dashboard/checklist/ProgressBar";
 import { Button } from "@/components/ui/button";
 import { IoAdd } from "react-icons/io5";
+import { useParams } from 'next/navigation';
 
 const ChecklistPage = () => {
-  // ... keeping all the existing state and hooks the same ...
-  const { visitor } = useAuth();
-  const visitorId = visitor?.id;
 
+  const params = useParams();
+  const { visitorId } = params;
   const { data, loading, error, refetch } = useQuery(GET_VISITOR_CHECKLISTS, {
     variables: { visitorId },
     skip: !visitorId,
