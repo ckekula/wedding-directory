@@ -5,9 +5,12 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
+  OneToOne
 } from 'typeorm';
 import { ReviewEntity } from './review.entity';
 import { GuestListEntity } from './guestlist.entity';
+import { BudgetToolEntity } from './budget_tool.entity';
+import { ChecklistEntity } from './checklist.entity';
 
 @Entity({ name: 'visitor' })
 export class VisitorEntity {
@@ -50,7 +53,10 @@ export class VisitorEntity {
   @Column({ type: 'varchar', nullable: true })
   city?: string;
 
-  @OneToMany(() => ReviewEntity, r => r.visitor)
+  @OneToOne(() => BudgetToolEntity, (budgetTool) => budgetTool.visitor)
+  budgetTool: BudgetToolEntity;
+
+  @OneToMany(() => ReviewEntity, (r) => r.visitor)
   reviews: ReviewEntity[];
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
@@ -59,9 +65,15 @@ export class VisitorEntity {
   @UpdateDateColumn({ name: 'updated_at', type: 'timestamp' })
   updatedAt: Date;
 
-    @OneToMany(() => GuestListEntity, (o) => o.visitor, {
-      cascade: true,
-      onDelete: 'CASCADE',
-    })
-    guestlist: GuestListEntity[];
+  @OneToMany(() => GuestListEntity, (o) => o.visitor, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
+  guestlist: GuestListEntity[];
+
+  @OneToMany(() => ChecklistEntity, (checklist) => checklist.visitor, {
+    cascade: true,
+  })
+  checklists: ChecklistEntity[];
+
 }

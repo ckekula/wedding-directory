@@ -1,0 +1,101 @@
+[
+  {
+    "id": 1,
+    "title": "Venue",
+    "tasks": [
+      { "id": 1, "name": "Research and estimate costs for major budget items", "dueDate": "March 10, 2026", "completed": false },
+      { "id": 2, "name": "Explore and tour venues", "dueDate": "March 20, 2026", "completed": false },
+      { "id": 3, "name": "Book your reception venue", "dueDate": "April 5, 2026", "completed": false },
+      { "id": 4, "name": "Decide which vendors you'll need", "dueDate": "April 15, 2026", "completed": false },
+      { "id": 5, "name": "Research rehearsal dinner venues", "dueDate": "April 25, 2026", "completed": false },
+      { "id": 6, "name": "Schedule rehearsal dinner venue tours", "dueDate": "May 10, 2026", "completed": false },
+      { "id": 7, "name": "Book your rehearsal dinner venue", "dueDate": "May 25, 2026", "completed": false },
+      { "id": 8, "name": "Order rentals", "dueDate": "June 5, 2026", "completed": false }
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Wedding Website",
+    "tasks": [
+      { "id": 9, "name": "Browse free website designs", "dueDate": "January 10, 2026", "completed": false },
+      { "id": 10, "name": "Start your website", "dueDate": "January 15, 2026", "completed": false },
+      { "id": 11, "name": "Set up a gift registry and add it to your website", "dueDate": "January 20, 2026", "completed": false },
+      { "id": 12, "name": "Share your wedding website with guests", "dueDate": "January 25, 2026", "completed": false },
+      { "id": 13, "name": "Add a cover photo and event details to your website", "dueDate": "January 30, 2026", "completed": false },
+      { "id": 14, "name": "Add travel, hotel and transportation info to your website", "dueDate": "February 5, 2026", "completed": false },
+      { "id": 15, "name": "Set up RSVPs on your website", "dueDate": "February 10, 2026", "completed": false }
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Photos and Videos",
+    "tasks": [
+      { "id": 16, "name": "Research photographers", "dueDate": "March 10, 2026", "completed": false },
+      { "id": 17, "name": "Meet with photographers", "dueDate": "March 20, 2026", "completed": false },
+      { "id": 18, "name": "Book your photographer", "dueDate": "March 30, 2026", "completed": false },
+      { "id": 19, "name": "Schedule engagement photos", "dueDate": "April 10, 2026", "completed": false },
+      { "id": 20, "name": "Research videographers", "dueDate": "April 15, 2026", "completed": false },
+      { "id": 21, "name": "Meet with videographers", "dueDate": "April 25, 2026", "completed": false },
+      { "id": 22, "name": "Book your videographer", "dueDate": "May 5, 2026", "completed": false },
+      { "id": 23, "name": "Create a list of photos you'll want captured", "dueDate": "May 15, 2026", "completed": false }
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Food and Drink",
+    "tasks": [
+      { "id": 24, "name": "Research caterers", "dueDate": "March 5, 2026", "completed": true },
+      { "id": 25, "name": "Meet with caterers", "dueDate": "March 15, 2026", "completed": false },
+      { "id": 26, "name": "Book your caterer", "dueDate": "March 25, 2026", "completed": false },
+      { "id": 27, "name": "Save cake photos", "dueDate": "March 30, 2026", "completed": false },
+      { "id": 28, "name": "Research cake bakers", "dueDate": "April 10, 2026", "completed": true },
+      { "id": 29, "name": "Meet with cake bakers", "dueDate": "April 20, 2026", "completed": false },
+      { "id": 30, "name": "Book your cake baker", "dueDate": "April 30, 2026", "completed": false }
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Attire",
+    "tasks": [
+      { "id": 31, "name": "Research wedding dress styles", "dueDate": "January 5, 2026", "completed": false },
+      { "id": 32, "name": "Book dress fittings", "dueDate": "February 15, 2026", "completed": false },
+      { "id": 33, "name": "Choose accessories", "dueDate": "March 1, 2026", "completed": false },
+      { "id": 34, "name": "Coordinate attire for bridal party", "dueDate": "March 15, 2026", "completed": false }
+    ]
+  },
+  {
+    "id": 6,
+    "title": "Music",
+    "tasks": [
+      { "id": 35, "name": "Research DJs or live bands", "dueDate": "February 1, 2026", "completed": false },
+      { "id": 36, "name": "Meet with potential music vendors", "dueDate": "February 15, 2026", "completed": false },
+      { "id": 37, "name": "Book your music vendor", "dueDate": "March 1, 2026", "completed": true },
+      { "id": 38, "name": "Create a playlist for the reception", "dueDate": "March 20, 2026", "completed": false }
+    ]
+  },
+  {
+    "id": 7,
+    "title": "Flowers & Decor",
+    "tasks": [
+      { "id": 39, "name": "Research floral arrangements", "dueDate": "January 10, 2026", "completed": false },
+      { "id": 40, "name": "Meet with florists", "dueDate": "February 10, 2026", "completed": false },
+      { "id": 41, "name": "Book your florist", "dueDate": "February 20, 2026", "completed": false },
+      { "id": 42, "name": "Choose decor items", "dueDate": "March 10, 2026", "completed": false }
+    ]
+  },
+  {
+    "id": 8,
+    "title": "Registry",
+    "tasks": [
+      { "id": 43, "name": "Select gift registry stores", "dueDate": "January 5, 2026", "completed": false },
+      { "id": 44, "name": "Add items to registry", "dueDate": "January 20, 2026", "completed": false },
+      { "id": 45, "name": "Share registry details with guests", "dueDate": "February 1, 2026", "completed": false }
+    ]
+  },
+  {
+    "id": 9,
+    "title": "Invitations and Paper",
+    "tasks": [
+      { "id": 46, "name": "Choose invitation design", "dueDate": "January 15, 2026", "completed": false }
+    ]
+    }]
