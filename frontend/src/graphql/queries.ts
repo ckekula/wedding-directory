@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const GET_ALL_VISITORS = gql`
   query findAllVisitors {
@@ -16,9 +16,9 @@ export const GET_ALL_VISITORS = gql`
 `;
 
 export const AUTOCOMPLETE_QUERY = gql`
-    query Autocomplete($input: String!) {
-        autocompleteLocation(input: $input)
-    }
+  query Autocomplete($input: String!) {
+    autocompleteLocation(input: $input)
+  }
 `;
 
 export const FIND_SERVICES = gql`
@@ -94,7 +94,6 @@ export const FIND_SERVICES_BY_VENDOR = gql`
   }
 `;
 
-
 export const GET_VISITOR_BY_ID = gql`
   query GetVisitorById($id: String!) {
     findVisitorById(id: $id) {
@@ -119,12 +118,29 @@ export const GET_VENDOR_BY_ID = gql`
       email
       password
       fname
-      lname 
+      lname
       location
       busname
       phone
       city
       createdAt
+    }
+  }
+`;
+
+export const FIND_GUESTLIST_BY_VISITOR = gql`
+  query FindGuestListsByVisitor($id: String!) {
+    findGuestListsByVisitor(id: $id) {
+      id
+      name
+      number
+      address
+      contact
+      email
+      status
+      visitor {
+        id
+      }
     }
   }
 `;
