@@ -40,7 +40,7 @@ const CategoryDropdown = ({
                 name={myVendor.offering.name}
                 vendor={myVendor.offering.vendor?.busname || "Vendor name not available"}
                 city={myVendor.offering.vendor?.city || "Location not available"}
-                banner={myVendor.offering.banner || "/images/default-banner.jpg"}
+                banner={myVendor.offering.banner || "/images/bride.webp"}
                 link={`/services/${myVendor.offering.id}`}
               />
             ))

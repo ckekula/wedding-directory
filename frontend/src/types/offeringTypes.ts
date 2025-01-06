@@ -3,10 +3,7 @@ export interface OfferingProps {
     vendor: string,
     city: string, 
     rating: string, 
-    price: string, 
     banner: string,
-    about: string,
-    showStats: boolean,
     link: string,
     buttonText: string
 }

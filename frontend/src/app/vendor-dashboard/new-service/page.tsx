@@ -111,7 +111,7 @@ const AddNewService: React.FC = () => {
                     variant="signup"
                     disabled={loading}
                   >
-                    {loading ? "Submitting..." : "Submit"}
+                    {loading ? "Creating..." : "Create Service"}
                   </Button>
                 </div>
               </form>

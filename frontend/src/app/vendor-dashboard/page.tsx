@@ -4,9 +4,7 @@ import React from "react";
 import Header from "@/components/shared/Headers/Header";
 import VendorBanner from "@/components/vendor-dashboard/VendorBanner";
 import Stats from "@/components/vendor-dashboard/Stats";
-import QuickActions from "@/components/vendor-dashboard/QuickActions";
-import ToDo from "@/components/vendor-dashboard/ToDo";
-import VendorResult from "@/components/vendor-search/VendorResult";
+import OfferingCard from "@/components/vendor-search/OfferingCard";
 import Link from "next/link";
 import { GET_VENDOR_BY_ID, FIND_SERVICES_BY_VENDOR } from "@/graphql/queries";
 import { useVendorAuth } from "@/contexts/VendorAuthContext";
@@ -15,7 +13,7 @@ import { MdAdd } from "react-icons/md";
 import Footer from "@/components/shared/Footer";
 import { Button } from "@/components/ui/button";
 import LoaderJelly from "@/components/shared/Loaders/LoaderJelly";
-import { Service } from "@/types/serviceTypes"; // Import the Service type
+import { Service } from "@/types/serviceTypes";
 
 const VendorDashBoard: React.FC = () => {
   const { vendor } = useVendorAuth();
@@ -92,10 +90,10 @@ const VendorDashBoard: React.FC = () => {
           </div>
 
           {/* Quick Actions and To Do's */}
-          <div className="flex justify-between py-12 gap-10">
+          {/* <div className="flex justify-between py-12 gap-10">
             <QuickActions />
             <ToDo />
-          </div>
+          </div> */}
 
           <hr className="border-t border-gray-300 my-4" />
 
@@ -120,16 +118,13 @@ const VendorDashBoard: React.FC = () => {
           {services.length > 0 ? (
             <div className="grid grid-cols-3 gap-6 overflow-x-auto">
               {services.map((service: Service) => (
-                <VendorResult
+                <OfferingCard
                   key={service.id}
                   vendor={service.vendor?.busname || "Unknown"}
                   name={service.name}
                   city={service.vendor?.city || "Unknown"}
-                  rating="4.5/5"
-                  price="$$$"
-                  about={service.description}
+                  rating="4.8/5 (180)"
                   banner={"/images/banner.webp"}
-                  showStats={false}
                   buttonText="View details"
                   link={`/services/${service.id}`}
                 />
