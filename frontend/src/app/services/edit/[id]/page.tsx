@@ -13,6 +13,7 @@ import { useQuery } from "@apollo/client";
 import { GET_VENDOR_BY_ID } from "@/graphql/queries";
 import { useVendorAuth } from "@/contexts/VendorAuthContext";
 import EditPackages from "@/components/vendor-dashboard/dahboard-services/EditPackages";
+import Link from "next/link";
 
 const EditService = () => {
   const { vendor } = useVendorAuth();
@@ -46,6 +47,7 @@ const EditService = () => {
     <div className="">
       <Header />
       <div className="bg-lightYellow min-h-screen">
+
         <div className="p-20">
           {/* Vendor Banner */}
           <VendorBanner  businessName={vendorInfo?.busname} />

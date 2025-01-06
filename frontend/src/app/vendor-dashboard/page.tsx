@@ -14,6 +14,7 @@ import Footer from "@/components/shared/Footer";
 import { Button } from "@/components/ui/button";
 import LoaderJelly from "@/components/shared/Loaders/LoaderJelly";
 import { Service } from "@/types/serviceTypes";
+import { FiEdit } from "react-icons/fi";
 
 const VendorDashBoard: React.FC = () => {
   const { vendor } = useVendorAuth();
@@ -67,26 +68,23 @@ const VendorDashBoard: React.FC = () => {
           <VendorBanner businessName={vendorInfo?.busname} />
 
           {/* City, Member Since, Rating */}
-          <div className="grid grid-cols-3 text-center gap-10 mt-10 mb-8">
-            <div className="flex flex-col justify-center items-center">
-              <p className="font-body text-[20px]">City</p>
-              <p className="font-body text-[15px]">{vendorInfo?.city}</p>
+          <div className="bg-white mt-4 rounded-lg shadow-lg flex items-center justify-center container">
+            <div className="grid grid-cols-3 text-center gap-16 my-10">
+              <div className="flex flex-col justify-center items-center">
+                <p className="text-lg mb-2">City</p>
+                <p className="font-bold text-primary text-2xl">{vendorInfo?.city}</p>
+              </div>
+              <div className="flex flex-col justify-center items-center">
+                <p className="text-lg mb-2">Member Since</p>
+                <p className="font-bold text-primary text-2xl">
+                  {new Date(vendorInfo?.createdAt).getFullYear()}
+                </p>
+              </div>
+              <div className="flex flex-col justify-center items-center">
+                <p className="text-lg mb-2">Rating</p>
+                <p className="text-2xl font-bold text-primary ">4.8/5</p>
+              </div>
             </div>
-            <div className="flex flex-col justify-center items-center">
-              <p className="font-body text-[20px]">Member Since</p>
-              <p className="font-body text-[15px]">
-                {new Date(vendorInfo?.createdAt).getFullYear()}
-              </p>
-            </div>
-            <div className="flex flex-col justify-center items-center">
-              <p className="font-body text-[20px]">Rating</p>
-              <p className="font-body text-[15px]">- / -</p>
-            </div>
-          </div>
-
-          {/* Stats */}
-          <div className="flex justify-center">
-            <Stats />
           </div>
 
           {/* Quick Actions and To Do's */}
@@ -95,12 +93,25 @@ const VendorDashBoard: React.FC = () => {
             <ToDo />
           </div> */}
 
+          {/* About Section */}
+          <div className="flex items-center mt-8 mb-8">
+            <div className="text-2xl font-bold">
+              About {vendorInfo?.busname}
+            </div>
+            <Link href="/vendor-dashboard/settings">
+              <FiEdit className="text-2xl text-orange hover:text-black ml-4 cursor-pointer" />
+            </Link>
+          </div>
+          <p className="font-body text-[16px]">
+            {vendorInfo?.about || "About section not available"}
+          </p>
+
           <hr className="border-t border-gray-300 my-4" />
 
           {/* Services Section */}
           <div className="flex flex-row mt-8">
             <div className="w-5/6 text-2xl font-bold mb-8">
-              Your Service Offerings
+              Services by {vendorInfo?.busname}
             </div>
             <div className="w-1/6 ml-10">
               <Link

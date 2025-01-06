@@ -54,6 +54,8 @@ const Service: React.FC = () => {
   if (error) return <p>Error: {error.message}</p>;
 
   const offering = data?.findOfferingById;
+  const isVendorsOffering = offering?.vendor.id === vendor?.id;
+
   const portfolioImages = offering.photo_showcase || [
     "/images/photography.webp",
     "/images/photography.webp",
@@ -188,10 +190,10 @@ const Service: React.FC = () => {
                     </div>
                     <div className="flex flex-row text-3xl font-bold">
                       {offering?.name}
-                      <div className="ml-2 flex flex-row justify-center items-center gap-x-1">
-                        {offering?.vendor.id === vendor?.id ? (
+                      <div className="flex flex-row justify-center items-center">
+                        {isVendorsOffering ? (
                           <Link href={`/services/edit/${offering?.id}`}>
-                            <FiEdit className="text-orange hover:text-black" />
+                            <FiEdit className="text-2xl text-orange hover:text-black" />
                           </Link>
                         ) : (
                           <button onClick={handleHeartClick}>
@@ -227,7 +229,7 @@ const Service: React.FC = () => {
                 <hr className="border-t border-gray-300 my-4" />
 
                 <div className="mb-3 text-2xl font-bold">
-                  Pricing
+                  Packages
                 </div>
                 <div>
                   <p>{offering.pricing || "Pricing details not available"}</p>
