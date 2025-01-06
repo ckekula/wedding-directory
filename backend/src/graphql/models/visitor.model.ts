@@ -1,4 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
+import { MyVendorsModel } from './myVendors.model';
 
 @ObjectType()
 export class VisitorModel {
@@ -41,10 +42,12 @@ export class VisitorModel {
   @Field({ nullable: true })
   city?: string;
 
-
   @Field()
   createdAt: Date;
 
   @Field()
   updatedAt: Date;
+
+  @Field(() => [MyVendorsModel], { nullable: true })
+  myVendors?: MyVendorsModel[];
 }

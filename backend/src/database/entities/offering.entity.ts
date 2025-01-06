@@ -1,6 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 import { VendorEntity } from './vendor.entity';
 import { ReviewEntity } from './review.entity';
+import { MyVendorsEntity } from './myVendors.entity';
 
 @Entity({ name: 'offering' })
 export class OfferingEntity {
@@ -62,8 +63,12 @@ export class OfferingEntity {
     @JoinColumn({ name: 'vendor_id' })
     vendor: VendorEntity;
 
-    @OneToMany(() => ReviewEntity, r => r.offering)
-    @JoinColumn({ name: 'Review_id' })
+    @OneToMany(() => ReviewEntity, r => r.offering, {cascade: true})
+    @JoinColumn({ name: 'review_id' })
     review: ReviewEntity[];
+
+    @OneToMany(() => MyVendorsEntity, m => m.offering, {cascade: true})
+    @JoinColumn({ name: 'myvendors_id' })
+    myVendors: MyVendorsEntity[];
     
 }

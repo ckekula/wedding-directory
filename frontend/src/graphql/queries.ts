@@ -1,4 +1,4 @@
-import { gql } from '@apollo/client';
+import { gql } from "@apollo/client";
 
 export const GET_ALL_VISITORS = gql`
   query findAllVisitors {
@@ -16,9 +16,9 @@ export const GET_ALL_VISITORS = gql`
 `;
 
 export const AUTOCOMPLETE_QUERY = gql`
-    query Autocomplete($input: String!) {
-        autocompleteLocation(input: $input)
-    }
+  query Autocomplete($input: String!) {
+    autocompleteLocation(input: $input)
+  }
 `;
 
 export const FIND_SERVICES = gql`
@@ -94,7 +94,6 @@ export const FIND_SERVICES_BY_VENDOR = gql`
   }
 `;
 
-
 export const GET_VISITOR_BY_ID = gql`
   query GetVisitorById($id: String!) {
     findVisitorById(id: $id) {
@@ -119,7 +118,7 @@ export const GET_VENDOR_BY_ID = gql`
       email
       password
       fname
-      lname 
+      lname
       location
       busname
       phone
@@ -128,3 +127,122 @@ export const GET_VENDOR_BY_ID = gql`
     }
   }
 `;
+
+export const FIND_GUESTLIST_BY_VISITOR = gql`
+  query FindGuestListsByVisitor($id: String!) {
+    findGuestListsByVisitor(id: $id) {
+      id
+      name
+      number
+      address
+      contact
+      email
+      status
+      visitor {
+        id
+      }
+    }
+  }
+`;
+
+export const GET_BUDGET_TOOL = gql`
+    query GetBudgetTool($visitorId: String!) {
+        budgetTool(visitorId: $visitorId) {
+            id
+            totalBudget
+            visitor {
+                id
+                email
+            }
+            budgetItems {
+                id
+                itemName
+                category
+                estimatedCost
+                amountPaid
+                isPaidInFull
+            }
+            createdAt
+            updatedAt
+        }
+    }
+`
+export const GET_BUDGET_ITEMS = gql`
+    query GetBudgetItems($budgetToolId: String!) {
+        budgetItems(budgetToolId: $budgetToolId) {
+            id
+            itemName
+            category
+            estimatedCost
+            amountPaid
+            specialNotes
+            isPaidInFull
+            createdAt
+            updatedAt
+        }
+    }
+`
+
+export const GET_VISITOR_CHECKLISTS = gql`
+  query GetVisitorChecklists($visitorId: String!) {
+    getVisitorChecklists(visitorId: $visitorId) {
+      id
+      title
+      due_date
+      category
+      completed
+      notes
+      createdAt
+      updatedAt
+    }
+  }
+`;
+
+export const FIND_ALL_MY_VENDORS_BY_CATEGORY = gql`
+  query FindAllMyVendorsByCategory($visitorId: String!, $category: [String!]) {
+    findAllMyVendorsByCategory(visitorId: $visitorId, category: $category) {
+      id
+      offering {
+        id
+        name
+        category
+        vendor {
+          busname
+          city
+        }
+        banner
+      }
+    }
+  }
+`;
+
+export const FIND_ALL_MY_VENDORS = gql`
+  query FindAllMyVendors($visitorId: String!) {
+    findAllMyVendors(visitorId: $visitorId) {
+      id
+      offering {
+        id
+        name
+        category
+        vendor {
+          busname
+          city
+        }
+        banner
+      }
+    }
+  }
+`;
+
+export const FIND_MY_VENDOR_BY_ID = gql`
+  query FindMyVendorById($visitorId: String!, $offeringId: String!) {
+    findMyVendorById(visitorId: $visitorId, offeringId: $offeringId) {
+      id
+      offering {
+        id
+        name
+      }
+    }
+  }
+`;
+
