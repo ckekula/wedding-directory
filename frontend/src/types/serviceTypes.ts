@@ -22,3 +22,14 @@ export interface SocialData {
 export interface ServicesMenuProps {
     setActiveSection: (section: string) => void;
 }
+
+// New Service Interface
+export interface Service {
+    id: string;
+    name: string;
+    description: string;
+    vendor?: {
+        busname: string;
+        city: string;
+    };
+}
