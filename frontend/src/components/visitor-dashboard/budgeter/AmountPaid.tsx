@@ -6,17 +6,18 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
-import { number } from 'prop-types';
+
+import { AmountPaidProps, PaidPercentage } from '@/types/budgeterTypes';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const AmountPaid = ({ amountPaid, totalCost }) => {
-  const paidPercentage = ((amountPaid / totalCost) * 100).toFixed(0);
+const AmountPaid:React.FC<AmountPaidProps> = ({ amountPaid = 0.00, totalCost }) => {
+  const paidPercentage: PaidPercentage = ((amountPaid / totalCost) * 100).toFixed(0);
 
   const data = {
     datasets: [
       {
-        data: [paidPercentage, 100 - paidPercentage],
+        data: [Number(paidPercentage), 100 - Number(paidPercentage)],
         backgroundColor: ['#FF7262', '#E5E7EB'],
         borderWidth: 0,
         circumference: 360,
