@@ -14,7 +14,7 @@ export const uploadOfferingVideoShowcase = async (files: File[], offeringId: str
   const formData = new FormData();
 
   // Append each video file to the FormData object
-  files.forEach((file, index) => {
+  files.forEach((file) => {
     formData.append("files", file); // Notice 'files' to match the backend's expected field name
   });
 
