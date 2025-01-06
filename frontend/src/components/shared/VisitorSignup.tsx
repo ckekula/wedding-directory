@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { gql, useMutation } from '@apollo/client';  // Apollo useMutation hook
+import { useMutation } from '@apollo/client';
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
