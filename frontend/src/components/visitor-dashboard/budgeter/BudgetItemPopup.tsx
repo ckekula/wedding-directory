@@ -6,8 +6,14 @@ import { X } from 'lucide-react';
 import { useMutation } from '@apollo/client';
 import { CREATE_BUDGET_ITEM } from '@/graphql/mutations';
 import toast from 'react-hot-toast';
+import { BudgetItemPopupProps } from '@/types/budgeterTypes';
 
-const BudgetItemPopup = ({ isOpen, onClose, budgetToolId, onItemAdded }) => {
+const BudgetItemPopup: React.FC<BudgetItemPopupProps> = ({
+                                                           isOpen,
+                                                           onClose,
+                                                           budgetToolId,
+                                                           onItemAdded,
+                                                         }) => {
   const initialFormState = {
     itemName: '',
     category: '',

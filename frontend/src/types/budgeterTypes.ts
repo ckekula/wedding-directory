@@ -76,3 +76,12 @@ export interface BudgetItemUpdateInput {
   specialNotes?: string;
   isPaidInFull: boolean;
 }
+
+
+
+export interface BudgetItemPopupProps {
+  isOpen: boolean;
+  onClose: () => void;
+  budgetToolId: string;
+  onItemAdded?: () => void;
+}
