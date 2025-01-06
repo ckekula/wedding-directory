@@ -50,7 +50,7 @@ const Service: React.FC = () => {
     }
   }, [myVendorData]);
 
-  if (loading) return <LoaderQuantum />;
+  if (loading || myVendorLoading) return <LoaderQuantum />;
   if (error) return <p>Error: {error.message}</p>;
 
   const service = data?.findOfferingById;
@@ -62,7 +62,7 @@ const Service: React.FC = () => {
     "/images/photography.webp",
     "/images/photography.webp",
   ];
-  const video = service.video_showcase;
+  //const video = service.video_showcase;
 
   const handleHeartClick = async () => {
     if (!visitor) {

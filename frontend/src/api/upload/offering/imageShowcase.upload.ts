@@ -13,7 +13,7 @@ export const uploadOfferingImageShowcase = async (files: File[], offeringId: str
 
   const formData = new FormData();
 
-  files.forEach((file, index) => {
+  files.forEach((file) => {
     formData.append(`files`, file); // Notice 'files', not 'file', to align with multiple file upload
   });
 
