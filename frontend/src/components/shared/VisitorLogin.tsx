@@ -57,7 +57,7 @@ const VisitorLogin: React.FC<VisitorLoginProps> = ({ isVisible, onClose }) => {
       } else {
         setError('Login failed. Please try again.');
       }
-    } catch (err: any) {
+    } catch (err) {
       setError('Login failed. Please check your credentials.');
       toast.error('Login Failed', {style: {background: '#333',color: '#fff',},});
       console.error('Login failed:', err);

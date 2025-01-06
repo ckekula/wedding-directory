@@ -1,15 +1,28 @@
-// import { Args, Mutation, Resolver } from "@nestjs/graphql";
-//
-//
-// @Resolver()
-// export class ReviewResolver {
-//   constructor(
-//     private readonly reviewService: ReviewService,
-//   ) {}
-//
-//   // Create Review Mutation (CreateReviewInput: visitor_id, offering_id, comment, rating)
-//
-//   // Delete Review Mutation (args: id)
-//
-//   // Find all reviews for an offering (args: offering_id)
-// } 
+import { Args, Mutation, Resolver } from "@nestjs/graphql";
+import { ReviewService } from "src/modules/review/review.service";
+import { ReviewModel } from "../models/review.model";
+import { ReviewEntity } from "src/database/entities/review.entity";
+import { Query } from "@nestjs/graphql";
+import { CreateReviewInput } from "../inputs/createReview.input";
+
+@Resolver()
+export class ReviewResolver {
+  constructor(
+    private readonly reviewService: ReviewService,
+  ) {}
+
+  @Mutation(() => ReviewModel)
+  async createReview(@Args('input') input: CreateReviewInput): Promise<ReviewEntity> {
+    return this.reviewService.createReview(input);
+  }
+
+  @Mutation(() => Boolean)
+  async deleteReview(@Args('id') id: string): Promise<boolean> {
+    return this.reviewService.deleteReview(id);
+  }
+
+  @Query(() => [ReviewModel])
+  async findReviewsByOffering(@Args('offering_id') offering_id: string): Promise<ReviewEntity[]> {
+    return this.reviewService.findReviewsByOffering(offering_id);
+  }
+}

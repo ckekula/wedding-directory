@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { TaskType } from "@/types/taskTypes";
 import {TaskRowProps} from "@/types/taskTypes";
 import { MdDelete } from "react-icons/md";
 

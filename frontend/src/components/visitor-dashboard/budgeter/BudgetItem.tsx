@@ -3,16 +3,16 @@ import { ChevronUp, Trash2 } from 'lucide-react';
 
 import { BudgetItemProps, BudgetItemUpdateInput } from '@/types/budgeterTypes';
 
-const BudgetItem: React.FC<BudgetItemProps> = ({
-                                                 itemId,
-                                                 itemName = "",
-                                                 estimatedCost = 0.00,
-                                                 paidAmount = 0.00,
-                                                 category = "",
-                                                 specialNotes = null,
-                                                 onSave = () => {},
-                                                 onDelete = () => {},
-                                               }) =>  {
+const BudgetItem: React.FC<BudgetItemProps> = (
+  {
+    itemName = "",
+    estimatedCost = 0.00,
+    paidAmount = 0.00,
+    category = "",
+    specialNotes = null,
+    onSave = () => {},
+    onDelete = () => {},
+  }) =>  {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [editedValues, setEditedValues] = useState<BudgetItemUpdateInput>({
     itemName,
