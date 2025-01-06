@@ -36,7 +36,7 @@ const BudgetItemPopup: React.FC<BudgetItemPopupProps> = ({
     }
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const estimatedCost = parseFloat(formData.estimatedCost);
