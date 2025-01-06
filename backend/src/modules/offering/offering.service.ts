@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { OfferingEntity } from 'src/database/entities/offering.entity';
-import { CreateOfferingInput } from 'src/graphql/inputs/createOffering.input';
+import { OfferingEntity } from '../../database/entities/offering.entity';
+import { CreateOfferingInput } from '../../graphql/inputs/createOffering.input';
 import { DataSource, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { VendorEntity } from 'src/database/entities/vendor.entity';
-import { OfferingFilterInput } from 'src/graphql/inputs/offeringFilter.input';
-import { OfferingRepository } from 'src/database/repositories/offering.repository';
-import { OfferingRepositoryType } from 'src/database/types/offeringTypes';
-import { UpdateOfferingInput } from 'src/graphql/inputs/updateOffering.input';
+import { VendorEntity } from '../../database/entities/vendor.entity';
+import { OfferingFilterInput } from '../../graphql/inputs/offeringFilter.input';
+import { OfferingRepository } from '../../database/repositories/offering.repository';
+import { OfferingRepositoryType } from '../../database/types/offeringTypes';
+import { UpdateOfferingInput } from '../../graphql/inputs/updateOffering.input';
 
 @Injectable()
 export class OfferingService {

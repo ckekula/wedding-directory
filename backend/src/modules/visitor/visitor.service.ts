@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { VisitorEntity } from 'src/database/entities/visitor.entity';
-import { CreateVisitorInput } from 'src/graphql/inputs/createVisitor.input';
+import { VisitorEntity } from '../../database/entities/visitor.entity';
+import { CreateVisitorInput } from '../../graphql/inputs/createVisitor.input';
 import * as bcrypt from 'bcryptjs';
 import { UpdateVisitorInput } from '../../graphql/inputs/updateVisitor.input';
 

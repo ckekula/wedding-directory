@@ -4,6 +4,11 @@ import Footer from "@/components/shared/Footer";
 import Carousel from "@/components/about-us/Carousel";
 import AboutUsSection from "@/components/about-us/AboutUsSection";
 import PurposeAndVision from "@/components/about-us/PurposeAndVision";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About Us",
+}
 
 const AboutUsPage: React.FC = () => {
   const images = [
@@ -20,7 +25,7 @@ const AboutUsPage: React.FC = () => {
 
       <div className="mx-10">
         {/* Carousel Section */}
-        <div className="w-full h-[500px] md:h-[400px] mx-auto flex justify-center items-center">
+        <div className="hidden sm:flex w-full h-[500px] md:h-[400px] mx-auto justify-center items-center">
           <Carousel images={images} />
         </div>
 

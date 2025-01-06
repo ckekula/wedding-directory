@@ -3,8 +3,10 @@ import {
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
-  UpdateDateColumn
+  UpdateDateColumn,
+  OneToMany,
 } from 'typeorm';
+import { ReviewEntity } from './review.entity';
 
 @Entity({ name: 'visitor' })
 export class VisitorEntity {
@@ -47,9 +49,27 @@ export class VisitorEntity {
   @Column({ type: 'varchar', nullable: true })
   city?: string;
 
+  @OneToMany(() => ReviewEntity, r => r.visitor)
+  reviews: ReviewEntity[];
+
   @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
   createdAt: Date;
 
   @UpdateDateColumn({ name: 'updated_at', type: 'timestamp' })
   updatedAt: Date;
+
+  @OneToMany(() => MyVendorsEntity, (m) => m.visitor, {cascade: true})
+  myVendors: MyVendorsEntity[];
+
+  @OneToMany(() => GuestListEntity, (o) => o.visitor, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
+  guestlist: GuestListEntity[];
+
+  @OneToMany(() => ChecklistEntity, (checklist) => checklist.visitor, {
+    cascade: true,
+  })
+  checklists: ChecklistEntity[];
+
 }

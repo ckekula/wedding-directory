@@ -67,13 +67,13 @@ const VisitorLogin: React.FC<VisitorLoginProps> = ({ isVisible, onClose }) => {
 
   return (
     <div
-      className="fixed inset-0 z-50 backdrop-blur-sm flex justify-center items-center"
+      className="fixed inset-0 z-50 backdrop-blur-sm flex justify-center items-center px-4"
       id="wrapper"
       onClick={handleClose}
     >
       <div>{
-        isLoading ? (<LoaderJelly/>) : (<div className="bg-white mt-6 w-[450px] rounded-md p-8 font-body">
-          <h1 className=" text-4xl font-bold text-center font-title">
+        isLoading ? (<LoaderJelly/>) : (<div className="bg-white mt-6 w-full max-w-[450px] rounded-md p-4 sm:p-8 font-body">
+          <h1 className="text-2xl sm:text-4xl font-bold text-center font-title">
             Start where you left off
           </h1>
           <form onSubmit={handleSubmit}>
@@ -81,7 +81,7 @@ const VisitorLogin: React.FC<VisitorLoginProps> = ({ isVisible, onClose }) => {
               <div
                 className="border-black border-solid border-2 border-opacity-70 rounded-md flex flex-row space-y-1.5">
                 <Input
-                  className="h-12 pl-6 pb-3"
+                  className="h-12 pl-6 w-full"
                   type="email"
                   id="email"
                   placeholder="Email Address"
@@ -93,7 +93,7 @@ const VisitorLogin: React.FC<VisitorLoginProps> = ({ isVisible, onClose }) => {
               <div
                 className="border-black border-solid border-2 border-opacity-70 rounded-md flex flex-row space-y-1.5">
                 <Input
-                  className="h-12 pl-6 pb-3"
+                  className="h-12 pl-6 w-full"
                   type="password"
                   id="password"
                   placeholder="Password"
@@ -106,7 +106,7 @@ const VisitorLogin: React.FC<VisitorLoginProps> = ({ isVisible, onClose }) => {
             {error && (
               <p className="text-red-500 text-sm text-center mt-2">{error}</p>
             )}
-            <div className="  mt-6 flex flex-col w-full ">
+            <div className="mt-6 flex flex-col w-full">
               <Button type="submit" className="rounded-none text-black font-bold hover:bg-primary bg-primary text-lg">
                 Log In
               </Button>

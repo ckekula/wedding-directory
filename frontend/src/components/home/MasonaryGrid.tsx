@@ -56,16 +56,15 @@ const MasonaryGrid = () => {
   ];
 
   return (
-    <div>
-      <section className="bg-background p-16">
-        <h2 className="text-5xl font-bold text-center font-title pt-8 pb-4">
-          Locate Vendors For Every Vibe
-        </h2>
-        <p className="text-center mb-8 font-body text-xl pb-4">
-          Find Top-Rated Pros for Every Budget, Background, and Style
-        </p>
-        <div className="container mx-auto">
-          <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 space-y-4 p-4">
+    <section className="bg-background p-4 md:p-8 sm:p-16">
+      <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center font-title pt-8 pb-4">
+        Locate Vendors For Every Vibe
+      </h2>
+      <p className="text-center mb-8 font-body text-xl pb-4">
+        Find Top-Rated Pros for Every Budget, Background, and Style
+      </p>
+      <div className="container mx-auto max-w-full sm:max-w-screen-sm lg:max-w-screen-xl">
+      <div className="columns-2 sm:columns-2 lg:columns-3 gap-4 space-y-4 px-0 sm:p-4">
             {photos.map((photo) => (
               <div
                 key={photo.id}
@@ -92,8 +91,7 @@ const MasonaryGrid = () => {
             ))}
           </div>
         </div>
-      </section>
-    </div>
+    </section>
   );
 };
 

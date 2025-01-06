@@ -5,11 +5,11 @@ import { Input } from "../ui/input";
 const ContactForm: React.FC = () => {
   return (
     <section className="bg-white rounded-lg shadow-md py-12 container">
-      <h3 className="font-title  text-4xl mb-4 text-center ">
+      <h3 className="font-title text-2xl md:text-4xl mb-8 text-center ">
         Please fill out the form below and we will get back to you as soon as
         possible.
       </h3>
-      <form className="space-y-4 flex flex-col">
+      <form className="space-y-8 flex flex-col">
         <div className="flex flex-col">
           <label htmlFor="name" className="font-bold">
             Name

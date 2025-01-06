@@ -4,6 +4,11 @@ import Footer from "@/components/shared/Footer";
 import ContactInfo from "@/components/contact/ContactInfo";
 import ContactForm from "@/components/contact/ContactForm";
 import { FiMail, FiPhone, FiMapPin } from "react-icons/fi";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Contact",
+}
 
 const ContactPage: React.FC = () => {
   return (
@@ -21,7 +26,8 @@ const ContactPage: React.FC = () => {
             </p>
           </div>
 
-          <div className="flex justify-center items-center space-x-8 text-gray-700 text-lg">
+          {/* Contact Information */}
+          <div className="flex flex-col xl:flex-row justify-center items-center md:space-x-8 space-y-4 xl:space-y-0 text-gray-700 text-lg">
             <div className="flex items-center space-x-2">
               <FiMail className="text-orange text-3xl" size={25} />
               <span>help@sayido.lk</span>

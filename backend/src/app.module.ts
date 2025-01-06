@@ -9,10 +9,15 @@ import { VisitorModule } from './modules/visitor/visitor.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { OfferingModule } from './modules/offering/offering.module';
 import { UploadModule } from './modules/upload/upload.module';
+import { GuestListModule } from './modules/guestlist/guestlist.module';
+import { BudgetToolModule} from './modules/budget/budget_tool.module';
+import { BudgetItemModule } from './modules/budget/budget_item.module';
+import { ChecklistModule } from './modules/checklist/checklist.module';
+import { MyVendorsModule } from './modules/myVendors/myVendors.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot({isGlobal: true}),
+    ConfigModule.forRoot({ isGlobal: true }),
 
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
@@ -28,14 +33,20 @@ import { UploadModule } from './modules/upload/upload.module';
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
       autoSchemaFile: 'dist/graphql/schema.gql',
-      playground: true
+      playground: true,
     }),
 
     VendorModule,
     VisitorModule,
     AuthModule,
     OfferingModule,
-    UploadModule
+    GuestListModule,
+    UploadModule,
+    BudgetToolModule,
+    BudgetItemModule,
+    UploadModule,
+    ChecklistModule,
+    MyVendorsModule
   ],
 })
 export class AppModule {}

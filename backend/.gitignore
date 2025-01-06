@@ -2,7 +2,7 @@
 node_modules/
 
 # Environment variables
-.env*
+.env
 
 # Logs
 logs/
@@ -11,4 +11,3 @@ logs/
 # Other common exclusions
 dist/
 coverage/
-.idea/

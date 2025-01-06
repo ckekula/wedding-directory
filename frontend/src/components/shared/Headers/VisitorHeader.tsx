@@ -91,9 +91,10 @@ const VisitorHeader = () => {
               <Image
                 src={profilePic} // Display the fetched profile picture URL or placeholder
                 alt="profile picture"
-                className="w-[50px] h-[50px] rounded-full cursor-pointer"
+                className="w-[50px] h-[50px] rounded-full object-cover cursor-pointer"
                 width={50}
                 height={50}
+                layout="fixed"
                 onClick={handleProfileClick}
               />
               {showProfileMenu && (

@@ -1,119 +1,119 @@
-import React, { useState } from "react";
+"use client";
+
+import React from "react";
 import { IoMdCheckmarkCircleOutline } from "react-icons/io";
-import { FiHome, FiDollarSign, FiUsers } from "react-icons/fi";
+import { FiHome, FiDollarSign, FiUsers, FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { HiOutlineBriefcase } from "react-icons/hi2";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface LeftSideBarProps {
   isCollapsed: boolean;
-  setIsCollapsed: (isCollapsed: boolean) => void;
+  onToggleCollapse: () => void;
+  visitorId: string | null;
 }
 
-const LeftSideBar: React.FC<LeftSideBarProps> = ({
-  isCollapsed,
-  setIsCollapsed,
-}) => {
-  const [activeLink, setActiveLink] = useState<string>(""); // State to track the active link
+const LeftSideBar: React.FC<LeftSideBarProps> = ({ isCollapsed, onToggleCollapse, visitorId }) => {
+  const pathname = usePathname();
 
-  const toggleSideBar = () => {
-    setIsCollapsed(!isCollapsed);
-  };
+  const menuItems = [
+    {
+      href: "/visitor-dashboard",
+      icon: <FiHome className="w-5 h-5" />,
+      label: "Dashboard"
+    },
+    {
+      href: `/visitor-dashboard/checklist/${visitorId}`,
+      icon: <IoMdCheckmarkCircleOutline className="w-5 h-5" />,
+      label: "Checklist"
+    },
+    {
+      href: `visitor-dashboard/budgeter/${visitorId}`,
+      icon: <FiDollarSign className="w-5 h-5" />,
+      label: "Budgeter"
+    },
+    {
+      href: "/guest-list",
+      icon: <FiUsers className="w-5 h-5" />,
+      label: "Guest List"
+    },
+    {
+      href: `visitor-dashboard/my-vendors/${visitorId}`,
+      icon: <HiOutlineBriefcase className="w-5 h-5" />,
+      label: "My Vendors"
+    }
+  ];
 
   return (
-    <div
-      className={`flex justify-center font-body bg-white rounded-br-3xl rounded-tr-3xl shadow-md p-5 transition-all duration-300 ${
-        isCollapsed
-          ? "w-[55px] h-[132px] border-slate-800 border-solid border-2"
-          : "w-64 h-[400px]"
-      }`}
-    >
-      {/* Collapsed State */}
-      {isCollapsed ? (
-        <div className="flex justify-between items-stretch">
-          {/* Toggle Button */}
-          <button onClick={toggleSideBar} className="focus:outline-none">
-            <FaChevronRight />
-          </button>
-        </div>
-      ) : (
-        /* Expanded State */
-        <div className="flex justify-between">
-          {/* Navigation Items */}
-          <nav className="mt-10">
-            <div className="space-y-8">
-              {/* Dashboard Link */}
-              <Link
-                href="/visitor-dashboard"
-                onClick={() => setActiveLink("/visitor-dashboard")} // Set active link
-                className={`flex items-center transition-colors duration-300 ${
-                  activeLink === "/visitor-dashboard"
-                    ? "text-orange"
-                    : "text-black"
-                }`}
-              >
-                <FiHome className="text-2xl w-[30px] h-[30px]" />
-                <span className="ml-3">Dashboard</span>
-              </Link>
+    <div className="relative">
+      {/* Collapse toggle button */}
+      <button
+        onClick={onToggleCollapse}
+        className="absolute -right-3 top-6 bg-white rounded-full p-1.5 shadow-md hover:bg-gray-50
+          transition-all duration-200 ease-in-out z-10"
+      >
+        {isCollapsed ? (
+          <FiChevronRight className="w-4 h-4 text-gray-600" />
+        ) : (
+          <FiChevronLeft className="w-4 h-4 text-gray-600" />
+        )}
+      </button>
 
-              {/* Checklist Link */}
-              <Link
-                href="/checklist"
-                onClick={() => setActiveLink("/checklist")} // Set active link
-                className={`flex items-center transition-colors duration-300 ${
-                  activeLink === "/checklist" ? "text-orange" : "text-black"
-                }`}
-              >
-                <IoMdCheckmarkCircleOutline className="text-2xl w-[30px] h-[30px]" />
-                <span className="ml-3">Checklist</span>
-              </Link>
+      {/* Sidebar container */}
+      <div
+        className={`
+          bg-white rounded-lg shadow-md transition-all duration-300 ease-in-out
+          ${isCollapsed ? 'w-16' : 'w-full'}
+        `}
+      >
+        <nav className="p-4 space-y-1">
+          {menuItems.map((item) => {
+            const isActive = pathname === item.href;
 
-              {/* Budgeter Link */}
+            return (
               <Link
-                href="/budgeter"
-                onClick={() => setActiveLink("/budgeter")} // Set active link
-                className={`flex items-center transition-colors duration-300 ${
-                  activeLink === "/budgeter" ? "text-orange" : "text-black"
-                }`}
+                key={item.href}
+                href={item.href}
+                className={`
+                  flex items-center px-3 py-3 rounded-md
+                  transition-colors duration-200 ease-in-out
+                  ${isActive
+                  ? "bg-orange-50 text-orange-600"
+                  : "text-gray-700 hover:bg-gray-50 hover:text-gray-900"
+                }
+                  ${isCollapsed ? 'justify-center' : 'justify-start'}
+                  group
+                `}
+                title={isCollapsed ? item.label : undefined}
               >
-                <FiDollarSign className="text-2xl w-[30px] h-[30px]" />
-                <span className="ml-3">Budgeter</span>
-              </Link>
+                <span className={`
+                  flex-shrink-0
+                  ${isActive ? "text-orange-600" : "text-gray-500"}
+                  ${isCollapsed ? 'mr-0' : 'mr-3'}
+                  transition-all duration-200
+                `}>
+                  {item.icon}
+                </span>
 
-              {/* Guest List Link */}
-              <Link
-                href="/guest-list"
-                onClick={() => setActiveLink("/guest-list")} // Set active link
-                className={`flex items-center transition-colors duration-300 ${
-                  activeLink === "/guest-list" ? "text-orange" : "text-black"
-                }`}
-              >
-                <FiUsers className="text-2xl w-[30px] h-[30px]" />
-                <span className="ml-3">Guest List</span>
-              </Link>
+                {!isCollapsed && (
+                  <span className="text-sm font-medium transition-all duration-200">
+                    {item.label}
+                  </span>
+                )}
 
-              {/* Vendors Link */}
-              <Link
-                href="/vendors"
-                onClick={() => setActiveLink("/vendors")} // Set active link
-                className={`flex items-center transition-colors duration-300 ${
-                  activeLink === "/vendors" ? "text-orange" : "text-black"
-                }`}
-              >
-                <HiOutlineBriefcase className="text-2xl w-[30px] h-[30px]" />
-                <span className="ml-3">Vendors</span>
+                {/* Tooltip for collapsed state */}
+                {isCollapsed && (
+                  <div className="absolute left-full ml-2 px-2 py-1 bg-gray-800 text-white text-xs
+                    rounded opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity
+                    whitespace-nowrap">
+                    {item.label}
+                  </div>
+                )}
               </Link>
-            </div>
-          </nav>
-
-          {/* Toggle Button */}
-          <div className="flex items-stretch ml-3">
-            <button onClick={toggleSideBar} className="focus:outline-none">
-              <FaChevronLeft />
-            </button>
-          </div>
-        </div>
-      )}
+            );
+          })}
+        </nav>
+      </div>
     </div>
   );
 };

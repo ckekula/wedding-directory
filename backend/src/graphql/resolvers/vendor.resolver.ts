@@ -1,7 +1,7 @@
 import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { VendorModel } from "../models/vendor.model";
-import { VendorEntity } from "src/database/entities/vendor.entity";
-import { VendorService } from "src/modules/vendor/vendor.service";
+import { VendorEntity } from '../../database/entities/vendor.entity';
+import { VendorService } from '../../modules/vendor/vendor.service';
 import { CreateVendorInput } from "../inputs/createVendor.input";
 import { UpdateVendorInput } from "../inputs/updateVendor.input";
 
