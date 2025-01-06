@@ -1,29 +1,32 @@
 import React, { useState } from 'react';
 import { ChevronUp, Trash2 } from 'lucide-react';
 
-const BudgetItem = ({
-                      itemId,
-                      itemName = "Reception Venue & Rentals",
-                      estimatedCost = 145000,
-                      paidAmount = 50000,
-                      category = "Venues",
-                      specialNotes = null,
-                      onSave = () => {},
-                      onDelete = () => {},
-                    }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [editedValues, setEditedValues] = useState({
+import { BudgetItemProps, BudgetItemUpdateInput } from '@/types/budgeterTypes';
+
+const BudgetItem: React.FC<BudgetItemProps> = ({
+                                                 itemId,
+                                                 itemName = "",
+                                                 estimatedCost = 0.00,
+                                                 paidAmount = 0.00,
+                                                 category = "",
+                                                 specialNotes = null,
+                                                 onSave = () => {},
+                                                 onDelete = () => {},
+                                               }) =>  {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [editedValues, setEditedValues] = useState<BudgetItemUpdateInput>({
     itemName,
     estimatedCost,
     paidAmount,
     category,
     specialNotes: specialNotes || '',
+    isPaidInFull: estimatedCost === paidAmount,
   });
 
-  const handleInputChange = (field, value) => {
-    setEditedValues(prev => ({
+  const handleInputChange = (field: keyof BudgetItemUpdateInput, value: string | number) => {
+    setEditedValues((prev) => ({
       ...prev,
-      [field]: value
+      [field]: value,
     }));
   };
 

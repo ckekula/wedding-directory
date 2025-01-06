@@ -5,13 +5,11 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
-  OneToOne
 } from 'typeorm';
 import { ReviewEntity } from './review.entity';
-import { GuestListEntity } from './guestlist.entity';
-import { BudgetToolEntity } from './budget_tool.entity';
-import { ChecklistEntity } from './checklist.entity';
 import { MyVendorsEntity } from './myVendors.entity';
+import { GuestListEntity } from './guestlist.entity';
+import { ChecklistEntity } from './checklist.entity';
 
 @Entity({ name: 'visitor' })
 export class VisitorEntity {
@@ -54,10 +52,7 @@ export class VisitorEntity {
   @Column({ type: 'varchar', nullable: true })
   city?: string;
 
-  @OneToOne(() => BudgetToolEntity, (budgetTool) => budgetTool.visitor)
-  budgetTool: BudgetToolEntity;
-
-  @OneToMany(() => ReviewEntity, (r) => r.visitor)
+  @OneToMany(() => ReviewEntity, r => r.visitor)
   reviews: ReviewEntity[];
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
