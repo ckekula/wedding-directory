@@ -12,7 +12,7 @@ const CreateBudgetTool: React.FC<CreateBudgetToolProps> = ({ visitorId }) => {
   const [totalBudget, setTotalBudget] = useState<string>('');
 
   const [createBudget, { loading }] = useMutation(CREATE_BUDGET_TOOL, {
-    onCompleted: (data) => {
+    onCompleted: () => {
       toast.success('Budget created successfully!');
       // Reload the page after successful creation
       window.location.reload();

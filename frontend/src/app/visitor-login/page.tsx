@@ -1,6 +1,6 @@
-// app/(your-login-page-path)/page.tsx
 'use client'
-import React, { useState, MouseEvent } from 'react';
+
+import React, { useState } from 'react';
 import Header from '@/components/shared/Headers/Header';
 import Image from 'next/image';
 import { Input } from "@/components/ui/input";
@@ -11,19 +11,17 @@ import { loginVisitor as loginApi } from '@/api/auth/visitor.auth.api';
 import { useAuth } from "@/contexts/VisitorAuthContext";
 import { toast } from 'react-hot-toast';
 import LoaderJelly from "@/components/shared/Loaders/LoaderJelly";
-import VisitorSignup from "@/components/shared/VisitorSignup";
 
 const LoginPage = () => {
-  const [showVisitorSignup, setShowVisitorSignup] = useState(false);
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   const router = useRouter();
-  const { login } = useAuth(); // Access login function from the context
+  const { login } = useAuth();
 
-  // Handles form submission logic
+  // Handle form submission logic
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null); // Reset error before making the login request
@@ -49,7 +47,7 @@ const LoginPage = () => {
       } else {
         setError('Login failed. Please try again.');
       }
-    } catch (err: any) {
+    } catch (err) {
       setError('Login failed. Please check your credentials.');
       toast.error('Login Failed', { style: { background: '#333', color: '#fff' }, });
       console.error('Login failed:', err);
