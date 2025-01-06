@@ -12,6 +12,7 @@ import Footer from "@/components/shared/Footer";
 import { useQuery } from "@apollo/client";
 import { GET_VENDOR_BY_ID } from "@/graphql/queries";
 import { useVendorAuth } from "@/contexts/VendorAuthContext";
+import EditPackages from "@/components/vendor-dashboard/dahboard-services/EditPackages";
 
 const EditService = () => {
   const { vendor } = useVendorAuth();
@@ -31,9 +32,11 @@ const EditService = () => {
       case "socialContact":
         return <EditSocialContact />;
       case "portfolio":
-        return <EditPortfolio />; // Pass the offeringId to the EditPortfolio component
+        return <EditPortfolio />;
       case "serviceSettings":
         return <EditServiceSettings />;
+      case "packages":
+        return <EditPackages />;
       default:
         return <EditGeneral isServiceVisible={true} />;
     }
