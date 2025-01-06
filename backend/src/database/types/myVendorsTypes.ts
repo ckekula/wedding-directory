@@ -1,5 +1,5 @@
 import { Repository } from "typeorm";
-import { MyVendorsEntity } from "../entities/myVendors.entity";
+import { MyVendorsEntity } from "../entities/my_Vendors.entity";
 
 export type MyVendorsRepositoryType = Repository<MyVendorsEntity> & {
     findAllMyVendorsByCategory(visitorId: string, category: string): Promise<MyVendorsEntity[]>;

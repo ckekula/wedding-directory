@@ -1,6 +1,6 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { MyVendorsModel } from "../models/myVendors.model";
-import { MyVendorsService } from "src/modules/myVendors/myVendors.service";
+import { MyVendorsService } from "src/modules/my_Vendors/my_Vendors.service";
 
 @Resolver(() => MyVendorsModel)
 export class MyVendorsResolver {
