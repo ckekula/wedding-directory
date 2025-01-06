@@ -26,12 +26,12 @@ const CategoryDropdown: React.FC<CategoryDropdownProps> = ({
   const toggleDropdown = () => setIsOpen((prev) => !prev);
 
   return (
-    <div className="mb-6">
+    <div className="mb-6 border-2 border-b-slate-300 rounded-lg">
       <div
         className="flex justify-between items-center bg-white border-b-slate-200 p-4 rounded-lg cursor-pointer"
         onClick={toggleDropdown}
       >
-        <h2 className="text-lg font-bold font-title text-slate-800">
+        <h2 className="text-lg font-bold font-title text-slate-800 ">
           {category} ({tasks.length})
         </h2>
         <div>
@@ -43,7 +43,7 @@ const CategoryDropdown: React.FC<CategoryDropdownProps> = ({
         </div>
       </div>
       {isOpen && (
-        <div className="bg-white shadow p-4 rounded-b-lg">
+        <div className="bg-white shadow p-4 rounded-b-lg ">
           {tasks.length > 0 ? (
             tasks.map((task) => (
               <TaskRow
@@ -57,8 +57,12 @@ const CategoryDropdown: React.FC<CategoryDropdownProps> = ({
           ) : (
             <p className="text-slate-600 italic">No tasks in this category.</p>
           )}
-          <Button variant="login" className="mt-2 text-sm ml-2" onClick={onAddTask}>
-           Add Task
+          <Button
+            variant="login"
+            className="mt-2 text-sm ml-2"
+            onClick={onAddTask}
+          >
+            Add Task
           </Button>
         </div>
       )}
