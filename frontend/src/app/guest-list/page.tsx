@@ -50,7 +50,7 @@ const GuestListPage = () => {
     onCompleted: () => {
       toast.success("Guest deleted successfully");
     },
-    onError: (err) => {
+    onError: () => {
       toast.error("Failed to delete guest");
     },
   });
