@@ -1,4 +1,5 @@
 "use client";
+
 import Header from "@/components/shared/Headers/Header";
 import WeddingDetails from "@/components/visitor-profile/WeddingDetails";
 import AccountDetails from "@/components/visitor-profile/AccountDetails";
@@ -11,12 +12,11 @@ import { useQuery } from '@apollo/client';
 import { GET_VISITOR_BY_ID } from '@/graphql/queries';
 import { StaticImageData } from 'next/image';
 
-
 const VisitorProfile = () => {
   const { visitor } = useAuth();
   const [profilePic, setProfilePic] = useState<string | StaticImageData>('/images/visitorProfilePic.webp');
 
-  const { data, loading, error } = useQuery(GET_VISITOR_BY_ID, {
+  const { data } = useQuery(GET_VISITOR_BY_ID, {
     variables: { id: visitor?.id },
     skip: !visitor?.id,
     onCompleted: (data) => {

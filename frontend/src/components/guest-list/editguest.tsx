@@ -6,8 +6,9 @@ import { Input } from "@/components/ui/input";
 import { UPDATE_GUESTLIST } from "@/graphql/mutations";
 import { useMutation } from "@apollo/client";
 
-interface Guest {
+export interface Guest {
     id: string;
+    no: string;
     name: string;
     number: string;
     address: string;

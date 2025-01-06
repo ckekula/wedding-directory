@@ -3,8 +3,7 @@
 import Link from "next/link";
 import { Button } from "../../ui/button";
 import { Fragment, useState, useEffect, useRef } from "react";
-import { useRouter, usePathname } from "next/navigation";
-import { useAuth } from "@/contexts/VisitorAuthContext";
+import { usePathname } from "next/navigation";
 import { HiMenu, HiX } from "react-icons/hi";
 import Nav from "../Nav";
 import VisitorLogin from "@/components/shared/VisitorLogin";
