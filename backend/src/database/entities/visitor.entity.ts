@@ -7,6 +7,9 @@ import {
   OneToMany,
 } from 'typeorm';
 import { ReviewEntity } from './review.entity';
+import { MyVendorsEntity } from './myVendors.entity';
+import { GuestListEntity } from './guestlist.entity';
+import { ChecklistEntity } from './checklist.entity';
 
 @Entity({ name: 'visitor' })
 export class VisitorEntity {
