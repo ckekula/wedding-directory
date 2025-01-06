@@ -11,6 +11,7 @@ import { ReviewEntity } from './review.entity';
 import { GuestListEntity } from './guestlist.entity';
 import { BudgetToolEntity } from './budget_tool.entity';
 import { ChecklistEntity } from './checklist.entity';
+import { MyVendorsEntity } from './myVendors.entity';
 
 @Entity({ name: 'visitor' })
 export class VisitorEntity {
@@ -64,6 +65,9 @@ export class VisitorEntity {
 
   @UpdateDateColumn({ name: 'updated_at', type: 'timestamp' })
   updatedAt: Date;
+
+  @OneToMany(() => MyVendorsEntity, (m) => m.visitor, {cascade: true})
+  myVendors: MyVendorsEntity[];
 
   @OneToMany(() => GuestListEntity, (o) => o.visitor, {
     cascade: true,

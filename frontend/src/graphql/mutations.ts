@@ -168,7 +168,7 @@ export const UPDATE_BUDGET_ITEM = gql`
             updatedAt
         }
     }
-`
+`;
 
 export const CREATE_BUDGET_TOOL = gql`
     mutation CreateBudgetTool($input: CreateBudgetToolInput!) {
@@ -176,8 +176,7 @@ export const CREATE_BUDGET_TOOL = gql`
             id
         }
     }
-
-`
+`;
 
 export const CREATE_BUDGET_ITEM = gql`
     mutation CreateBudgetItem($input: CreateBudgetItemInput!) {
@@ -185,9 +184,34 @@ export const CREATE_BUDGET_ITEM = gql`
             id
         }
     }
-`
+`;
+
 export const DELETE_BUDGET_ITEM = gql `
     mutation DeleteBudgetItem($id: String!) {
         deleteBudgetItem(id: $id)
     }
-`
+`;
+
+export const ADD_TO_MY_VENDORS = gql`
+  mutation AddToMyVendors($visitorId: String!, $offeringId: String!) {
+    addToMyVendors(visitorId: $visitorId, offeringId: $offeringId) {
+      id
+      offering {
+        id
+        name
+      }
+    }
+  }
+`;
+
+export const REMOVE_FROM_MY_VENDORS = gql`
+  mutation RemoveFromMyVendors($visitorId: String!, $offeringId: String!) {
+    removeFromMyVendors(visitorId: $visitorId, offeringId: $offeringId) {
+      id
+      offering {
+        id
+        name
+      }
+    }
+  }
+`;

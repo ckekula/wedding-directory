@@ -1,8 +1,6 @@
 "use client";
-import React, { useEffect, useState, useMemo } from "react";
-import { parseISO, isValid } from "date-fns";
-import { ApolloProvider } from "@apollo/client";
-import client from "@/apollo/apollo-client";
+
+import React, { useState, useMemo } from "react";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { useQuery, useMutation } from "@apollo/client";
 import { GET_VISITOR_CHECKLISTS } from "@/graphql/queries";
@@ -193,7 +191,6 @@ const handleSaveTask = async (taskInput: Partial<TaskType>) => {
   ).length;
 
   return (
-    <ApolloProvider client={client}>
       <div className="py-4 px-2 md:py-6 md:px-4">
         {/* Hide breadcrumbs on mobile */}
         <div className="hidden md:block shadow-md bg-white p-4 rounded-lg mb-4 md:mb-6">
@@ -344,8 +341,7 @@ const handleSaveTask = async (taskInput: Partial<TaskType>) => {
             }
           />
         </div>
-      </div>
-    </ApolloProvider>
+    </div>
   );
 };
 
