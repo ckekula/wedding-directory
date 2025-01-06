@@ -7,9 +7,9 @@ export const MyVendorsRepository = (dataSource: DataSource) =>
 
     async findAllMyVendorsByCategory(visitorId: string, category: string) {
       const results = await this.createQueryBuilder('myVendors')
-        .innerJoinAndSelect('myvendors.offering', 'offering')
+        .innerJoinAndSelect('myVendors.offering', 'offering')
         .innerJoinAndSelect('offering.vendor', 'vendor')
-        .where('myvendors.visitor.id = :visitorId', { visitorId })
+        .where('myVendors.visitor.id = :visitorId', { visitorId })
         .andWhere('offering.category = :category', { category })
         .getMany();
       
@@ -18,18 +18,18 @@ export const MyVendorsRepository = (dataSource: DataSource) =>
 
     async findAllMyVendors(visitorId: string) {
       return this.createQueryBuilder('myVendors')
-          .innerJoinAndSelect('myvendors.offering', 'offering')
+          .innerJoinAndSelect('myVendors.offering', 'offering')
           .innerJoinAndSelect('offering.vendor', 'vendor')
-          .where('myvendors.visitor.id = :visitorId', { visitorId })
-          .orderBy('myvendors.createdAt', 'DESC')
+          .where('myVendors.visitor.id = :visitorId', { visitorId })
+          .orderBy('myVendors.createdAt', 'DESC')
           .getMany();
     },
   
     async findMyVendorById(visitorId: string, offeringId: string) {
       // Query to find a specific offering in the visitor's My Vendors list
       const myVendor = await this.createQueryBuilder('myVendors')
-        .innerJoinAndSelect('myvendors.offering', 'offering') // Join with the offering table
-        .where('myvendors.visitor.id = :visitorId', { visitorId }) // Filter by visitor ID
+        .innerJoinAndSelect('myVendors.offering', 'offering') // Join with the offering table
+        .where('myVendors.visitor.id = :visitorId', { visitorId }) // Filter by visitor ID
         .andWhere('offering.id = :offeringId', { offeringId }) // Filter by offering ID
         .getOne(); // Retrieve a single matching record
     
@@ -48,7 +48,7 @@ export const MyVendorsRepository = (dataSource: DataSource) =>
         throw new Error("No offering found");
       }
 
-      // Create and save the new myvendors entity
+      // Create and save the new myVendors entity
       const myVendors = this.create({
         visitor: { id: visitorId }, // Pass only the visitor's ID
         offering: offering,
