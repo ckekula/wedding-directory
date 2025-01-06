@@ -1,5 +1,5 @@
 import { Field, ObjectType } from '@nestjs/graphql';
-import { MyVendorsModel } from './my_vendors.model';
+import { MyVendorsModel } from './myVendors.model';
 
 @ObjectType()
 export class VisitorModel {
