@@ -33,7 +33,7 @@ const VisitorInfo: React.FC<VisitorInfoProps> = ({
       </div>
       <div className="flex m-2 justify-center gap-8 font-body">
         <Link href="#">{wed_date || "Add Date"} </Link>
-        <Link href="#">Your Venue</Link>
+        <Link href="#">{wed_venue || "Add Venue"}</Link>
         <Link href="#">No. of Guests</Link>
       </div>
     </div>

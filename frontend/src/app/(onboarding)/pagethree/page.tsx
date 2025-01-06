@@ -20,13 +20,12 @@ const OnboardingPageThree = () => {
 
   const [weddingVenue, setWeddingVenue] = useState('');
   const [contactNo, setContactNo] = useState('');
-  const [isStillDeciding, setIsStillDeciding] = useState(false);
 
   const [updateVisitor] = useMutation(UPDATE_VISITOR);
 
   const handleNext = async () => {
     try {
-      const preparedWeddingVenue = isStillDeciding ? null : weddingVenue;
+      const preparedWeddingVenue = weddingVenue || null;
 
       await updateVisitor({
         variables: {
@@ -97,7 +96,7 @@ const OnboardingPageThree = () => {
           {/* Input Fields */}
           <div className="mb-6">
             <div className="mb-4">
-              <label className="block font-light mb-2">Where is your hometown? (For better recomendations)</label>
+              <label className="block font-light mb-2">Where is your hometown? (For better recommendations)</label>
               <CityInput placeholder="Find your city" onCityChange={setWeddingVenue}/>
             </div>
             <div className="mb-6">

@@ -43,9 +43,9 @@ const VendorLoginPage = () => {
                 //alert('Login failed. Please try again.');
             }
         } catch (err) {
-            console.log(err)
+            console.log(err);
+            setError('Invalid credentials. Please try again.'); // Set error message here
             toast.error('Invalid credentials. Please try again.', {style: {background: '#333',color: '#fff',},});
-            //alert("Invalid email or password. Please try again.");
         }
     };
 

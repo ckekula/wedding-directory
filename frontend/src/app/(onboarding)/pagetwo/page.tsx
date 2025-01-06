@@ -4,13 +4,12 @@ import React, { useState } from 'react';
 import Image from "next/image";
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { Checkbox } from '@/components/ui/checkbox';
 import { X } from 'lucide-react';
 import { FaCircleCheck } from "react-icons/fa6";
 import { TbCircleNumber2Filled, TbCircleNumber3 } from "react-icons/tb";
 import { GoHorizontalRule } from "react-icons/go";
 import { useRouter } from 'next/navigation';
-import { useMutation, gql } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { useAuth } from '@/contexts/VisitorAuthContext';
 import { UPDATE_VISITOR } from '@/graphql/mutations';
 
@@ -21,7 +20,6 @@ const OnboardingPageTwo = () => {
   // Store the form data in state
   const [engageDate, setEngageDate] = useState('');
   const [weddingDate, setWeddingDate] = useState('');
-  const [isStillDeciding, setIsStillDeciding] = useState(false);
 
   // Define the mutation
   const [updateVisitor] = useMutation(UPDATE_VISITOR);
@@ -29,7 +27,6 @@ const OnboardingPageTwo = () => {
   // Handle the form submission
   const handleNext = async () => {
     try {
-
       // Call the mutation to update the visitor
       await updateVisitor({
         variables: {
@@ -98,36 +95,34 @@ const OnboardingPageTwo = () => {
 
           {/* Form Heading */}
           <h2 className="text-3xl text-center mb-8 font-semibold">Now, Let&apos;s talk about ✨ The Day</h2>
-<div>
-          <div className="mb-6 flex justify-center flex-col ml-4">
-            {/* Engagement Date (Top Row) */}
-            <div className="mb-4">
-              <label className="block font-light mb-1">Engagement date</label>
-              <span className="text-gray-400 text-sm">(You can change this later)</span>
-              <Input
-                className="h-10 w-full rounded-xl border-2 border-gray-300 mt-2"
-                type="date"
-                value={engageDate}
-                onChange={(e) => setEngageDate(e.target.value)}
-              />
-            </div>
+          <div>
+            <div className="mb-6 flex justify-center flex-col ml-4">
+              {/* Engagement Date (Top Row) */}
+              <div className="mb-4">
+                <label className="block font-light mb-1">Engagement date</label>
+                <span className="text-gray-400 text-sm">(You can change this later)</span>
+                <Input
+                  className="h-10 w-full rounded-xl border-2 border-gray-300 mt-2"
+                  type="date"
+                  value={engageDate}
+                  onChange={(e) => setEngageDate(e.target.value)}
+                />
+              </div>
 
-            {/* Wedding Date (Bottom Row) */}
-            <div className="mb-4">
-              <label className="block font-light mb-1">Wedding date</label>
-              <span className="text-gray-400 text-sm">(Don&apos;t worry! You can change this later)</span>
-              <Input
-                className="h-10 w-full  rounded-xl border-2 border-gray-300 mt-2"
-                type="date"
-                value={weddingDate}
-                min={new Date().toISOString().split("T")[0]}
-                onChange={(e) => setWeddingDate(e.target.value)}
-                disabled={isStillDeciding} // disable if the checkbox is checked
-              />
-            </div>
+              {/* Wedding Date (Bottom Row) */}
+              <div className="mb-4">
+                <label className="block font-light mb-1">Wedding date</label>
+                <span className="text-gray-400 text-sm">(Don&apos;t worry! You can change this later)</span>
+                <Input
+                  className="h-10 w-full  rounded-xl border-2 border-gray-300 mt-2"
+                  type="date"
+                  value={weddingDate}
+                  min={new Date().toISOString().split("T")[0]}
+                  onChange={(e) => setWeddingDate(e.target.value)}
+                />
+              </div>
             </div>
             {/* Still Deciding Checkbox */}
-
           </div>
 
           {/* Next Button */}

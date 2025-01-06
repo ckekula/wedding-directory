@@ -6,10 +6,20 @@ import { Input } from "@/components/ui/input";
 import { UPDATE_GUESTLIST } from "@/graphql/mutations";
 import { useMutation } from "@apollo/client";
 
+interface Guest {
+    id: string;
+    name: string;
+    number: string;
+    address: string;
+    contact: string;
+    email: string;
+    status: string;
+}
+
 interface EditGuestProps {
     isVisible: boolean;
     onClose: () => void;
-    guest: any;
+    guest: Guest;
     onSave: () => void;
 }
 
