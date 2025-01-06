@@ -93,13 +93,14 @@ const GuestListPage = () => {
 
   const guestlistData = gldata?.findGuestListsByVisitor || [];
   const guestlists = guestlistData.map(
-    (guest: { id: string; name: string; number: number; status: string; contact: string }, index: number) => ({
+    (guest: { id: string; name: string; number: number; status: string; contact: string; email: string }, index: number) => ({
       no: index + 1,
       id: guest.id,
       name: guest.name,
       number: guest.number,
       status: guest.status,
       contact: guest.contact,
+      email: guest.email,
     })
   );
 
@@ -119,6 +120,34 @@ const GuestListPage = () => {
   const handleEditGuest = (guest: any) => {
     setSelectedGuest(guest);
     toggleEditPopup();
+  };
+
+
+  const downloadCSV = () => {
+    const headers = ["No", "Name", "Party of", "Status", "Contact", "Email"];
+    const rows = guestlists.map((guest: { no: number; name: string; number: number; status: string; contact: string; email: string }) => [
+      guest.no,
+      guest.name,
+      guest.number,
+      guest.status,
+      guest.contact,
+      guest.email,
+    ]);
+
+    const csvContent =
+      [headers, ...rows]
+        .map((row) => row.map((item: string | number) => `"${item}"`).join(","))
+        .join("\n");
+
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "guest_list.csv";
+    link.click();
+
+    URL.revokeObjectURL(url);
   };
 
   return (
@@ -149,8 +178,11 @@ const GuestListPage = () => {
       <div className="bg-white p-6 mb-4 rounded-lg border border-gray-300">
         <div className="flex flex-row relative">
           <div className="text-2xl mb-4 w-1/2">Guest List</div>
+          <div className="w-1/2">
           <Button className="absolute right-2 text-sm" variant="signup" size="sm" onClick={togglePopup}>Add New Guest</Button>
-        </div>
+          <Button className="absolute right-36 text-sm bg-blue-600 text-white hover:bg-white hover:text-blue-600 hover:border-blue-600 hover:border-2" size="sm" onClick={downloadCSV}>Download Guest List</Button>
+          </div>
+          </div>
 
         <div className="flex flex-row">
           <div className="mr-6">Total No of Guest List: {guestlists.length}</div>
