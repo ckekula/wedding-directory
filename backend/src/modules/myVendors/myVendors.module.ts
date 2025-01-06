@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { MyVendorsService } from './my_Vendors.service';
+import { MyVendorsService } from './myVendors.service';
 import { MyVendorsResolver } from 'src/graphql/resolvers/myVendors.resolver';
-import { MyVendorsEntity } from 'src/database/entities/my_Vendors.entity';
+import { MyVendorsEntity } from 'src/database/entities/myVendors.entity';
 
 @Module({
   imports: [TypeOrmModule.forFeature([MyVendorsEntity])],

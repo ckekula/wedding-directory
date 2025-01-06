@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 import { VendorEntity } from './vendor.entity';
 import { ReviewEntity } from './review.entity';
-import { MyVendorsEntity } from './my_Vendors.entity';
+import { MyVendorsEntity } from './myVendors.entity';
 
 @Entity({ name: 'offering' })
 export class OfferingEntity {
