@@ -6,8 +6,10 @@ import { Button } from '@/components/ui/button';
 import toast from 'react-hot-toast';
 import Image from 'next/image';
 
-const CreateBudgetTool = ({ visitorId }) => {
-  const [totalBudget, setTotalBudget] = useState('');
+import { CreateBudgetToolProps, CreateBudgetInput } from '@/types/budgeterTypes';
+
+const CreateBudgetTool: React.FC<CreateBudgetToolProps> = ({ visitorId }) => {
+  const [totalBudget, setTotalBudget] = useState<string>('');
 
   const [createBudget, { loading }] = useMutation(CREATE_BUDGET_TOOL, {
     onCompleted: (data) => {
@@ -20,7 +22,7 @@ const CreateBudgetTool = ({ visitorId }) => {
     },
   });
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // Validate input

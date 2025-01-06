@@ -7,9 +7,11 @@ import { DELETE_BUDGET_ITEM, UPDATE_BUDGET_ITEM } from '@/graphql/mutations';
 import BudgetItemPopup from '@/components/visitor-dashboard/budgeter/BudgetItemPopup';
 import { toast } from 'react-hot-toast';
 
-const BudgetItemsPanel = ({ budgetToolId }) => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+import { BudgetItemsPanelProps, BudgetItemData, UpdateBudgetItemInput } from '@/types/budgeterTypes';
+
+const BudgetItemsPanel: React.FC<BudgetItemsPanelProps> = ({ budgetToolId }) => {
+  const [searchTerm, setSearchTerm] = useState<string>('');
+  const [isAddModalOpen, setIsAddModalOpen] = useState<boolean>(false);
 
   const {
     data: budgetItemsData,
@@ -42,21 +44,13 @@ const BudgetItemsPanel = ({ budgetToolId }) => {
     }
   });
 
-  const handleUpdateBudgetItem = async (itemId, data) => {
+  const handleUpdateBudgetItem = async (itemId: string, data: UpdateBudgetItemInput) => {
     try {
-      const input = {
-        itemName: data.itemName,
-        category: data.category,
-        estimatedCost: data.estimatedCost,
-        amountPaid: data.paidAmount,
-        specialNotes: data.specialNotes,
-        isPaidInFull: data.isPaidInFull
-      };
 
       await updateBudgetItem({
         variables: {
           id: itemId,
-          input: input
+          input: data
         }
       });
     } catch (error) {
@@ -64,7 +58,7 @@ const BudgetItemsPanel = ({ budgetToolId }) => {
     }
   };
 
-  const handleDeleteBudgetItem = async (itemId) => {
+  const handleDeleteBudgetItem = async (itemId: string) => {
     try {
       await deleteBudgetItem({
         variables: {
@@ -79,11 +73,11 @@ const BudgetItemsPanel = ({ budgetToolId }) => {
   if (budgetItemsLoading) return <div>Loading...</div>;
   if (budgetItemsError) return <div>Error: {budgetItemsError.message}</div>;
 
-  const budgetItems = budgetItemsData?.budgetItems || [];
+  const budgetItems: BudgetItemData[] = budgetItemsData?.budgetItems || [];
   const totalItems = budgetItems.length;
-  const paidInFullItems = budgetItems.filter(item => item.isPaidInFull).length;
+  const paidInFullItems = budgetItems.filter((item) => item.isPaidInFull).length;
 
-  const filteredItems = budgetItems.filter(item =>
+  const filteredItems = budgetItems.filter((item) =>
     item.itemName.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
@@ -143,14 +137,13 @@ const BudgetItemsPanel = ({ budgetToolId }) => {
         {filteredItems.map((item) => (
           <BudgetItem
             key={item.id}
+            itemId={item.id}
             itemName={item.itemName}
             estimatedCost={item.estimatedCost}
             paidAmount={item.amountPaid}
             category={item.category}
             specialNotes={item.specialNotes}
-            onSave={(data) => {
-              handleUpdateBudgetItem(item.id, data);
-            }}
+            onSave={(data) => handleUpdateBudgetItem(item.id, data)}
             onDelete={() => handleDeleteBudgetItem(item.id)}
           />
         ))}

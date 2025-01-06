@@ -7,15 +7,17 @@ import {
   Legend,
 } from 'chart.js';
 
+import { TotalCostProps, UtilizationPercentage } from '@/types/budgeterTypes';
+
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const TotalCost = ({totalCost = 5438603, budget = 10000000}) => {
-  const utilizationPercentage = ((totalCost / budget) * 100).toFixed(0);
+const TotalCost: React.FC<TotalCostProps> = ({ totalCost = 0.00, budget = 0.00 })  => {
+  const utilizationPercentage: UtilizationPercentage = ((totalCost / budget) * 100).toFixed(0);
 
   const data = {
     datasets: [
       {
-        data: [utilizationPercentage, 100 - utilizationPercentage],
+        data: [Number(utilizationPercentage), 100 - Number(utilizationPercentage)],
         backgroundColor: ['#FF7262', '#E5E7EB'],
         borderWidth: 0,
         circumference: 360,
