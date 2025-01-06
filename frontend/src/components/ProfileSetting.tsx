@@ -1,12 +1,21 @@
 "use client";
-import { useState } from "react";
 
-import { Button } from "@/components/ui/button";
+import { useState } from "react";
 import { Input } from "./ui/input";
 import { AiOutlineEdit } from "react-icons/ai";
-
-// The modal component for editing
 import EditVisitorProfile from "./EditVisitorProfileModal";
+
+type UpdatedProfileData = {
+  firstName: string;
+  lastName: string;
+  partnerFirstName: string;
+  partnerLastName: string;
+  engagementDate: Date;
+  weddingDate: Date;
+  weddingVenue: string;
+  email: string;
+  password: string;
+};
 
 const ProfileSetting = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,7 +37,7 @@ const ProfileSetting = () => {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  const handleSave = (updatedData: any) => {
+  const handleSave = (updatedData: UpdatedProfileData) => {
     setProfileData(updatedData);
   };
 

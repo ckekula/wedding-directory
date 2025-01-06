@@ -16,8 +16,7 @@ import ProgressBar from "@/components/visitor-dashboard/checklist/ProgressBar";
 import { Button } from "@/components/ui/button";
 import { IoAdd } from "react-icons/io5";
 import { useParams } from 'next/navigation';
-import toast, {Toaster} from 'react-hot-toast';
-
+import toast from 'react-hot-toast';
 
 const ChecklistPage = () => {
 

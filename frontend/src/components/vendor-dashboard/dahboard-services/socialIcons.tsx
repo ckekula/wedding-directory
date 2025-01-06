@@ -3,7 +3,14 @@ import { SlSocialFacebook, SlSocialInstagram } from "react-icons/sl";
 import { GoGlobe } from "react-icons/go";
 import { FaXTwitter } from "react-icons/fa6";
 
-const SocialIcons = (service: any) => {
+type SocialService = {
+    website?: string;
+    facebook?: string;
+    instagram?: string;
+    x?: string;
+  };
+
+const SocialIcons = ({service}: { service: SocialService }) => {
   return (
     
         <div className=' flex flex-row text-2xl items-center justify-end gap-x-4 container'>

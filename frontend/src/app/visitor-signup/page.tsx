@@ -1,15 +1,16 @@
 'use client';
+
 import React, { useState } from 'react';
-import { gql, useMutation } from '@apollo/client';  // Apollo useMutation hook
+import { useMutation } from '@apollo/client';
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
-import { useAuth } from "@/contexts/VisitorAuthContext";  // Import the login method from the context
-import { loginVisitor as loginApi } from '@/api/auth/visitor.auth.api';   // Import the login API call
+import { useAuth } from "@/contexts/VisitorAuthContext";
+import { loginVisitor as loginApi } from '@/api/auth/visitor.auth.api';
 import { toast } from 'react-hot-toast';
-import { CREATE_VISITOR_MUTATION } from '@/graphql/mutations';  // Adjust the mutation import path
+import { CREATE_VISITOR_MUTATION } from '@/graphql/mutations';
 import Image from 'next/image';
 import Header from '@/components/shared/Headers/Header';
 

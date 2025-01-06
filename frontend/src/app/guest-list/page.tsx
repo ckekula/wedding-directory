@@ -6,7 +6,7 @@ import { useAuth } from "@/contexts/VisitorAuthContext";
 import { GET_VISITOR_BY_ID, FIND_GUESTLIST_BY_VISITOR } from "@/graphql/queries";
 import { DELETE_GUESTLIST } from "@/graphql/mutations";
 import AddNewGuest from "@/components/guest-list/addnewguest";
-import EditGuest from "@/components/guest-list/editguest";
+import EditGuest, { Guest } from "@/components/guest-list/editguest";
 import { Button } from "@/components/ui/button";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import {
@@ -21,18 +21,19 @@ import LoaderHelix from "@/components/shared/Loaders/LoaderHelix";
 import toast from "react-hot-toast";
 import { Input } from "@/components/ui/input";
 
+
 const GuestListPage = () => {
   const { visitor } = useAuth();
   const [isPopupVisible, setIsPopupVisible] = useState(false);
   const [isEditPopupVisible, setIsEditPopupVisible] = useState(false);
-  const [selectedGuest, setSelectedGuest] = useState(null);
+  const [selectedGuest, setSelectedGuest] = useState<Guest | null>(null);
   const [searchQuery, setSearchQuery] = useState("")
   const [filterStatus, setFilterStatus] = useState("");
 
   const togglePopup = () => setIsPopupVisible((prev) => !prev);
   const toggleEditPopup = () => setIsEditPopupVisible((prev) => !prev);
 
-  const { data: vsdata, loading, error } = useQuery(GET_VISITOR_BY_ID, {
+  const { loading, error } = useQuery(GET_VISITOR_BY_ID, {
     variables: { id: visitor?.id },
     skip: !visitor?.id,
   });
@@ -49,7 +50,7 @@ const GuestListPage = () => {
     onCompleted: () => {
       toast.success("Guest deleted successfully");
     },
-    onError: (err) => {
+    onError: () => {
       toast.error("Failed to delete guest");
     },
   });
@@ -93,14 +94,23 @@ const GuestListPage = () => {
 
   const guestlistData = gldata?.findGuestListsByVisitor || [];
   const guestlists = guestlistData.map(
-    (guest: { id: string; name: string; number: number; status: string; contact: string; email: string }, index: number) => ({
-      no: index + 1,
+    (guest: { 
+      id: string; 
+      name: string; 
+      number: number; 
+      status: string; 
+      contact: string; 
+      email: string; 
+      address?: string; // Added this
+    }, index: number) => ({
+      no: String(index + 1), // Convert to string to match Guest interface
       id: guest.id,
       name: guest.name,
-      number: guest.number,
+      number: String(guest.number), // Convert to string to match Guest interface
       status: guest.status,
       contact: guest.contact,
       email: guest.email,
+      address: guest.address || "", // Provide default empty string if missing
     })
   );
 
@@ -117,15 +127,14 @@ const GuestListPage = () => {
     return sum + (isNaN(partyNumber) ? 0 : partyNumber);
   }, 0);
 
-  const handleEditGuest = (guest: any) => {
+  const handleEditGuest = (guest: Guest) => {
     setSelectedGuest(guest);
     toggleEditPopup();
   };
 
-
   const downloadCSV = () => {
     const headers = ["No", "Name", "Party of", "Status", "Contact", "Email"];
-    const rows = guestlists.map((guest: { no: number; name: string; number: number; status: string; contact: string; email: string }) => [
+    const rows = guestlists.map((guest: Guest) => [
       guest.no,
       guest.name,
       guest.number,
@@ -220,12 +229,14 @@ const GuestListPage = () => {
           onClose={togglePopup}
           onSave={() => window.location.reload()}
         />
-        <EditGuest
-          isVisible={isEditPopupVisible}
-          onClose={toggleEditPopup}
-          guest={selectedGuest}
-          onSave={() => window.location.reload()}
-        />
+        {selectedGuest && (
+          <EditGuest
+            isVisible={isEditPopupVisible}
+            onClose={toggleEditPopup}
+            guest={selectedGuest}
+            onSave={() => window.location.reload()}
+          />
+        )}
         <Table>
           <TableHeader>
             <TableRow>
@@ -237,7 +248,7 @@ const GuestListPage = () => {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {searchGuests.map((guestlist: { no: number; id: string; name: string; number: number; status: string; contact: string }) => (
+            {searchGuests.map((guestlist: Guest) => (
               <TableRow key={guestlist.id}>
                 <TableCell className="text-center font-medium">{guestlist.no}</TableCell>
                 <TableCell className="text-center">{guestlist.name}</TableCell>
@@ -245,8 +256,18 @@ const GuestListPage = () => {
                 <TableCell className="text-center">{guestlist.status}</TableCell>
                 <TableCell className="text-center">{guestlist.contact}</TableCell>
                 <div className="pt-2">
-                  <Button className="text-sm border-2 bg-orange hover:bg-white hover:text-orange hover:border-orange mr-2" onClick={() => handleEditGuest(guestlist)}>Edit</Button>
-                  <Button className="text-sm border-2 bg-red-600 hover:bg-white hover:text-red-600 hover:border-red-600 mr-2" onClick={() => handleDeleteGuest(guestlist.id)}>Delete</Button>
+                  <Button 
+                    className="text-sm border-2 bg-orange hover:bg-white hover:text-orange hover:border-orange mr-2" 
+                    onClick={() => handleEditGuest(guestlist)}
+                  >
+                    Edit
+                  </Button>
+                  <Button 
+                    className="text-sm border-2 bg-red-600 hover:bg-white hover:text-red-600 hover:border-red-600 mr-2" 
+                    onClick={() => handleDeleteGuest(guestlist.id)}
+                  >
+                    Delete
+                  </Button>
                 </div>
               </TableRow>
             ))}

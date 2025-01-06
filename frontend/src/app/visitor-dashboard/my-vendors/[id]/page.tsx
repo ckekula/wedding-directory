@@ -50,7 +50,7 @@ const MyVendors = () => {
   const filteredCategories = showAdded
     ? categories.filter((category) => 
         allVendors.some(
-          (vendor: any) => vendor.offering.category === category
+          (vendor: { offering: { category: string; }; }) => vendor.offering.category === category
         )
       )
     : categories;
