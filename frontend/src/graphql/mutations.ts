@@ -16,30 +16,27 @@ export const CREATE_VENDOR = gql`
 `;
 
 export const CREATE_VISITOR_MUTATION = gql`
-    mutation CreateVisitor($email: String!, $password: String!) {
-        createVisitor(createVisitorInput: {
-            email: $email,
-            password: $password
-        }) {
-            id
-            email
-        }
+  mutation CreateVisitor($email: String!, $password: String!) {
+    createVisitor(createVisitorInput: { email: $email, password: $password }) {
+      id
+      email
     }
+  }
 `;
 
 export const UPDATE_VISITOR = gql`
-    mutation UpdateVisitor($id: String!, $input: UpdateVisitorInput!) {
-        updateVisitor(id: $id, input: $input) {
-            id
-            visitor_fname
-            visitor_lname
-            partner_fname
-            partner_lname
-            engaged_date
-            wed_date
-            wed_venue
-        }
+  mutation UpdateVisitor($id: String!, $input: UpdateVisitorInput!) {
+    updateVisitor(id: $id, input: $input) {
+      id
+      visitor_fname
+      visitor_lname
+      partner_fname
+      partner_lname
+      engaged_date
+      wed_date
+      wed_venue
     }
+  }
 `;
 
 export const CREATE_SERVICE = gql`
@@ -60,9 +57,9 @@ export const UPDATE_VENDOR = gql`
     updateVendor(id: $id, input: $input) {
       fname
       lname
-      busname 
-      phone 
-      city 
+      busname
+      phone
+      city
       location
     }
   }
@@ -74,7 +71,7 @@ export const UPDATE_SERVICE_PROFILE = gql`
       category
       bus_phone
       bus_email
-      description 
+      description
       pricing
     }
   }
@@ -91,8 +88,40 @@ export const UPDATE_SERVICE_SOCIALS = gql`
   }
 `;
 
+export const CREATE_GUESTLIST = gql`
+  mutation CreateGuestList($input: CreateGuestListInput!) {
+    createGuestList(input: $input) {
+      id
+      name
+      number
+      address
+      contact
+      email
+      status
+      visitor {
+        id
+      }
+    }
+  }
+`;
 
+export const UPDATE_GUESTLIST = gql`
+  mutation UpdateGuestList($id: String!, $input: UpdateGuestListInput!) {
+    updateGuestList(id: $id, input: $input) {
+      number
+      address
+      contact
+      email
+      status
+    }
+  }
+`;
 
+export const DELETE_GUESTLIST = gql`
+  mutation DELETE_GUESTLIST($id: String!) {
+    deleteGuestList(id: $id)
+  }
+`;
 
 export const CREATE_CHECKLIST = gql`
   mutation CreateChecklist($input: CreateChecklistInput!) {

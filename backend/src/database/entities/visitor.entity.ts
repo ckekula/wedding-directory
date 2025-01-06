@@ -8,6 +8,7 @@ import {
   OneToOne
 } from 'typeorm';
 import { ReviewEntity } from './review.entity';
+import { GuestListEntity } from './guestlist.entity';
 import { BudgetToolEntity } from './budget_tool.entity';
 import { ChecklistEntity } from './checklist.entity';
 import { MyVendorsEntity } from './myVendors.entity';
@@ -65,9 +66,18 @@ export class VisitorEntity {
   @UpdateDateColumn({ name: 'updated_at', type: 'timestamp' })
   updatedAt: Date;
 
-  @OneToMany(() => ChecklistEntity, (c) => c.visitor, {cascade: true})
-  checklists: ChecklistEntity[];
-
   @OneToMany(() => MyVendorsEntity, (m) => m.visitor, {cascade: true})
   myVendors: MyVendorsEntity[];
+
+  @OneToMany(() => GuestListEntity, (o) => o.visitor, {
+    cascade: true,
+    onDelete: 'CASCADE',
+  })
+  guestlist: GuestListEntity[];
+
+  @OneToMany(() => ChecklistEntity, (checklist) => checklist.visitor, {
+    cascade: true,
+  })
+  checklists: ChecklistEntity[];
+
 }

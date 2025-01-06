@@ -3,7 +3,6 @@
 import React, { useState, useMemo } from "react";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import { useQuery, useMutation } from "@apollo/client";
-import { useAuth } from "@/contexts/VisitorAuthContext";
 import { GET_VISITOR_CHECKLISTS } from "@/graphql/queries";
 import {
   CREATE_CHECKLIST,
@@ -16,19 +15,18 @@ import { TaskType } from "@/types/taskTypes";
 import ProgressBar from "@/components/visitor-dashboard/checklist/ProgressBar";
 import { Button } from "@/components/ui/button";
 import { IoAdd } from "react-icons/io5";
+import { useParams } from 'next/navigation';
+import toast, {Toaster} from 'react-hot-toast';
+
 
 const ChecklistPage = () => {
-  // ... keeping all the existing state and hooks the same ...
-  const { visitor } = useAuth();
-  const visitorId = visitor?.id;
 
+  const params = useParams();
+  const { visitorId } = params;
   const { data, loading, error, refetch } = useQuery(GET_VISITOR_CHECKLISTS, {
     variables: { visitorId },
     skip: !visitorId,
   });
-
-
-  
 
   const [createTask] = useMutation(CREATE_CHECKLIST);
   const [updateTask] = useMutation(UPDATE_CHECKLIST);
@@ -91,7 +89,7 @@ const ChecklistPage = () => {
     "Travel",
   ];
 
-  // ... keeping all the existing handler functions ...
+  
   const handleAddTask = (category?: string) => {
     setActiveCategory(category || null);
     setSelectedTask(null);
@@ -103,10 +101,16 @@ const ChecklistPage = () => {
     setModalOpen(true);
   };
 
-  const handleDeleteTask = async (id: string) => {
+const handleDeleteTask = async (id: string) => {
+  try {
     await deleteTask({ variables: { id } });
+    toast.success("Task deleted successfully!");
     refetch();
-  };
+  } catch (error) {
+    toast.error("Error deleting task");
+    console.error("Error deleting task:", error);
+  }
+};
 
 const handleSaveTask = async (taskInput: Partial<TaskType>) => {
   try {
@@ -125,16 +129,19 @@ const handleSaveTask = async (taskInput: Partial<TaskType>) => {
           },
         },
       });
+      toast.success('Task Updated Successfully');
     } else {
       // Creating a new task
       console.log("Creating new Task:", taskInput);
       await createTask({
         variables: { input: { ...taskInput, visitorId } },
       });
+      toast.success('Task Added Successfully');
     }
     setModalOpen(false);
     refetch();
   } catch (error) {
+    toast.error('Error saving task');
     console.error("Error saving task:", error);
   }
   };
@@ -147,8 +154,13 @@ const handleSaveTask = async (taskInput: Partial<TaskType>) => {
       await updateTask({
         variables: { input: { id, completed } },
       });
+      toast.success(
+        `Task marked as ${completed ? "completed" : "incomplete"}!`
+      );
+
       refetch();
     } catch (error) {
+      toast.error("Error toggling task completion");
       console.error("Error toggling task completion:", error);
     }
   };
