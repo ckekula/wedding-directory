@@ -11,24 +11,12 @@ import VisitorLogin from "@/components/shared/VisitorLogin";
 import VisitorSignup from "@/components/shared/VisitorSignup";
 
 const GeneralHeader = () => {
-  const { isAuthenticated, logout } = useAuth();
   const profileMenuRef = useRef<HTMLDivElement>(null);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoginVisible, setLoginVisible] = useState(false);
   const [isSignupVisible, setSignupVisible] = useState(false);
   const pathname = usePathname();
-
-  const router = useRouter();
-
-  const handleProfileClick = () => {
-    setShowProfileMenu((prev) => !prev);
-  };
-
-  const handleLogout = () => {
-    logout();
-    setShowProfileMenu(false);
-  };
 
   // Close the profile dropdown when clicking outside
   useEffect(() => {

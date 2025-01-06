@@ -3,24 +3,24 @@ import Link from "next/link";
 import { Fragment, useState, useEffect, useRef } from "react";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import Image from "next/image";
-import { useAuth } from "@/contexts/VisitorAuthContext"; // Import visitor auth context
+import { useAuth } from "@/contexts/VisitorAuthContext";
 import SearchBar from "../SearchBar";
-import { useQuery } from "@apollo/client"; // Apollo client to fetch visitor data
-import { GET_VISITOR_BY_ID } from "@/graphql/queries"; // Your GraphQL query to fetch visitor data
+import { useQuery } from "@apollo/client";
+import { GET_VISITOR_BY_ID } from "@/graphql/queries";
 
 const VisitorHeader = () => {
-  const { visitor, logout } = useAuth(); // Get visitor and logout function from context
+  const { visitor, logout } = useAuth();
   const [profilePic, setProfilePic] = useState<string>("/images/profilePic.webp"); // Default placeholder
-  const [showProfileMenu, setShowProfileMenu] = useState(false); // State for the profile dropdown
+  const [showProfileMenu, setShowProfileMenu] = useState(false);
   const profileMenuRef = useRef<HTMLDivElement>(null);
 
   // Fetch visitor data including profile_pic_url on component load
-  const { data, loading, error } = useQuery(GET_VISITOR_BY_ID, {
+  const { loading, error } = useQuery(GET_VISITOR_BY_ID, {
     variables: { id: visitor?.id },
-    skip: !visitor?.id, // Skip the query if visitor is not logged in
+    skip: !visitor?.id,
     onCompleted: (data) => {
       if (data?.findVisitorById?.profile_pic_url) {
-        setProfilePic(data.findVisitorById.profile_pic_url); // Set the visitor's profile picture URL
+        setProfilePic(data.findVisitorById.profile_pic_url);
       }
     },
   });
@@ -32,7 +32,7 @@ const VisitorHeader = () => {
 
   const handleLogout = () => {
     logout();
-    setShowProfileMenu(false); // Close the menu after logging out
+    setShowProfileMenu(false);
   };
 
   // Close the dropdown when clicking outside
@@ -42,7 +42,7 @@ const VisitorHeader = () => {
         profileMenuRef.current &&
         !profileMenuRef.current.contains(event.target as Node)
       ) {
-        setShowProfileMenu(false); // Close the menu
+        setShowProfileMenu(false);
       }
     };
 

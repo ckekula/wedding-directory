@@ -1,3 +1,15 @@
+interface UpdatedProfileData {
+  firstName: string;
+  lastName: string;
+  partnerFirstName: string;
+  partnerLastName: string;
+  engagementDate: Date;
+  weddingDate: Date;
+  weddingVenue: string;
+  email: string;
+  password: string;
+}
+
 export interface EditProfileModalProps {
     isOpen: boolean;
     onClose: () => void;
@@ -12,7 +24,7 @@ export interface EditProfileModalProps {
       email: string;
       password: string;
     };
-    onSave: (updatedData: any) => void;
+    onSave: (updatedData: UpdatedProfileData) => void;
 }
 
 export interface WeddingDetailsData {

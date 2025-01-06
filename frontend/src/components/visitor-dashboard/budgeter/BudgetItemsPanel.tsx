@@ -23,7 +23,7 @@ const BudgetItemsPanel: React.FC<BudgetItemsPanelProps> = ({ budgetToolId }) => 
     skip: !budgetToolId,
   });
 
-  const [updateBudgetItem, { loading: updateLoading }] = useMutation(UPDATE_BUDGET_ITEM, {
+  const [updateBudgetItem] = useMutation(UPDATE_BUDGET_ITEM, {
     onCompleted: () => {
       // Refetch to get updated data
       refetchBudgetItems();

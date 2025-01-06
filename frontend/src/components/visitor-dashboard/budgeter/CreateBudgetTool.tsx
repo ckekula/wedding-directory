@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import toast from 'react-hot-toast';
 import Image from 'next/image';
 
-import { CreateBudgetToolProps, CreateBudgetInput } from '@/types/budgeterTypes';
+import { CreateBudgetToolProps } from '@/types/budgeterTypes';
 
 const CreateBudgetTool: React.FC<CreateBudgetToolProps> = ({ visitorId }) => {
   const [totalBudget, setTotalBudget] = useState<string>('');
