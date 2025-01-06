@@ -4,13 +4,25 @@ import { OfferingEntity } from '../entities/offering.entity';
 
 export const MyVendorsRepository = (dataSource: DataSource) =>
   dataSource.getRepository(MyVendorsEntity).extend({
+
     async findAllMyVendorsByCategory(visitorId: string, category: string) {
-      // Find all offerings for a visitor in a specific category
-      return this.createQueryBuilder('myVendors')
+      const results = await this.createQueryBuilder('myVendors')
         .innerJoinAndSelect('myVendors.offering', 'offering')
+        .innerJoinAndSelect('offering.vendor', 'vendor')
         .where('myVendors.visitor.id = :visitorId', { visitorId })
         .andWhere('offering.category = :category', { category })
         .getMany();
+      
+      return results;
+    },
+
+    async findAllMyVendors(visitorId: string) {
+      return this.createQueryBuilder('myVendors')
+          .innerJoinAndSelect('myVendors.offering', 'offering')
+          .innerJoinAndSelect('offering.vendor', 'vendor')
+          .where('myVendors.visitor.id = :visitorId', { visitorId })
+          .orderBy('myVendors.createdAt', 'DESC')
+          .getMany();
     },
   
     async findMyVendorById(visitorId: string, offeringId: string) {
@@ -57,6 +69,6 @@ export const MyVendorsRepository = (dataSource: DataSource) =>
         offering: { id: offeringId }
       });
     
-      return myVendor; // Return the deleted relationship
+      return myVendor;
     }
   });

@@ -1,40 +1,56 @@
 'use client';
 
 import Breadcrumbs from '@/components/Breadcrumbs';
-import { Button } from '@/components/ui/button';
 import React, { useState } from 'react';
-import { IoAdd } from 'react-icons/io5';
 import { useQuery } from '@apollo/client';
-import { FIND_ALL_MY_VENDORS_BY_CATEGORY } from '@/graphql/queries';
+import { FIND_ALL_MY_VENDORS } from '@/graphql/queries';
 import { useAuth } from '@/contexts/VisitorAuthContext';
 import CategoryDropdown from '@/components/visitor-dashboard/my-vendors/CategoryDropdown';
 import categories from '@/utils/category.json';
 
 const MyVendors = () => {
   const { visitor } = useAuth();
-  const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
+  const [expandedCategories, setExpandedCategories] = useState<Set<string>>(new Set());
 
-  const { data: categoryData, loading: categoryLoading } = useQuery(
-    FIND_ALL_MY_VENDORS_BY_CATEGORY,
+  const { data, loading, error } = useQuery(
+    FIND_ALL_MY_VENDORS,
     {
       variables: {
         visitorId: visitor?.id,
-        category: expandedCategory,
       },
-      skip: !expandedCategory || !visitor,
+      skip: !visitor,
     }
   );
+
+  // Get all vendors
+  const allVendors = data?.findAllMyVendors || [];
+
+  console.log({
+    visitorId: visitor?.id,
+    expandedCategories: Array.from(expandedCategories),
+    data,
+    error
+  });
 
   const [showAdded, setShowAdded] = useState(false);
 
   const handleCategoryClick = (category: string) => {
-    setExpandedCategory(expandedCategory === category ? null : category);
+    setExpandedCategories(prev => {
+      const newSet = new Set(prev);
+      if (newSet.has(category)) {
+        newSet.delete(category);
+      } else {
+        newSet.add(category);
+      }
+      return newSet;
+    });
   };
 
+  // Filter categories that have vendors if showAdded is true
   const filteredCategories = showAdded
-    ? categories.filter((category) =>
-        categoryData?.findAllMyVendorsByCategory.some(
-          (vendor: any) => vendor.category === category
+    ? categories.filter((category) => 
+        allVendors.some(
+          (vendor: any) => vendor.offering.category === category
         )
       )
     : categories;
@@ -59,9 +75,7 @@ const MyVendors = () => {
 
       {/* Main Content */}
       <div className="mt-6 md:mt-12">
-        {/* Controls Section */}
         <div className="flex flex-col items-center mb-4 md:mb-6 bg-white p-3 md:p-4 rounded-lg shadow-lg">
-          {/* Header and Add Button */}
           <div className="flex flex-col md:flex-row justify-between items-center w-full gap-3 md:gap-0">
             <h1 className="text-2xl md:text-3xl font-bold font-title">
               Vendors List
@@ -98,10 +112,10 @@ const MyVendors = () => {
               <CategoryDropdown
                 key={category}
                 category={category}
-                isExpanded={expandedCategory === category}
+                isExpanded={expandedCategories.has(category)}
                 onToggle={handleCategoryClick}
-                loading={categoryLoading}
-                vendors={categoryData?.findAllMyVendorsByCategory || []}
+                loading={loading}
+                vendors={allVendors}
               />
             ))}
           </div>

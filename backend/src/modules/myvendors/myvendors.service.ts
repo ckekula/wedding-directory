@@ -14,7 +14,12 @@ export class MyVendorsService {
   }
 
   async findAllMyVendorsByCategory(visitorId: string, category: string) {
-    return this.myVendorsRepository.findAllMyVendorsByCategory(visitorId, category);
+    const results = await this.myVendorsRepository.findAllMyVendorsByCategory(visitorId, category);
+    return results || [];
+  }
+
+  async findAllMyVendors(visitorId: string) {
+    return this.myVendorsRepository.findAllMyVendors(visitorId);
   }
 
   async findMyVendorById(visitorId: string, offeringId: string) {

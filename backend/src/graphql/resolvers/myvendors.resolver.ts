@@ -7,12 +7,19 @@ export class MyVendorsResolver {
 
     constructor(private readonly myVendorsService: MyVendorsService) {}
 
-    @Query(() => MyVendorsModel)
+    @Query(() => [MyVendorsModel])
     async findAllMyVendorsByCategory(
         @Args('visitorId') visitorId: string,
         @Args('category') category: string
     ) {
         return this.myVendorsService.findAllMyVendorsByCategory(visitorId, category);
+    }
+
+    @Query(() => [MyVendorsModel])
+    async findAllMyVendors(
+        @Args('visitorId') visitorId: string,
+    ) {
+        return this.myVendorsService.findAllMyVendors(visitorId);
     }
 
     @Query(() => MyVendorsModel)
