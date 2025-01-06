@@ -116,7 +116,7 @@ const Service: React.FC = () => {
         }
       }
     } catch (error) {
-      console.error("Error saving to myVendors:", error);
+      console.error("Error saving to myvendors:", error);
       toast.error("An error occurred");
     }
   };
