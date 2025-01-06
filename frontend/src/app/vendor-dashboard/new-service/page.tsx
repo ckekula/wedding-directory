@@ -17,7 +17,6 @@ const AddNewService: React.FC = () => {
   const { vendor } = useVendorAuth();
   const router = useRouter();
 
-  const [category, setCategory] = useState<string>("");
   const [createService, { loading }] = useMutation(CREATE_SERVICE);
   const [formData, setFormData] = useState({
     name: "",
@@ -26,7 +25,6 @@ const AddNewService: React.FC = () => {
 
   // Handle category selection from the CategoryInput component
   const handleCategoryChange = (selectedCategory: string) => {
-    setCategory(selectedCategory);
     setFormData({
       ...formData,
       category: selectedCategory,
@@ -61,7 +59,7 @@ const AddNewService: React.FC = () => {
         });
       }
 
-      router.push('/vendor-dashboard')
+      router.push("/vendor-dashboard");
     } catch (err) {
       console.error("Error creating service:", err);
       toast.error("Could not create new service", {

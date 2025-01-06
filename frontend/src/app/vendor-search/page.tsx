@@ -8,10 +8,11 @@ import { Button } from "@/components/ui/button";
 import { FIND_SERVICES } from "@/graphql/queries";
 import { useLazyQuery } from "@apollo/client";
 import FilterSearchBar from "@/components/vendor-search/FilterSearchBar";
+import { Service } from '@/types/serviceTypes';
 
-const VendorSearch = () => {
-  const [city, setCity] = useState("");
-  const [category, setCategory] = useState("");
+const VendorSearch: React.FC = () => {
+  const [city, setCity] = useState<string>("");
+  const [category, setCategory] = useState<string>("");
 
   const [getServices, { loading, data, error }] = useLazyQuery(FIND_SERVICES);
 
@@ -39,18 +40,6 @@ const VendorSearch = () => {
     setCategory(category);
   };
 
-  const handleBanner = (banner: string | null) => {
-    // Check if the banner is a valid URL (non-empty and contains 'http' or 'https')
-    if (
-      banner &&
-      (banner.startsWith("http://") || banner.startsWith("https://"))
-    ) {
-      return banner;
-    }
-    // If not valid or missing, return the default image path
-    return "/images/photography.webp";
-  };
-
   return (
     <div className="bg-lightYellow font-title">
       <Header />
@@ -68,7 +57,7 @@ const VendorSearch = () => {
         onCityChange={handleCityChange}
         onCategoryChange={handleCategoryChange}
       />
-      <hr className="w-full h-px my-4 bg-slate-900 border-2  container" />
+      <hr className="w-full h-px my-4 bg-slate-900 border-2 container" />
 
       <div className="flex flex-row mx-4 md:mx-8 px-2 md:px-4">
         <div className="relative w-full m-3 md:w-3/4 h-full md:h-auto rounded-2xl overflow-hidden">
@@ -87,8 +76,8 @@ const VendorSearch = () => {
             </Button>
           </div>
 
-          {/* {loading && <div className="my-4 text-2xl">Loading...</div>}
-          {error && <div className="my-4 text-2xl">Error: {error.message}</div>} */}
+          {loading && <div className="my-4 text-2xl">Loading...</div>}
+          {error && <div className="my-4 text-2xl">Error: {error.message}</div>}
 
           {!loading && data && data.findOfferings.length > 0 ? (
             <>
@@ -96,20 +85,19 @@ const VendorSearch = () => {
                 Found {data.findOfferings.length} vendors
               </div>
               <div className="grid xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-6 overflow-x-auto">
-                {data.findOfferings.map((service: any) => (
+                {data.findOfferings.map((service: Service) => (
                   <VendorResult
                     key={service.id}
                     name={service.name}
-                    vendor={service.vendor.busname}
-                    city={service.vendor.city}
-                    banner={"/images/photography.webp"}
-                    rating="⭐ 4.9 (154)" // customize the rating
-                    price="$$-$$$" // customize the price
-                    about={service.about}
+                    vendor={service.vendor?.busname || "N/A"}
+                    city={service.vendor?.city || "N/A"}
+                    banner="/images/photography.webp"
+                    rating="⭐ 4.9 (154)" // Customize the rating
+                    price="$$-$$$" // Customize the price
+                    about={service.description}
                     showStats={true}
                     buttonText="View Details"
                     link={`/services/${service.id}`}
-                    // link={`/services/${service.id}`}
                   />
                 ))}
               </div>
@@ -121,10 +109,7 @@ const VendorSearch = () => {
 
         <div className="relative hidden xl:block w-full m-3 md:w-1/4 h-full md:h-auto rounded-2xl bg-white overflow-hidden">
           <p className="text-center my-6 font-bold">Other Vendors You might like</p>
-          <p className="mt text-center">Nothing to show yet</p>
-          {/* <OtherVendor />
-          <OtherVendor />
-          <OtherVendor /> */}
+          <p className="text-center">Nothing to show yet</p>
         </div>
       </div>
       <Footer />

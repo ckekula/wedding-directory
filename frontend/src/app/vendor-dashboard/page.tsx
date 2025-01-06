@@ -15,8 +15,9 @@ import { MdAdd } from "react-icons/md";
 import Footer from "@/components/shared/Footer";
 import { Button } from "@/components/ui/button";
 import LoaderJelly from "@/components/shared/Loaders/LoaderJelly";
+import { Service } from "@/types/serviceTypes"; // Import the Service type
 
-const VendorDashBoard = () => {
+const VendorDashBoard: React.FC = () => {
   const { vendor } = useVendorAuth();
 
   // Query to get vendor data
@@ -42,7 +43,7 @@ const VendorDashBoard = () => {
   if (vendorLoading || servicesLoading)
     return (
       <div>
-        <p>oading vendor information...</p>
+        <p>Loading vendor information...</p>
         <LoaderJelly />
       </div>
     );
@@ -52,7 +53,7 @@ const VendorDashBoard = () => {
     return <p>Error loading services: {servicesError.message}</p>;
 
   const vendorInfo = vendorData?.findVendorById;
-  const services = servicesData?.findOfferingsByVendor || [];
+  const services: Service[] = servicesData?.findOfferingsByVendor || [];
 
   return (
     <div>
@@ -103,10 +104,10 @@ const VendorDashBoard = () => {
             <div className="w-5/6 text-2xl font-bold mb-8">
               Your Service Offerings
             </div>
-            <div className="w-1/6 ml-10 ">
+            <div className="w-1/6 ml-10">
               <Link
                 href="/vendor-dashboard/new-service"
-                className="flex items-center  "
+                className="flex items-center"
               >
                 <Button variant="signup">
                   <MdAdd className="mr-2" size={25} />
@@ -118,12 +119,12 @@ const VendorDashBoard = () => {
 
           {services.length > 0 ? (
             <div className="grid grid-cols-3 gap-6 overflow-x-auto">
-              {services.map((service: any) => (
+              {services.map((service: Service) => (
                 <VendorResult
                   key={service.id}
-                  vendor={service.vendor?.busname}
+                  vendor={service.vendor?.busname || "Unknown"}
                   name={service.name}
-                  city={service.vendor?.city}
+                  city={service.vendor?.city || "Unknown"}
                   rating="4.5/5"
                   price="$$$"
                   about={service.description}
@@ -146,10 +147,7 @@ const VendorDashBoard = () => {
           </div>
         </div>
       </div>
-      <div className="">
-        {" "}
-        <Footer />
-      </div>
+      <Footer />
     </div>
   );
 };
