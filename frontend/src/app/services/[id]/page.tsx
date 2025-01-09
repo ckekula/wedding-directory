@@ -30,13 +30,13 @@ const Service: React.FC = () => {
     variables: { id },
   });
 
-  // Query to check if offering is in visitor's my vendors
+  // Check if offering is in visitor's my vendors
   const { loading: myVendorLoading, data: myVendorData } = useQuery(FIND_MY_VENDOR_BY_ID, {
     variables: { 
       visitorId: visitor?.id,
       offeringId: id 
     },
-    skip: !visitor, // Skip this query if there's no visitor
+    skip: !visitor,
   });
 
   const [isInMyVendors, setIsInMyVendors] = useState(false);
@@ -53,8 +53,10 @@ const Service: React.FC = () => {
   if (loading || myVendorLoading) return <LoaderQuantum />;
   if (error) return <p>Error: {error.message}</p>;
 
-  const service = data?.findOfferingById;
-  const portfolioImages = service.photo_showcase || [
+  const offering = data?.findOfferingById;
+  const isVendorsOffering = offering?.vendor.id === vendor?.id;
+
+  const portfolioImages = offering.photo_showcase || [
     "/images/photography.webp",
     "/images/photography.webp",
     "/images/photography.webp",
@@ -184,14 +186,14 @@ const Service: React.FC = () => {
                 <div className="flex flex-row">
                   <div className="w-8/12 flex flex-col">
                     <div className="text-xl">
-                      {service?.vendor.busname || "Vendor name not available"}
+                      {offering?.vendor.busname || "Vendor name not available"}
                     </div>
                     <div className="flex flex-row text-3xl font-bold">
-                      {service?.name}
-                      <div className="ml-2 flex flex-row justify-center items-center gap-x-1">
-                        {service?.vendor.id === vendor?.id ? (
-                          <Link href={`/services/edit/${service?.id}`}>
-                            <FiEdit className="text-orange hover:text-black" />
+                      {offering?.name}
+                      <div className="flex flex-row justify-center items-center">
+                        {isVendorsOffering ? (
+                          <Link href={`/services/edit/${offering?.id}`}>
+                            <FiEdit className="text-2xl text-orange hover:text-black" />
                           </Link>
                         ) : (
                           <button onClick={handleHeartClick}>
@@ -204,36 +206,36 @@ const Service: React.FC = () => {
                         )}
                       </div>
                     </div>
-                    <div>{service?.vendor.city}</div>
+                    <div>{offering?.vendor.city}</div>
                   </div>
-                  <SocialIcons service={service} />
+                  <SocialIcons offering={offering} />
                 </div>
               </div>
 
               {/* Details Section */}
               <div className="bg-white rounded-2xl p-4 flex flex-col">
-                <div className="mb-3 text-2xl font-bold font-title">
+                <div className="mb-3 text-2xl font-bold">
                   About the Vendor
                 </div>
                 <div>
-                  <p>{service.vendor.about || "About not available"}</p>
+                  <p>{offering.vendor.about || "About not available"}</p>
                 </div>
                 <hr className="border-t border-gray-300 my-4" />
 
                 <div className="mb-3 text-2xl font-bold">Details</div>
                 <div>
-                  <p>{service.description || "Description not available"}</p>
+                  <p>{offering.description || "Description not available"}</p>
                 </div>
                 <hr className="border-t border-gray-300 my-4" />
 
-                <div className="mb-3 text-2xl font-bold font-title">
-                  Pricing
+                <div className="mb-3 text-2xl font-bold">
+                  Packages
                 </div>
                 <div>
-                  <p>{service.pricing || "Pricing details not available"}</p>
+                  <p>{offering.pricing || "Pricing details not available"}</p>
                 </div>
                 <hr className="border-t border-gray-300 my-4" />
-                <div className="mb-3 text-2xl font-bold font-title">
+                <div className="mb-3 text-2xl font-bold">
                   Reviews
                 </div>
                 <div>
@@ -250,14 +252,14 @@ const Service: React.FC = () => {
                   <Comments />
                 </div>
                 <hr className="border-t border-gray-300 my-4" />
-                <div className="mb-3 text-2xl font-bold font-title">
+                <div className="mb-3 text-2xl font-bold">
                   Contact
                 </div>
                 <div className="flex flex-col gap-y-1">
-                  <div>Email: {service.bus_email || "Email not available"}</div>
+                  <div>Email: {offering.bus_email || "Email not available"}</div>
                   <div>
                     Phone number:{" "}
-                    {service.bus_phone || "Phone number not available"}
+                    {offering.bus_phone || "Phone number not available"}
                   </div>
                 </div>
               </div>

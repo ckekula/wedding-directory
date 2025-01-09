@@ -1,5 +1,6 @@
 'use client';
-import React, { useState } from 'react';
+
+import React, { useState, useCallback } from 'react';
 import { useMutation } from '@apollo/client';
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -7,168 +8,214 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useRouter } from 'next/navigation';
 import VisitorLogin from "./VisitorLogin";
-import { useAuth } from "@/contexts/VisitorAuthContext";  // Import the login method from the context
-import { loginVisitor as loginApi } from '@/api/auth/visitor.auth.api';   // Import the login API call
+import { useAuth } from "@/contexts/VisitorAuthContext";
+import { loginVisitor as loginApi } from '@/api/auth/visitor.auth.api';
 import { toast } from 'react-hot-toast';
 import { VisitorSignupProps } from '@/types/signupInput';
 import { CREATE_VISITOR_MUTATION } from '@/graphql/mutations';
+import { LoginFormErrors, LoginFormState } from '@/types/auth/visitorAuthTypes';
 
 const VisitorSignup: React.FC<VisitorSignupProps> = ({ isVisible, onClose }) => {
-    const [email, setEmail] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
-    const [error, setError] = useState<string | null>(null);
-    const [showVisitorLogin, setShowVisitorLogin] = useState(false);
-    const router = useRouter();
-    const { login } = useAuth();
+  const [formState, setFormState] = useState<LoginFormState>({
+    email: '',
+    password: '',
+  });
+  const [formErrors, setFormErrors] = useState<LoginFormErrors>({});
+  const [showVisitorLogin, setShowVisitorLogin] = useState(false);
+  
+  const router = useRouter();
+  const { login } = useAuth();
+  const [createVisitor, { loading }] = useMutation(CREATE_VISITOR_MUTATION);
 
-    const [createVisitor, { loading }] = useMutation(CREATE_VISITOR_MUTATION);
+  const validateForm = useCallback((): boolean => {
+    const errors: LoginFormErrors = {};
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+    if (!formState.email) {
+      errors.email = 'Email is required';
+    } else if (!emailRegex.test(formState.email)) {
+      errors.email = 'Please enter a valid email';
+    }
 
-    if (!isVisible) return null;
+    if (!formState.password) {
+      errors.password = 'Password is required';
+    } else if (formState.password.length < 8) {
+      errors.password = 'Password must be at least 8 characters';
+    }
 
-    const handleClose = (e: React.MouseEvent<HTMLDivElement>) => {
-        if (e.target === e.currentTarget) onClose();
-    };
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
+  }, [formState]);
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        setError(null); // Reset error before submission
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value, type, checked } = e.target;
+    setFormState(prev => ({
+      ...prev,
+      [name]: type === 'checkbox' ? checked : value
+    }));
+    if (formErrors[name as keyof LoginFormErrors]) {
+      setFormErrors(prev => ({ ...prev, [name]: undefined }));
+    }
+  };
 
-        if (!email || !password) {
-            setError('Email and password are required');
-            return;
-        }
+  const handleClose = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === e.currentTarget) onClose();
+  }, [onClose]);
 
-        try {
-            // Perform signup mutation
-            const response = await createVisitor({
-                variables: {
-                    email,
-                    password,
-                },
-                context: {
-                    fetchOptions: {
-                        credentials: 'include',
-                    },
-                },
-            });
+  const handleSignupSuccess = useCallback(async () => {
+    try {
+      await loginApi(formState.email, formState.password);
+      const token = document.cookie
+        .split('; ')
+        .find(row => row.startsWith('access_token='))
+        ?.split('=')[1];
 
-            if (response.data) {
-                toast.success('Succesfully Registered!', {style: {background: '#333',color: '#fff',},});
-                console.log('Visitor created successfully:', response.data.createVisitor);
+      if (token) {
+        login(token);
+        router.push('/pageone');
+      } else {
+        throw new Error('Token not found');
+      }
+    } catch (error) {
+      throw new Error('Auto-login failed after signup');
+    }
+  }, [formState.email, formState.password, login, router]);
 
-                // After successful signup, login using the provided email and password
-                await loginApi(email, password);
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!validateForm()) return;
 
-                // Check if the backend set the token in the cookies
-                const storedToken = document.cookie
-                  .split('; ')
-                  .find(row => row.startsWith('access_token='));
+    try {
+      const { data } = await createVisitor({
+        variables: {
+          email: formState.email,
+          password: formState.password,
+        },
+        context: { fetchOptions: { credentials: 'include' } }
+      });
 
-                if (storedToken) {
-                    const token = storedToken.split('=')[1];
-                    login(token);  // Call the login method from context to set the visitor in state
+      if (data) {
+        toast.success('Successfully Registered!', {
+          style: { background: '#333', color: '#fff' }
+        });
+        await handleSignupSuccess();
+      }
+    } catch (err) {
+      const errorMessage = err instanceof Error ? err.message : 'Registration failed';
+      setFormErrors(prev => ({ ...prev, general: errorMessage }));
+      toast.error('Registration Failed!', {
+        style: { background: '#333', color: '#fff' }
+      });
+    }
+  };
 
-                    // Redirect to onboarding page one
-                    router.push('/pageone');
-                } else {
-                    setError('Login failed. Token not found in cookies.');
-                }
+  if (!isVisible) return null;
 
-            } else {
-                setError('Signup failed. Please try again.');
-            }
+  return (
+    <div className='fixed inset-0 z-50 backdrop-blur-sm flex justify-center items-center' onClick={handleClose}>
+      <div className='bg-white mt-6 w-full max-w-[450px] rounded-md p-8 font-body' onClick={(e) => e.stopPropagation()}>
+        <h1 className='text-3xl font-bold text-center font-title mb-8'>Welcome to Say I Do</h1>
 
-        } catch (err) {
-            toast.error('Registration Failed!', {style: {background: '#333',color: '#fff',},});
-            console.error('Signup or login failed:', err);
-            setError('Failed to sign up. Please try again.');
-        }
-    };
+        {formErrors.general && (
+          <div className="mb-4 p-3 bg-red-100 text-red-700 rounded">
+            {formErrors.general}
+          </div>
+        )}
 
-    return (
-      <div className='fixed inset-0 z-50 backdrop-blur-sm flex justify-center items-center' id="wrapper" onClick={handleClose}>
-          <div className='bg-white mt-6 w-[450px] rounded-md p-8 font-body' onClick={(e) => e.stopPropagation()}>
-              <h1 className='mx-[100px] text-3xl font-bold text-center font-title'>Welcome to Say I Do</h1>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <div className="border-black border-solid border-2 border-opacity-70 rounded-md">
+                <Input
+                  className="h-12 pl-6"
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="Email Address"
+                  value={formState.email}
+                  onChange={handleInputChange}
+                  aria-describedby="email-error"
+                />
+              </div>
+              {formErrors.email && (
+                <p className="text-sm text-red-600" id="email-error">
+                  {formErrors.email}
+                </p>
+              )}
+            </div>
 
-              <form onSubmit={handleSubmit}>
-                  <div className="mt-12 grid grid-cols-1 w-full items-center gap-x-12 gap-y-5">
-                      <div className="border-black border-solid border-2 border-opacity-70 rounded-md flex flex-row space-y-1.5">
-                          <Input
-                            className="h-12 pl-6 pb-3"
-                            type="email"
-                            id="email"
-                            placeholder="Email Address"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            required
-                          />
-                      </div>
-                      <div className="border-black border-solid border-2 border-opacity-70 rounded-md flex flex-row space-y-1.5">
-                          <Input
-                            className="h-12 pl-6 pb-3"
-                            type="password"
-                            id="password"
-                            placeholder="Password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                          />
-                      </div>
-                  </div>
-
-                  {error && (
-                    <p className="text-red-500 text-sm mt-2 text-center">{error}</p>
-                  )}
-
-                  <div className="mt-9 flex space-x-2 items-center justify-center">
-                      <Checkbox id="terms" />
-                      <label className="text-sm text-center leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                          Send me wedding tips, ideas and special offers
-                      </label>
-                  </div>
-
-                  <div className="mt-6 flex flex-col w-full">
-                      <Button
-                        className="rounded-none text-black font-bold hover:bg-primary bg-primary text-lg"
-                        type="submit"
-                        disabled={loading}  // Disable button during mutation
-                      >
-                          {loading ? 'Signing Up...' : 'Sign Up'}
-                      </Button>
-                  </div>
-
-                  <div className='text-center mt-3'>
-                      <label htmlFor="terms" className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70">
-                          Already have an account?{' '}
-                          <Link
-                            href=""
-                            onClick={(e) => {
-                                e.preventDefault();
-                                setShowVisitorLogin(true);
-                            }}
-                            className="underline"
-                          >
-                              Sign In
-                          </Link>
-                      </label>
-                  </div>
-                  <div className="text-center mt-2">
-                    <label
-                    htmlFor="terms"
-                    className="text-sm font-bold leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                    Are you a wedding service provider?{" "}
-                    <Link href="/sign-up" className="underline">
-                        Start from here
-                    </Link>
-                    </label>
-                </div>
-              </form>
+            <div className="space-y-2">
+              <div className="border-black border-solid border-2 border-opacity-70 rounded-md">
+                <Input
+                  className="h-12 pl-6"
+                  type="password"
+                  id="password"
+                  name="password"
+                  placeholder="Password"
+                  value={formState.password}
+                  onChange={handleInputChange}
+                  aria-describedby="password-error"
+                />
+              </div>
+              {formErrors.password && (
+                <p className="text-sm text-red-600" id="password-error">
+                  {formErrors.password}
+                </p>
+              )}
+            </div>
           </div>
 
-          <VisitorLogin isVisible={showVisitorLogin} onClose={() => setShowVisitorLogin(false)} />
+          <div className="flex items-center space-x-2">
+            <Checkbox
+              id="marketingConsent"
+              name="marketingConsent"
+              onCheckedChange={(checked) => 
+                setFormState(prev => ({ ...prev, marketingConsent: checked === true }))
+              }
+            />
+            <label htmlFor="marketingConsent" className="text-sm">
+              Send me wedding tips, ideas and special offers
+            </label>
+          </div>
+
+          <Button
+            className="w-full rounded-none text-black font-bold hover:bg-primary bg-primary text-lg"
+            type="submit"
+            disabled={loading}
+          >
+            {loading ? 'Signing Up...' : 'Sign Up'}
+          </Button>
+
+          <hr className="border-t-2 border-gray-300" />
+
+          <div className="space-y-2 text-center text-sm">
+            <p className="font-bold">
+              Already have an account?{' '}
+              <button
+                type="button"
+                onClick={() => setShowVisitorLogin(true)}
+                className="hover:underline text-primary"
+              >
+                Sign In
+              </button>
+            </p>
+            <p>
+              Are you a wedding service provider?{' '}
+              <Link href="/sign-up" className="hover:underline text-primary">
+                Start from here
+              </Link>
+            </p>
+          </div>
+        </form>
       </div>
-    );
+
+      <VisitorLogin 
+        isVisible={showVisitorLogin} 
+        onClose={() => setShowVisitorLogin(false)} 
+      />
+    </div>
+  );
 };
 
 export default VisitorSignup;

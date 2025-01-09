@@ -1,8 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { ReviewEntity } from 'src/database/entities/review.entity';
-import { OfferingEntity } from "src/database/entities/offering.entity";
-import { DataSource, Repository } from 'typeorm';
-import { InjectRepository } from '@nestjs/typeorm';
+import { DataSource } from 'typeorm';
 import { ReviewRepository } from 'src/database/repositories/review.repository';
 import { ReviewRepositoryType } from 'src/database/types/reviewTypes';
 import { CreateReviewInput } from 'src/graphql/inputs/createReview.input';
@@ -13,16 +11,12 @@ export class ReviewService {
   constructor(
     private readonly dataSource: DataSource,
 
-    @InjectRepository(OfferingEntity)
-    private readonly offeringRepository: Repository<OfferingEntity>,
-
   ) {
     this.reviewRepository = ReviewRepository(this.dataSource);
   }
 
   async createReview(input: CreateReviewInput): Promise<ReviewEntity> {
-    const review = this.reviewRepository.create(input);
-    return await this.reviewRepository.save(review);
+    return await this.reviewRepository.createReview(input);
   }
 
   async deleteReview(id: string): Promise<boolean> {

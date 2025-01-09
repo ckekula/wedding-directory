@@ -3,10 +3,7 @@ export interface OfferingProps {
     vendor: string,
     city: string, 
     rating: string, 
-    price: string, 
     banner: string,
-    about: string,
-    showStats: boolean,
     link: string,
     buttonText: string
 }
@@ -16,4 +13,10 @@ export interface FilterSearchBarProps {
     onCityChange: (city: string) => void;
     onCategoryChange: (category: string) => void;
 }
-  
+
+export type SocialTypes = {
+    website?: string;
+    facebook?: string;
+    instagram?: string;
+    x?: string;
+};

@@ -4,9 +4,7 @@ import React from "react";
 import Header from "@/components/shared/Headers/Header";
 import VendorBanner from "@/components/vendor-dashboard/VendorBanner";
 import Stats from "@/components/vendor-dashboard/Stats";
-import QuickActions from "@/components/vendor-dashboard/QuickActions";
-import ToDo from "@/components/vendor-dashboard/ToDo";
-import VendorResult from "@/components/vendor-search/VendorResult";
+import OfferingCard from "@/components/vendor-search/OfferingCard";
 import Link from "next/link";
 import { GET_VENDOR_BY_ID, FIND_SERVICES_BY_VENDOR } from "@/graphql/queries";
 import { useVendorAuth } from "@/contexts/VendorAuthContext";
@@ -15,7 +13,8 @@ import { MdAdd } from "react-icons/md";
 import Footer from "@/components/shared/Footer";
 import { Button } from "@/components/ui/button";
 import LoaderJelly from "@/components/shared/Loaders/LoaderJelly";
-import { Service } from "@/types/serviceTypes"; // Import the Service type
+import { Service } from "@/types/serviceTypes";
+import { FiEdit } from "react-icons/fi";
 
 const VendorDashBoard: React.FC = () => {
   const { vendor } = useVendorAuth();
@@ -69,40 +68,50 @@ const VendorDashBoard: React.FC = () => {
           <VendorBanner businessName={vendorInfo?.busname} />
 
           {/* City, Member Since, Rating */}
-          <div className="grid grid-cols-3 text-center gap-10 mt-10 mb-8">
-            <div className="flex flex-col justify-center items-center">
-              <p className="font-body text-[20px]">City</p>
-              <p className="font-body text-[15px]">{vendorInfo?.city}</p>
+          <div className="bg-white mt-4 rounded-lg shadow-lg flex items-center justify-center container">
+            <div className="grid grid-cols-3 text-center gap-16 my-10">
+              <div className="flex flex-col justify-center items-center">
+                <p className="text-lg mb-2">City</p>
+                <p className="font-bold text-primary text-2xl">{vendorInfo?.city}</p>
+              </div>
+              <div className="flex flex-col justify-center items-center">
+                <p className="text-lg mb-2">Member Since</p>
+                <p className="font-bold text-primary text-2xl">
+                  {new Date(vendorInfo?.createdAt).getFullYear()}
+                </p>
+              </div>
+              <div className="flex flex-col justify-center items-center">
+                <p className="text-lg mb-2">Rating</p>
+                <p className="text-2xl font-bold text-primary ">4.8/5</p>
+              </div>
             </div>
-            <div className="flex flex-col justify-center items-center">
-              <p className="font-body text-[20px]">Member Since</p>
-              <p className="font-body text-[15px]">
-                {new Date(vendorInfo?.createdAt).getFullYear()}
-              </p>
-            </div>
-            <div className="flex flex-col justify-center items-center">
-              <p className="font-body text-[20px]">Rating</p>
-              <p className="font-body text-[15px]">- / -</p>
-            </div>
-          </div>
-
-          {/* Stats */}
-          <div className="flex justify-center">
-            <Stats />
           </div>
 
           {/* Quick Actions and To Do's */}
-          <div className="flex justify-between py-12 gap-10">
+          {/* <div className="flex justify-between py-12 gap-10">
             <QuickActions />
             <ToDo />
+          </div> */}
+
+          {/* About Section */}
+          <div className="flex items-center mt-8 mb-8">
+            <div className="text-2xl font-bold">
+              About {vendorInfo?.busname}
+            </div>
+            <Link href="/vendor-dashboard/settings">
+              <FiEdit className="text-2xl text-orange hover:text-black ml-4 cursor-pointer" />
+            </Link>
           </div>
+          <p className="font-body text-[16px]">
+            {vendorInfo?.about || "About section not available"}
+          </p>
 
           <hr className="border-t border-gray-300 my-4" />
 
           {/* Services Section */}
           <div className="flex flex-row mt-8">
             <div className="w-5/6 text-2xl font-bold mb-8">
-              Your Service Offerings
+              Services by {vendorInfo?.busname}
             </div>
             <div className="w-1/6 ml-10">
               <Link
@@ -120,16 +129,13 @@ const VendorDashBoard: React.FC = () => {
           {services.length > 0 ? (
             <div className="grid grid-cols-3 gap-6 overflow-x-auto">
               {services.map((service: Service) => (
-                <VendorResult
+                <OfferingCard
                   key={service.id}
                   vendor={service.vendor?.busname || "Unknown"}
                   name={service.name}
                   city={service.vendor?.city || "Unknown"}
-                  rating="4.5/5"
-                  price="$$$"
-                  about={service.description}
+                  rating="4.8/5 (180)"
                   banner={"/images/banner.webp"}
-                  showStats={false}
                   buttonText="View details"
                   link={`/services/${service.id}`}
                 />

@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import Footer from "@/components/shared/Footer";
 import Header from "@/components/shared/Headers/Header";
-import VendorResult from "@/components/vendor-search/VendorResult";
+import VendorResult from "@/components/vendor-search/OfferingCard";
 import { Button } from "@/components/ui/button";
 import { FIND_SERVICES } from "@/graphql/queries";
 import { useLazyQuery } from "@apollo/client";
@@ -92,10 +92,7 @@ const VendorSearch: React.FC = () => {
                     vendor={service.vendor?.busname || "N/A"}
                     city={service.vendor?.city || "N/A"}
                     banner="/images/photography.webp"
-                    rating="⭐ 4.9 (154)" // Customize the rating
-                    price="$$-$$$" // Customize the price
-                    about={service.description}
-                    showStats={true}
+                    rating="⭐ 4.9 (154)"
                     buttonText="View Details"
                     link={`/services/${service.id}`}
                   />

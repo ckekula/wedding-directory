@@ -12,6 +12,8 @@ import Footer from "@/components/shared/Footer";
 import { useQuery } from "@apollo/client";
 import { GET_VENDOR_BY_ID } from "@/graphql/queries";
 import { useVendorAuth } from "@/contexts/VendorAuthContext";
+import EditPackages from "@/components/vendor-dashboard/dahboard-services/EditPackages";
+import Link from "next/link";
 
 const EditService = () => {
   const { vendor } = useVendorAuth();
@@ -31,9 +33,11 @@ const EditService = () => {
       case "socialContact":
         return <EditSocialContact />;
       case "portfolio":
-        return <EditPortfolio />; // Pass the offeringId to the EditPortfolio component
+        return <EditPortfolio />;
       case "serviceSettings":
         return <EditServiceSettings />;
+      case "packages":
+        return <EditPackages />;
       default:
         return <EditGeneral isServiceVisible={true} />;
     }
@@ -43,6 +47,7 @@ const EditService = () => {
     <div className="">
       <Header />
       <div className="bg-lightYellow min-h-screen">
+
         <div className="p-20">
           {/* Vendor Banner */}
           <VendorBanner  businessName={vendorInfo?.busname} />
