@@ -7,25 +7,24 @@ import {
   } from 'typeorm';
 import { OfferingEntity } from './offering.entity';
 import { VisitorEntity } from './visitor.entity';
-  
-  @Entity({ name: 'review' })
-  export class ReviewEntity {
-    @PrimaryGeneratedColumn('uuid')
-    id: string;
-  
-    @Column({type:'varchar', nullable:true})
-    comment?: string;
 
-    @Column({type:'integer'})
-    rating: number;
+@Entity({ name: 'review' })
+export class ReviewEntity {
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
-    @ManyToOne(() => OfferingEntity, o => o.review, { onDelete: 'CASCADE' })
-    offering: OfferingEntity;
+  @Column({type:'varchar', nullable:true})
+  comment?: string;
 
-    @ManyToOne(() => VisitorEntity, { onDelete: 'SET NULL' })
-    visitor: VisitorEntity;
+  @Column({type:'integer'})
+  rating: number;
 
-    @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
-    createdAt: Date;
-  }
-  
+  @ManyToOne(() => OfferingEntity, o => o.review, { onDelete: 'CASCADE' })
+  offering: OfferingEntity;
+
+  @ManyToOne(() => VisitorEntity, { onDelete: 'SET NULL' })
+  visitor: VisitorEntity;
+
+  @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
+  createdAt: Date;
+}
