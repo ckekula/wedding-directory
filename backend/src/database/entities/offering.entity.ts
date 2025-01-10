@@ -2,6 +2,7 @@ import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateCol
 import { VendorEntity } from './vendor.entity';
 import { ReviewEntity } from './review.entity';
 import { MyVendorsEntity } from './myVendors.entity';
+import { PackageEntity } from './package.entity';
 
 @Entity({ name: 'offering' })
 export class OfferingEntity {
@@ -71,4 +72,7 @@ export class OfferingEntity {
     @JoinColumn({ name: 'myvendors_id' })
     myVendors: MyVendorsEntity[];
     
+    @OneToMany(() => PackageEntity, p => p.offering, {cascade: true})
+    @JoinColumn({ name: 'package_id' })
+    package: PackageEntity[];
 }
