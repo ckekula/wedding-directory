@@ -10,8 +10,7 @@ import { FIND_SERVICE_BY_ID } from "@/graphql/queries";
 import { UPDATE_SERVICE_SOCIALS } from "@/graphql/mutations";
 import toast from "react-hot-toast";
 
-const EditSocialContact: React.FC = () => {
-  // Form state with demo data
+const EditSocialLinks: React.FC = () => {
   const params = useParams();
   const { id } = params;
   const { loading, error, data } = useQuery(FIND_SERVICE_BY_ID, {
@@ -20,7 +19,6 @@ const EditSocialContact: React.FC = () => {
 
   const serviceData = data?.findOfferingById;
 
-  // Form state
   const [profile, setProfile] = useState<SocialData>({
     websiteURL: "",
     xURL: "",
@@ -29,7 +27,6 @@ const EditSocialContact: React.FC = () => {
     instagramURL: "",
   });
 
-  // Update state with fetched data
   useEffect(() => {
     if (serviceData) {
       setProfile({
@@ -44,9 +41,10 @@ const EditSocialContact: React.FC = () => {
 
   const [updateVendor] = useMutation(UPDATE_SERVICE_SOCIALS, {
     onCompleted: () => {
-      console.log("Vendor updated successfully!");
+      toast.success("Updated Successfully!");
     },
     onError: (error) => {
+      toast.error("Error updating");
       console.error("Error updating vendor:", error);
     },
   });
@@ -88,7 +86,7 @@ const EditSocialContact: React.FC = () => {
   return (
     <Fragment>
       <div className="bg-white rounded-2xl p-4 px-8 shadow-lg">
-        <h2 className="font-title text-[30px]">Social and Contact </h2>
+        <h2 className="font-title text-[30px]">Social Links</h2>
         <hr className="w-[250px] h-px my-4 bg-gray-500 border-0 dark:bg-gray-700"></hr>
         <form onSubmit={handleSubmit} className="mb-8">
           <div>
@@ -148,4 +146,4 @@ const EditSocialContact: React.FC = () => {
   );
 };
 
-export default EditSocialContact;
+export default EditSocialLinks;

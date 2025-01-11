@@ -38,7 +38,7 @@ const EditGeneral: React.FC = () => {
     },
   });
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setGeneral((prevGeneral) => ({
       ...prevGeneral,
@@ -97,7 +97,7 @@ const EditGeneral: React.FC = () => {
           </div>
           <div>
             <label className="font-body text-[16px] ">About</label>
-            <Input
+            <textarea
               name="about"
               value={general.about}
               onChange={handleInputChange}

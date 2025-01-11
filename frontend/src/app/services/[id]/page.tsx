@@ -186,14 +186,14 @@ const Service: React.FC = () => {
                 <div className="flex flex-row">
                   <div className="w-8/12 flex flex-col">
                     <div className="text-xl">
-                      {offering?.vendor.busname || "Vendor name not available"}
+                      {offering?.vendor.busname || "Not available"}
                     </div>
                     <div className="flex flex-row text-3xl font-bold">
                       {offering?.name}
                       <div className="flex flex-row justify-center items-center">
                         {isVendorsOffering ? (
                           <Link href={`/services/edit/${offering?.id}`}>
-                            <FiEdit className="text-2xl text-orange hover:text-black" />
+                            <FiEdit className="text-3xl text-orange hover:text-black" />
                           </Link>
                         ) : (
                           <button onClick={handleHeartClick}>
@@ -218,13 +218,13 @@ const Service: React.FC = () => {
                   About the Vendor
                 </div>
                 <div>
-                  <p>{offering.vendor.about || "About not available"}</p>
+                  <p>{offering.vendor.about || "Not available"}</p>
                 </div>
                 <hr className="border-t border-gray-300 my-4" />
 
                 <div className="mb-3 text-2xl font-bold">Details</div>
                 <div>
-                  <p>{offering.description || "Description not available"}</p>
+                  <p>{offering.description || "Not available"}</p>
                 </div>
                 <hr className="border-t border-gray-300 my-4" />
 
@@ -256,10 +256,10 @@ const Service: React.FC = () => {
                   Contact
                 </div>
                 <div className="flex flex-col gap-y-1">
-                  <div>Email: {offering.bus_email || "Email not available"}</div>
+                  <div>Email: {offering.bus_email || "Not available"}</div>
                   <div>
                     Phone number:{" "}
-                    {offering.bus_phone || "Phone number not available"}
+                    {offering.bus_phone || "Not available"}
                   </div>
                 </div>
               </div>

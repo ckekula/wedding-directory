@@ -2,7 +2,7 @@ import React from 'react'
 
 const EditServiceSettings = () => {
   return (
-    <div>EditServiceSettings</div>
+    <div>Coming Soon!</div>
   )
 }
 
