@@ -58,9 +58,12 @@ export const UPDATE_VENDOR = gql`
       fname
       lname
       busname
+      about
       phone
       city
       location
+      email
+      password
     }
   }
 `;

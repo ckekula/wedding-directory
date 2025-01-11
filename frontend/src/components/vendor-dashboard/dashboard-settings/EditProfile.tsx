@@ -10,6 +10,7 @@ import { GET_VENDOR_BY_ID } from "@/graphql/queries";
 import CityInput from "@/components/vendor-signup/CityInput";
 import { UPDATE_VENDOR } from "@/graphql/mutations";
 import LocationInput from "@/components/vendor-signup/LocationInput";
+import toast from "react-hot-toast";
 
 const EditProfile: React.FC = () => {
   const { vendor } = useVendorAuth();
@@ -23,17 +24,15 @@ const EditProfile: React.FC = () => {
   const [profile, setProfile] = useState<ProfileData>({
     firstName: vendorData?.fname || "Your first name",
     lastName: vendorData?.lname || "Your last name",
-    businessName: vendorData?.busname || "Your business name",
     phone: vendorData?.phone || "Your phone number",
-    city: vendorData?.city || "",
-    location: vendorData?.location || "",
   });
 
   const [updateVendor] = useMutation(UPDATE_VENDOR, {
     onCompleted: () => {
-      console.log("Vendor updated successfully!");
+      toast.success("Updated Successfully!");
     },
     onError: (error) => {
+      toast.error("Error updating");
       console.error("Error updating vendor:", error);
     },
   });
@@ -71,9 +70,6 @@ const EditProfile: React.FC = () => {
           fname: profile.firstName,
           lname: profile.lastName,
           phone: profile.phone,
-          city: profile.city,
-          location: profile.location,
-          busname: profile.businessName,
         },
       },
     });
@@ -85,7 +81,7 @@ const EditProfile: React.FC = () => {
   return (
     <Fragment>
       <div className="bg-white rounded-2xl p-4 px-8 shadow-lg">
-        <h2 className="font-title text-[30px] ">Vendor Profile</h2>
+        <h2 className="font-title text-[30px] ">Profile</h2>
         <hr className="w-[168px] h-px my-4 bg-gray-400 border-0 dark:bg-gray-700"></hr>
         <form onSubmit={handleSubmit} className="mb-8">
           <div>
@@ -107,15 +103,6 @@ const EditProfile: React.FC = () => {
             />
           </div>
           <div>
-            <label className="font-body text-[16px] ">Business Name</label>
-            <Input
-              name="businessName"
-              value={profile.businessName}
-              onChange={handleInputChange}
-              className="font-body rounded-md mt-2 mb-3"
-            />
-          </div>
-          <div>
             <label className="font-body text-[16px] ">Phone Number</label>
             <Input
               name="phone"
@@ -124,22 +111,9 @@ const EditProfile: React.FC = () => {
               className="font-body rounded-md mt-2 mb-3"
             />
           </div>
-          <div>
-            <label className="font-body text-[16px] mt- mb-3 ">City</label>
-            <div className="font-body rounded-md mt-2 mb-3">
-              <CityInput placeholder={profile.city} onCityChange={handleCityChange} />
-            </div>
-          </div>
-          <div>
-            <label className="font-body text-[16px] mt- mb-3 ">Location</label>
-            <div className="font-body rounded-md mt-2 mb-3">
-              <LocationInput placeholder={profile.location} onLocationChange={handleLocationChange} />
-            </div>
-          </div>
           <Button
             variant="signup"
             className="m-3 w-full"
-            onClick={handleSubmit}
           >
             Save Profile Information
           </Button>

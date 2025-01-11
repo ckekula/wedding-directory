@@ -120,6 +120,7 @@ export const GET_VENDOR_BY_ID = gql`
       fname
       lname
       location
+      about
       busname
       phone
       city
