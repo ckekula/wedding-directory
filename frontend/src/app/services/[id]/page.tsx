@@ -246,7 +246,7 @@ const Service: React.FC = () => {
                   Write a Review
                 </div>
                 <div>
-                  <WriteReview />
+                  <WriteReview serviceId={offering?.id} />
                 </div>
                 <div>
                   <Comments />
