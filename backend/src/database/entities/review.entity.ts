@@ -22,8 +22,9 @@ export class ReviewEntity {
 
   // @ManyToOne(() => OfferingEntity, o => o.review, { onDelete: 'CASCADE' })
   // offering: OfferingEntity;
+
   @ManyToOne(() => OfferingEntity, (offering) => offering.review, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'offering_id' })  // Correct foreign key column name
+  @JoinColumn({ name: 'offering_id' })
   offering: OfferingEntity;
 
   // @ManyToOne(() => VisitorEntity, { onDelete: 'SET NULL' })
@@ -32,6 +33,7 @@ export class ReviewEntity {
   @ManyToOne(() => VisitorEntity, { onDelete: 'SET NULL' })
   @JoinColumn({ name: 'visitor_id' })
   visitor: VisitorEntity;
+
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
   createdAt: Date;

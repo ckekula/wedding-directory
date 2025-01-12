@@ -32,8 +32,8 @@ const WriteReview: React.FC<WriteReviewProps> = ({ serviceId }) => {
                     input: {
                         rating,
                         comment,
-                        offering: serviceId,
-                        visitor: visitor?.id,
+                        offering_id: serviceId,
+                        visitor_id: visitor?.id,
                     },
                 },
             });
