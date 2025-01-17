@@ -249,7 +249,7 @@ const Service: React.FC = () => {
                   <WriteReview serviceId={offering?.id} />
                 </div>
                 <div>
-                  <Comments />
+                  <Comments serviceId={offering?.id} />
                 </div>
                 <hr className="border-t border-gray-300 my-4" />
                 <div className="mb-3 text-2xl font-bold">
