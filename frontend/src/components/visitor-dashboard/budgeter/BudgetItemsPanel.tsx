@@ -25,7 +25,6 @@ const BudgetItemsPanel: React.FC<BudgetItemsPanelProps> = ({ budgetToolId }) => 
 
   const [updateBudgetItem] = useMutation(UPDATE_BUDGET_ITEM, {
     onCompleted: () => {
-      // Refetch to get updated data
       refetchBudgetItems();
     },
     onError: (error) => {

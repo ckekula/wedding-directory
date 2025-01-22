@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ChevronUp, Trash2 } from 'lucide-react';
 
-import { BudgetItemProps, BudgetItemUpdateInput } from '@/types/budgeterTypes';
+import { BudgetItemProps, UpdateBudgetItemInput } from '@/types/budgeterTypes';
 
 const BudgetItem: React.FC<BudgetItemProps> = (
   {
@@ -14,7 +14,7 @@ const BudgetItem: React.FC<BudgetItemProps> = (
     onDelete = () => {},
   }) =>  {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [editedValues, setEditedValues] = useState<BudgetItemUpdateInput>({
+  const [editedValues, setEditedValues] = useState<UpdateBudgetItemInput>({
     itemName,
     estimatedCost,
     paidAmount,
@@ -23,7 +23,7 @@ const BudgetItem: React.FC<BudgetItemProps> = (
     isPaidInFull: estimatedCost === paidAmount,
   });
 
-  const handleInputChange = (field: keyof BudgetItemUpdateInput, value: string | number) => {
+  const handleInputChange = (field: keyof UpdateBudgetItemInput, value: string | number) => {
     setEditedValues((prev) => ({
       ...prev,
       [field]: value,
