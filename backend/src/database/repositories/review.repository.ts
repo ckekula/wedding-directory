@@ -6,7 +6,7 @@ import { ReviewRepositoryType } from '../types/reviewTypes';
 export const ReviewRepository = (dataSource: DataSource): ReviewRepositoryType =>
   dataSource.getRepository(ReviewEntity).extend({
 
-    async createReview(input: Partial<ReviewEntity>,): Promise<ReviewEntity> {
+    async createReview(input: Partial<ReviewEntity>): Promise<ReviewEntity> {
       const review = this.create(input);
       return await this.save(review);
     },

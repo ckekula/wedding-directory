@@ -14,6 +14,8 @@ import { BudgetToolModule} from './modules/budget/budget_tool.module';
 import { BudgetItemModule } from './modules/budget/budget_item.module';
 import { ChecklistModule } from './modules/checklist/checklist.module';
 import { MyVendorsModule } from './modules/myVendors/myVendors.module';
+import { ReviewModule } from './modules/review/review.module';
+import { PackageModule } from './modules/package/package.module';
 
 @Module({
   imports: [
@@ -46,7 +48,9 @@ import { MyVendorsModule } from './modules/myVendors/myVendors.module';
     BudgetItemModule,
     UploadModule,
     ChecklistModule,
-    MyVendorsModule
+    MyVendorsModule,
+    ReviewModule,
+    PackageModule
   ],
 })
 export class AppModule {}

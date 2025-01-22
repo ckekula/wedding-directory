@@ -16,7 +16,7 @@ export class ReviewModel {
   @Field(() => OfferingModel)
   offering?: OfferingModel;
   
-  @Field(() => VisitorModel, { nullable: true })
+  @Field(() => VisitorModel)
   visitor: VisitorModel;
 
   @Field()
