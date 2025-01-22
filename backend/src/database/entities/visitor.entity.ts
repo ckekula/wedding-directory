@@ -10,12 +10,18 @@ import { ReviewEntity } from './review.entity';
 import { MyVendorsEntity } from './myVendors.entity';
 import { GuestListEntity } from './guestlist.entity';
 import { ChecklistEntity } from './checklist.entity';
+import { Chat } from './chat.entity';
+import { Message } from './message.entity';
+import { ObjectType, Field, ID } from '@nestjs/graphql';
 
+@ObjectType()
 @Entity({ name: 'visitor' })
 export class VisitorEntity {
+  @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Field()
   @Column({ type: 'varchar', length: 50 })
   email: string;
 
@@ -74,5 +80,13 @@ export class VisitorEntity {
     cascade: true,
   })
   checklists: ChecklistEntity[];
+
+  @Field(() => [Chat])
+  @OneToMany(() => Chat, chat => chat.visitor)
+  chatsAsVisitor: Chat[];
+
+  @Field(() => [Message])
+  @OneToMany(() => Message, message => message.visitorSender)
+  messages: Message[];
 
 }

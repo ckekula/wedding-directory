@@ -7,12 +7,19 @@ import {
   OneToMany,
 } from 'typeorm';
 import { OfferingEntity } from './offering.entity';
+import { Chat } from './chat.entity';
+import { Message } from './message.entity';
+import { ObjectType, Field, ID } from '@nestjs/graphql';
 
+@ObjectType()
 @Entity({ name: 'vendor' })
 export class VendorEntity {
+
+  @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Field()
   @Column({ type: 'varchar', length: 50, unique: true })
   email: string;
 
@@ -55,4 +62,12 @@ export class VendorEntity {
     onDelete: 'CASCADE',
   })
   offering: OfferingEntity[];
+
+  @Field(() => [Chat])
+  @OneToMany(() => Chat, chat => chat.vendor)
+  chatsAsVendor: Chat[];
+
+  @Field(() => [Message])
+  @OneToMany(() => Message, message => message.vendorSender)
+  messages: Message[];
 }

@@ -16,6 +16,7 @@ import { ChecklistModule } from './modules/checklist/checklist.module';
 import { MyVendorsModule } from './modules/myVendors/myVendors.module';
 import { ReviewModule } from './modules/review/review.module';
 import { PackageModule } from './modules/package/package.module';
+import { ChatModule } from './modules/chat/chat.module';
 
 @Module({
   imports: [
@@ -50,7 +51,8 @@ import { PackageModule } from './modules/package/package.module';
     ChecklistModule,
     MyVendorsModule,
     ReviewModule,
-    PackageModule
+    PackageModule,
+    ChatModule,
   ],
 })
 export class AppModule {}
