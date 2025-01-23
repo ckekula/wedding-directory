@@ -17,10 +17,5 @@ export type GuestListRepositoryType = Repository<GuestListEntity> & {
 
   findGuestListById(id: string): Promise<GuestListEntity | null>;
 
-  // findGuestListByFilters(
-  //   name?: string,
-  //   status?: string
-  // ): Promise<GuestListEntity[]>;
-
   findGuestListsByVisitor(id: string): Promise<GuestListEntity[]>;
 };
