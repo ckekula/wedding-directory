@@ -7,12 +7,12 @@ import { CreateReviewInput } from "../inputs/createReview.input";
 
 @Resolver()
 export class ReviewResolver {
-  constructor(
-    private readonly reviewService: ReviewService,
-  ) {}
+  constructor(private readonly reviewService: ReviewService) {}
 
   @Mutation(() => ReviewModel)
-  async createReview(@Args('input') input: CreateReviewInput): Promise<ReviewEntity> {
+  async createReview(
+    @Args('input') input: CreateReviewInput,
+  ): Promise<ReviewEntity> {
     return this.reviewService.createReview(input);
   }
 
@@ -22,7 +22,9 @@ export class ReviewResolver {
   }
 
   @Query(() => [ReviewModel])
-  async findReviewsByOffering(@Args('offering_id') offering_id: string): Promise<ReviewEntity[]> {
-    return this.reviewService.findReviewsByOffering(offering_id);
+  async findReviewsByOffering(
+    @Args('id') id: string,
+  ): Promise<ReviewEntity[]> {
+    return this.reviewService.findReviewsByOffering(id);
   }
 }
