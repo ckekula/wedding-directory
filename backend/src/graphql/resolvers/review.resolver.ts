@@ -23,8 +23,8 @@ export class ReviewResolver {
 
   @Query(() => [ReviewModel])
   async findReviewsByOffering(
-    @Args('id') id: string,
+    @Args('offering_id') offeringId: string,
   ): Promise<ReviewEntity[]> {
-    return this.reviewService.findReviewsByOffering(id);
+    return this.reviewService.findReviewsByOffering(offeringId);
   }
 }

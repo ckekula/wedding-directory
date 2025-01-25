@@ -5,36 +5,47 @@ import { OfferingEntity } from '../entities/offering.entity';
 import { VisitorEntity } from '../entities/visitor.entity';
 
 // Use the DataSource to get the base repository and extend it
-export const ReviewRepository = (dataSource: DataSource): ReviewRepositoryType =>
+export const ReviewRepository = (
+  dataSource: DataSource,
+): ReviewRepositoryType =>
   dataSource.getRepository(ReviewEntity).extend({
-
-    async createReview(input: Partial<ReviewEntity>): Promise<ReviewEntity> {
-      const { offering, visitor, ...reviewData } = input;
-    
-      // Ensure offering and visitor are fetched before creating the review
-      const offeringEntity = await this.manager.findOneBy(OfferingEntity, { id: offering?.id });
-      if (!offeringEntity) {
-        throw new Error(`Offering with ID ${offering?.id} not found.`);
-      }
-    
-      const visitorEntity = await this.manager.findOneBy(VisitorEntity, { id: visitor?.id });
-      if (!visitorEntity) {
-        throw new Error(`Visitor with ID ${visitor?.id} not found.`);
-      }
-    
-      // Create the review with resolved relationships
+    async createReview(
+      createReviewInput: Partial<ReviewEntity>,
+      offering: OfferingEntity,
+      visitor: VisitorEntity,
+    ): Promise<ReviewEntity> {
       const review = this.create({
-        ...reviewData,
-        offering: offeringEntity,
-        visitor: visitorEntity,
+        ...createReviewInput,
+        offering,
+        visitor,
       });
-    
-      return await this.save(review);
+      return this.save(review);
+    },
+
+    async updateReview(
+      id: string,
+      updateReviewInput: Partial<ReviewEntity>,
+    ): Promise<ReviewEntity> {
+      const review = await this.findOne({ where: { id } });
+      if (!review) {
+        throw new Error('Service not found');
+      }
+      return this.save({
+        ...review,
+        ...updateReviewInput,
+      });
     },
 
     async deleteReview(id: string): Promise<boolean> {
-      const result = await this.delete(id);
+      const result = await this.delete({ id });
       return result.affected > 0;
+    },
+
+    async findReviewById(id: string): Promise<ReviewEntity> {
+      return this.findOne({
+        relations: ['offering'],
+        where: { id },
+      });
     },
 
     async findReviewsByOffering(offeringId: string): Promise<ReviewEntity[]> {
@@ -43,4 +54,5 @@ export const ReviewRepository = (dataSource: DataSource): ReviewRepositoryType =
         relations: ['visitor', 'offering'],
       });
     },
+
   });
