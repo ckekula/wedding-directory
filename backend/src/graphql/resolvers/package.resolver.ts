@@ -1,8 +1,9 @@
 import { Args, Mutation, Resolver } from "@nestjs/graphql/dist";
 import { PackageService } from "src/modules/package/package.service";
 import { PackageModel } from "../models/package.model";
-import { PackageInput } from "../inputs/package.input";
-import { PackageEntity } from "src/database/entities/package.entity";
+import { CreatePackageInput } from "../inputs/createPackage.input";
+import { UpdatePackageInput } from "../inputs/updatePackage.input";import { PackageEntity } from "src/database/entities/package.entity";
+import { Query } from "@nestjs/graphql";
 
 @Resolver()
 export class PackageResolver {
@@ -10,16 +11,21 @@ export class PackageResolver {
     private readonly packageService: PackageService,
   ) {}
 
-  @Mutation(() => PackageModel)
-  async createPackage(
-    @Args('input') input: PackageInput,
-    @Args('offering_id') offering_id: string): Promise<PackageEntity> {
-    return this.packageService.createPackage(input, offering_id);
+  @Query(() => [PackageModel])
+  async findPackagesByOffering(@Args('offeringId') offeringId: string): Promise<PackageEntity[]> {
+    return this.packageService.findPackageByOffering(offeringId);
   }
 
   @Mutation(() => PackageModel)
-  async updatePackage(@Args('id') id: string, @Args('input') input: PackageInput): Promise<PackageEntity> {
-    return this.packageService.updatePackage(id, input);
+  async createPackage(@Args('input') input: CreatePackageInput): Promise<PackageEntity> {
+    return this.packageService.createPackage(input);
+  }
+
+  @Mutation(() => PackageModel)
+  async updatePackage(
+    @Args('input') input: UpdatePackageInput
+  ): Promise<PackageEntity> {
+    return this.packageService.updatePackage(input);
   }
 
   @Mutation(() => PackageModel)

@@ -15,6 +15,9 @@ export class PackageEntity {
     @Column({ type: 'integer' })
     pricing: number;
 
+    @Column({ type: 'varchar', array: true, nullable: true})
+    features: string[];
+
     @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
     createdAt: Date;
   

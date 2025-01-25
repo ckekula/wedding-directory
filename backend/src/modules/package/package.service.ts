@@ -13,12 +13,12 @@ export class PackageService {
     this.packageRepository = PackageRepository(this.dataSource);
   }
 
-  async createPackage(input: Partial<PackageEntity>, offeringId: string): Promise<PackageEntity> {
-    return this.packageRepository.createPackage(input, offeringId);
+  async createPackage(input: Partial<PackageEntity>): Promise<PackageEntity> {
+    return this.packageRepository.createPackage(input);
   }
 
-  async updatePackage(id: string, input: Partial<PackageEntity>): Promise<PackageEntity> {
-    return this.packageRepository.updatePackage(id, input);
+  async updatePackage(input: Partial<PackageEntity>): Promise<PackageEntity> {
+    return this.packageRepository.updatePackage(input);
   }
 
   async deletePackage(id: string): Promise<PackageEntity> {

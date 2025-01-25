@@ -1,10 +1,10 @@
 import { Field, InputType } from "@nestjs/graphql";
 
 @InputType()
-export class PackageInput {
+export class UpdatePackageInput {
 
     @Field()
-    offering_id: string;
+    id: string;
 
     @Field()
     name: string;
@@ -14,4 +14,7 @@ export class PackageInput {
 
     @Field()
     pricing: number;
+
+    @Field(() => [String])
+    features: string[];
 }
