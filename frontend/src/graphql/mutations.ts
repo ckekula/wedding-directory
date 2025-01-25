@@ -218,3 +218,33 @@ export const REMOVE_FROM_MY_VENDORS = gql`
     }
   }
 `;
+
+export const CREATE_PACKAGE = gql`
+  mutation CreatePackage($input: CreatePackageInput!) {
+    createPackage(input: $input) {
+      id
+      name
+      description
+      pricing
+      features
+    }
+  }
+`;
+
+export const UPDATE_PACKAGE = gql`
+  mutation UpdatePackage($input: UpdatePackageInput!) {
+    updatePackage(input: $input) {
+      id
+      name
+      description
+      pricing
+      features
+    }
+  }
+`;
+
+export const DELETE_PACKAGE = gql`
+  mutation DeletePackage($id: String!) {
+    deletePackage(id: $id)
+  }
+`;

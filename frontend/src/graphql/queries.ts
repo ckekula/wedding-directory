@@ -247,3 +247,14 @@ export const FIND_MY_VENDOR_BY_ID = gql`
   }
 `;
 
+export const FIND_PACKAGES_BY_OFFERING = gql`
+  query FindPackagesByOffering($offeringId: String!) {
+    findPackagesByOffering(offeringId: $offeringId) {
+      id
+      name
+      description
+      pricing
+      features
+    }
+  }
+`;

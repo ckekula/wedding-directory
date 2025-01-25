@@ -19,6 +19,7 @@ import { useAuth } from "@/contexts/VisitorAuthContext";
 import { ADD_TO_MY_VENDORS, REMOVE_FROM_MY_VENDORS } from "@/graphql/mutations";
 import toast from "react-hot-toast";
 import { FaHeart } from "react-icons/fa";
+import Packages from "@/components/vendor-dashboard/dahboard-services/Packages";
 
 const Service: React.FC = () => {
   const { vendor } = useVendorAuth();
@@ -229,10 +230,11 @@ const Service: React.FC = () => {
                 <hr className="border-t border-gray-300 my-4" />
 
                 <div className="mb-3 text-2xl font-bold">
-                  Packages
+                  Pricing
                 </div>
                 <div>
-                  <p>{offering.pricing || "Pricing details not available"}</p>
+                  <p>{offering.pricing || ""}</p>
+                  <Packages/>
                 </div>
                 <hr className="border-t border-gray-300 my-4" />
                 <div className="mb-3 text-2xl font-bold">
