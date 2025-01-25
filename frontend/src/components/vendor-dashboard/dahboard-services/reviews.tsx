@@ -29,7 +29,7 @@ const Reviews: React.FC<ReviewsProps> = ({ serviceId }) => {
         return acc;
     }, {});
 
-    // Add missing rating levels with 0 if not present in ratingsCount
+    // Add missing rating levels with 0 if not present in ratings Count
     for (let i = 1; i <= 5; i++) {
         if (!ratingsCount[i]) {
             ratingsCount[i] = 0;
