@@ -215,3 +215,19 @@ export const REMOVE_FROM_MY_VENDORS = gql`
     }
   }
 `;
+
+export const CREATE_REVIEW = gql`
+  mutation CreateReview($input: CreateReviewInput!) {
+    createReview(input: $input) {
+      id
+      comment
+      rating
+      offering {
+        id
+      }
+      visitor {
+        id
+      }
+    }
+  }
+`;

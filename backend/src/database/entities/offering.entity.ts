@@ -64,9 +64,8 @@ export class OfferingEntity {
     @JoinColumn({ name: 'vendor_id' })
     vendor: VendorEntity;
 
-    @OneToMany(() => ReviewEntity, r => r.offering, {cascade: true})
-    @JoinColumn({ name: 'review_id' })
-    review: ReviewEntity[];
+    @OneToMany(() => ReviewEntity, (r) => r.offering, { cascade: true })
+    review: ReviewEntity[]; 
 
     @OneToMany(() => MyVendorsEntity, m => m.offering, {cascade: true})
     @JoinColumn({ name: 'myvendors_id' })
