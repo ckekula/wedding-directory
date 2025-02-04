@@ -45,21 +45,6 @@ export const GuestListRepository = (
       });
     },
 
-    // async findGuestListsByFilter(status?: string, name?: string ): Promise<GuestListEntity[]> {
-    //   const query = this.createQueryBuilder('guestlist')
-    //     .leftJoinAndSelect('guestlist.visitor', 'visitor'); // Join with visitor
-
-    //   if (name) {
-    //     query.andWhere('guestlist.name = :name', { name });
-    //   }
-
-    //   if (status) {
-    //     query.andWhere('visitor.status = :status', { status });
-    //   }
-
-    //   return query.getMany();
-    // },
-
     async findGuestListsByVisitor(id: string): Promise<GuestListEntity[]> {
       return this.createQueryBuilder('guestlist')
         .leftJoinAndSelect('guestlist.visitor', 'visitor') // Include visitor details

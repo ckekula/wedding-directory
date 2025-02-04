@@ -1,10 +1,11 @@
 import {
-    Entity,
-    Column,
-    PrimaryGeneratedColumn,
-    CreateDateColumn,
-    ManyToOne
-  } from 'typeorm';
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  ManyToOne,
+  JoinColumn
+} from 'typeorm';
 import { OfferingEntity } from './offering.entity';
 import { VisitorEntity } from './visitor.entity';
 
@@ -13,17 +14,19 @@ export class ReviewEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Column({type:'varchar', nullable:true})
+  @Column({ type: 'varchar', nullable: true })
   comment?: string;
 
-  @Column({type:'integer'})
+  @Column({ type: 'integer' })
   rating: number;
 
-  @ManyToOne(() => OfferingEntity, o => o.review, { onDelete: 'CASCADE' })
+  @ManyToOne(() => OfferingEntity, (offering) => offering.review, { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'offering_id' })
   offering: OfferingEntity;
-
+  
   @ManyToOne(() => VisitorEntity, { onDelete: 'SET NULL' })
-  visitor: VisitorEntity;
+  @JoinColumn({ name: 'visitor_id' })
+  visitor: VisitorEntity;  
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
   createdAt: Date;
