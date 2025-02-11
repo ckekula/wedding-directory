@@ -261,6 +261,9 @@ const Service: React.FC = () => {
               </div>
               <hr className="border-t border-gray-300 my-4" />
               <div className="mb-3 text-2xl font-bold">
+                Location
+              </div>
+              <div className="mb-3 text-2xl font-bold">
                 <GoogleMapComponent serviceId={offering?.id} />
               </div>
             </div>
