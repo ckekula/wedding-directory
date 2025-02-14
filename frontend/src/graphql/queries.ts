@@ -246,3 +246,28 @@ export const FIND_MY_VENDOR_BY_ID = gql`
   }
 `;
 
+export const GET_CHAT = gql`
+  query GetChat($visitorId: String!, $vendorId: String!) {
+    chat(visitorId: $visitorId, vendorId: $vendorId) {
+      id
+      visitor {
+        id
+      }
+      vendor {
+        id
+      }
+      messages {
+        id
+        content
+        createdAt
+        visitorSender {
+          id
+        }
+        vendorSender {
+          id
+        }
+      }
+    }
+  }
+`;
+

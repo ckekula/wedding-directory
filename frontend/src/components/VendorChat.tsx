@@ -1,46 +1,19 @@
-"use client"
-import { useEffect, useState } from 'react';
-import { io } from 'socket.io-client';
-import { useAuth } from '@/contexts/VisitorAuthContext';
-import { useMutation, useQuery } from '@apollo/client';
-import { CREATE_CHAT } from '@/graphql/mutations';
-import { GET_CHAT } from '@/graphql/queries';
+import { useEffect, useState } from "react";
+import { io } from "socket.io-client";
+import { useVendorAuth } from "@/contexts/VendorAuthContext";
 
-const HARDCODED_VENDOR_ID = "07cf1eb1-1603-471a-a78d-9e1802fb7186"; // Use an existing vendor ID from your database
-const socket = io('http://localhost:4000/chat', {
-  transports: ['websocket'],
-  withCredentials: true
+const socket = io("http://localhost:4000/chat", {
+  transports: ["websocket"],
+  withCredentials: true,
 });
 
-const Chat: React.FC= ({  }) => {
-    const vendorId = HARDCODED_VENDOR_ID;
+const VendorChat: React.FC = () => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<any[]>([]);
-    const [chatId, setChatId] = useState<string>("");
-    
-  const { visitor } = useAuth();
-
-  const [createChat] = useMutation(CREATE_CHAT);
-  const { data: chatData } = useQuery(GET_CHAT, {
-    variables: { visitorId: visitor?.id, vendorId },
-  });
-
-  useEffect(() => {
-    const initializeChat = async () => {
-      if (!chatData?.chat) {
-        const { data } = await createChat({
-          variables: { visitorId: visitor?.id, vendorId },
-        });
-        setChatId(data.createChat.id);
-      } else {
-        setChatId(chatData.chat.id);
-      }
-    };
-
-    if (visitor?.id && vendorId) {
-      initializeChat();
-    }
-  }, [visitor?.id, vendorId, chatData, createChat]);
+  const [chatId, setChatId] = useState<string>(
+    "fa0cb49f-505c-473a-8f3b-569c0cb019ba"
+  ); // Use existing chat ID
+  const { vendor } = useVendorAuth();
 
   useEffect(() => {
     if (chatId) {
@@ -60,7 +33,7 @@ const Chat: React.FC= ({  }) => {
 
     socket.emit("sendMessage", {
       chatId: chatId,
-      visitorSenderId: visitor?.id,
+      vendorSenderId: vendor?.id,
       content: message,
     });
     setMessage("");
@@ -73,7 +46,7 @@ const Chat: React.FC= ({  }) => {
           <div
             key={index}
             className={`p-2 rounded-lg max-w-[80%] ${
-              msg.visitorSenderId === visitor?.id
+              msg.vendorSenderId === vendor?.id
                 ? "ml-auto bg-blue-500 text-white"
                 : "bg-gray-200"
             }`}
@@ -104,4 +77,4 @@ const Chat: React.FC= ({  }) => {
   );
 };
 
-export default Chat; // Rest of the component remains the same
+export default VendorChat;

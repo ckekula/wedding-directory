@@ -61,4 +61,22 @@ export class ChatService {
             relations: ['messages'],
         });
     }
+
+    async getChatHistory(chatId: string): Promise<Message[]> {
+    const chat = await this.chatRepository.findOne({
+        where: { id: chatId },
+        relations: ['messages'],
+    });
+    return chat.messages;
+}
+
+async getChatRoom(visitorId: string, vendorId: string): Promise<Chat> {
+    return this.chatRepository.findOne({
+        where: {
+            visitor: { id: visitorId },
+            vendor: { id: vendorId }
+        }
+    });
+}
+
 }

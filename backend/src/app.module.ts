@@ -10,7 +10,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { OfferingModule } from './modules/offering/offering.module';
 import { UploadModule } from './modules/upload/upload.module';
 import { GuestListModule } from './modules/guestlist/guestlist.module';
-import { BudgetToolModule} from './modules/budget/budget_tool.module';
+import { BudgetToolModule } from './modules/budget/budget_tool.module';
 import { BudgetItemModule } from './modules/budget/budget_item.module';
 import { ChecklistModule } from './modules/checklist/checklist.module';
 import { MyVendorsModule } from './modules/myVendors/myVendors.module';
@@ -52,7 +52,7 @@ import { ChatModule } from './modules/chat/chat.module';
     MyVendorsModule,
     ReviewModule,
     PackageModule,
-    ChatModule,
+    ChatModule, // Ensure ChatModule is imported
   ],
 })
-export class AppModule {}
+export class AppModule { }

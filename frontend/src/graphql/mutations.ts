@@ -215,3 +215,35 @@ export const REMOVE_FROM_MY_VENDORS = gql`
     }
   }
 `;
+
+export const CREATE_CHAT = gql`
+  mutation CreateChat($visitorId: String!, $vendorId: String!) {
+    createChat(createChatInput: {
+      visitorId: $visitorId
+      vendorId: $vendorId
+    }) {
+      id
+      visitor {
+        id
+      }
+      vendor {
+        id
+      }
+    }
+  }
+`;
+
+export const SEND_MESSAGE = gql`
+  mutation SendMessage($chatId: String!, $visitorSenderId: String, $vendorSenderId: String, $content: String!) {
+    sendMessage(sendMessageInput: {
+      chatId: $chatId
+      visitorSenderId: $visitorSenderId
+      vendorSenderId: $vendorSenderId
+      content: $content
+    }) {
+      id
+      content
+      createdAt
+    }
+  }
+`;
