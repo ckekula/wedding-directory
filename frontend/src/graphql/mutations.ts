@@ -215,7 +215,6 @@ export const REMOVE_FROM_MY_VENDORS = gql`
     }
   }
 `;
-
 export const CREATE_CHAT = gql`
   mutation CreateChat($visitorId: String!, $vendorId: String!) {
     createChat(createChatInput: {

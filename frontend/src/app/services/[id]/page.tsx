@@ -19,7 +19,7 @@ import { useAuth } from "@/contexts/VisitorAuthContext";
 import { ADD_TO_MY_VENDORS, REMOVE_FROM_MY_VENDORS } from "@/graphql/mutations";
 import toast from "react-hot-toast";
 import { FaHeart } from "react-icons/fa";
-import Chat from "@/components/chat/Chat";
+import QuoteRequestWidget from "@/components/chat/QuoteRequestWidget";
 
 const Service: React.FC = () => {
   const { vendor } = useVendorAuth();
@@ -136,7 +136,7 @@ const Service: React.FC = () => {
       <div className="md:mx-40 my-4 p-4">
         <Link href="/vendor-dashboard">
           <button className="text-black font-body hover:text-gray-500 mr-2">
-            &larr;
+            ←
           </button>
           back
         </Link>
@@ -269,13 +269,13 @@ const Service: React.FC = () => {
               <p className="text-xl font-bold font-title mb-4">
                 Message Vendor
               </p>
-              <Chat vendorId={offering?.vendor.id} />
+              <p className="text-xl font-bold font-title mb-4">Request Quote</p>
+              <QuoteRequestWidget vendorId={offering?.vendor.id} />
             </div>
           </div>
         </div>
       </div>
     </div>
   );
-};
 
-export default Service;
+};export default Service;

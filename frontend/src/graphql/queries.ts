@@ -246,6 +246,8 @@ export const FIND_MY_VENDOR_BY_ID = gql`
   }
 `;
 
+
+
 export const GET_CHAT = gql`
   query GetChat($visitorId: String!, $vendorId: String!) {
     chat(visitorId: $visitorId, vendorId: $vendorId) {
@@ -271,31 +273,15 @@ export const GET_CHAT = gql`
   }
 `;
 
-export const GET_VENDOR_CHATS = gql`
-  query GetVendorChats($vendorId: String!) {
-    getVendorChats(vendorId: $vendorId) {
-      id
-      visitor {
-        id
-        email
-      }
+export const GET_CHAT_HISTORY = gql`
+  query GetChatHistory($chatId: String!) {
+    getChatHistory(chatId: $chatId) {
       messages {
-        id
         content
+        senderId
+        senderType
+        timestamp
       }
-      updatedAt
-    }
-  }
-`;
-
-export const GET_CHAT_MESSAGES = gql`
-  query GetChatMessages($chatId: String!) {
-    chatMessages(chatId: $chatId) {
-      id
-      content
-      vendorSenderId
-      visitorSenderId
-      createdAt
     }
   }
 `;

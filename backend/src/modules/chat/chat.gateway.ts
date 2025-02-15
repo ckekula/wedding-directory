@@ -9,13 +9,13 @@ import { ChatService } from "./chat.service";
 import { Logger } from "node_modules/@nestjs/common";
 @WebSocketGateway({
   cors: {
-    origin: '*',
+    origin: "*",
+    methods: ["GET", "POST"],
+    credentials: true,
   },
-  namespace: '/chat',
-  port: 4000
-  
+  namespace: "/chat",
+  transports: ["websocket"],
 })
-
 export class ChatGateway {
   @WebSocketServer() server: Server;
   private readonly logger = new Logger(ChatGateway.name);
@@ -41,19 +41,17 @@ export class ChatGateway {
   @SubscribeMessage("sendMessage")
   async handleMessage(
     @MessageBody()
-    data: {
-      chatId: string;
-      visitorSenderId?: string;
-      vendorSenderId?: string;
-      content: string;
-    }
+    data: any
   ): Promise<void> {
+    console.log('Received message data:', data);
     const message = await this.chatService.sendMessage({
       chatId: data.chatId,
       visitorSenderId: data.visitorSenderId,
       vendorSenderId: data.vendorSenderId,
       content: data.content,
     });
+
+    console.log('Saved message:', message);
 
     this.server.to(data.chatId).emit("newMessage", message);
   }

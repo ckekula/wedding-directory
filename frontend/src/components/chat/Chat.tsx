@@ -1,116 +1,123 @@
-"use client"
-import { useEffect, useState } from 'react';
-import { io } from 'socket.io-client';
-import { useAuth } from '@/contexts/VisitorAuthContext';
-import { useMutation, useQuery } from '@apollo/client';
-import { CREATE_CHAT } from '@/graphql/mutations';
-import { GET_CHAT } from '@/graphql/queries';
+import { useMutation, useQuery } from "@apollo/client";
+import { useState, useEffect } from "react";
+import { GET_CHAT, GET_CHAT_HISTORY } from "../../graphql/queries";
+import { CREATE_CHAT, SEND_MESSAGE } from "../../graphql/mutations";
 
 interface ChatProps {
+  visitorId: string;
   vendorId: string;
 }
 
-const socket = io('http://localhost:4000/chat', {
-  transports: ['websocket'],
-  withCredentials: true
-});
-
-const Chat: React.FC<ChatProps> = ({ vendorId }) => {
-  const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState<any[]>([]);
-  const [chatId, setChatId] = useState<string>("");
-    
-  const { visitor } = useAuth();
+const Chat = ({ visitorId, vendorId }: ChatProps) => {
+  const [messages, setMessages] = useState([]);
+  const [newMessage, setNewMessage] = useState("");
+  const [chatId, setChatId] = useState<string | null>(null);
 
   const [createChat] = useMutation(CREATE_CHAT);
+  const [sendMessage] = useMutation(SEND_MESSAGE);
+
   const { data: chatData } = useQuery(GET_CHAT, {
-    variables: { visitorId: visitor?.id, vendorId },
-    skip: !visitor?.id || !vendorId,
+    variables: { visitorId, vendorId },
+    onCompleted: (data) => {
+      if (data?.chat) {
+        setChatId(data.chat.id);
+      } else {
+        initializeChat();
+      }
+    },
   });
 
-  useEffect(() => {
-    const initializeChat = async () => {
-      if (!chatData?.chat) {
-        const { data } = await createChat({
-          variables: { visitorId: visitor?.id, vendorId },
-        });
-        setChatId(data.createChat.id);
-      } else {
-        setChatId(chatData.chat.id);
-      }
-    };
-
-    if (visitor?.id && vendorId) {
-      initializeChat();
+  const { data: messagesData, refetch: refetchMessages } = useQuery(
+    GET_CHAT_HISTORY,
+    {
+      variables: { chatId },
+      skip: !chatId,
     }
-  }, [visitor?.id, vendorId, chatData, createChat]);
+  );
 
-  useEffect(() => {
-    if (chatId) {
-      socket.emit("joinRoom", chatId);
-      socket.on("newMessage", (msg) => {
-        setMessages((prev) => [...prev, msg]);
+  const initializeChat = async () => {
+    try {
+      const { data } = await createChat({
+        variables: {
+          visitorId,
+          vendorId,
+        },
       });
+      setChatId(data.createChat.id);
+    } catch (error) {
+      console.error("Error creating chat:", error);
     }
-
-    return () => {
-      socket.off("newMessage");
-    };
-  }, [chatId]);
-
-  const sendMessage = () => {
-    if (!message.trim() || !chatId) return;
-
-    socket.emit("sendMessage", {
-      chatId: chatId,
-      visitorSenderId: visitor?.id,
-      content: message,
-    });
-    setMessage("");
   };
 
-  if (!visitor) {
-    return (
-      <div className="p-4 text-center">
-        Please login to chat with the vendor
-      </div>
-    );
-  }
+  const handleSendMessage = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!newMessage.trim() || !chatId) return;
+
+    try {
+      await sendMessage({
+        variables: {
+          chatId,
+          visitorSenderId: visitorId,
+          content: newMessage,
+        },
+      });
+      setNewMessage("");
+      refetchMessages();
+    } catch (error) {
+      console.error("Error sending message:", error);
+    }
+  };
+
+  useEffect(() => {
+    if (messagesData?.chatMessages) {
+      setMessages(messagesData.chatMessages);
+    }
+  }, [messagesData]);
 
   return (
-    <div className="flex flex-col h-[500px] w-full bg-white rounded-lg">
-      <div className="flex-1 overflow-y-auto p-4 space-y-2">
-        {messages.map((msg, index) => (
+    <div className="flex flex-col h-[600px] bg-white rounded-lg shadow-lg">
+      <div className="flex-1 p-4 overflow-y-auto">
+        {messages.map((message: { id: string; visitorSenderId: string; content: string; createdAt: string }) => (
           <div
-            key={index}
-            className={`p-2 rounded-lg max-w-[80%] ${
-              msg.visitorSenderId === visitor?.id
-                ? "ml-auto bg-blue-500 text-white"
-                : "bg-gray-200"
+            key={message.id}
+            className={`mb-4 ${
+              message.visitorSenderId === visitorId
+                ? "ml-auto text-right"
+                : "mr-auto"
             }`}
           >
-            {msg.content}
+            <div
+              className={`inline-block px-4 py-2 rounded-lg ${
+                message.visitorSenderId === visitorId
+                  ? "bg-blue-500 text-white"
+                  : "bg-gray-200 text-gray-800"
+              }`}
+            >
+              {message.content}
+            </div>
+            <div className="text-xs text-gray-500 mt-1">
+              {new Date(message.createdAt).toLocaleTimeString()}
+            </div>
           </div>
-        ))}
-      </div>
-      <div className="p-4 border-t">
+        ))}      </div>
+
+      <form onSubmit={handleSendMessage} className="p-4 border-t">
         <div className="flex gap-2">
           <input
             type="text"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            onKeyPress={(e) => e.key === "Enter" && sendMessage()}
-            className="flex-1 p-2 border rounded"
-            placeholder="Type a message..."
+            value={newMessage}
+            onChange={(e) => setNewMessage(e.target.value)}
+            className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Type your message..."
           />
           <button
-            onClick={sendMessage}
-            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            type="submit"
+            className="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
           >
             Send
           </button>
         </div>
-      </div>
+      </form>
     </div>
   );
 };

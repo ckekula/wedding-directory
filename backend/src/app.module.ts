@@ -1,22 +1,23 @@
-import { Module } from '@nestjs/common';
-import { GraphQLModule } from '@nestjs/graphql';
-import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { ConfigModule } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { join } from 'path';
-import { VendorModule } from './modules/vendor/vendor.module';
-import { VisitorModule } from './modules/visitor/visitor.module';
-import { AuthModule } from './modules/auth/auth.module';
-import { OfferingModule } from './modules/offering/offering.module';
-import { UploadModule } from './modules/upload/upload.module';
-import { GuestListModule } from './modules/guestlist/guestlist.module';
-import { BudgetToolModule } from './modules/budget/budget_tool.module';
-import { BudgetItemModule } from './modules/budget/budget_item.module';
-import { ChecklistModule } from './modules/checklist/checklist.module';
-import { MyVendorsModule } from './modules/myVendors/myVendors.module';
-import { ReviewModule } from './modules/review/review.module';
-import { PackageModule } from './modules/package/package.module';
-import { ChatModule } from './modules/chat/chat.module';
+import { Module } from "@nestjs/common";
+import { GraphQLModule } from "@nestjs/graphql";
+import { ApolloDriver, ApolloDriverConfig } from "@nestjs/apollo";
+import { ConfigModule } from "@nestjs/config";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import { join } from "path";
+import { VendorModule } from "./modules/vendor/vendor.module";
+import { VisitorModule } from "./modules/visitor/visitor.module";
+import { AuthModule } from "./modules/auth/auth.module";
+import { OfferingModule } from "./modules/offering/offering.module";
+import { UploadModule } from "./modules/upload/upload.module";
+import { GuestListModule } from "./modules/guestlist/guestlist.module";
+import { BudgetToolModule } from "./modules/budget/budget_tool.module";
+import { BudgetItemModule } from "./modules/budget/budget_item.module";
+import { ChecklistModule } from "./modules/checklist/checklist.module";
+import { MyVendorsModule } from "./modules/myVendors/myVendors.module";
+import { ReviewModule } from "./modules/review/review.module";
+import { PackageModule } from "./modules/package/package.module";
+import { ChatModule } from "./modules/chat/chat.module";
+import { MongooseModule } from "@nestjs/mongoose";
 
 @Module({
   imports: [
@@ -25,23 +26,26 @@ import { ChatModule } from './modules/chat/chat.module';
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: () => ({
-        type: 'postgres',
+        type: "postgres",
         url: process.env.DATABASE_URL,
         ssl: true,
-        entities: [join(__dirname, '**', '*.entity.{ts,js}')],
-        synchronize: process.env.TYPEORM_SYNC === 'true',
+        entities: [join(__dirname, "**", "*.entity.{ts,js}")],
+        synchronize: process.env.TYPEORM_SYNC === "true",
       }),
     }),
+    AuthModule,
+    MongooseModule.forRoot(process.env.MONGODB_URI),
+    ChatModule,
 
     GraphQLModule.forRoot<ApolloDriverConfig>({
       driver: ApolloDriver,
-      autoSchemaFile: 'dist/graphql/schema.gql',
+      autoSchemaFile: "dist/graphql/schema.gql",
       playground: true,
     }),
 
     VendorModule,
     VisitorModule,
-    AuthModule,
+
     OfferingModule,
     GuestListModule,
     UploadModule,
@@ -52,7 +56,8 @@ import { ChatModule } from './modules/chat/chat.module';
     MyVendorsModule,
     ReviewModule,
     PackageModule,
-    ChatModule, // Ensure ChatModule is imported
+   
   ],
+  
 })
-export class AppModule { }
+export class AppModule {}

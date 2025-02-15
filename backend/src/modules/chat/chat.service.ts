@@ -1,91 +1,94 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { Chat } from '../../database/entities/chat.entity';
-import { Message } from '../../database/entities/message.entity';
-import { CreateChatInput } from '../../graphql/inputs/createChat.input';
-import { SendMessageInput } from '../../graphql/inputs/sendMessage.input';
-import { VisitorEntity } from '../../database/entities/visitor.entity';
-import { VendorEntity } from '../../database/entities/vendor.entity';
+import { Injectable } from "@nestjs/common";
+import { InjectModel } from "@nestjs/mongoose";
+import { Model } from "mongoose";
+import { v4 as uuid } from "uuid";
+import { IChat } from "../../database/schemas/chat.schema";
+import { InjectRepository } from "@nestjs/typeorm";
+import { VisitorEntity } from "../../database/entities/visitor.entity";
+import { VendorEntity } from "../../database/entities/vendor.entity";
+import { Repository } from "typeorm";
 
 @Injectable()
 export class ChatService {
-    constructor(
-        @InjectRepository(Chat)
-        private chatRepository: Repository<Chat>,
-        @InjectRepository(Message)
-        private messageRepository: Repository<Message>,
-        @InjectRepository(VisitorEntity)
-        private visitorRepository: Repository<VisitorEntity>,
-        @InjectRepository(VendorEntity)
-        private vendorRepository: Repository<VendorEntity>,
-    ) { }
+  constructor(
+    @InjectModel("Chat") private chatModel: Model<IChat>,
+    @InjectRepository(VisitorEntity)
+    private visitorRepository: Repository<VisitorEntity>,
+    @InjectRepository(VendorEntity)
+    private vendorRepository: Repository<VendorEntity>
+  ) {}
 
-    async createChat(createChatInput: CreateChatInput): Promise<Chat> {
-        const { visitorId, vendorId } = createChatInput;
-        const visitor = await this.visitorRepository.findOne({ where: { id: visitorId } });
-        const vendor = await this.vendorRepository.findOne({ where: { id: vendorId } });
+  async findOrCreateChat(vendorId: string, visitorId: string): Promise<IChat> {
+    let chat = await this.chatModel.findOne({ vendorId, visitorId });
 
-        const chat = this.chatRepository.create({ visitor, vendor });
-        return this.chatRepository.save(chat);
+    if (!chat) {
+      const visitor = await this.visitorRepository.findOne({
+        where: { id: visitorId },
+      });
+      const vendor = await this.vendorRepository.findOne({
+        where: { id: vendorId },
+      });
+
+      chat = new this.chatModel({
+        chatId: uuid(),
+        vendorId,
+        visitorId,
+        visitor: { id: visitor.id },
+        vendor: { id: vendor.id },
+        messages: [],
+      });
+      await chat.save();
     }
+    return {
+      ...chat.toObject(),
+      visitor: { id: chat.visitorId },
+      vendor: { id: chat.vendorId },
+    };
+  }
 
-    async sendMessage(sendMessageInput: SendMessageInput): Promise<Message> {
-        const { chatId, visitorSenderId, vendorSenderId, content } = sendMessageInput;
-        const chat = await this.chatRepository.findOne({ where: { id: chatId } });
+  async getVendorChats(vendorId: string): Promise<IChat[]> {
+    return this.chatModel.find({ vendorId }).sort({ updatedAt: -1 });
+  }
 
-        let sender: VisitorEntity | VendorEntity | null = null;
-        if (visitorSenderId) {
-            sender = await this.visitorRepository.findOne({ where: { id: visitorSenderId } });
-        } else if (vendorSenderId) {
-            sender = await this.vendorRepository.findOne({ where: { id: vendorSenderId } });
-        }
+  async getVisitorChats(visitorId: string): Promise<IChat[]> {
+    return this.chatModel.find({ visitorId }).sort({ updatedAt: -1 });
+  }
 
-        if (!sender) {
-            throw new Error('Sender not found');
-        }
+  async addMessage(chatId: string, message: any): Promise<IChat> {
+    return this.chatModel.findOneAndUpdate(
+      { chatId },
+      {
+        $push: { messages: message },
+        $set: { updatedAt: new Date() },
+      },
+      { new: true }
+    );
+  }
 
-        const message = this.messageRepository.create({
-            chat,
-            content,
-            visitorSender: visitorSenderId ? (sender as VisitorEntity) : null,
-            vendorSender: vendorSenderId ? (sender as VendorEntity) : null,
-        });
+  async getChatHistory(chatId: string): Promise<IChat> {
+    return this.chatModel.findOne({ chatId });
+  }
 
-        return this.messageRepository.save(message);
-    }
+  async sendMessage(data: {
+    chatId: string;
+    content: string;
+    visitorSenderId?: string;
+    vendorSenderId?: string;
+  }): Promise<IChat> {
+    const message = {
+      content: data.content,
+      senderId: data.visitorSenderId || data.vendorSenderId,
+      senderType: data.visitorSenderId ? "visitor" : "vendor",
+      timestamp: new Date(),
+    };
 
-    async getChats(userId: string): Promise<Chat[]> {
-        return this.chatRepository.find({
-            where: [{ visitor: { id: userId } }, { vendor: { id: userId } }],
-            relations: ['messages'],
-        });
-    }
-
-    async getChatHistory(chatId: string): Promise<Message[]> {
-    const chat = await this.chatRepository.findOne({
-        where: { id: chatId },
-        relations: ['messages'],
-    });
-    return chat.messages;
-}
-
-async getChatRoom(visitorId: string, vendorId: string): Promise<Chat> {
-    return this.chatRepository.findOne({
-        where: {
-            visitor: { id: visitorId },
-            vendor: { id: vendorId }
-        }
-    });
-}
-    async getVendorChats(vendorId: string): Promise<Chat[]> {
-        return this.chatRepository.find({
-            where: { vendor: { id: vendorId } },
-            relations: ['visitor', 'messages'],
-            order: {
-                updatedAt: 'DESC'
-            }
-        });
-    }
-
+    return this.chatModel.findOneAndUpdate(
+      { chatId: data.chatId },
+      {
+        $push: { messages: message },
+        $set: { updatedAt: new Date() },
+      },
+      { new: true }
+    );
+  }
 }
