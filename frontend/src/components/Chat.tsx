@@ -6,23 +6,26 @@ import { useMutation, useQuery } from '@apollo/client';
 import { CREATE_CHAT } from '@/graphql/mutations';
 import { GET_CHAT } from '@/graphql/queries';
 
-const HARDCODED_VENDOR_ID = "07cf1eb1-1603-471a-a78d-9e1802fb7186"; // Use an existing vendor ID from your database
+interface ChatProps {
+  vendorId: string;
+}
+
 const socket = io('http://localhost:4000/chat', {
   transports: ['websocket'],
   withCredentials: true
 });
 
-const Chat: React.FC= ({  }) => {
-    const vendorId = HARDCODED_VENDOR_ID;
+const Chat: React.FC<ChatProps> = ({ vendorId }) => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<any[]>([]);
-    const [chatId, setChatId] = useState<string>("");
+  const [chatId, setChatId] = useState<string>("");
     
   const { visitor } = useAuth();
 
   const [createChat] = useMutation(CREATE_CHAT);
   const { data: chatData } = useQuery(GET_CHAT, {
     variables: { visitorId: visitor?.id, vendorId },
+    skip: !visitor?.id || !vendorId,
   });
 
   useEffect(() => {
@@ -66,8 +69,16 @@ const Chat: React.FC= ({  }) => {
     setMessage("");
   };
 
+  if (!visitor) {
+    return (
+      <div className="p-4 text-center">
+        Please login to chat with the vendor
+      </div>
+    );
+  }
+
   return (
-    <div className="flex flex-col h-[500px] w-full max-w-md mx-auto bg-white rounded-lg shadow-lg">
+    <div className="flex flex-col h-[500px] w-full bg-white rounded-lg">
       <div className="flex-1 overflow-y-auto p-4 space-y-2">
         {messages.map((msg, index) => (
           <div
@@ -104,4 +115,4 @@ const Chat: React.FC= ({  }) => {
   );
 };
 
-export default Chat; // Rest of the component remains the same
+export default Chat;

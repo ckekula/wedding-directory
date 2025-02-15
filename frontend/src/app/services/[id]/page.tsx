@@ -19,6 +19,7 @@ import { useAuth } from "@/contexts/VisitorAuthContext";
 import { ADD_TO_MY_VENDORS, REMOVE_FROM_MY_VENDORS } from "@/graphql/mutations";
 import toast from "react-hot-toast";
 import { FaHeart } from "react-icons/fa";
+import Chat from "@/components/Chat";
 
 const Service: React.FC = () => {
   const { vendor } = useVendorAuth();
@@ -197,12 +198,12 @@ const Service: React.FC = () => {
                           </Link>
                         ) : (
                           <button onClick={handleHeartClick}>
-                          {isInMyVendors ? (
-                            <FaHeart className="text-red-500 hover:text-red-600 hover:cursor-pointer" />
-                          ) : (
-                            <CiHeart className="hover:text-red-500 hover:cursor-pointer" />
-                          )}
-                        </button>
+                            {isInMyVendors ? (
+                              <FaHeart className="text-red-500 hover:text-red-600 hover:cursor-pointer" />
+                            ) : (
+                              <CiHeart className="hover:text-red-500 hover:cursor-pointer" />
+                            )}
+                          </button>
                         )}
                       </div>
                     </div>
@@ -214,9 +215,7 @@ const Service: React.FC = () => {
 
               {/* Details Section */}
               <div className="bg-white rounded-2xl p-4 flex flex-col">
-                <div className="mb-3 text-2xl font-bold">
-                  About the Vendor
-                </div>
+                <div className="mb-3 text-2xl font-bold">About the Vendor</div>
                 <div>
                   <p>{offering.vendor.about || "About not available"}</p>
                 </div>
@@ -228,16 +227,12 @@ const Service: React.FC = () => {
                 </div>
                 <hr className="border-t border-gray-300 my-4" />
 
-                <div className="mb-3 text-2xl font-bold">
-                  Packages
-                </div>
+                <div className="mb-3 text-2xl font-bold">Packages</div>
                 <div>
                   <p>{offering.pricing || "Pricing details not available"}</p>
                 </div>
                 <hr className="border-t border-gray-300 my-4" />
-                <div className="mb-3 text-2xl font-bold">
-                  Reviews
-                </div>
+                <div className="mb-3 text-2xl font-bold">Reviews</div>
                 <div>
                   <Reviews />
                 </div>
@@ -252,11 +247,11 @@ const Service: React.FC = () => {
                   <Comments />
                 </div>
                 <hr className="border-t border-gray-300 my-4" />
-                <div className="mb-3 text-2xl font-bold">
-                  Contact
-                </div>
+                <div className="mb-3 text-2xl font-bold">Contact</div>
                 <div className="flex flex-col gap-y-1">
-                  <div>Email: {offering.bus_email || "Email not available"}</div>
+                  <div>
+                    Email: {offering.bus_email || "Email not available"}
+                  </div>
                   <div>
                     Phone number:{" "}
                     {offering.bus_phone || "Phone number not available"}
@@ -267,8 +262,10 @@ const Service: React.FC = () => {
 
             <div className="w-1/4">
               <div className="bg-white rounded-2xl p-4 flex flex-col sticky top-4">
-                <p className="text-xl font-bold font-title">Message Vendor</p>
-                <p className="text-sm font-body mt-10">Coming soon!</p>
+                <p className="text-xl font-bold font-title mb-4">
+                  Message Vendor
+                </p>
+                <Chat vendorId={offering?.vendor.id} />
               </div>
             </div>
           </div>
