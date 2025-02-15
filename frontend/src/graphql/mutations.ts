@@ -221,7 +221,7 @@ export const CREATE_CHAT = gql`
       visitorId: $visitorId
       vendorId: $vendorId
     }) {
-      id
+      chatId
       visitor {
         id
       }

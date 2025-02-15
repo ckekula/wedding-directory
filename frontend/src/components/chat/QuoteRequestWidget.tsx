@@ -22,34 +22,38 @@ const QuoteRequestWidget = ({ vendorId }: QuoteRequestWidgetProps) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!visitor) {
-      console.error("Visitor is not authenticated");
-      return;
-    }
-
     try {
-      const { data: chatData } = await createChat({
+      const { data } = await createChat({
         variables: {
-          createChatInput: {
-            visitorId: visitor.id,
-            vendorId,
+          visitorId: visitor?.id,
+          vendorId,
+        },
+      });
+
+      console.log("Chat created response:", data);
+
+      if (data?.createChat?.id) {
+        const messageResponse = await sendMessage({
+          variables: {
+            chatId: data.createChat.id,
+            content: message,
+            visitorSenderId: visitor?.id,
           },
-        },
-      });
-
-      await sendMessage({
-        variables: {
-          chatId: chatData.createChat.chatId,
-          content: message,
-          visitorSenderId: visitor.id,
-        },
-      });
-
-      setMessage("");
+        });
+        console.log("Message sent response:", messageResponse);
+        setMessage("");
+      }
     } catch (error) {
-      console.error("Error sending message:", error);
+      console.log("Request payload:", {
+        visitorId: visitor?.id,
+        vendorId,
+        message,
+      });
+      console.error("Error details:", error);
     }
   };
+
+
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
       <h3 className="text-xl font-semibold mb-4">Request Quote</h3>
