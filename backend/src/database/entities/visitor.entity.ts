@@ -28,9 +28,11 @@ export class VisitorEntity {
   @Column({ type: 'varchar' })
   password: string;
 
+  @Field()  
   @Column({ type: 'varchar', length: 50, nullable: true })
   visitor_fname?: string;
 
+  @Field()
   @Column({ type: 'varchar', length: 50, nullable: true })
   visitor_lname?: string;
 

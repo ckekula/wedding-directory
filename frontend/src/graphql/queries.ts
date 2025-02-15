@@ -146,42 +146,42 @@ export const FIND_GUESTLIST_BY_VISITOR = gql`
 `;
 
 export const GET_BUDGET_TOOL = gql`
-    query GetBudgetTool($visitorId: String!) {
-        budgetTool(visitorId: $visitorId) {
-            id
-            totalBudget
-            visitor {
-                id
-                email
-            }
-            budgetItems {
-                id
-                itemName
-                category
-                estimatedCost
-                amountPaid
-                isPaidInFull
-            }
-            createdAt
-            updatedAt
-        }
+  query GetBudgetTool($visitorId: String!) {
+    budgetTool(visitorId: $visitorId) {
+      id
+      totalBudget
+      visitor {
+        id
+        email
+      }
+      budgetItems {
+        id
+        itemName
+        category
+        estimatedCost
+        amountPaid
+        isPaidInFull
+      }
+      createdAt
+      updatedAt
     }
-`
+  }
+`;
 export const GET_BUDGET_ITEMS = gql`
-    query GetBudgetItems($budgetToolId: String!) {
-        budgetItems(budgetToolId: $budgetToolId) {
-            id
-            itemName
-            category
-            estimatedCost
-            amountPaid
-            specialNotes
-            isPaidInFull
-            createdAt
-            updatedAt
-        }
+  query GetBudgetItems($budgetToolId: String!) {
+    budgetItems(budgetToolId: $budgetToolId) {
+      id
+      itemName
+      category
+      estimatedCost
+      amountPaid
+      specialNotes
+      isPaidInFull
+      createdAt
+      updatedAt
     }
-`
+  }
+`;
 
 export const GET_VISITOR_CHECKLISTS = gql`
   query GetVisitorChecklists($visitorId: String!) {
@@ -271,3 +271,31 @@ export const GET_CHAT = gql`
   }
 `;
 
+export const GET_VENDOR_CHATS = gql`
+  query GetVendorChats($vendorId: String!) {
+    getVendorChats(vendorId: $vendorId) {
+      id
+      visitor {
+        id
+        email
+      }
+      messages {
+        id
+        content
+      }
+      updatedAt
+    }
+  }
+`;
+
+export const GET_CHAT_MESSAGES = gql`
+  query GetChatMessages($chatId: String!) {
+    chatMessages(chatId: $chatId) {
+      id
+      content
+      vendorSenderId
+      visitorSenderId
+      createdAt
+    }
+  }
+`;

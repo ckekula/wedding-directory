@@ -78,5 +78,14 @@ async getChatRoom(visitorId: string, vendorId: string): Promise<Chat> {
         }
     });
 }
+    async getVendorChats(vendorId: string): Promise<Chat[]> {
+        return this.chatRepository.find({
+            where: { vendor: { id: vendorId } },
+            relations: ['visitor', 'messages'],
+            order: {
+                updatedAt: 'DESC'
+            }
+        });
+    }
 
 }
