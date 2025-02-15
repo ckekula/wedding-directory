@@ -41,6 +41,11 @@ const LeftSideBar: React.FC<LeftSideBarProps> = ({ isCollapsed, onToggleCollapse
       href: `visitor-dashboard/my-vendors/${visitorId}`,
       icon: <HiOutlineBriefcase className="w-5 h-5" />,
       label: "My Vendors"
+    },
+    {
+      href: `/visitor-dashboard/chats/${visitorId}`,
+      icon: <FiUsers className="w-5 h-5" />,
+      label: "Chats"
     }
   ];
 

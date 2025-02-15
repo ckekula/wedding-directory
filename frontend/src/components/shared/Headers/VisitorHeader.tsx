@@ -7,6 +7,7 @@ import { useAuth } from "@/contexts/VisitorAuthContext";
 import SearchBar from "../SearchBar";
 import { useQuery } from "@apollo/client";
 import { GET_VISITOR_BY_ID } from "@/graphql/queries";
+import ChatIcon from "@/components/chat/ChatIcon";
 
 const VisitorHeader = () => {
   const { visitor, logout } = useAuth();
@@ -81,6 +82,7 @@ const VisitorHeader = () => {
 
           {/* Dashboard, Notifications, and Profile dropdown */}
           <div className="flex items-center justify-end gap-8 text-xl font-title text-text">
+            <ChatIcon />
             <Link href="/visitor-dashboard">Dashboard</Link>
             <Link href="/help">Help</Link>
             <Link href="/notifications">

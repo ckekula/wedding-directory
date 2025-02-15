@@ -285,3 +285,21 @@ export const GET_CHAT_HISTORY = gql`
     }
   }
 `;
+
+export const GET_VISITOR_CHATS = gql`
+  query GetVisitorChats($visitorId: String!) {
+    getVisitorChats(visitorId: $visitorId) {
+      chatId
+      vendor {
+        id
+      }
+      messages {
+        content
+        senderId
+        senderType
+        timestamp
+      }
+    }
+  }
+`;
+
