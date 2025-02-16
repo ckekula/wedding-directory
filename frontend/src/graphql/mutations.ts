@@ -159,37 +159,37 @@ export const DELETE_CHECKLIST = gql`
 `;
 
 export const UPDATE_BUDGET_ITEM = gql`
-    mutation UpdateBudgetItem($id: String!, $input: UpdateBudgetItemInput!) {
-        updateBudgetItem(id: $id, updateBudgetItemInput: $input) {
-            itemName
-            estimatedCost
-            amountPaid
-            isPaidInFull
-            updatedAt
-        }
+  mutation UpdateBudgetItem($id: String!, $input: UpdateBudgetItemInput!) {
+    updateBudgetItem(id: $id, updateBudgetItemInput: $input) {
+      itemName
+      estimatedCost
+      amountPaid
+      isPaidInFull
+      updatedAt
     }
+  }
 `;
 
 export const CREATE_BUDGET_TOOL = gql`
-    mutation CreateBudgetTool($input: CreateBudgetToolInput!) {
-        createBudgetTool(createBudgetToolInput: $input) {
-            id
-        }
+  mutation CreateBudgetTool($input: CreateBudgetToolInput!) {
+    createBudgetTool(createBudgetToolInput: $input) {
+      id
     }
+  }
 `;
 
 export const CREATE_BUDGET_ITEM = gql`
-    mutation CreateBudgetItem($input: CreateBudgetItemInput!) {
-        createBudgetItem(createBudgetItemInput: $input) {
-            id
-        }
+  mutation CreateBudgetItem($input: CreateBudgetItemInput!) {
+    createBudgetItem(createBudgetItemInput: $input) {
+      id
     }
+  }
 `;
 
-export const DELETE_BUDGET_ITEM = gql `
-    mutation DeleteBudgetItem($id: String!) {
-        deleteBudgetItem(id: $id)
-    }
+export const DELETE_BUDGET_ITEM = gql`
+  mutation DeleteBudgetItem($id: String!) {
+    deleteBudgetItem(id: $id)
+  }
 `;
 
 export const ADD_TO_MY_VENDORS = gql`
@@ -217,10 +217,9 @@ export const REMOVE_FROM_MY_VENDORS = gql`
 `;
 export const CREATE_CHAT = gql`
   mutation CreateChat($visitorId: String!, $vendorId: String!) {
-    createChat(createChatInput: {
-      visitorId: $visitorId
-      vendorId: $vendorId
-    }) {
+    createChat(
+      createChatInput: { visitorId: $visitorId, vendorId: $vendorId }
+    ) {
       chatId
       visitor {
         id
@@ -231,18 +230,26 @@ export const CREATE_CHAT = gql`
     }
   }
 `;
-
 export const SEND_MESSAGE = gql`
-  mutation SendMessage($chatId: String!, $visitorSenderId: String, $vendorSenderId: String, $content: String!) {
-    sendMessage(sendMessageInput: {
+  mutation SendMessage(
+    $chatId: String!
+    $content: String!
+    $visitorSenderId: String
+    $vendorSenderId: String
+  ) {
+    sendMessage(
       chatId: $chatId
+      content: $content
       visitorSenderId: $visitorSenderId
       vendorSenderId: $vendorSenderId
-      content: $content
-    }) {
-      id
-      content
-      createdAt
+    ) {
+      chatId
+      messages {
+        content
+        senderId
+        senderType
+        timestamp
+      }
     }
   }
 `;
