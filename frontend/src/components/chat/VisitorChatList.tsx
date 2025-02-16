@@ -1,6 +1,5 @@
 import { useQuery } from "@apollo/client";
 import { formatDistanceToNow } from "date-fns";
-import Link from "next/link";
 import { GET_VENDOR_DETAILS, GET_VISITOR_CHATS } from "@/graphql/queries";
 
 interface Message {
@@ -18,24 +17,27 @@ interface Chat {
 
 interface VisitorChatListProps {
   visitorId: string;
+  onSelectChat: (chatId: string) => void;
 }
 
-const ChatItem = ({ chat }: { chat: Chat }) => {
+const ChatItem = ({
+  chat,
+  onSelectChat,
+}: {
+  chat: Chat;
+  onSelectChat: (chatId: string) => void;
+}) => {
   const { data: vendorData } = useQuery(GET_VENDOR_DETAILS, {
     variables: { id: chat.vendorId },
     skip: !chat.vendorId,
   });
 
-  console.log("Vendor Data:", vendorData);
-  console.log("Chat Vendor ID:", chat.vendorId);
-
   const lastMessage = chat.messages[chat.messages.length - 1];
 
   return (
-    <Link
-      href={`/visitor-dashboard/chats/${chat.chatId}`}
-      key={chat.chatId}
-      className="block bg-white rounded-lg shadow hover:shadow-md transition-shadow p-4"
+    <div
+      onClick={() => onSelectChat(chat.chatId)}
+      className="block bg-white rounded-lg shadow hover:shadow-md transition-shadow p-4 cursor-pointer"
     >
       <div className="flex justify-between items-start">
         <div>
@@ -57,17 +59,15 @@ const ChatItem = ({ chat }: { chat: Chat }) => {
           </span>
         )}
       </div>
-    </Link>
+    </div>
   );
 };
 
-const VisitorChatList = ({ visitorId }: VisitorChatListProps) => {
+const VisitorChatList = ({ visitorId, onSelectChat }: VisitorChatListProps) => {
   const { data, loading } = useQuery(GET_VISITOR_CHATS, {
     variables: { visitorId },
     skip: !visitorId,
   });
-
-  console.log("Chat Data:", data);
 
   if (loading) return <div>Loading chats...</div>;
 
@@ -82,7 +82,11 @@ const VisitorChatList = ({ visitorId }: VisitorChatListProps) => {
       ) : (
         <div className="space-y-4">
           {chats.map((chat: Chat) => (
-            <ChatItem key={chat.chatId} chat={chat} />
+            <ChatItem
+              key={chat.chatId}
+              chat={chat}
+              onSelectChat={onSelectChat}
+            />
           ))}
         </div>
       )}
