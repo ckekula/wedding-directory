@@ -290,9 +290,7 @@ export const GET_VISITOR_CHATS = gql`
   query GetVisitorChats($visitorId: String!) {
     getVisitorChats(visitorId: $visitorId) {
       chatId
-      vendor {
-        id
-      }
+      vendorId
       messages {
         content
         senderId
@@ -303,3 +301,12 @@ export const GET_VISITOR_CHATS = gql`
   }
 `;
 
+export const GET_VENDOR_DETAILS = gql`
+  query GetVendorById($id: String!) {
+    findVendorById(id: $id) {
+      id
+      busname
+      city
+    }
+  }
+`;
