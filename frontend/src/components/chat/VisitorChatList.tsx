@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { formatDistanceToNow } from "date-fns";
+import Link from "next/link";
 import { GET_VENDOR_DETAILS, GET_VISITOR_CHATS } from "@/graphql/queries";
 
 interface Message {
@@ -17,16 +18,9 @@ interface Chat {
 
 interface VisitorChatListProps {
   visitorId: string;
-  onSelectChat: (chatId: string) => void;
 }
 
-const ChatItem = ({
-  chat,
-  onSelectChat,
-}: {
-  chat: Chat;
-  onSelectChat: (chatId: string) => void;
-}) => {
+const ChatItem = ({ chat, visitorId }: { chat: Chat; visitorId: string }) => {
   const { data: vendorData } = useQuery(GET_VENDOR_DETAILS, {
     variables: { id: chat.vendorId },
     skip: !chat.vendorId,
@@ -35,9 +29,9 @@ const ChatItem = ({
   const lastMessage = chat.messages[chat.messages.length - 1];
 
   return (
-    <div
-      onClick={() => onSelectChat(chat.chatId)}
-      className="block bg-white rounded-lg shadow hover:shadow-md transition-shadow p-4 cursor-pointer"
+    <Link
+      href={`/visitor-dashboard/chats/${visitorId}/${chat.chatId}`}
+      className="block bg-white rounded-lg shadow hover:shadow-md transition-shadow p-4"
     >
       <div className="flex justify-between items-start">
         <div>
@@ -59,11 +53,11 @@ const ChatItem = ({
           </span>
         )}
       </div>
-    </div>
+    </Link>
   );
 };
 
-const VisitorChatList = ({ visitorId, onSelectChat }: VisitorChatListProps) => {
+const VisitorChatList = ({ visitorId }: VisitorChatListProps) => {
   const { data, loading } = useQuery(GET_VISITOR_CHATS, {
     variables: { visitorId },
     skip: !visitorId,
@@ -82,11 +76,7 @@ const VisitorChatList = ({ visitorId, onSelectChat }: VisitorChatListProps) => {
       ) : (
         <div className="space-y-4">
           {chats.map((chat: Chat) => (
-            <ChatItem
-              key={chat.chatId}
-              chat={chat}
-              onSelectChat={onSelectChat}
-            />
+            <ChatItem key={chat.chatId} chat={chat} visitorId={visitorId} />
           ))}
         </div>
       )}
