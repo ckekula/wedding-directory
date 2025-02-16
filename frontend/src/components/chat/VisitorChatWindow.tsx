@@ -19,11 +19,21 @@ interface VisitorChatWindowProps {
 const VisitorChatWindow = ({ chatId }: VisitorChatWindowProps) => {
   const [message, setMessage] = useState("");
   const { visitor } = useAuth();
-  const [sendMessage] = useMutation(SEND_MESSAGE);
+  
 
-  const { data, loading } = useQuery(GET_CHAT_HISTORY, {
+  const { data, loading, refetch} = useQuery(GET_CHAT_HISTORY, {
     variables: { chatId },
     skip: !chatId,
+    pollInterval:1000,
+  });
+
+  const [sendMessage] = useMutation(SEND_MESSAGE, {
+    onCompleted: () => {
+      refetch();
+    },
+    onError: (error) => {
+      console.error("Error sending message:", error);
+    },
   });
 
   const handleSendMessage = async (e: React.FormEvent) => {
