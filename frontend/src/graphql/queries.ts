@@ -351,3 +351,14 @@ export const GET_CHAT_VISITOR_DETAILS = gql`
   }
 `;
 
+export const GET_VENDOR_OFFERING_DETAILS = gql`
+  query GetVendorOfferingDetails($vendorId: String!) {
+    getVendorOfferingDetails(vendorId: $vendorId) {
+      id
+      name
+      category
+      bus_phone
+      bus_email
+    }
+  }
+`;
