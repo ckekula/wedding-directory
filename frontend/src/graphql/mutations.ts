@@ -230,6 +230,7 @@ export const CREATE_CHAT = gql`
     }
   }
 `;
+
 export const SEND_MESSAGE = gql`
   mutation SendMessage(
     $chatId: String!

@@ -327,16 +327,15 @@ export const GET_VENDOR_MESSAGES = gql`
 `;
 
 export const GET_VENDOR_CHAT = gql`
-  query GetChat($chatId: String!) {
-    getChat(chatId: $chatId) {
-      chatId
-      visitorId
+  query GetChatHistory($chatId: String!) {
+    getChatHistory(chatId: $chatId) {
       messages {
         content
         senderId
         senderType
         timestamp
       }
+      visitorId
     }
   }
 `;
