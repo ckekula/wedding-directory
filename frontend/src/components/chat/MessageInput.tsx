@@ -5,6 +5,7 @@ import { useMutation } from "@apollo/client";
 import { SEND_MESSAGE } from "@/graphql/mutations";
 import { GET_VENDOR_CHAT } from "@/graphql/queries";
 import { useVendorAuth } from "@/contexts/VendorAuthContext";
+import { IoSend } from "react-icons/io5";
 
 interface MessageInputProps {
   chatId: string;
@@ -43,23 +44,25 @@ export default function MessageInput({ chatId }: MessageInputProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="border-t bg-white p-4">
-      <div className="flex gap-2">
-        <input
-          type="text"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          placeholder="Type a message..."
-          className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        <button
-          type="submit"
-          disabled={!message.trim()}
-          className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 disabled:bg-gray-300 disabled:cursor-not-allowed"
-        >
-          Send
-        </button>
-      </div>
-    </form>
+    <div className="border-t bg-white py-4">
+      <form onSubmit={handleSubmit} className="px-5 mx-auto">
+        <div className="flex items-center gap-2 bg-gray-50 rounded-full px-4 py-2 border focus-within:border-accent focus-within:ring-2 focus-within:ring-accent/20">
+          <input
+            type="text"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder="Type your message..."
+            className="flex-1 bg-transparent border-none focus:outline-none text-gray-800 placeholder-gray-400"
+          />
+          <button
+            type="submit"
+            disabled={!message.trim()}
+            className="p-2 rounded-full bg-accent text-white disabled:opacity-50 disabled:cursor-not-allowed hover:bg-accent/90 transition-colors"
+          >
+            <IoSend className="text-lg" />
+          </button>
+        </div>
+      </form>
+    </div>
   );
 }

@@ -1,6 +1,7 @@
 import { useRef, useEffect } from "react";
 import { formatDistanceToNow } from "date-fns";
 import { useVendorAuth } from "../../contexts/VendorAuthContext";
+import { FaUserCircle } from "react-icons/fa";
 
 interface Message {
   content: string;
@@ -23,35 +24,49 @@ export default function MessageList({ messages }: MessageListProps) {
 
   return (
     <div className="flex-1 overflow-y-auto p-4 space-y-4">
-      {messages.map((message, index) => (
-        <div
-          key={index}
-          className={`flex ${
-            message.senderType === "vendor" ? "justify-end" : "justify-start"
-          }`}
-        >
+      {messages.map((message, index) => {
+        const isVendor = message.senderType === "vendor";
+        return (
           <div
-            className={`max-w-[70%] rounded-lg p-3 ${
-              message.senderType === "vendor"
-                ? "bg-blue-500 text-white"
-                : "bg-white text-gray-900 shadow"
+            key={index}
+            className={`flex items-end gap-2 ${
+              isVendor ? "flex-row-reverse" : "flex-row"
             }`}
           >
-            <p>{message.content}</p>
-            <span
-              className={`text-xs ${
-                message.senderType === "vendor"
-                  ? "text-blue-100"
-                  : "text-gray-500"
+            <div className="flex flex-col items-center gap-1">
+              <div className="w-8 h-8 flex items-center justify-center bg-primary/10 rounded-full">
+                <FaUserCircle className="text-lg text-accent" />
+              </div>
+            </div>
+            <div
+              className={`group max-w-[70%] ${
+                isVendor ? "items-end" : "items-start"
               }`}
             >
-              {formatDistanceToNow(new Date(message.timestamp), {
-                addSuffix: true,
-              })}
-            </span>
+              <div
+                className={`px-4 py-3 rounded-2xl ${
+                  isVendor
+                    ? "bg-accent text-white rounded-br-none"
+                    : "bg-slate-300 text-gray-900 shadow-sm rounded-bl-none"
+                }`}
+              >
+                <p className="leading-relaxed font-body">{message.content}</p>
+                <span
+                  className={`text-xs mt-1  group-hover:opacity-100 transition-opacity ${
+                    isVendor
+                      ? "text-white text-right text-[10px] font-body"
+                      : "text-black text-[10px] font-body"
+                  }`}
+                >
+                  {formatDistanceToNow(new Date(message.timestamp), {
+                    addSuffix: true,
+                  })}
+                </span>
+              </div>
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
       <div ref={messagesEndRef} />
     </div>
   );
