@@ -19,40 +19,60 @@ const QuoteRequestWidget = ({ vendorId }: QuoteRequestWidgetProps) => {
     skip: !visitor?.id,
   });
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
 
-    try {
-      const { data } = await createChat({
-        variables: {
-          visitorId: visitor?.id,
-          vendorId,
-        },
-      });
+  if (!visitor?.id) {
+    console.error("No visitor ID found");
+    return;
+  }
 
-      console.log("Chat created response:", data);
+  if (!message.trim()) {
+    console.error("Message cannot be empty");
+    return;
+  }
 
-      if (data?.createChat?.id) {
-        const messageResponse = await sendMessage({
-          variables: {
-            chatId: data.createChat.id,
-            content: message,
-            visitorSenderId: visitor?.id,
-          },
-        });
-        console.log("Message sent response:", messageResponse);
-        setMessage("");
-      }
-    } catch (error) {
-      console.log("Request payload:", {
-        visitorId: visitor?.id,
+  try {
+    // Create chat
+    const chatResponse = await createChat({
+      variables: {
+        visitorId: visitor.id,
         vendorId,
-        message,
-      });
-      console.error("Error details:", error);
-    }
-  };
+      },
+    });
 
+    console.log("Chat Response:", chatResponse);
+
+    const chatId = chatResponse.data?.createChat?.chatId;
+
+    if (!chatId) {
+      throw new Error("Failed to create chat - no chat ID returned");
+    }
+
+    // Send message
+    const messageResponse = await sendMessage({
+      variables: {
+        chatId: chatId,
+        content: message,
+        visitorSenderId: visitor.id,
+      },
+    });
+
+    if (messageResponse.data?.sendMessage) {
+      console.log("Message sent successfully");
+      setMessage("");
+    } else {
+      throw new Error("Failed to send message");
+    }
+  } catch (error) {
+    console.error("Error in quote request:", {
+      visitorId: visitor.id,
+      vendorId,
+      message,
+      error,
+    });
+  }
+};
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
