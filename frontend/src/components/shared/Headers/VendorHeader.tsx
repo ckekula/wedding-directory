@@ -66,7 +66,7 @@ const VendorHeader = () => {
           {/* Right section: Notifications and Profile dropdown */}
           <div className="flex items-center justify-end gap-8 flex-1">
             {/*Update the message icon section*/}
-            <Link href="/vendor-dashboard/messages">
+            <Link href="/vendor-dashboard/chats">
               <BiMessageRounded className="w-[33px] h-[33px] cursor-pointer hover:text-gray-600" />
             </Link>
             <IoIosNotificationsOutline className="w-[36px] h-[36px]" />

@@ -310,3 +310,45 @@ export const GET_VENDOR_DETAILS = gql`
     }
   }
 `;
+
+export const GET_VENDOR_MESSAGES = gql`
+  query GetVendorChats($vendorId: String!) {
+    getVendorChats(vendorId: $vendorId) {
+      chatId
+      visitorId
+      messages {
+        content
+        senderId
+        senderType
+        timestamp
+      }
+    }
+  }
+`;
+
+export const GET_VENDOR_CHAT = gql`
+  query GetChat($chatId: String!) {
+    getChat(chatId: $chatId) {
+      chatId
+      visitorId
+      messages {
+        content
+        senderId
+        senderType
+        timestamp
+      }
+    }
+  }
+`;
+
+export const GET_CHAT_VISITOR_DETAILS = gql`
+  query FindVisitorById($id: String!) {
+    findVisitorById(id: $id) {
+      id
+      email
+      visitor_fname
+      partner_fname
+    }
+  }
+`;
+
