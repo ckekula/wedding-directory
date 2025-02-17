@@ -86,11 +86,7 @@ const VisitorChatList = ({ visitorId }: VisitorChatListProps) => {
 
   return (
     <div className="divide-y divide-gray-100">
-      <div className="p-6">
-        <h2 className="text-2xl font-semibold text-gray-800 font-title">
-          My Conversations
-        </h2>
-      </div>
+      
 
       <div className="divide-y divide-gray-100">
         {chats.length === 0 ? (
