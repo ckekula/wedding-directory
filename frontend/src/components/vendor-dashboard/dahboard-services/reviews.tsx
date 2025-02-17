@@ -8,7 +8,17 @@ import LoaderHelix from '@/components/shared/Loaders/LoaderHelix';
 
 interface ReviewsProps {
     serviceId: string;
-  }
+}
+
+interface Review {
+    id: string;
+    rating: number;
+    comment: string;
+    offering_id: string;
+    visitor_id: string;
+    created_at: string;
+}
+
   
 const Reviews: React.FC<ReviewsProps> = ({ serviceId }) => {
     const{data: rdata, loading: reviewsLoading, error: reviewsError} = useQuery(FIND_REVIEW_BY_SERVICE, {
@@ -23,7 +33,7 @@ const Reviews: React.FC<ReviewsProps> = ({ serviceId }) => {
     const ReviewData = rdata?.findReviewsByOffering || [];
 
     const totalReviews = ReviewData.length;
-    const ratingsCount = ReviewData.reduce((acc: Record<number, number>, review: any) => {
+    const ratingsCount = ReviewData.reduce((acc: Record<number, number>, review: Review) => {
         const rating = review.rating;
         acc[rating] = (acc[rating] || 0) + 1;
         return acc;
