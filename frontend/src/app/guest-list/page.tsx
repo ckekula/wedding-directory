@@ -189,7 +189,7 @@ const GuestListPage = () => {
           <div className="text-2xl mb-4 w-1/2">Guest List</div>
           <div className="w-1/2">
           <Button className="absolute right-2 text-sm" variant="signup" size="sm" onClick={togglePopup}>Add New Guest</Button>
-          <Button className="absolute right-36 text-sm bg-blue-600 text-white hover:bg-white hover:text-blue-600 hover:border-blue-600 hover:border-2" size="sm" onClick={downloadCSV}>Download Guest List</Button>
+          <Button className="absolute right-36 text-sm bg-black text-white hover:bg-white hover:text-gray-600" size="sm" onClick={downloadCSV}>Download Guest List</Button>
           </div>
           </div>
 

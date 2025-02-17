@@ -19,6 +19,7 @@ import { useAuth } from "@/contexts/VisitorAuthContext";
 import { ADD_TO_MY_VENDORS, REMOVE_FROM_MY_VENDORS } from "@/graphql/mutations";
 import toast from "react-hot-toast";
 import { FaHeart } from "react-icons/fa";
+import GoogleMapComponent from "@/components/vendor-dashboard/dahboard-services/Map";
 
 const Service: React.FC = () => {
   const { vendor } = useVendorAuth();
@@ -30,13 +31,13 @@ const Service: React.FC = () => {
     variables: { id },
   });
 
-  // Query to check if offering is in visitor's my vendors
+  // Check if offering is in visitor's my vendors
   const { loading: myVendorLoading, data: myVendorData } = useQuery(FIND_MY_VENDOR_BY_ID, {
-    variables: { 
+    variables: {
       visitorId: visitor?.id,
-      offeringId: id 
+      offeringId: id
     },
-    skip: !visitor, // Skip this query if there's no visitor
+    skip: !visitor,
   });
 
   const [isInMyVendors, setIsInMyVendors] = useState(false);
@@ -53,8 +54,10 @@ const Service: React.FC = () => {
   if (loading || myVendorLoading) return <LoaderQuantum />;
   if (error) return <p>Error: {error.message}</p>;
 
-  const service = data?.findOfferingById;
-  const portfolioImages = service.photo_showcase || [
+  const offering = data?.findOfferingById;
+  const isVendorsOffering = offering?.vendor.id === vendor?.id;
+
+  const portfolioImages = offering.photo_showcase || [
     "/images/photography.webp",
     "/images/photography.webp",
     "/images/photography.webp",
@@ -69,12 +72,12 @@ const Service: React.FC = () => {
       toast.error("Please login to save to your vendors");
       return;
     }
-  
+
     if (!id) {
       toast.error("Service does not exist");
       return;
     }
-  
+
     try {
       if (isInMyVendors) {
         const { data } = await removeFromMyVendors({
@@ -83,7 +86,7 @@ const Service: React.FC = () => {
             offeringId: id
           }
         });
-  
+
         if (data?.removeFromMyVendors) {
           setIsInMyVendors(false);
           toast.success("Removed from your vendors");
@@ -97,7 +100,7 @@ const Service: React.FC = () => {
             offeringId: id
           }
         });
-  
+
         if (data?.addToMyVendors) {
           setIsInMyVendors(true);
           toast.success(
@@ -110,7 +113,7 @@ const Service: React.FC = () => {
             {
               duration: 8000,
             }
-          );          
+          );
         } else {
           throw new Error("Failed to add to vendors");
         }
@@ -120,45 +123,45 @@ const Service: React.FC = () => {
       toast.error("An error occurred");
     }
   };
-    
-    return (
-      <div className="bg-lightYellow font-body">
-        <Header />
-        <div className="md:mx-40 my-4 p-4">
-          <Link href="/vendor-dashboard">
-            <button className="text-black font-body hover:text-gray-500 mr-2">
-              &larr;
-            </button>
-            back
-          </Link>
 
-          {/* Portfolio Image Section */}
-          <div>
-            <section>
-              <div className="container mx-auto p-4">
-                {/* Photo Showcase */}
-                <div className="mb-8">
-                  <div className="columns-2 sm:columns-3 lg:columns-4 gap-4">
-                    {portfolioImages.map((photo: string, index: number) => (
-                      <div
-                        key={index}
-                        className="break-inside-avoid overflow-hidden rounded-lg mb-4"
-                      >
-                        <Image
-                          src={photo}
-                          alt={`Portfolio image ${index + 1}`}
-                          className="w-full h-auto object-cover"
-                          layout="responsive"
-                          width={500}
-                          height={500}
-                        />
-                      </div>
-                    ))}
-                  </div>
+  return (
+    <div className="bg-lightYellow font-body">
+      <Header />
+      <div className="md:mx-40 my-4 p-4">
+        <Link href="/vendor-dashboard">
+          <button className="text-black font-body hover:text-gray-500 mr-2">
+            &larr;
+          </button>
+          back
+        </Link>
+
+        {/* Portfolio Image Section */}
+        <div>
+          <section>
+            <div className="container mx-auto p-4">
+              {/* Photo Showcase */}
+              <div className="mb-8">
+                <div className="columns-2 sm:columns-3 lg:columns-4 gap-4">
+                  {portfolioImages.map((photo: string, index: number) => (
+                    <div
+                      key={index}
+                      className="break-inside-avoid overflow-hidden rounded-lg mb-4"
+                    >
+                      <Image
+                        src={photo}
+                        alt={`Portfolio image ${index + 1}`}
+                        className="w-full h-auto object-cover"
+                        layout="responsive"
+                        width={500}
+                        height={500}
+                      />
+                    </div>
+                  ))}
                 </div>
+              </div>
 
-                {/* Video Showcase */}
-                {/* {video && (
+              {/* Video Showcase */}
+              {/* {video && (
                   <div className="mb-8">
                     <h2 className="text-2xl font-bold mb-4">Video Showcase</h2>
                     <div className="relative aspect-video rounded-lg overflow-hidden">
@@ -173,106 +176,109 @@ const Service: React.FC = () => {
                     </div>
                   </div>
                 )} */}
-              </div>
-            </section>
-          </div>
+            </div>
+          </section>
+        </div>
 
-          <div className="flex flex-row gap-x-5">
-            <div className="w-3/4">
-              {/* General Section */}
-              <div className="bg-white rounded-2xl p-4 mb-4">
-                <div className="flex flex-row">
-                  <div className="w-8/12 flex flex-col">
-                    <div className="text-xl">
-                      {service?.vendor.busname || "Vendor name not available"}
-                    </div>
-                    <div className="flex flex-row text-3xl font-bold">
-                      {service?.name}
-                      <div className="ml-2 flex flex-row justify-center items-center gap-x-1">
-                        {service?.vendor.id === vendor?.id ? (
-                          <Link href={`/services/edit/${service?.id}`}>
-                            <FiEdit className="text-orange hover:text-black" />
-                          </Link>
-                        ) : (
-                          <button onClick={handleHeartClick}>
+        <div className="flex flex-row gap-x-5">
+          <div className="w-3/4">
+            {/* General Section */}
+            <div className="bg-white rounded-2xl p-4 mb-4">
+              <div className="flex flex-row">
+                <div className="w-8/12 flex flex-col">
+                  <div className="text-xl">
+                    {offering?.vendor.busname || "Vendor name not available"}
+                  </div>
+                  <div className="flex flex-row text-3xl font-bold">
+                    {offering?.name}
+                    <div className="flex flex-row justify-center items-center">
+                      {isVendorsOffering ? (
+                        <Link href={`/services/edit/${offering?.id}`}>
+                          <FiEdit className="text-2xl text-orange hover:text-black" />
+                        </Link>
+                      ) : (
+                        <button onClick={handleHeartClick}>
                           {isInMyVendors ? (
                             <FaHeart className="text-red-500 hover:text-red-600 hover:cursor-pointer" />
                           ) : (
                             <CiHeart className="hover:text-red-500 hover:cursor-pointer" />
                           )}
                         </button>
-                        )}
-                      </div>
+                      )}
                     </div>
-                    <div>{service?.vendor.city}</div>
                   </div>
-                  <SocialIcons service={service} />
+                  <div>{offering?.vendor.city}</div>
                 </div>
-              </div>
-
-              {/* Details Section */}
-              <div className="bg-white rounded-2xl p-4 flex flex-col">
-                <div className="mb-3 text-2xl font-bold font-title">
-                  About the Vendor
-                </div>
-                <div>
-                  <p>{service.vendor.about || "About not available"}</p>
-                </div>
-                <hr className="border-t border-gray-300 my-4" />
-
-                <div className="mb-3 text-2xl font-bold">Details</div>
-                <div>
-                  <p>{service.description || "Description not available"}</p>
-                </div>
-                <hr className="border-t border-gray-300 my-4" />
-
-                <div className="mb-3 text-2xl font-bold font-title">
-                  Pricing
-                </div>
-                <div>
-                  <p>{service.pricing || "Pricing details not available"}</p>
-                </div>
-                <hr className="border-t border-gray-300 my-4" />
-                <div className="mb-3 text-2xl font-bold font-title">
-                  Reviews
-                </div>
-                <div>
-                  <Reviews />
-                </div>
-                <hr className="border-t border-gray-300 my-4" />
-                <div className="mb-3 text-2xl font-bold font-title">
-                  Write a Review
-                </div>
-                <div>
-                  <WriteReview />
-                </div>
-                <div>
-                  <Comments />
-                </div>
-                <hr className="border-t border-gray-300 my-4" />
-                <div className="mb-3 text-2xl font-bold font-title">
-                  Contact
-                </div>
-                <div className="flex flex-col gap-y-1">
-                  <div>Email: {service.bus_email || "Email not available"}</div>
-                  <div>
-                    Phone number:{" "}
-                    {service.bus_phone || "Phone number not available"}
-                  </div>
-                </div>
+                <SocialIcons offering={offering} />
               </div>
             </div>
 
-            <div className="w-1/4">
-              <div className="bg-white rounded-2xl p-4 flex flex-col sticky top-4">
-                <p className="text-xl font-bold font-title">Message Vendor</p>
-                <p className="text-sm font-body mt-10">Coming soon!</p>
+            {/* Details Section */}
+            <div className="bg-white rounded-2xl p-4 flex flex-col">
+              <div className="mb-3 text-2xl font-bold">
+                About the Vendor
               </div>
+              <div>
+                <p>{offering.vendor.about || "About not available"}</p>
+              </div>
+              <hr className="border-t border-gray-300 my-4" />
+
+              <div className="mb-3 text-2xl font-bold">Details</div>
+              <div>
+                <p>{offering.description || "Description not available"}</p>
+              </div>
+              <hr className="border-t border-gray-300 my-4" />
+
+              <div className="mb-3 text-2xl font-bold">
+                Packages
+              </div>
+              <div>
+                <p>{offering.pricing || "Pricing details not available"}</p>
+              </div>
+              <hr className="border-t border-gray-300 my-4" />
+              <div className="mb-3 text-2xl font-bold">
+                Reviews
+              </div>
+              <div>
+                <Reviews serviceId={offering?.id} />
+              </div>
+              <div>
+                <WriteReview serviceId={offering?.id} />
+              </div>
+              <div>
+                <Comments serviceId={offering?.id} />
+              </div>
+              <hr className="border-t border-gray-300 my-4" />
+              <div className="mb-3 text-2xl font-bold">
+                Contact
+              </div>
+              <div className="flex flex-col gap-y-1">
+                <div>Email: {offering.bus_email || "Email not available"}</div>
+                <div>
+                  Phone number:{" "}
+                  {offering.bus_phone || "Phone number not available"}
+                </div>
+              </div>
+              <hr className="border-t border-gray-300 my-4" />
+              <div className="mb-3 text-2xl font-bold">
+                Location
+              </div>
+              <div className="mb-3 text-2xl font-bold">
+                <GoogleMapComponent serviceId={offering?.id} />
+              </div>
+            </div>
+          </div>
+
+          <div className="w-1/4">
+            <div className="bg-white rounded-2xl p-4 flex flex-col sticky top-4">
+              <p className="text-xl font-bold font-title">Message Vendor</p>
+              <p className="text-sm font-body mt-10">Coming soon!</p>
             </div>
           </div>
         </div>
       </div>
-    );
+    </div>
+  );
 };
 
 export default Service;

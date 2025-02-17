@@ -1,4 +1,5 @@
 'use client'
+
 import React, { useState } from "react";
 import Footer from "@/components/shared/Footer";
 import Header from "@/components/shared/Headers/Header";
@@ -7,19 +8,19 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { loginVendor as loginVendorAPI } from "@/api/auth/vendor.auth.api"; // Import the loginVendor function
-import { useVendorAuth } from "@/contexts/VendorAuthContext"; // Use VendorAuthContext for authentication
+import { loginVendor as loginVendorAPI } from "@/api/auth/vendor.auth.api";
+import { useVendorAuth } from "@/contexts/VendorAuthContext";
 import { toast } from 'react-hot-toast';
 
 const VendorLoginPage = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [error, setError] = useState<string | null>(null); // To handle login errors
-    const { login } = useVendorAuth(); // Use the login method from VendorAuthContext
+    const [error, setError] = useState<string | null>(null);
+    const { login } = useVendorAuth();
     const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault(); // Prevent form from reloading the page
+        e.preventDefault();
 
         try {
             // Send login request via API
