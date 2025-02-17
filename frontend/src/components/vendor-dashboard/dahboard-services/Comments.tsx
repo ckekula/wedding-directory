@@ -9,6 +9,16 @@ interface CommentsProps {
   serviceId: string;
 }
 
+interface Review {
+  id: string;
+  rating: number;
+  comment: string;
+  createdAt: string;
+  visitor: {
+    name: string;
+  };
+}
+
 const Comments: React.FC<CommentsProps> = ({ serviceId }) => {
   const { data: rdata, loading: reviewsLoading, error: reviewsError } = useQuery(FIND_REVIEW_BY_SERVICE, {
     variables: { offering_id: serviceId },
@@ -27,7 +37,7 @@ const Comments: React.FC<CommentsProps> = ({ serviceId }) => {
     <div className="font-body">
       
       
-      {displayedReviews.map((review: any) => (
+      {displayedReviews.map((review: Review) => (
         <div key={review.id} className="ml-2 mb-4">
           <hr className="border-t border-gray-300 my-4" />
           <div className="flex flex-row text-xl text-yellow-400 my-2 items-center">
