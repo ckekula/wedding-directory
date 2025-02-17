@@ -6,6 +6,7 @@ import { FiHome, FiDollarSign, FiUsers, FiChevronLeft, FiChevronRight } from "re
 import { HiOutlineBriefcase } from "react-icons/hi2";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { BsChatDots } from "react-icons/bs";
 
 interface LeftSideBarProps {
   isCollapsed: boolean;
@@ -44,7 +45,7 @@ const LeftSideBar: React.FC<LeftSideBarProps> = ({ isCollapsed, onToggleCollapse
     },
     {
       href: `/visitor-dashboard/chats/${visitorId}`,
-      icon: <FiUsers className="w-5 h-5" />,
+      icon: <BsChatDots className="w-5 h-5" />,
       label: "Chats"
     }
   ];

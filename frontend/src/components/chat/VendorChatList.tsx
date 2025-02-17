@@ -48,7 +48,7 @@ const ChatListItem = ({ chat }: { chat: Chat }) => {
       className="flex items-center p-4 hover:bg-gray-50 transition-colors rounded-lg hover:shadow-md"
     >
       <div className="w-12 h-12 flex items-center justify-center bg-primary/10 rounded-full mr-4">
-        <FaUserCircle className="text-2xl text-primary" />
+        <FaUserCircle className="text-2xl text-accent" size={45} />
       </div>
       <div className="flex-1">
         <div className="flex items-center justify-between">

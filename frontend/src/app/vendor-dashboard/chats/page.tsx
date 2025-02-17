@@ -34,7 +34,7 @@ export default function ChatsPage() {
     <div className="max-w-4xl mx-auto p-6">
       <div className="flex items-center gap-3 mb-8">
        
-        <h1 className="text-3xl font-bold text-gray-800">Messages</h1>
+        <h3 className="text-3xl font-bold text-gray-800 font-title">My Conversations</h3>
       </div>
       <ChatList chats={data.getVendorChats} />
     </div>
