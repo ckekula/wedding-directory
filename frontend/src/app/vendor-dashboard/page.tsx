@@ -3,7 +3,7 @@
 import React from "react";
 import Header from "@/components/shared/Headers/Header";
 import VendorBanner from "@/components/vendor-dashboard/VendorBanner";
-import Stats from "@/components/vendor-dashboard/Stats";
+// import Stats from "@/components/vendor-dashboard/Stats";
 import OfferingCard from "@/components/vendor-search/OfferingCard";
 import Link from "next/link";
 import { GET_VENDOR_BY_ID, FIND_SERVICES_BY_VENDOR } from "@/graphql/queries";
