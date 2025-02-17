@@ -146,42 +146,42 @@ export const FIND_GUESTLIST_BY_VISITOR = gql`
 `;
 
 export const GET_BUDGET_TOOL = gql`
-    query GetBudgetTool($visitorId: String!) {
-        budgetTool(visitorId: $visitorId) {
-            id
-            totalBudget
-            visitor {
-                id
-                email
-            }
-            budgetItems {
-                id
-                itemName
-                category
-                estimatedCost
-                amountPaid
-                isPaidInFull
-            }
-            createdAt
-            updatedAt
-        }
+  query GetBudgetTool($visitorId: String!) {
+    budgetTool(visitorId: $visitorId) {
+      id
+      totalBudget
+      visitor {
+        id
+        email
+      }
+      budgetItems {
+        id
+        itemName
+        category
+        estimatedCost
+        amountPaid
+        isPaidInFull
+      }
+      createdAt
+      updatedAt
     }
-`
+  }
+`;
 export const GET_BUDGET_ITEMS = gql`
-    query GetBudgetItems($budgetToolId: String!) {
-        budgetItems(budgetToolId: $budgetToolId) {
-            id
-            itemName
-            category
-            estimatedCost
-            amountPaid
-            specialNotes
-            isPaidInFull
-            createdAt
-            updatedAt
-        }
+  query GetBudgetItems($budgetToolId: String!) {
+    budgetItems(budgetToolId: $budgetToolId) {
+      id
+      itemName
+      category
+      estimatedCost
+      amountPaid
+      specialNotes
+      isPaidInFull
+      createdAt
+      updatedAt
     }
-`
+  }
+`;
 
 export const GET_VISITOR_CHECKLISTS = gql`
   query GetVisitorChecklists($visitorId: String!) {
@@ -248,15 +248,22 @@ export const FIND_MY_VENDOR_BY_ID = gql`
 
 export const FIND_REVIEW_BY_SERVICE = gql`
   query FindReviewsByOffering($offering_id: String!) {
-  findReviewsByOffering(offering_id: $offering_id) {
-    id
-    comment
-    rating
-    createdAt
-    offering {
+    findReviewsByOffering(offering_id: $offering_id) {
       id
+      comment
+      rating
+      createdAt
+      offering {
+        id
+      }
     }
   }
-}
 `;
 
+export const FIND_VENDOR_BY_SERVICE = gql`
+  query FindVendorsByOffering($offering_id: String!) {
+    findVendorsByOffering(offering_id: $offering_id) {
+      location
+    }
+  }
+`;

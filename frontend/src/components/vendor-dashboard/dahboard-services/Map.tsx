@@ -1,13 +1,13 @@
 "use client";
 
 import LoaderHelix from "@/components/shared/Loaders/LoaderHelix";
-import { FIND_SERVICES_BY_VENDOR } from "@/graphql/queries";
+import { FIND_VENDOR_BY_SERVICE } from "@/graphql/queries";
 import { useQuery } from "@apollo/client";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
-interface CommentsProps {
+interface GoogleMapComponentProps {
   serviceId: string;
 }
 
@@ -23,29 +23,42 @@ const containerStyle = {
 
 const defaultCenter = {
   lat: 6.9271,
-  lng: 79.8612,
+  lng: 79.8612, // Default: Colombo, Sri Lanka
 };
 
-const GoogleMapComponent: React.FC<CommentsProps> = ({ serviceId }) => {
+const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({ serviceId }) => {
   const [coordinates, setCoordinates] = useState<Coordinates>(defaultCenter);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const { data: vdata, loading: vendorLoading, error: vendorError } = useQuery(FIND_VENDOR_BY_SERVICE, {
+    variables: { offering_id: serviceId },
+    skip: !serviceId,
+  });
+
+  const vendorData = vdata?.findVendorsByOffering || [];
+  const vendorLocation = vendorData.length > 0 ? vendorData[0].location : null;
+
   useEffect(() => {
     const fetchCoordinates = async () => {
+      if (!vendorLocation) {
+        setError("Vendor location not found");
+        setIsLoading(false);
+        return;
+      }
+
       try {
-        const address = "Divulapitiya"; // You might want to make this dynamic based on your needs
         const response = await axios.get(
           `https://maps.googleapis.com/maps/api/geocode/json`,
           {
             params: {
-              address: address,
+              address: vendorLocation,
               key: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
             },
           }
         );
 
-        if (response.data.results && response.data.results.length > 0) {
+        if (response.data.results.length > 0) {
           const { lat, lng } = response.data.results[0].geometry.location;
           setCoordinates({ lat, lng });
         } else {
@@ -59,33 +72,20 @@ const GoogleMapComponent: React.FC<CommentsProps> = ({ serviceId }) => {
       }
     };
 
-    fetchCoordinates();
-  }, []);
-
-  if (error) {
-    return <div className="text-red-500">Error: {error}</div>;
-  }
-
-  if (isLoading) {
-    return <div>Loading map...</div>;
-  }
-
-  const { data: vdata, loading: vendorLoading, error: vendorError } = useQuery(FIND_SERVICES_BY_VENDOR, {
-    variables: { offering_id: serviceId },
-    skip: !serviceId,
-  });
+    if (vendorLocation) {
+      fetchCoordinates();
+    }
+  }, [vendorLocation]);
 
   if (vendorLoading) return <LoaderHelix />;
-  if (vendorError) return <div>Error fetching address</div>;
-
-  const vendorData = vdata?.find || [];
+  if (vendorError) return <div>Error fetching location</div>;
 
   return (
     <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY!}>
       <GoogleMap
         mapContainerStyle={containerStyle}
         center={coordinates}
-        zoom={15}
+        zoom={18}
       >
         <Marker position={coordinates} />
       </GoogleMap>
