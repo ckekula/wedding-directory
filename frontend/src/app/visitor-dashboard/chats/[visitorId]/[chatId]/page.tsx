@@ -3,6 +3,7 @@
 import { useParams } from "next/navigation";
 import VisitorChatWindow from "@/components/chat/VisitorChatWindow";
 import Link from "next/link";
+import { IoArrowBack } from "react-icons/io5";
 
 const ChatDetailPage = () => {
   const { chatId, visitorId } = useParams() as {
@@ -11,14 +12,17 @@ const ChatDetailPage = () => {
   };
 
   return (
-    <div className="p-6 max-w-[1064px] items-center">
+    <div className="max-w-4xl mx-auto p-6">
       <Link
         href={`/visitor-dashboard/chats/${visitorId}`}
-        className="mb-4 inline-block"
+        className="inline-flex items-center gap-2 mb-6 text-gray-600 hover:text-accent transition-colors"
       >
-        ← Back to Conversations
+        <IoArrowBack className="text-lg" />
+        <span className="font-body">Back to Conversations</span>
       </Link>
-      <VisitorChatWindow chatId={chatId} />
+      <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+        <VisitorChatWindow chatId={chatId} />
+      </div>
     </div>
   );
 };
