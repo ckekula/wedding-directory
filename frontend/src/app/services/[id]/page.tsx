@@ -20,6 +20,7 @@ import { ADD_TO_MY_VENDORS, REMOVE_FROM_MY_VENDORS } from "@/graphql/mutations";
 import toast from "react-hot-toast";
 import { FaHeart } from "react-icons/fa";
 import QuoteRequestWidget from "@/components/chat/QuoteRequestWidget";
+import GoogleMapComponent from "@/components/vendor-dashboard/dahboard-services/Map";
 
 const Service: React.FC = () => {
   const { vendor } = useVendorAuth();
@@ -137,6 +138,7 @@ const Service: React.FC = () => {
         <Link href="/vendor-dashboard">
           <button className="text-black font-body hover:text-gray-500 mr-2">
             ←
+            &larr;
           </button>
           back
         </Link>
@@ -238,28 +240,35 @@ const Service: React.FC = () => {
                 <p>{offering.pricing || "Pricing details not available"}</p>
               </div>
               <hr className="border-t border-gray-300 my-4" />
-              <div className="mb-3 text-2xl font-bold">Reviews</div>
+              <div className="mb-3 text-2xl font-bold">
+                Reviews
+              </div>
               <div>
-                <Reviews />
+                <Reviews serviceId={offering?.id} />
+              </div>
+              <div>
+                <WriteReview serviceId={offering?.id} />
+              </div>
+              <div>
+                <Comments serviceId={offering?.id} />
               </div>
               <hr className="border-t border-gray-300 my-4" />
-              <div className="mb-3 text-2xl font-bold font-title">
-                Write a Review
+              <div className="mb-3 text-2xl font-bold">
+                Contact
               </div>
-              <div>
-                <WriteReview />
-              </div>
-              <div>
-                <Comments />
-              </div>
-              <hr className="border-t border-gray-300 my-4" />
-              <div className="mb-3 text-2xl font-bold">Contact</div>
               <div className="flex flex-col gap-y-1">
                 <div>Email: {offering.bus_email || "Email not available"}</div>
                 <div>
                   Phone number:{" "}
                   {offering.bus_phone || "Phone number not available"}
                 </div>
+              </div>
+              <hr className="border-t border-gray-300 my-4" />
+              <div className="mb-3 text-2xl font-bold">
+                Location
+              </div>
+              <div className="mb-3 text-2xl font-bold">
+                <GoogleMapComponent serviceId={offering?.id} />
               </div>
             </div>
           </div>

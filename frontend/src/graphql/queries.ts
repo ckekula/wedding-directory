@@ -269,6 +269,17 @@ export const GET_CHAT = gql`
           id
         }
       }
+        `;
+export const FIND_REVIEW_BY_SERVICE = gql`
+  query FindReviewsByOffering($offering_id: String!) {
+    findReviewsByOffering(offering_id: $offering_id) {
+      id
+      comment
+      rating
+      createdAt
+      offering {
+        id
+      }
     }
   }
 `;
@@ -359,6 +370,13 @@ export const GET_VENDOR_OFFERING_DETAILS = gql`
       category
       bus_phone
       bus_email
+    }
+  }
+`;
+export const FIND_VENDOR_BY_SERVICE = gql`
+  query FindVendorsByOffering($offering_id: String!) {
+    findVendorsByOffering(offering_id: $offering_id) {
+      location
     }
   }
 `;

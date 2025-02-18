@@ -78,6 +78,7 @@ const VisitorSignup: React.FC<VisitorSignupProps> = ({ isVisible, onClose }) => 
       }
     } catch (error) {
       throw new Error('Auto-login failed after signup');
+      console.log(error);
     }
   }, [formState.email, formState.password, login, router]);
 

@@ -13,7 +13,7 @@ import { useQuery } from "@apollo/client";
 import { GET_VENDOR_BY_ID } from "@/graphql/queries";
 import { useVendorAuth } from "@/contexts/VendorAuthContext";
 import EditPackages from "@/components/vendor-dashboard/dahboard-services/EditPackages";
-import Link from "next/link";
+
 
 const EditService = () => {
   const { vendor } = useVendorAuth();

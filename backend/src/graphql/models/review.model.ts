@@ -14,7 +14,7 @@ export class ReviewModel {
   rating: string;
 
   @Field(() => OfferingModel)
-  offering?: OfferingModel;
+  offering: OfferingModel;
   
   @Field(() => VisitorModel)
   visitor: VisitorModel;

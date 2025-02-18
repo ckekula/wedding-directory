@@ -60,7 +60,7 @@ export class VisitorEntity {
   @Column({ type: 'varchar', nullable: true })
   city?: string;
 
-  @OneToMany(() => ReviewEntity, r => r.visitor)
+  @OneToMany(() => ReviewEntity, (r) => r.visitor)
   reviews: ReviewEntity[];
 
   @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
