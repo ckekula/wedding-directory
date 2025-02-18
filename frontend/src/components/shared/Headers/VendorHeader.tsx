@@ -4,6 +4,7 @@ import Link from "next/link";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import Image from "next/image";
 import { useVendorAuth } from "@/contexts/VendorAuthContext"; // Added vendor auth context
+import { BiMessageRounded } from "react-icons/bi";
 
 const VendorHeader = () => {
   const { logout } = useVendorAuth(); // Added logout function from vendor auth context
@@ -64,11 +65,15 @@ const VendorHeader = () => {
 
           {/* Right section: Notifications and Profile dropdown */}
           <div className="flex items-center justify-end gap-8 flex-1">
+            {/*Update the message icon section*/}
+            <Link href="/vendor-dashboard/chats">
+              <BiMessageRounded className="w-[33px] h-[33px] cursor-pointer hover:text-gray-600" />
+            </Link>
             <IoIosNotificationsOutline className="w-[36px] h-[36px]" />
             {/* Profile dropdown */}
             <div className="relative" ref={profileMenuRef}>
               <Image
-                src='/images/profilePic.webp'
+                src="/images/profilePic.webp"
                 alt="vendor-profile-image"
                 className="rounded-full cursor-pointer"
                 width={50}
@@ -77,7 +82,6 @@ const VendorHeader = () => {
               />
               {showProfileMenu && (
                 <div className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg py-2 z-50">
-                  
                   <p
                     className="px-4 py-2 hover:bg-gray-100 cursor-pointer font-title text-lg"
                     onClick={handleLogout}

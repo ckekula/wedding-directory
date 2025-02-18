@@ -7,12 +7,17 @@ import {
   OneToMany,
 } from 'typeorm';
 import { OfferingEntity } from './offering.entity';
+import { ObjectType, Field, ID } from '@nestjs/graphql';
 
+@ObjectType()
 @Entity({ name: 'vendor' })
 export class VendorEntity {
+
+  @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Field()
   @Column({ type: 'varchar', length: 50, unique: true })
   email: string;
 
@@ -55,4 +60,6 @@ export class VendorEntity {
     onDelete: 'CASCADE',
   })
   offering: OfferingEntity[];
+
+  
 }
