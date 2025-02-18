@@ -10,8 +10,6 @@ import { ReviewEntity } from './review.entity';
 import { MyVendorsEntity } from './myVendors.entity';
 import { GuestListEntity } from './guestlist.entity';
 import { ChecklistEntity } from './checklist.entity';
-import { Chat } from './chat.entity';
-import { Message } from './message.entity';
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 
 @ObjectType()
@@ -83,12 +81,6 @@ export class VisitorEntity {
   })
   checklists: ChecklistEntity[];
 
-  @Field(() => [Chat])
-  @OneToMany(() => Chat, chat => chat.visitor)
-  chatsAsVisitor: Chat[];
-
-  @Field(() => [Message])
-  @OneToMany(() => Message, message => message.visitorSender)
-  messages: Message[];
+  
 
 }

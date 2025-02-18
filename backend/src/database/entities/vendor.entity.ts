@@ -7,8 +7,6 @@ import {
   OneToMany,
 } from 'typeorm';
 import { OfferingEntity } from './offering.entity';
-import { Chat } from './chat.entity';
-import { Message } from './message.entity';
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 
 @ObjectType()
@@ -63,11 +61,5 @@ export class VendorEntity {
   })
   offering: OfferingEntity[];
 
-  @Field(() => [Chat])
-  @OneToMany(() => Chat, chat => chat.vendor)
-  chatsAsVendor: Chat[];
-
-  @Field(() => [Message])
-  @OneToMany(() => Message, message => message.vendorSender)
-  messages: Message[];
+  
 }

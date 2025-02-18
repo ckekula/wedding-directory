@@ -269,7 +269,9 @@ export const GET_CHAT = gql`
           id
         }
       }
-        `;
+    }
+  }
+`;
 export const FIND_REVIEW_BY_SERVICE = gql`
   query FindReviewsByOffering($offering_id: String!) {
     findReviewsByOffering(offering_id: $offering_id) {
