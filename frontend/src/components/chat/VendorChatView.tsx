@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { io } from "socket.io-client";
 import { useQuery } from "@apollo/client";
-import { GET_CHAT_MESSAGES } from "@/graphql/queries";
+import { GET_VENDOR_CHAT} from "@/graphql/queries";
 import { useVendorAuth } from "@/contexts/VendorAuthContext";
 import VendorHeader from "@/components/shared/Headers/VendorHeader";
 import Link from "next/link";
@@ -20,7 +20,7 @@ const VendorChatView = () => {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState<any[]>([]);
 
-  const { data, loading } = useQuery(GET_CHAT_MESSAGES, {
+  const { data, loading } = useQuery(GET_VENDOR_CHAT, {
     variables: { chatId },
     skip: !chatId,
   });
