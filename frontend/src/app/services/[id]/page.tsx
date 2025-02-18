@@ -19,7 +19,7 @@ import { useAuth } from "@/contexts/VisitorAuthContext";
 import { ADD_TO_MY_VENDORS, REMOVE_FROM_MY_VENDORS } from "@/graphql/mutations";
 import toast from "react-hot-toast";
 import { FaHeart } from "react-icons/fa";
-import Packages from "@/components/vendor-dashboard/dahboard-services/Packages";
+// import Packages from "@/components/vendor-dashboard/dahboard-services/Packages";
 import QuoteRequestWidget from "@/components/chat/QuoteRequestWidget";
 import GoogleMapComponent from "@/components/vendor-dashboard/dahboard-services/Map";
 
@@ -138,7 +138,6 @@ const Service: React.FC = () => {
       <div className="md:mx-40 my-4 p-4">
         <Link href="/vendor-dashboard">
           <button className="text-black font-body hover:text-gray-500 mr-2">
-            ←
             &larr;
           </button>
           back
@@ -168,23 +167,6 @@ const Service: React.FC = () => {
                   ))}
                 </div>
               </div>
-
-              {/* Video Showcase */}
-              {/* {video && (
-                  <div className="mb-8">
-                    <h2 className="text-2xl font-bold mb-4">Video Showcase</h2>
-                    <div className="relative aspect-video rounded-lg overflow-hidden">
-                      <video
-                        controls
-                        className="w-full h-full object-cover"
-                        poster="/images/video-thumbnail.jpg" // Add a placeholder image if available
-                      >
-                        <source src={video} type="video/mp4" />
-                        Your browser does not support the video tag.
-                      </video>
-                    </div>
-                  </div>
-                )} */}
             </div>
           </section>
         </div>
@@ -215,61 +197,10 @@ const Service: React.FC = () => {
                         </button>
                       )}
                     </div>
-                    <div>{offering?.vendor.city}</div>
-                  </div>
-                  <SocialIcons offering={offering} />
-                </div>
-              </div>
-
-              {/* Details Section */}
-              <div className="bg-white rounded-2xl p-4 flex flex-col">
-                <div className="mb-3 text-2xl font-bold">
-                  About the Vendor
-                </div>
-                <div>
-                  <p>{offering.vendor.about || "Not available"}</p>
-                </div>
-                <hr className="border-t border-gray-300 my-4" />
-
-                <div className="mb-3 text-2xl font-bold">Details</div>
-                <div>
-                  <p>{offering.description || "Not available"}</p>
-                </div>
-                <hr className="border-t border-gray-300 my-4" />
-
-                <div className="mb-3 text-2xl font-bold">
-                  Pricing
-                </div>
-                <div>
-                  <p>{offering.pricing || ""}</p>
-                  <Packages/>
-                </div>
-                <hr className="border-t border-gray-300 my-4" />
-                <div className="mb-3 text-2xl font-bold">
-                  Reviews
-                </div>
-                <div>
-                  <Reviews serviceId={offering?.id} />
-                </div>
-                <div>
-                  <WriteReview serviceId={offering?.id} />
-                </div>
-                <div>
-                  <Comments serviceId={offering?.id} />
-                </div>
-                <hr className="border-t border-gray-300 my-4" />
-                <div className="mb-3 text-2xl font-bold">
-                  Contact
-                </div>
-                <div className="flex flex-col gap-y-1">
-                  <div>Email: {offering.bus_email || "Not available"}</div>
-                  <div>
-                    Phone number:{" "}
-                    {offering.bus_phone || "Not available"}
                   </div>
                   <div>{offering?.vendor.city}</div>
+                  <SocialIcons offering={offering} />
                 </div>
-                <SocialIcons offering={offering} />
               </div>
             </div>
 
