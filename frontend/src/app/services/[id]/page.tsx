@@ -19,6 +19,7 @@ import { useAuth } from "@/contexts/VisitorAuthContext";
 import { ADD_TO_MY_VENDORS, REMOVE_FROM_MY_VENDORS } from "@/graphql/mutations";
 import toast from "react-hot-toast";
 import { FaHeart } from "react-icons/fa";
+import QuoteRequestWidget from "@/components/chat/QuoteRequestWidget";
 import GoogleMapComponent from "@/components/vendor-dashboard/dahboard-services/Map";
 
 const Service: React.FC = () => {
@@ -32,13 +33,16 @@ const Service: React.FC = () => {
   });
 
   // Check if offering is in visitor's my vendors
-  const { loading: myVendorLoading, data: myVendorData } = useQuery(FIND_MY_VENDOR_BY_ID, {
-    variables: {
-      visitorId: visitor?.id,
-      offeringId: id
-    },
-    skip: !visitor,
-  });
+  const { loading: myVendorLoading, data: myVendorData } = useQuery(
+    FIND_MY_VENDOR_BY_ID,
+    {
+      variables: {
+        visitorId: visitor?.id,
+        offeringId: id,
+      },
+      skip: !visitor,
+    }
+  );
 
   const [isInMyVendors, setIsInMyVendors] = useState(false);
   const [addToMyVendors] = useMutation(ADD_TO_MY_VENDORS);
@@ -83,8 +87,8 @@ const Service: React.FC = () => {
         const { data } = await removeFromMyVendors({
           variables: {
             visitorId: visitor.id,
-            offeringId: id
-          }
+            offeringId: id,
+          },
         });
 
         if (data?.removeFromMyVendors) {
@@ -97,8 +101,8 @@ const Service: React.FC = () => {
         const { data } = await addToMyVendors({
           variables: {
             visitorId: visitor.id,
-            offeringId: id
-          }
+            offeringId: id,
+          },
         });
 
         if (data?.addToMyVendors) {
@@ -106,7 +110,10 @@ const Service: React.FC = () => {
           toast.success(
             <div>
               Saved to your vendors! <br />
-              <Link href={`/visitor-dashboard/my-vendors/${id}`} className="underline">
+              <Link
+                href={`/visitor-dashboard/my-vendors/${id}`}
+                className="underline"
+              >
                 View your vendors
               </Link>
             </div>,
@@ -130,6 +137,7 @@ const Service: React.FC = () => {
       <div className="md:mx-40 my-4 p-4">
         <Link href="/vendor-dashboard">
           <button className="text-black font-body hover:text-gray-500 mr-2">
+            ←
             &larr;
           </button>
           back
@@ -215,9 +223,7 @@ const Service: React.FC = () => {
 
             {/* Details Section */}
             <div className="bg-white rounded-2xl p-4 flex flex-col">
-              <div className="mb-3 text-2xl font-bold">
-                About the Vendor
-              </div>
+              <div className="mb-3 text-2xl font-bold">About the Vendor</div>
               <div>
                 <p>{offering.vendor.about || "About not available"}</p>
               </div>
@@ -229,9 +235,7 @@ const Service: React.FC = () => {
               </div>
               <hr className="border-t border-gray-300 my-4" />
 
-              <div className="mb-3 text-2xl font-bold">
-                Packages
-              </div>
+              <div className="mb-3 text-2xl font-bold">Packages</div>
               <div>
                 <p>{offering.pricing || "Pricing details not available"}</p>
               </div>
@@ -271,14 +275,16 @@ const Service: React.FC = () => {
 
           <div className="w-1/4">
             <div className="bg-white rounded-2xl p-4 flex flex-col sticky top-4">
-              <p className="text-xl font-bold font-title">Message Vendor</p>
-              <p className="text-sm font-body mt-10">Coming soon!</p>
+              <p className="text-xl font-bold font-title mb-4">
+                Message Vendor
+              </p>
+              <p className="text-xl font-bold font-title mb-4">Request Quote</p>
+              <QuoteRequestWidget vendorId={offering?.vendor.id} />
             </div>
           </div>
         </div>
       </div>
     </div>
   );
-};
 
-export default Service;
+};export default Service;

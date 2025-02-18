@@ -246,6 +246,32 @@ export const FIND_MY_VENDOR_BY_ID = gql`
   }
 `;
 
+
+
+export const GET_CHAT = gql`
+  query GetChat($visitorId: String!, $vendorId: String!) {
+    chat(visitorId: $visitorId, vendorId: $vendorId) {
+      id
+      visitor {
+        id
+      }
+      vendor {
+        id
+      }
+      messages {
+        id
+        content
+        createdAt
+        visitorSender {
+          id
+        }
+        vendorSender {
+          id
+        }
+      }
+    }
+  }
+`;
 export const FIND_REVIEW_BY_SERVICE = gql`
   query FindReviewsByOffering($offering_id: String!) {
     findReviewsByOffering(offering_id: $offering_id) {
@@ -260,6 +286,95 @@ export const FIND_REVIEW_BY_SERVICE = gql`
   }
 `;
 
+export const GET_CHAT_HISTORY = gql`
+  query GetChatHistory($chatId: String!) {
+    getChatHistory(chatId: $chatId) {
+      messages {
+        content
+        senderId
+        senderType
+        timestamp
+      }
+    }
+  }
+`;
+
+export const GET_VISITOR_CHATS = gql`
+  query GetVisitorChats($visitorId: String!) {
+    getVisitorChats(visitorId: $visitorId) {
+      chatId
+      vendorId
+      messages {
+        content
+        senderId
+        senderType
+        timestamp
+      }
+    }
+  }
+`;
+
+export const GET_VENDOR_DETAILS = gql`
+  query GetVendorById($id: String!) {
+    findVendorById(id: $id) {
+      id
+      busname
+      city
+    }
+  }
+`;
+
+export const GET_VENDOR_MESSAGES = gql`
+  query GetVendorChats($vendorId: String!) {
+    getVendorChats(vendorId: $vendorId) {
+      chatId
+      visitorId
+      messages {
+        content
+        senderId
+        senderType
+        timestamp
+      }
+    }
+  }
+`;
+
+export const GET_VENDOR_CHAT = gql`
+  query GetChatHistory($chatId: String!) {
+    getChatHistory(chatId: $chatId) {
+      messages {
+        content
+        senderId
+        senderType
+        timestamp
+      }
+      visitorId
+    }
+  }
+`;
+
+export const GET_CHAT_VISITOR_DETAILS = gql`
+  query FindVisitorById($id: String!) {
+    findVisitorById(id: $id) {
+      id
+      email
+      visitor_fname
+      partner_fname
+    }
+  }
+`;
+
+export const GET_VENDOR_OFFERING_DETAILS = gql`
+  query GetVendorOfferingDetails($vendorId: String!) {
+    getVendorOfferingDetails(vendorId: $vendorId) {
+      id
+      name
+      category
+      bus_phone
+      bus_email
+    }
+  }
+`;
 export const FIND_VENDOR_BY_SERVICE = gql`
   query FindVendorsByOffering($offering_id: String!) {
     findVendorsByOffering(offering_id: $offering_id) {
