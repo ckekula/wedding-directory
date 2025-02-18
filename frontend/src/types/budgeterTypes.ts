@@ -47,12 +47,12 @@ export interface BudgetItemData {
 
 // Input for updating a budget item
 export interface UpdateBudgetItemInput {
-  itemName: string;
-  category: string;
-  estimatedCost: number;
-  paidAmount: number;
+  itemName?: string;
+  category?: string;
+  estimatedCost?: number;
+  paidAmount?: number;
   specialNotes?: string;
-  isPaidInFull: boolean;
+  isPaidInFull?: boolean;
 }
 
 // Props for the BudgetItem component

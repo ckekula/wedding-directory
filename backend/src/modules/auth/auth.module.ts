@@ -11,6 +11,7 @@ import { VendorModule } from '../vendor/vendor.module';
 
 @Module({
     imports: [
+       
         VisitorModule,
         VendorModule,
         PassportModule.register({ defaultStrategy: 'jwt'}),
