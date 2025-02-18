@@ -8,6 +8,7 @@ import SearchBar from "../SearchBar";
 import { useQuery } from "@apollo/client";
 import { GET_VISITOR_BY_ID } from "@/graphql/queries";
 
+
 const VisitorHeader = () => {
   const { visitor, logout } = useAuth();
   const [profilePic, setProfilePic] = useState<string>("/images/profilePic.webp"); // Default placeholder
@@ -81,6 +82,7 @@ const VisitorHeader = () => {
 
           {/* Dashboard, Notifications, and Profile dropdown */}
           <div className="flex items-center justify-end gap-8 text-xl font-title text-text">
+            
             <Link href="/visitor-dashboard">Dashboard</Link>
             <Link href="/help">Help</Link>
             <Link href="/notifications">
