@@ -13,7 +13,4 @@ export class CreatePackageInput {
 
     @Field(() => [String])
     features: string[];
-
-    @Field()
-    offeringId: string;
 }

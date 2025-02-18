@@ -16,22 +16,23 @@ interface Package {
   description: string;
   pricing: number;
   features: string[];
+  offeringId?: string;
 }
 
 const EditPackages: React.FC = () => {
   const params = useParams();
   const offeringId = params.id as string;
 
-  const { loading, error, data, refetch } = useQuery(FIND_PACKAGES_BY_OFFERING, {
+  const { loading, error, data } = useQuery(FIND_PACKAGES_BY_OFFERING, {
     variables: { offeringId },
   });
 
   const [packages, setPackages] = useState<Package[]>([]);
   const [packagesEnabled, setPackagesEnabled] = useState(false);
 
+  const [createPackage] = useMutation(CREATE_PACKAGE);
   const [updatePackage] = useMutation(UPDATE_PACKAGE);
   const [deletePackage] = useMutation(DELETE_PACKAGE);
-  const [createPackage] = useMutation(CREATE_PACKAGE);
 
   useEffect(() => {
     if (data?.findPackagesByOffering) {
@@ -68,29 +69,38 @@ const EditPackages: React.FC = () => {
               name: pkg.name,
               description: pkg.description,
               pricing: parseFloat(pkg.pricing.toString()),
-              features: pkg.features.filter(f => f.trim() !== "")
+              features: pkg.features.filter(f => f.trim() !== ""),
+              offeringId
             }
           }
         });
         toast.success("Package updated successfully!");
       } else {
-        await createPackage({
+        const result = await createPackage({
           variables: {
             input: {
               name: pkg.name,
               description: pkg.description,
               pricing: parseFloat(pkg.pricing.toString()),
               features: pkg.features.filter(f => f.trim() !== ""),
-              offeringId: offeringId  // Add this line
+              offeringId
             }
           }
         });
-        toast.success("Package created successfully!");
+        
+        // Check if the mutation was successful and returned data
+        if (result.data?.createPackage) {
+          toast.success("Package created successfully!");
+          // Update the local state with the new package ID
+          const newPackages = packages.map(p => 
+            p === pkg ? { ...p, id: result.data.createPackage.id } : p
+          );
+          setPackages(newPackages);
+        }
       }
-      refetch();
     } catch (error) {
       toast.error("Failed to save package");
-      console.error(error);
+      console.error("Mutation error:", error);
     }
   };
 
@@ -100,7 +110,8 @@ const EditPackages: React.FC = () => {
         variables: { id: packageId }
       });
       toast.success("Package deleted successfully!");
-      refetch();
+      // Remove the deleted package from local state
+      setPackages(packages.filter(p => p.id !== packageId));
     } catch (error) {
       toast.error("Failed to delete package");
       console.error(error);
@@ -114,7 +125,8 @@ const EditPackages: React.FC = () => {
         name: `Package ${packages.length + 1}`, 
         description: "", 
         pricing: 0, 
-        features: [""] 
+        features: [""],
+        offeringId
       }
     ]);
   };

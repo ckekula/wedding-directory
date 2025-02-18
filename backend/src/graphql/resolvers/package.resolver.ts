@@ -17,8 +17,10 @@ export class PackageResolver {
   }
 
   @Mutation(() => PackageModel)
-  async createPackage(@Args('input') input: CreatePackageInput): Promise<PackageEntity> {
-    return this.packageService.createPackage(input);
+  async createPackage(
+    @Args('input') input: CreatePackageInput,
+    @Args('offeringId') offeringId: string): Promise<PackageEntity> {
+    return this.packageService.createPackage(input, offeringId);
   }
 
   @Mutation(() => PackageModel)

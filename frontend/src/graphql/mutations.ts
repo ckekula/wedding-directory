@@ -247,6 +247,7 @@ export const DELETE_PACKAGE = gql`
   mutation DeletePackage($id: String!) {
     deletePackage(id: $id)
   }
+`;
 
 export const CREATE_REVIEW = gql`
   mutation CreateReview($input: CreateReviewInput!) {

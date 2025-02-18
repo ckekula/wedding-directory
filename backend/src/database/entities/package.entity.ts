@@ -24,7 +24,7 @@ export class PackageEntity {
     @UpdateDateColumn({ name: 'updated_at', type: 'timestamp' })
     updatedAt: Date;
 
-    @ManyToOne(() => OfferingEntity, o => o.package)
+    @ManyToOne(() => OfferingEntity, o => o.packages)
     @JoinColumn({ name: 'offering_id' })
     offering: OfferingEntity;
 }
