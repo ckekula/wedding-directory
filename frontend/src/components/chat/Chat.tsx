@@ -1,7 +1,9 @@
+"use client";
+
 import { useMutation, useQuery } from "@apollo/client";
 import { useState, useEffect } from "react";
-import { GET_CHAT, GET_CHAT_HISTORY } from "../../graphql/queries";
-import { CREATE_CHAT, SEND_MESSAGE } from "../../graphql/mutations";
+import { GET_CHAT, GET_CHAT_HISTORY} from "@/graphql/queries";
+import { CREATE_CHAT, SEND_MESSAGE} from "@/graphql/mutations";
 
 interface ChatProps {
   visitorId: string;

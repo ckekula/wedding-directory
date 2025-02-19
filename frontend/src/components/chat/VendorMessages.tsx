@@ -1,14 +1,14 @@
 "use client";
-import { useEffect, useState } from "react";
+
 import { useQuery } from "@apollo/client";
-import { GET_VENDOR_CHATS } from "@/graphql/queries";
+import { GET_VENDOR_CHAT } from "@/graphql/queries";
 import { useVendorAuth } from "@/contexts/VendorAuthContext";
 import VendorHeader from "@/components/shared/Headers/VendorHeader";
 import Link from "next/link";
 
 const VendorMessages = () => {
   const { vendor } = useVendorAuth();
-  const { data, loading } = useQuery(GET_VENDOR_CHATS, {
+  const { data, loading } = useQuery(GET_VENDOR_CHAT, {
     variables: { vendorId: vendor?.id },
     skip: !vendor?.id,
   });
