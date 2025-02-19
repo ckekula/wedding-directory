@@ -15,7 +15,7 @@ const OfferingCard: React.FC<OfferingProps> = ({
 }) => {
 
   return (
-    <div className="flex justify-left items-start mb-5 border rounded-2xl shadow-lg hover:shadow-xl">
+    <div className="bg-white flex justify-left items-start mb-5 border rounded-2xl shadow-lg hover:shadow-xl">
       <div className="flex flex-col w-full">
         <Image
           src={banner}

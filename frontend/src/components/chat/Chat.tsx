@@ -1,7 +1,9 @@
+"use client";
+
 import { useMutation, useQuery } from "@apollo/client";
 import { useState, useEffect } from "react";
-import { GET_CHAT, GET_CHAT_HISTORY } from "../../graphql/queries";
-import { CREATE_CHAT, SEND_MESSAGE } from "../../graphql/mutations";
+import { GET_CHAT, GET_CHAT_HISTORY} from "@/graphql/queries";
+import { CREATE_CHAT, SEND_MESSAGE} from "@/graphql/mutations";
 
 interface ChatProps {
   visitorId: string;
@@ -16,7 +18,7 @@ const Chat = ({ visitorId, vendorId }: ChatProps) => {
   const [createChat] = useMutation(CREATE_CHAT);
   const [sendMessage] = useMutation(SEND_MESSAGE);
 
-  const { data: chatData } = useQuery(GET_CHAT, {
+  useQuery(GET_CHAT, {
     variables: { visitorId, vendorId },
     onCompleted: (data) => {
       if (data?.chat) {

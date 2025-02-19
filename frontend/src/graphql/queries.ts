@@ -120,6 +120,7 @@ export const GET_VENDOR_BY_ID = gql`
       fname
       lname
       location
+      about
       busname
       phone
       city
@@ -246,7 +247,31 @@ export const FIND_MY_VENDOR_BY_ID = gql`
   }
 `;
 
+export const FIND_PACKAGES_BY_OFFERING = gql`
+  query FindPackagesByOffering($offeringId: String!) {
+    findPackagesByOffering(offeringId: $offeringId) {
+      id
+      name
+      description
+      pricing
+      features
+    }
+  }
+`;
 
+export const FIND_REVIEW_BY_SERVICE = gql`
+  query FindReviewsByOffering($offering_id: String!) {
+    findReviewsByOffering(offering_id: $offering_id) {
+      id
+      comment
+      rating
+      createdAt
+      offering {
+        id
+      }
+    }
+  }
+`;
 
 export const GET_CHAT = gql`
   query GetChat($visitorId: String!, $vendorId: String!) {
@@ -268,19 +293,6 @@ export const GET_CHAT = gql`
         vendorSender {
           id
         }
-      }
-    }
-  }
-`;
-export const FIND_REVIEW_BY_SERVICE = gql`
-  query FindReviewsByOffering($offering_id: String!) {
-    findReviewsByOffering(offering_id: $offering_id) {
-      id
-      comment
-      rating
-      createdAt
-      offering {
-        id
       }
     }
   }

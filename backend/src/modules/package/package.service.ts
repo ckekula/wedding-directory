@@ -17,8 +17,8 @@ export class PackageService {
     return this.packageRepository.createPackage(input, offeringId);
   }
 
-  async updatePackage(id: string, input: Partial<PackageEntity>): Promise<PackageEntity> {
-    return this.packageRepository.updatePackage(id, input);
+  async updatePackage(input: Partial<PackageEntity>): Promise<PackageEntity> {
+    return this.packageRepository.updatePackage(input);
   }
 
   async deletePackage(id: string): Promise<PackageEntity> {
