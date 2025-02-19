@@ -35,8 +35,6 @@ const Comments: React.FC<CommentsProps> = ({ serviceId }) => {
 
   return (
     <div className="font-body">
-      
-      
       {displayedReviews.map((review: Review) => (
         <div key={review.id} className="ml-2 mb-4">
           <hr className="border-t border-gray-300 my-4" />
@@ -51,7 +49,7 @@ const Comments: React.FC<CommentsProps> = ({ serviceId }) => {
             )}
             {/* Visitor name and date */}
             <div className="flex items-center ml-2">
-              <span className="text-black text-lg">{review.visitor?.name || "User"}</span>
+              <span className="text-black text-lg">{review.visitor?.visitor_fname || "Kevin"}</span>
               <span className="text-sm text-gray-500 ml-2">
                 {new Date(review.createdAt).toLocaleDateString()}
               </span>
