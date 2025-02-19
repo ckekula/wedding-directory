@@ -7,9 +7,7 @@ import { ProfileData } from "@/types/vendorTypes";
 import { useVendorAuth } from "@/contexts/VendorAuthContext";
 import { useMutation, useQuery } from "@apollo/client";
 import { GET_VENDOR_BY_ID } from "@/graphql/queries";
-import CityInput from "@/components/vendor-signup/CityInput";
 import { UPDATE_VENDOR } from "@/graphql/mutations";
-import LocationInput from "@/components/vendor-signup/LocationInput";
 import toast from "react-hot-toast";
 
 const EditProfile: React.FC = () => {
@@ -42,20 +40,6 @@ const EditProfile: React.FC = () => {
     setProfile((prevProfile) => ({
       ...prevProfile,
       [name]: value,
-    }));
-  };
-
-  const handleCityChange = (city: string) => {
-    setProfile((prevProfile) => ({
-      ...prevProfile,
-      city,
-    }));
-  };
-
-  const handleLocationChange = (location: string) => {
-    setProfile((prevProfile) => ({
-      ...prevProfile,
-      location,
     }));
   };
 

@@ -1,14 +1,7 @@
 import { useRef, useEffect } from "react";
 import { formatDistanceToNow } from "date-fns";
-import { useVendorAuth } from "../../contexts/VendorAuthContext";
 import { FaUserCircle } from "react-icons/fa";
-
-interface Message {
-  content: string;
-  senderId: string;
-  senderType: "vendor" | "visitor";
-  timestamp: string;
-}
+import { Message } from "../VendorChat";
 
 interface MessageListProps {
   messages: Message[];
@@ -16,7 +9,6 @@ interface MessageListProps {
 
 export default function MessageList({ messages }: MessageListProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const { vendor } = useVendorAuth();
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });

@@ -18,7 +18,7 @@ const Chat = ({ visitorId, vendorId }: ChatProps) => {
   const [createChat] = useMutation(CREATE_CHAT);
   const [sendMessage] = useMutation(SEND_MESSAGE);
 
-  const { data: chatData } = useQuery(GET_CHAT, {
+  useQuery(GET_CHAT, {
     variables: { visitorId, vendorId },
     onCompleted: (data) => {
       if (data?.chat) {

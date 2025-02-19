@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { SEND_MESSAGE } from "@/graphql/mutations";
-import { GET_VENDOR_CHAT } from "@/graphql/queries";
 import { useVendorAuth } from "@/contexts/VendorAuthContext";
 import { IoSend } from "react-icons/io5";
 
