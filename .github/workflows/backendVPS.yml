@@ -26,6 +26,7 @@ jobs:
       COOKIE_SAMESITE: ${{secrets.COOKIE_SAMESITE}}
       TYPEORM_SYNC: ${{ secrets.TYPEORM_SYNC }}
       CORS_ORIGIN: ${{ secrets.CORS_ORIGIN }}
+      MONGODB_URI: ${{ secrets.MONGODB_URI }}
 
     steps:
       # Checkout the code from GitHub repository
@@ -76,6 +77,7 @@ jobs:
           echo "COOKIE_SECURE=${{ secrets.COOKIE_SECURE }}" >> .env
           echo "TYPEORM_SYNC=${{ secrets.TYPEORM_SYNC }}" >> .env
           echo "CORS_ORIGIN=${{ secrets.CORS_ORIGIN }}" >> .env
+          echo "MONGODB_URI=${{ secrets.MONGODB_URI }}" >> .env
 
       # Build the backend in the production directory
       - name: Build the backend

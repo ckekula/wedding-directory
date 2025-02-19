@@ -10,21 +10,27 @@ import { ReviewEntity } from './review.entity';
 import { MyVendorsEntity } from './myVendors.entity';
 import { GuestListEntity } from './guestlist.entity';
 import { ChecklistEntity } from './checklist.entity';
+import { ObjectType, Field, ID } from '@nestjs/graphql';
 
+@ObjectType()
 @Entity({ name: 'visitor' })
 export class VisitorEntity {
+  @Field(() => ID)
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
+  @Field()
   @Column({ type: 'varchar', length: 50 })
   email: string;
 
   @Column({ type: 'varchar' })
   password: string;
 
+  @Field()  
   @Column({ type: 'varchar', length: 50, nullable: true })
   visitor_fname?: string;
 
+  @Field()
   @Column({ type: 'varchar', length: 50, nullable: true })
   visitor_lname?: string;
 
@@ -74,5 +80,7 @@ export class VisitorEntity {
     cascade: true,
   })
   checklists: ChecklistEntity[];
+
+  
 
 }

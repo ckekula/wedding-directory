@@ -58,9 +58,12 @@ export const UPDATE_VENDOR = gql`
       fname
       lname
       busname
+      about
       phone
       city
       location
+      email
+      password
     }
   }
 `;
@@ -172,25 +175,25 @@ export const UPDATE_BUDGET_ITEM = gql`
 
 
 export const CREATE_BUDGET_TOOL = gql`
-    mutation CreateBudgetTool($input: CreateBudgetToolInput!) {
-        createBudgetTool(createBudgetToolInput: $input) {
-            id
-        }
+  mutation CreateBudgetTool($input: CreateBudgetToolInput!) {
+    createBudgetTool(createBudgetToolInput: $input) {
+      id
     }
+  }
 `;
 
 export const CREATE_BUDGET_ITEM = gql`
-    mutation CreateBudgetItem($input: CreateBudgetItemInput!) {
-        createBudgetItem(createBudgetItemInput: $input) {
-            id
-        }
+  mutation CreateBudgetItem($input: CreateBudgetItemInput!) {
+    createBudgetItem(createBudgetItemInput: $input) {
+      id
     }
+  }
 `;
 
-export const DELETE_BUDGET_ITEM = gql `
-    mutation DeleteBudgetItem($id: String!) {
-        deleteBudgetItem(id: $id)
-    }
+export const DELETE_BUDGET_ITEM = gql`
+  mutation DeleteBudgetItem($id: String!) {
+    deleteBudgetItem(id: $id)
+  }
 `;
 
 export const ADD_TO_MY_VENDORS = gql`
@@ -214,6 +217,75 @@ export const REMOVE_FROM_MY_VENDORS = gql`
         name
       }
     }
+  }
+`;
+export const CREATE_CHAT = gql`
+  mutation CreateChat($visitorId: String!, $vendorId: String!) {
+    createChat(
+      createChatInput: { visitorId: $visitorId, vendorId: $vendorId }
+    ) {
+      chatId
+      visitor {
+        id
+      }
+      vendor {
+        id
+      }
+    }
+  }
+`;
+
+export const SEND_MESSAGE = gql`
+  mutation SendMessage(
+    $chatId: String!
+    $content: String!
+    $visitorSenderId: String
+    $vendorSenderId: String
+  ) {
+    sendMessage(
+      chatId: $chatId
+      content: $content
+      visitorSenderId: $visitorSenderId
+      vendorSenderId: $vendorSenderId
+    ) {
+      chatId
+      messages {
+        content
+        senderId
+        senderType
+        timestamp
+      }
+    }
+  }
+`;
+
+export const CREATE_PACKAGE = gql`
+  mutation CreatePackage($input: CreatePackageInput!) {
+    createPackage(input: $input) {
+      id
+      name
+      description
+      pricing
+      features
+    }
+  }
+`;
+
+export const UPDATE_PACKAGE = gql`
+  mutation UpdatePackage($input: UpdatePackageInput!) {
+    updatePackage(input: $input) {
+      id
+      name
+      description
+      pricing
+      features
+    }
+  }
+`;
+
+export const DELETE_PACKAGE = gql`
+  mutation DeletePackage($id: String!) {
+    deletePackage(id: $id)
   }
 `;
 

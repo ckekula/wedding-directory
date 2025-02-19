@@ -6,8 +6,10 @@ import PageTransition from "@/components/PageTransition";
 import { VendorAuthProvider } from "@/contexts/VendorAuthContext";
 import { Toaster } from "react-hot-toast";
 import Script from "next/script"
+import { GoogleAnalytics } from '@next/third-parties/google'
 
 import localFont from "next/font/local";
+import React from "react";
 
 const montserratFont = localFont({
     src: [
@@ -188,6 +190,7 @@ export default function RootLayout({
           </VisitorAuthProvider>
         </ApolloWrapper>
       </body>
+      <GoogleAnalytics gaId="G-TRC1DH6VXM" />
     <Script async src="https://tally.so/widgets/embed.js"/>
     </html>
   );
