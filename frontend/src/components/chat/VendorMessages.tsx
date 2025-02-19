@@ -30,7 +30,7 @@ const VendorMessages = () => {
     <div className="min-h-screen bg-lightYellow">
       <VendorHeader />
       <div className="container mx-auto p-6">
-        <h1 className="text-2xl font-bold mb-6 font-title">Messages</h1>
+        <h1 className="text-2xl font-bold mb-6 font-title">Message(s)</h1>
         <div className="bg-white rounded-lg shadow">
           {data?.vendorChats?.map((chat: Chat) => (
             <Link href={`/vendor-dashboard/messages/${chat.id}`} key={chat.id}>
