@@ -257,13 +257,10 @@ const Service: React.FC = () => {
           </div>
 
           <div className="w-1/4">
-            <div className="bg-white rounded-2xl p-4 flex flex-col sticky top-4">
-              <p className="text-xl font-bold font-title mb-4">
-                Message Vendor
-              </p>
-              <p className="text-xl font-bold font-title mb-4">Request Quote</p>
+            
+              
               <QuoteRequestWidget vendorId={offering?.vendor.id} />
-            </div>
+            
           </div>
         </div>
       </div>
