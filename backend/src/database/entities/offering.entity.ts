@@ -73,5 +73,5 @@ export class OfferingEntity {
     
     @OneToMany(() => PackageEntity, p => p.offering, {cascade: true})
     @JoinColumn({ name: 'package_id' })
-    package: PackageEntity[];
+    packages: PackageEntity[];
 }

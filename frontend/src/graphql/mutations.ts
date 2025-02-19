@@ -58,9 +58,12 @@ export const UPDATE_VENDOR = gql`
       fname
       lname
       busname
+      about
       phone
       city
       location
+      email
+      password
     }
   }
 `;
@@ -253,6 +256,36 @@ export const SEND_MESSAGE = gql`
         timestamp
       }
     }
+  }
+`;
+
+export const CREATE_PACKAGE = gql`
+  mutation CreatePackage($input: CreatePackageInput!) {
+    createPackage(input: $input) {
+      id
+      name
+      description
+      pricing
+      features
+    }
+  }
+`;
+
+export const UPDATE_PACKAGE = gql`
+  mutation UpdatePackage($input: UpdatePackageInput!) {
+    updatePackage(input: $input) {
+      id
+      name
+      description
+      pricing
+      features
+    }
+  }
+`;
+
+export const DELETE_PACKAGE = gql`
+  mutation DeletePackage($id: String!) {
+    deletePackage(id: $id)
   }
 `;
 

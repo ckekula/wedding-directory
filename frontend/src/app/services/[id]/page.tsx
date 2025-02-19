@@ -19,6 +19,7 @@ import { useAuth } from "@/contexts/VisitorAuthContext";
 import { ADD_TO_MY_VENDORS, REMOVE_FROM_MY_VENDORS } from "@/graphql/mutations";
 import toast from "react-hot-toast";
 import { FaHeart } from "react-icons/fa";
+// import Packages from "@/components/vendor-dashboard/dahboard-services/Packages";
 import QuoteRequestWidget from "@/components/chat/QuoteRequestWidget";
 import GoogleMapComponent from "@/components/vendor-dashboard/dahboard-services/Map";
 
@@ -137,7 +138,6 @@ const Service: React.FC = () => {
       <div className="md:mx-40 my-4 p-4">
         <Link href="/vendor-dashboard">
           <button className="text-black font-body hover:text-gray-500 mr-2">
-            ←
             &larr;
           </button>
           back
@@ -167,23 +167,6 @@ const Service: React.FC = () => {
                   ))}
                 </div>
               </div>
-
-              {/* Video Showcase */}
-              {/* {video && (
-                  <div className="mb-8">
-                    <h2 className="text-2xl font-bold mb-4">Video Showcase</h2>
-                    <div className="relative aspect-video rounded-lg overflow-hidden">
-                      <video
-                        controls
-                        className="w-full h-full object-cover"
-                        poster="/images/video-thumbnail.jpg" // Add a placeholder image if available
-                      >
-                        <source src={video} type="video/mp4" />
-                        Your browser does not support the video tag.
-                      </video>
-                    </div>
-                  </div>
-                )} */}
             </div>
           </section>
         </div>
@@ -216,8 +199,8 @@ const Service: React.FC = () => {
                     </div>
                   </div>
                   <div>{offering?.vendor.city}</div>
+                  <SocialIcons offering={offering} />
                 </div>
-                <SocialIcons offering={offering} />
               </div>
             </div>
 
@@ -274,17 +257,15 @@ const Service: React.FC = () => {
           </div>
 
           <div className="w-1/4">
-            <div className="bg-white rounded-2xl p-4 flex flex-col sticky top-4">
-              <p className="text-xl font-bold font-title mb-4">
-                Message Vendor
-              </p>
-              <p className="text-xl font-bold font-title mb-4">Request Quote</p>
+            
+              
               <QuoteRequestWidget vendorId={offering?.vendor.id} />
-            </div>
+            
           </div>
         </div>
       </div>
     </div>
   );
+};
 
-};export default Service;
+export default Service;

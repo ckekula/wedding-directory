@@ -15,6 +15,9 @@ export class PackageModel {
   @Field()
   pricing: number;
 
+  @Field(() => [String])
+  features: string[];
+
   @Field()
   createdAt: Date;
 

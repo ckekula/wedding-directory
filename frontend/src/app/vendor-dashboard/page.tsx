@@ -3,7 +3,6 @@
 import React from "react";
 import Header from "@/components/shared/Headers/Header";
 import VendorBanner from "@/components/vendor-dashboard/VendorBanner";
-// import Stats from "@/components/vendor-dashboard/Stats";
 import OfferingCard from "@/components/vendor-search/OfferingCard";
 import Link from "next/link";
 import { GET_VENDOR_BY_ID, FIND_SERVICES_BY_VENDOR } from "@/graphql/queries";
@@ -18,8 +17,6 @@ import { FiEdit } from "react-icons/fi";
 
 const VendorDashBoard: React.FC = () => {
   const { vendor } = useVendorAuth();
-
-  // Query to get vendor data
   const {
     data: vendorData,
     loading: vendorLoading,
@@ -87,12 +84,6 @@ const VendorDashBoard: React.FC = () => {
             </div>
           </div>
 
-          {/* Quick Actions and To Do's */}
-          {/* <div className="flex justify-between py-12 gap-10">
-            <QuickActions />
-            <ToDo />
-          </div> */}
-
           {/* About Section */}
           <div className="flex items-center mt-8 mb-8">
             <div className="text-2xl font-bold">
@@ -145,12 +136,6 @@ const VendorDashBoard: React.FC = () => {
             <div className="my-4 text-2xl">No Services found</div>
           )}
 
-          <hr className="border-t border-gray-300 my-4" />
-
-          <div className="pb-8">
-            <h2 className="text-2xl font-bold">Messages and Inquiries</h2>
-            <p className="font-body py-8">Coming soon!</p>
-          </div>
         </div>
       </div>
       <Footer />

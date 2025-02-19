@@ -3,13 +3,12 @@
 import React, { Fragment, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { ProfileData } from "@/types/vendorTypes";
+import { AccountData } from "@/types/vendorTypes";
 import { useVendorAuth } from "@/contexts/VendorAuthContext";
 import { useMutation, useQuery } from "@apollo/client";
 import { GET_VENDOR_BY_ID } from "@/graphql/queries";
-import CityInput from "@/components/vendor-signup/CityInput";
 import { UPDATE_VENDOR } from "@/graphql/mutations";
-import LocationInput from "@/components/vendor-signup/LocationInput";
+import toast from "react-hot-toast";
 
 const EditAccount: React.FC = () => {
   const { vendor } = useVendorAuth();
@@ -20,60 +19,53 @@ const EditAccount: React.FC = () => {
 
   const vendorData = data?.findVendorById;
 
-  const [profile, setProfile] = useState<ProfileData>({
-    firstName: vendorData?.fname || "Your first name",
-    lastName: vendorData?.lname || "Your last name",
-    businessName: vendorData?.busname || "Your business name",
-    phone: vendorData?.phone || "Your phone number",
-    city: vendorData?.city || "",
-    location: vendorData?.location || "",
+  const [account, setAccount] = useState<AccountData>({
+    email: vendorData?.email || "Your email",
+    password: vendorData?.password || "",
+    rePassword: vendorData?.password || ""
   });
 
   const [updateVendor] = useMutation(UPDATE_VENDOR, {
     onCompleted: () => {
-      console.log("Vendor updated successfully!");
+      toast.success("Updated Successfully!");
     },
     onError: (error) => {
+      toast.error("Error updating");
       console.error("Error updating vendor:", error);
     },
   });
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setProfile((prevProfile) => ({
-      ...prevProfile,
+    setAccount((prevAccount) => ({
+      ...prevAccount,
       [name]: value,
     }));
   };
 
-  const handleCityChange = (city: string) => {
-    setProfile((prevProfile) => ({
-      ...prevProfile,
-      city,
-    }));
-  };
-
-  const handleLocationChange = (location: string) => {
-    setProfile((prevProfile) => ({
-      ...prevProfile,
-      location,
-    }));
+  const checkPassword = () => {
+    if (account.password !== account.rePassword) {
+      toast.error("Passwords do not match!");
+      return false;
+    }
+    if (account.password.length < 8) {
+      toast.error("Password must be at least 8 characters long!");
+      return false;
+    }
+    return true;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!vendor?.id) return;
+    if (!checkPassword()) return;
 
     updateVendor({
       variables: {
         id: vendor.id,
         input: {
-          fname: profile.firstName,
-          lname: profile.lastName,
-          phone: profile.phone,
-          city: profile.city,
-          location: profile.location,
-          busname: profile.businessName,
+          email: account.email,
+          password: account.password,
         },
       },
     });
@@ -85,45 +77,39 @@ const EditAccount: React.FC = () => {
   return (
     <Fragment>
       <div className="bg-white rounded-2xl p-4 px-8 shadow-lg">
-        <h2 className="font-title text-[30px] ">Vendor Profile</h2>
+        <h2 className="font-title text-[30px] ">Account</h2>
         <hr className="w-[168px] h-px my-4 bg-gray-400 border-0 dark:bg-gray-700"></hr>
         <form onSubmit={handleSubmit} className="mb-8">
           <div>
-            <label className="font-body text-[16px] ">Business Name</label>
+            <label className="font-body text-[16px] ">Email</label>
             <Input
-              name="businessName"
-              value={profile.businessName}
+              name="email"
+              value={account.email}
               onChange={handleInputChange}
               className="font-body rounded-md mt-2 mb-3"
             />
           </div>
           <div>
-            <label className="font-body text-[16px] ">Phone Number</label>
+            <label className="font-body text-[16px] ">New Password</label>
             <Input
-              name="phone"
-              value={profile.phone}
+              name="password"
               onChange={handleInputChange}
               className="font-body rounded-md mt-2 mb-3"
             />
           </div>
           <div>
-            <label className="font-body text-[16px] mt- mb-3 ">City</label>
-            <div className="font-body rounded-md mt-2 mb-3">
-              <CityInput placeholder={profile.city} onCityChange={handleCityChange} />
-            </div>
-          </div>
-          <div>
-            <label className="font-body text-[16px] mt- mb-3 ">Location</label>
-            <div className="font-body rounded-md mt-2 mb-3">
-              <LocationInput placeholder={profile.location} onLocationChange={handleLocationChange} />
-            </div>
+            <label className="font-body text-[16px] ">Retype Password</label>
+            <Input
+              name="rePassword"
+              onChange={handleInputChange}
+              className="font-body rounded-md mt-2 mb-3"
+            />
           </div>
           <Button
             variant="signup"
             className="m-3 w-full"
-            onClick={handleSubmit}
           >
-            Save Profile Information
+            Save Account Information
           </Button>
         </form>
       </div>

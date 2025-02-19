@@ -7,10 +7,19 @@ const socket = io("http://localhost:4000/chat", {
   withCredentials: true,
 });
 
+export interface Message {
+  id: string;
+  content: string;
+  senderId: string;
+  senderType: 'visitor' | 'vendor';
+  timestamp: string;
+  vendorSenderId: string;
+}
+
 const VendorChat: React.FC = () => {
   const [message, setMessage] = useState("");
-  const [messages, setMessages] = useState<any[]>([]);
-  const [chatId, setChatId] = useState<string>(
+  const [messages, setMessages] = useState<Message[]>([]);
+  const [chatId] = useState<string>(
     "fa0cb49f-505c-473a-8f3b-569c0cb019ba"
   ); // Use existing chat ID
   const { vendor } = useVendorAuth();
