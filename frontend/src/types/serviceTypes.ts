@@ -3,11 +3,10 @@ export interface ProfileData {
     businessPhone: string;
     businessEmail: string;
     description: string;
-    pricing: string;
 }
   
 export interface EditProfileProps {
-    isServiceVisible: boolean; // Prop for service visibility
+    isServiceVisible: boolean;
 }
 
 export interface SocialData {
