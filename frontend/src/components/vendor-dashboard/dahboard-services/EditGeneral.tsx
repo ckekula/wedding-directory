@@ -27,7 +27,6 @@ const EditGeneral: React.FC<EditProfileProps> = ({isServiceVisible}) => {
     businessPhone: "",
     businessEmail: "",
     description: "",
-    pricing: "",
   });
 
   // Update state with fetched data
@@ -38,16 +37,16 @@ const EditGeneral: React.FC<EditProfileProps> = ({isServiceVisible}) => {
         businessPhone: serviceData.bus_phone || "",
         businessEmail: serviceData.bus_email || "",
         description: serviceData.description || "",
-        pricing: serviceData.pricing || "",
       });
     }
   }, [serviceData]);
 
   const [updateVendor] = useMutation(UPDATE_SERVICE_PROFILE, {
     onCompleted: () => {
-      console.log("Vendor updated successfully!");
+      toast.success("Updated Successfully!");
     },
     onError: (error) => {
+      toast.error("Error updating");
       console.error("Error updating vendor:", error);
     },
   });
@@ -87,12 +86,12 @@ const EditGeneral: React.FC<EditProfileProps> = ({isServiceVisible}) => {
             bus_phone: profile.businessPhone,
             bus_email: profile.businessEmail,
             description: profile.description,
-            pricing: profile.pricing,
           },
         },
       });
       toast.success("Profile saved successfully!");
     } catch (err) {
+      toast.error("Profile update failed!");
       console.error("Failed to update profile:", err);
     }
   };
@@ -145,15 +144,6 @@ const EditGeneral: React.FC<EditProfileProps> = ({isServiceVisible}) => {
             <textarea
               name="description"
               value={profile.description || ""}
-              onChange={handleInputChange}
-              className="font-body rounded-md mt-2 mb-3 w-full h-32 p-2"
-              />
-          </div>
-          <div>
-            <label className="font-body text-[16px]">Pricing</label>
-            <textarea
-              name="pricing"
-              value={profile.pricing || ""}
               onChange={handleInputChange}
               className="font-body rounded-md mt-2 mb-3 w-full h-32 p-2"
             />

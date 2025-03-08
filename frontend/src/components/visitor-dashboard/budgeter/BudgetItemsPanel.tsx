@@ -25,18 +25,20 @@ const BudgetItemsPanel: React.FC<BudgetItemsPanelProps> = ({ budgetToolId }) => 
 
   const [updateBudgetItem] = useMutation(UPDATE_BUDGET_ITEM, {
     onCompleted: () => {
-      refetchBudgetItems();
+      // Refetch to get updated data
+      refetchBudgetItems().then(
+        () => toast.success('Budget item updated successfully'));
     },
     onError: (error) => {
       console.error('Error updating budget item:', error);
-      // You might want to add toast notification here
+      toast.error('Error updating budget item' );
     }
   });
 
   const [deleteBudgetItem] = useMutation(DELETE_BUDGET_ITEM, {
     onCompleted: () => {
-      refetchBudgetItems();
-      toast.success('Budget item deleted successfully');
+      refetchBudgetItems().then(
+        () => toast.success('Budget item deleted successfully'));
     },
     onError: (error) => {
       toast.error('Error deleting budget item: ' + error.message);
@@ -45,17 +47,23 @@ const BudgetItemsPanel: React.FC<BudgetItemsPanelProps> = ({ budgetToolId }) => 
 
   const handleUpdateBudgetItem = async (itemId: string, data: UpdateBudgetItemInput) => {
     try {
+      const formattedData = {
+        ...data,
+        amountPaid: data.paidAmount, // ✅ Map paidAmount to amountPaid
+      };
+      delete formattedData.paidAmount; // ✅ Remove incorrect field
 
       await updateBudgetItem({
         variables: {
           id: itemId,
-          input: data
-        }
+          updateBudgetItemInput: formattedData,
+        },
       });
     } catch (error) {
       console.error('Error in handleUpdateBudgetItem:', error);
     }
   };
+
 
   const handleDeleteBudgetItem = async (itemId: string) => {
     try {

@@ -15,13 +15,16 @@ export class PackageEntity {
     @Column({ type: 'integer' })
     pricing: number;
 
+    @Column({ type: 'varchar', array: true, nullable: true})
+    features: string[];
+
     @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
     createdAt: Date;
   
     @UpdateDateColumn({ name: 'updated_at', type: 'timestamp' })
     updatedAt: Date;
 
-    @ManyToOne(() => OfferingEntity, o => o.package)
+    @ManyToOne(() => OfferingEntity, o => o.packages)
     @JoinColumn({ name: 'offering_id' })
     offering: OfferingEntity;
 }
