@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import { Button } from "../ui/button";
-import { OfferingProps } from "../../types/offeringTypes";
+import { OfferingProps } from '@/types/offeringTypes';
 import Link from "next/link";
 
 const OfferingCard: React.FC<OfferingProps> = ({
@@ -15,15 +15,15 @@ const OfferingCard: React.FC<OfferingProps> = ({
 }) => {
 
   return (
-    <div className="flex justify-left items-start mb-5 border rounded-2xl shadow-lg hover:shadow-xl">
+    <div className="flex justify-left bg-white items-start mb-5 border rounded-2xl shadow-lg hover:shadow-xl">
       <div className="flex flex-col w-full">
         <Image
           src={banner}
           alt="vendor-banner"
-          className="w-full h-full object-cover rounded-xl"
+          className=" object-cover rounded-xl"
           layout="responsive"
-          width={600}
-          height={500}
+          width={400}
+          height={300}
           priority
         />
         <div className="p-4">

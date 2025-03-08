@@ -32,4 +32,5 @@ export interface Service {
         busname: string;
         city: string;
     };
+    banner:string;
 }

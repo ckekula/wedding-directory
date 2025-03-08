@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState, useCallback } from "react";
 import Footer from "@/components/shared/Footer";
 import Header from "@/components/shared/Headers/Header";
-import VendorResult from "@/components/vendor-search/OfferingCard";
+import OfferingCard from "@/components/vendor-search/OfferingCard";
 import { Button } from "@/components/ui/button";
 import { FIND_SERVICES } from "@/graphql/queries";
 import { useLazyQuery } from "@apollo/client";
@@ -14,31 +14,34 @@ const VendorSearch: React.FC = () => {
   const [city, setCity] = useState<string>("");
   const [category, setCategory] = useState<string>("");
 
+  // useLazyQuery hook to fetch services on demand
   const [getServices, { loading, data, error }] = useLazyQuery(FIND_SERVICES);
 
-  // Execute query on page load (no filters)
-  useEffect(() => {
-    getServices();
-  }, [getServices]);
-
-  const handleSearch = () => {
-    getServices({
-      variables: {
-        filter: {
-          city: city || null,
-          category: category || null,
+  // Trigger search when the button is clicked or filters change
+  const handleSearch = useCallback(() => {
+    if (getServices) {
+      getServices({
+        variables: {
+          filter: {
+            city: city || null,
+            category: category || null,
+          },
         },
-      },
-    });
-  };
+      });
+    } else {
+      console.error("getServices is not initialized");
+    }
+  }, [city, category, getServices]);
 
-  const handleCityChange = (city: string) => {
-    setCity(city);
-  };
 
-  const handleCategoryChange = (category: string) => {
-    setCategory(category);
-  };
+  // Handlers for filter changes
+  const handleCityChange = useCallback((newCity: string) => {
+    setCity(newCity);
+  }, []);
+
+  const handleCategoryChange = useCallback((newCategory: string) => {
+    setCategory(newCategory);
+  }, []);
 
   return (
     <div className="bg-lightYellow font-title">
@@ -60,38 +63,31 @@ const VendorSearch: React.FC = () => {
       <hr className="w-full h-px my-4 bg-slate-900 border-2 container" />
 
       <div className="flex flex-row mx-4 md:mx-8 px-2 md:px-4">
+        {/* Main Content */}
         <div className="relative w-full m-3 md:w-3/4 h-full md:h-auto rounded-2xl overflow-hidden">
+          {/* Sorting Options */}
           <div className="flex flex-row space-x-4">
-            <Button className="bg-white text-black hover:bg-gray-300">
-              Distance
-            </Button>
-            <Button className="bg-white text-black hover:bg-gray-300">
-              Price
-            </Button>
-            <Button className="bg-white text-black hover:bg-gray-300">
-              Ratings
-            </Button>
-            <Button className="bg-white text-black hover:bg-gray-300">
-              Featured
-            </Button>
+            <Button className="bg-white text-black hover:bg-gray-300">Distance</Button>
+            <Button className="bg-white text-black hover:bg-gray-300">Price</Button>
+            <Button className="bg-white text-black hover:bg-gray-300">Ratings</Button>
+            <Button className="bg-white text-black hover:bg-gray-300">Featured</Button>
           </div>
 
+          {/* Data Loading/Error/Result State */}
           {loading && <div className="my-4 text-2xl">Loading...</div>}
           {error && <div className="my-4 text-2xl">Error: {error.message}</div>}
 
-          {!loading && data && data.findOfferings.length > 0 ? (
+          {!loading && data?.findOfferings?.length > 0 ? (
             <>
-              <div className="my-4 text-2xl">
-                Found {data.findOfferings.length} vendors
-              </div>
-              <div className="grid xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-6 overflow-x-auto">
+              <div className="my-4 text-2xl">Found {data.findOfferings.length} vendors</div>
+              <div className="grid xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-6 overflow-x-auto">
                 {data.findOfferings.map((service: Service) => (
-                  <VendorResult
+                  <OfferingCard
                     key={service.id}
                     name={service.name}
                     vendor={service.vendor?.busname || "N/A"}
                     city={service.vendor?.city || "N/A"}
-                    banner="/images/photography.webp"
+                    banner={service.banner}
                     rating="⭐ 4.9 (154)"
                     buttonText="View Details"
                     link={`/services/${service.id}`}
@@ -104,6 +100,7 @@ const VendorSearch: React.FC = () => {
           )}
         </div>
 
+        {/* Sidebar */}
         <div className="relative hidden xl:block w-full m-3 md:w-1/4 h-full md:h-auto rounded-2xl bg-white overflow-hidden">
           <p className="text-center my-6 font-bold">Other Vendors You might like</p>
           <p className="text-center">Nothing to show yet</p>
