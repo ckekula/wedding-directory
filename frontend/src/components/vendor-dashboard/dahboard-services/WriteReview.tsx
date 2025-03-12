@@ -42,13 +42,17 @@ const WriteReview: React.FC<WriteReviewProps> = ({ serviceId }) => {
             });
 
             if (response.data) {
+                // eslint-disable-next-line no-console
                 console.log("Review created successfully:", response.data);
                 setRating(0);
                 setComment("");
                 setShowForm(false);  // Hide the form after submission
+                toast.success("Review submitted successfully!");
             }
         } catch (error) {
+            // eslint-disable-next-line no-console
             console.error("Error creating review:", error);
+            toast.error("Failed to submit review. Please try again.");
         }
     };
 
@@ -77,6 +81,7 @@ const WriteReview: React.FC<WriteReviewProps> = ({ serviceId }) => {
                                     color={star <= rating ? '#ffc107' : '#e4e5e9'}
                                     onClick={() => handleRating(star)}
                                     style={{ cursor: 'pointer' }}
+                                    aria-label={`${star} star`}
                                 />
                             ))}
                         </div>
@@ -94,6 +99,7 @@ const WriteReview: React.FC<WriteReviewProps> = ({ serviceId }) => {
                                 style={{ width: '60%', resize: 'none' }}
                                 value={comment}
                                 onChange={(e) => setComment(e.target.value)}
+                                disabled={loading}
                             />
                         </div>
                     </div>

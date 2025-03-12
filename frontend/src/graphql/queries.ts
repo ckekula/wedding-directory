@@ -269,6 +269,9 @@ export const FIND_REVIEW_BY_SERVICE = gql`
       offering {
         id
       }
+      visitor {
+        visitor_fname
+      }
     }
   }
 `;
