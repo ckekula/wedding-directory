@@ -108,6 +108,7 @@ const GeneralHeader = () => {
               {[
                 { name: "home", path: "/" },
                 { name: "about", path: "/about" },
+                { name: "vendors", path: "/vendor-search" },
                 { name: "contact", path: "/contact" },
                 { name: "help", path: "/help" },
               ].map((link, index) => {
