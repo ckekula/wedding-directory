@@ -47,9 +47,9 @@ const EditService = () => {
       <Header />
       <div className="bg-lightYellow min-h-screen">
 
-        <div className="p-20">
+        <div className="container mx-auto px-4 py-6">
           {/* Vendor Banner */}
-          <VendorBanner  businessName={vendorInfo?.busname} />
+          <VendorBanner vendor={vendorInfo} />
         </div>
 
         <div className="container mx-auto flex space-x-10">

@@ -46,11 +46,11 @@ const VendorSearch: React.FC = () => {
   return (
     <div className="bg-lightYellow font-title">
       <Header />
-      <div className="mt-4 mb-6">
-        <h2 className="mx-4 md:mx-20 text-3xl text-center font-bold mb-1">
+      <div className="container mx-auto px-4 md:px-8 py-8">
+        <h2 className="text-3xl text-center font-bold">
           Find the perfect crew for your wedding
         </h2>
-        <h2 className="mx-4 md:mx-20 text-xl text-center mb-6">
+        <h2 className="mx-4 md:mx-20 text-xl text-center mb-2">
           Filter by Category and Location
         </h2>
       </div>
@@ -60,9 +60,9 @@ const VendorSearch: React.FC = () => {
         onCityChange={handleCityChange}
         onCategoryChange={handleCategoryChange}
       />
-      <hr className="w-full h-px my-4 bg-slate-900 border-2 container" />
+      <hr className=" h-px my-4 bg-black border-[1.5px] container" />
 
-      <div className="flex flex-row mx-4 md:mx-8 px-2 md:px-4">
+      <div className="flex flex-row container mx-auto px-4">
         {/* Main Content */}
         <div className="relative w-full m-3 md:w-3/4 h-full md:h-auto rounded-2xl overflow-hidden">
           {/* Sorting Options */}
@@ -78,9 +78,9 @@ const VendorSearch: React.FC = () => {
           {error && <div className="my-4 text-2xl">Error: {error.message}</div>}
 
           {!loading && data?.findOfferings?.length > 0 ? (
-            <>
+            <div>
               <div className="my-4 text-2xl">Found {data.findOfferings.length} vendors</div>
-              <div className="grid xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-6 overflow-x-auto">
+              <div className="grid xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-6 overflow-x-auto">
                 {data.findOfferings.map((service: Service) => (
                   <OfferingCard
                     key={service.id}
@@ -94,7 +94,7 @@ const VendorSearch: React.FC = () => {
                   />
                 ))}
               </div>
-            </>
+            </div>
           ) : (
             <div className="my-4 text-2xl">No vendors found</div>
           )}

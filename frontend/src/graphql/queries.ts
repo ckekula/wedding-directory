@@ -89,6 +89,7 @@ export const FIND_SERVICES_BY_VENDOR = gql`
       name
       category
       description
+      banner
       vendor {
         id
         busname
@@ -120,11 +121,8 @@ export const GET_VENDOR_BY_ID = gql`
     findVendorById(id: $id) {
       id
       email
-      password
       fname
       lname
-      location
-      about
       busname
       phone
       city

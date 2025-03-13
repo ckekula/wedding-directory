@@ -97,7 +97,7 @@ const EditGeneral: React.FC = () => {
           </div>
           <div>
             <label className="font-body text-[16px] ">About</label>
-            <textarea
+            <Input
               name="about"
               value={general.about}
               onChange={handleInputChange}

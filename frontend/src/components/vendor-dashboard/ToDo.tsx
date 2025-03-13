@@ -5,7 +5,7 @@ import { MdOpenInFull } from "react-icons/md";
 
 const ToDo = () => {
   return (
-    <div className="bg-white p-6 rounded-lg shadow-lg container w-1/2">
+    <div className="bg-white p-6 rounded-lg shadow-lg container w-full">
       <h2 className="font-title text-[24px] font-bold">To Do&#39;s</h2>
       <hr className="w-[250px] h-px my-4 bg-gray-400 border-0 dark:bg-gray-700"></hr>
       <div className="mt-4 font-body text-[16px]">

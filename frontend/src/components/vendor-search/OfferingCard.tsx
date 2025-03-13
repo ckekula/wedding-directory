@@ -16,16 +16,18 @@ const OfferingCard: React.FC<OfferingProps> = ({
 
   return (
     <div className="flex justify-left bg-white items-start mb-5 border rounded-2xl shadow-lg hover:shadow-xl">
-      <div className="flex flex-col w-full">
+      <div className="flex flex-col w-full p-3">
+      <div className="w-full aspect-[16/9] relative rounded-lg overflow-hidden">
         <Image
           src={banner}
           alt="vendor-banner"
-          className=" object-cover rounded-xl"
-          layout="responsive"
-          width={400}
-          height={300}
-          priority
+          className="object-cover rounded-lg"
+          fill
         />
+      </div>
+
+
+
         <div className="p-4">
           <div className="">
             <div className="text-md font-semibold">{vendor}</div>
