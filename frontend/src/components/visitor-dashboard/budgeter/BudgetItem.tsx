@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ChevronUp, Trash2 } from 'lucide-react';
 
-import { BudgetItemProps, UpdateBudgetItemInput } from '@/types/budgeterTypes';
+import { BudgetItemProps, BudgetItemUpdateInput, UpdateBudgetItemInput } from '@/types/budgeterTypes';
 
 const BudgetItem: React.FC<BudgetItemProps> = (
   {
@@ -15,38 +15,51 @@ const BudgetItem: React.FC<BudgetItemProps> = (
   }) =>  {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [editedValues, setEditedValues] = useState<UpdateBudgetItemInput>({
-    itemName,
+    itemName: itemName || "",  // Ensure it's always a string
     estimatedCost,
     paidAmount,
-    category,
-    specialNotes: specialNotes || '',
-    isPaidInFull: estimatedCost === paidAmount,
+    category: category || "",  // Ensure it's always a string
+    specialNotes: specialNotes || "", // Convert null to an empty string
   });
+  
 
   const handleInputChange = (field: keyof UpdateBudgetItemInput, value: string | number) => {
     setEditedValues((prev) => ({
       ...prev,
-      [field]: value,
+      [field]: typeof value === "string" ? value || "" : value, // Ensure string fields are never undefined
     }));
   };
+  
 
   const handleSave = () => {
-    // Check if estimated cost equals amount paid
-    const isPaidInFull = editedValues.estimatedCost === editedValues.paidAmount;
-
-    // Pass all values including isPaidInFull to the save handler
-    onSave({
-      ...editedValues,
-      isPaidInFull
-    });
-
+    // Ensure all required fields are defined before passing to onSave
+    const sanitizedValues: BudgetItemUpdateInput = {
+      itemName: editedValues.itemName ?? "",  
+      category: editedValues.category ?? "",  
+      specialNotes: editedValues.specialNotes ?? "",  
+      estimatedCost: editedValues.estimatedCost ?? 0,  
+      paidAmount: editedValues.paidAmount ?? 0,  
+      isPaidInFull: (editedValues.estimatedCost ?? 0) === (editedValues.paidAmount ?? 0),
+    };
+  
+    onSave(sanitizedValues);
     setIsOpen(false);
   };
+  
+  
 
   const handleDelete = () => {
-    onDelete(editedValues);
+    onDelete({
+      itemName: editedValues.itemName ?? "",  
+      category: editedValues.category ?? "",  
+      specialNotes: editedValues.specialNotes ?? "",  
+      estimatedCost: editedValues.estimatedCost ?? 0,  
+      paidAmount: editedValues.paidAmount ?? 0,
+      isPaidInFull: editedValues.estimatedCost === editedValues.paidAmount, // Ensure isPaidInFull is always included
+    });
   };
-
+  
+  
   return (
     <div className="border rounded-lg bg-white shadow-sm">
       <div
