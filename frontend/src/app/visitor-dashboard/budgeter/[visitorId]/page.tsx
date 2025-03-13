@@ -10,7 +10,6 @@ import CreateBudgetTool from '@/components/visitor-dashboard/budgeter/CreateBudg
 import { BudgetItemData } from '@/types/budgeterTypes';
 
 const BudgeterPage = () => {
-  const params = useParams();
   const { visitorId } = useParams() as { visitorId: string };
 
 
