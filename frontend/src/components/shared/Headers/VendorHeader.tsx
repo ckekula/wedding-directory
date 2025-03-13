@@ -73,7 +73,7 @@ const VendorHeader = () => {
             {/* Profile dropdown */}
             <div className="relative" ref={profileMenuRef}>
               <Image
-                src="/images/profilePic.webp"
+                src="/images/visitorPlaceholder.png"
                 alt="vendor-profile-image"
                 className="rounded-full cursor-pointer"
                 width={50}
