@@ -39,13 +39,14 @@ const VendorDashBoardSettings = () => {
     <div className="flex flex-col">
       <Header />
       <div className="bg-lightYellow flex-grow">
-        <h1 className="font-title text-[36px] text-black text-center my-4">
-          Settings
-        </h1>
-        {/* Vendor Banner */}
-        <VendorBanner businessName={vendorInfo?.busname} />
 
-        <div className="container mx-auto flex space-x-10 mt-4">
+        {/* Vendor Banner */}
+        <div className="container mx-auto px-4 py-6">
+          <VendorBanner vendor={vendorInfo} />
+        </div>
+        
+
+        <div className="container mx-auto flex px-4 py-6 gap-6">
           {/* Sidebar */}
           <div className="w-1/4">
             <SettingsMenu setActiveSection={setActiveSection} />

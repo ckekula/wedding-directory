@@ -1,33 +1,45 @@
-"use client";
-import Image from "next/image";
-import React from "react";
-import { FiHome } from "react-icons/fi";
-interface VendorBannerProps {
-  businessName: string;
-}
-const VendorBanner: React.FC<VendorBannerProps> = ({ businessName }) => {
-  return (
-    <div className="container relative w-screen h-[305px]">
-      {/* Banner image */}
-      <Image
-        src='/images/banner.webp'
-        alt="vendor banner dashboard image"
-        fill={true}
-        style={{ objectFit: "cover" }}
-        className="w-screen h-[305px] rounded-xl"
-      />
+import React from 'react'
+import Image from 'next/image'
 
-      {/* Business name div */}
-      <div className="absolute bottom-4 left-4 bg-white text-black py-2 px-4 rounded-xl flex items-center">
-        <FiHome
-          className="mr-2 font-bold"
-          size={20}
-          style={{ strokeWidth: 2.5 }}
+interface vendorProps {
+  vendor: {
+    profilePic: string,
+    fname: string,
+    lname: string,
+    city: string,
+    phone: string,
+    email: string,
+  }
+}
+
+const VendorBanner = ({vendor}: vendorProps) => {
+  return (
+    <div className='bg-white w-full h-[200px] rounded-2xl shadow-md flex flex-row items-center justify-between px-10'>
+      <div>
+        <Image
+          src={vendor?.profilePic || '/images/visitorPlaceholder.png'}
+          alt='vendor banner'
+          width={150}
+          height={150}
+          className='rounded-full'
         />
-        <p className="font-bold font-title text-[20px]">{businessName}</p>
+
+      </div>
+      <div>
+        <p className='text-2xl'>Good Morning/Evening!</p>
+        <p className='text-4xl'>{vendor?.fname} {vendor?.lname}</p>
+       
+
+      </div>
+      <div>
+        <button className='bg-orange text-white px-4 py-2 rounded-lg'>Edit Profile</button>
+        <p>{vendor?.city}</p>
+        <p>{vendor?.phone}</p>
+        <p>{vendor?.email}</p>
+
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default VendorBanner;
+export default VendorBanner
