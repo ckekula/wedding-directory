@@ -16,3 +16,14 @@ export interface AccountData {
     password: string;
     rePassword: string;
 }
+
+export interface VendorProps {
+  vendor: {
+    profilePic: string,
+    fname: string,
+    lname: string,
+    city: string,
+    phone: string,
+    email: string,
+  }
+}

@@ -1,20 +1,27 @@
 import React from 'react'
 import Image from 'next/image'
+import { VendorProps } from '@/types/vendorTypes'
+import Link from 'next/link'
+import { FiEdit } from 'react-icons/fi'
+import { FaEnvelope } from "react-icons/fa";
+import { FaPhoneAlt } from "react-icons/fa";
+import { FaLocationDot } from "react-icons/fa6";
 
-interface vendorProps {
-  vendor: {
-    profilePic: string,
-    fname: string,
-    lname: string,
-    city: string,
-    phone: string,
-    email: string,
-  }
-}
+const VendorBanner = ({ vendor }: VendorProps) => {
+  const getGreeting = () => {
+    const hour = new Date().getHours();
+    if (hour < 12) return "Good morning";
+    if (hour < 15) return "Good afternoon";
+    return "Good evening";
+  };
 
-const VendorBanner = ({vendor}: vendorProps) => {
   return (
-    <div className='bg-white w-full h-[200px] rounded-2xl shadow-md flex flex-row items-center justify-between px-10'>
+    <div className='relative bg-white w-full h-[200px] rounded-2xl shadow-md flex flex-row items-center justify-between px-10'>
+      {/* Edit button positioned at the top right */}
+      <Link href="/vendor-dashboard/settings" className="absolute top-4 right-4">
+        <FiEdit className="text-2xl text-orange hover:text-black cursor-pointer" />
+      </Link>
+
       <div>
         <Image
           src={vendor?.profilePic || '/images/visitorPlaceholder.png'}
@@ -23,20 +30,23 @@ const VendorBanner = ({vendor}: vendorProps) => {
           height={150}
           className='rounded-full'
         />
-
       </div>
-      <div>
-        <p className='text-2xl'>Good Morning/Evening!</p>
+
+      <div className='text-center'>
+        <p className='text-2xl'>{getGreeting()}!</p>
         <p className='text-4xl'>{vendor?.fname} {vendor?.lname}</p>
-       
-
       </div>
-      <div>
-        <button className='bg-orange text-white px-4 py-2 rounded-lg'>Edit Profile</button>
-        <p>{vendor?.city}</p>
-        <p>{vendor?.phone}</p>
-        <p>{vendor?.email}</p>
 
+      <div className='text-left'>
+        <div className='flex flex-row gap-2 py-1'>
+          <FaLocationDot /><p>{vendor?.city}</p>
+        </div>
+        <div className='flex flex-row gap-2 py-1'>
+          <FaPhoneAlt /><p>{vendor?.phone}</p>
+        </div>
+        <div className='flex flex-row gap-2 py-1'>
+          <FaEnvelope /><p>{vendor?.email}</p>
+        </div>
       </div>
     </div>
   )

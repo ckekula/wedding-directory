@@ -55,7 +55,7 @@ const GeneralHeader = () => {
           {/* Logo Column */}
           <div className="flex justify-center items-center">
             <Link href="/">
-              <h1 className="text-2xl font-bold text-black font-title mx-2 whitespace-nowrap">
+              <h1 className="text-2xl font-bold text-black font-title whitespace-nowrap">
                 Say I Do
               </h1>
             </Link>
@@ -108,6 +108,7 @@ const GeneralHeader = () => {
               {[
                 { name: "home", path: "/" },
                 { name: "about", path: "/about" },
+                { name: "vendors", path: "/vendor-search" },
                 { name: "contact", path: "/contact" },
                 { name: "help", path: "/help" },
               ].map((link, index) => {

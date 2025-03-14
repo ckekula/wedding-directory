@@ -91,7 +91,7 @@ const Signup = () => {
       });
 
       if (response.data) {
-        toast.success('Vendor created successfully!', {
+        toast.success('Account created successfully!', {
           style: { background: '#333', color: '#fff' },
         });
 
