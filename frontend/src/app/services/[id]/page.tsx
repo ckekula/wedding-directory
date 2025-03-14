@@ -62,15 +62,16 @@ const Service: React.FC = () => {
   const offering = data?.findOfferingById;
   const isVendorsOffering = offering?.vendor.id === vendor?.id;
 
-  const portfolioImages = offering.photo_showcase || [
-    "/images/photography.webp",
-    "/images/photography.webp",
-    "/images/photography.webp",
-    "/images/photography.webp",
-    "/images/photography.webp",
-    "/images/photography.webp",
+  const portfolioImages = offering.banner + offering.photo_showcase || [
+    "/images/offeringPlaceholder.webp",
+    "/images/onBoard1.webp",
+    "/images/onBoard2.webp",
+    "/images/venue.webp",
+    "/images/onBoard3.webp",
+    "/images/offeringPlaceholder.webp",
+    "/images/offeringPlaceholder.webp",
+    "/images/offeringPlaceholder.webp",
   ];
-  //const video = service.video_showcase;
 
   const handleHeartClick = async () => {
     if (!visitor) {
@@ -128,7 +129,7 @@ const Service: React.FC = () => {
       }
     } catch (error) {
       console.error("Error saving to myVendors:", error);
-      toast.error("An error occurred");
+      toast.error("Couldn't save to your favorites");
     }
   };
 
@@ -144,31 +145,32 @@ const Service: React.FC = () => {
         </Link>
 
         {/* Portfolio Image Section */}
-        <div>
-          <section>
-            <div className="container mx-auto p-4">
-              {/* Photo Showcase */}
-              <div className="mb-8">
-                <div className="columns-2 sm:columns-3 lg:columns-4 gap-4">
-                  {portfolioImages.map((photo: string, index: number) => (
-                    <div
-                      key={index}
-                      className="break-inside-avoid overflow-hidden rounded-lg mb-4"
-                    >
-                      <Image
-                        src={photo}
-                        alt={`Portfolio image ${index + 1}`}
-                        className="w-full h-auto object-cover"
-                        layout="responsive"
-                        width={500}
-                        height={500}
-                      />
-                    </div>
-                  ))}
-                </div>
+        <div className="w-full max-w-7xl mx-auto overflow-hidden">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[50px] sm:auto-rows-[100px] lg:auto-rows-[200px]">
+            {/* Banner Image (Spanning Full Height) */}
+            {portfolioImages.length > 0 && (
+              <div className="relative w-full h-full row-span-2 sm:row-span-2 lg:row-span-2 col-span-2 sm:col-span-2 lg:col-span-2 overflow-hidden rounded-lg">
+                <Image
+                  src={portfolioImages[0]} // Banner Image
+                  alt="Banner Image"
+                  className="w-full h-full object-cover"
+                  layout="fill"
+                />
               </div>
-            </div>
-          </section>
+            )}
+
+            {/* Other 4 Photos (Filling Remaining Space) */}
+            {portfolioImages.slice(1, 5).map((photo: string, index: number) => (
+              <div key={index} className="relative w-full overflow-hidden rounded-lg">
+                <Image
+                  src={photo}
+                  alt={`Portfolio image ${index + 1}`}
+                  className="w-full h-full object-cover"
+                  layout="fill"
+                />
+              </div>
+            ))}
+          </div>
         </div>
 
         <div className="flex flex-row gap-x-5">
@@ -185,7 +187,7 @@ const Service: React.FC = () => {
                     <div className="flex flex-row justify-center items-center">
                       {isVendorsOffering ? (
                         <Link href={`/services/edit/${offering?.id}`}>
-                          <FiEdit className="text-2xl text-orange hover:text-black" />
+                          <FiEdit className="text-2xl text-orange hover:text-black ml-1" />
                         </Link>
                       ) : (
                         <button onClick={handleHeartClick}>
@@ -199,8 +201,8 @@ const Service: React.FC = () => {
                     </div>
                   </div>
                   <div>{offering?.vendor.city}</div>
-                  <SocialIcons offering={offering} />
                 </div>
+                <SocialIcons offering={offering} />
               </div>
             </div>
 
@@ -256,12 +258,10 @@ const Service: React.FC = () => {
             </div>
           </div>
 
-          <div className="w-1/4">
-            
-              
+          <div className="w-1/4 sticky top-20">
               <QuoteRequestWidget vendorId={offering?.vendor.id} />
-            
           </div>
+
         </div>
       </div>
     </div>

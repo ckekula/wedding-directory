@@ -84,6 +84,7 @@ const VisitorHeader = () => {
           <div className="flex items-center justify-end gap-8 text-xl font-title text-text">
             
             <Link href="/visitor-dashboard">Dashboard</Link>
+            <Link href="/vendor-search">Vendors</Link>
             <Link href="/help">Help</Link>
             <Link href="/notifications">
               <IoIosNotificationsOutline className="w-[36px] h-[36px]" />
