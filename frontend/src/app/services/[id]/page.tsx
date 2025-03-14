@@ -62,7 +62,13 @@ const Service: React.FC = () => {
   const offering = data?.findOfferingById;
   const isVendorsOffering = offering?.vendor.id === vendor?.id;
 
-  const portfolioImages = offering.banner + offering.photo_showcase || [
+  const portfolioImages = Array.isArray(offering.banner) ? offering.banner : [] 
+  .concat(Array.isArray(offering.photo_showcase) ? offering.photo_showcase : [])
+  .length > 0 ? 
+  (Array.isArray(offering.banner) ? offering.banner : []).concat(
+    Array.isArray(offering.photo_showcase) ? offering.photo_showcase : []
+  ) :
+  [
     "/images/offeringPlaceholder.webp",
     "/images/onBoard1.webp",
     "/images/onBoard2.webp",
@@ -72,6 +78,7 @@ const Service: React.FC = () => {
     "/images/offeringPlaceholder.webp",
     "/images/offeringPlaceholder.webp",
   ];
+
 
   const handleHeartClick = async () => {
     if (!visitor) {
@@ -146,7 +153,7 @@ const Service: React.FC = () => {
 
         {/* Portfolio Image Section */}
         <div className="w-full max-w-7xl mx-auto overflow-hidden">
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[50px] sm:auto-rows-[100px] lg:auto-rows-[200px]">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[50px] sm:auto-rows-[100px] lg:auto-rows-[200px] pb-4">
             {/* Banner Image (Spanning Full Height) */}
             {portfolioImages.length > 0 && (
               <div className="relative w-full h-full row-span-2 sm:row-span-2 lg:row-span-2 col-span-2 sm:col-span-2 lg:col-span-2 overflow-hidden rounded-lg">
@@ -170,6 +177,7 @@ const Service: React.FC = () => {
                 />
               </div>
             ))}
+
           </div>
         </div>
 
