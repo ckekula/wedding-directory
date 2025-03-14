@@ -63,7 +63,8 @@ const GoogleMapComponent: React.FC<GoogleMapComponentProps> = ({ serviceId }) =>
         );
 
         if (response.data.results.length === 0) {
-          setError("Location not found");
+          // setError("Location not found");
+          console.error(response);
           return;
         }
 

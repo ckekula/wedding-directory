@@ -1,5 +1,4 @@
 "use client"
-
 import { useQuery } from '@apollo/client';
 import { GET_BUDGET_TOOL } from '@/graphql/queries';
 import { useParams } from 'next/navigation';
@@ -12,6 +11,7 @@ import { BudgetItemData } from '@/types/budgeterTypes';
 
 const BudgeterPage = () => {
   const { visitorId } = useParams() as { visitorId: string };
+
 
   const { data, loading, error } = useQuery(GET_BUDGET_TOOL, {
     variables: { visitorId },

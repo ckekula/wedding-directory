@@ -11,7 +11,7 @@ import { GET_VISITOR_BY_ID } from "@/graphql/queries";
 
 const VisitorHeader = () => {
   const { visitor, logout } = useAuth();
-  const [profilePic, setProfilePic] = useState<string>("/images/profilePic.webp"); // Default placeholder
+  const [profilePic, setProfilePic] = useState<string>("/images/visitorPlaceholder.png"); // Default placeholder
   const [showProfileMenu, setShowProfileMenu] = useState(false);
   const profileMenuRef = useRef<HTMLDivElement>(null);
 
@@ -84,6 +84,7 @@ const VisitorHeader = () => {
           <div className="flex items-center justify-end gap-8 text-xl font-title text-text">
             
             <Link href="/visitor-dashboard">Dashboard</Link>
+            <Link href="/vendor-search">Vendors</Link>
             <Link href="/help">Help</Link>
             <Link href="/notifications">
               <IoIosNotificationsOutline className="w-[36px] h-[36px]" />

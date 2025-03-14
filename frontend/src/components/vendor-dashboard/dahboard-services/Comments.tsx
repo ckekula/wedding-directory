@@ -15,7 +15,7 @@ interface Review {
   comment: string;
   createdAt: string;
   visitor: {
-    name: string;
+    visitor_fname: string;
   };
 }
 
@@ -28,32 +28,34 @@ const Comments: React.FC<CommentsProps> = ({ serviceId }) => {
   const [showAll, setShowAll] = useState(false);
 
   if (reviewsLoading) return <LoaderHelix />;
-  if (reviewsError) return <div>Error fetching reviews</div>;
+  if (reviewsError) return <div>Error fetching reviews: {reviewsError.message}</div>;
 
   const reviewData = rdata?.findReviewsByOffering || [];
   const displayedReviews = showAll ? reviewData : reviewData.slice(0, 3);
 
   return (
-    <div className="font-body">
-      
-      
+    <div className="font-body" role="list" aria-live="polite">
       {displayedReviews.map((review: Review) => (
-        <div key={review.id} className="ml-2 mb-4">
+        <div key={review.id} role="listitem" className="ml-2 mb-4">
           <hr className="border-t border-gray-300 my-4" />
           <div className="flex flex-row text-xl text-yellow-400 my-2 items-center">
             {/* Render star ratings */}
             {[...Array(5)].map((_, index) =>
               index < review.rating ? (
-                <FaStar key={index} />
+                <FaStar key={`${review.id}-${index}`} />
               ) : (
-                <FaRegStar key={index} />
+                <FaRegStar key={`${review.id}-${index}`} />
               )
             )}
             {/* Visitor name and date */}
             <div className="flex items-center ml-2">
-              <span className="text-black text-lg">{review.visitor?.name || "User"}</span>
+              <span className="text-black text-lg">{review.visitor?.visitor_fname ?? "User"}</span>
               <span className="text-sm text-gray-500 ml-2">
-                {new Date(review.createdAt).toLocaleDateString()}
+                {new Date(review.createdAt).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
+                })}
               </span>
             </div>
           </div>

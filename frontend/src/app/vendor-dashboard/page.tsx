@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "@/components/shared/Headers/Header";
 import VendorBanner from "@/components/vendor-dashboard/VendorBanner";
 import OfferingCard from "@/components/vendor-search/OfferingCard";
@@ -14,9 +14,13 @@ import { Button } from "@/components/ui/button";
 import LoaderJelly from "@/components/shared/Loaders/LoaderJelly";
 import { Service } from "@/types/serviceTypes";
 import { FiEdit } from "react-icons/fi";
+import QuickActions from "@/components/vendor-dashboard/QuickActions";
+import ToDo from "@/components/vendor-dashboard/ToDo";
 
 const VendorDashBoard: React.FC = () => {
   const { vendor } = useVendorAuth();
+  const [services, setServices] = useState<Service[]>([]);
+
   const {
     data: vendorData,
     loading: vendorLoading,
@@ -26,7 +30,6 @@ const VendorDashBoard: React.FC = () => {
     skip: !vendor?.id,
   });
 
-  // Query to get services by vendor
   const {
     data: servicesData,
     loading: servicesLoading,
@@ -35,6 +38,13 @@ const VendorDashBoard: React.FC = () => {
     variables: { id: vendor?.id },
     skip: !vendor?.id,
   });
+
+  // Update services state when servicesData changes
+  useEffect(() => {
+    if (servicesData?.findOfferingsByVendor) {
+      setServices(servicesData.findOfferingsByVendor);
+    }
+  }, [servicesData]);
 
   if (vendorLoading || servicesLoading)
     return (
@@ -49,94 +59,65 @@ const VendorDashBoard: React.FC = () => {
     return <p>Error loading services: {servicesError.message}</p>;
 
   const vendorInfo = vendorData?.findVendorById;
-  const services: Service[] = servicesData?.findOfferingsByVendor || [];
 
   return (
-    <div>
+    <div className="bg-lightYellow">
       <Header />
 
-      <div className="bg-lightYellow">
-        <div className="container mx-auto px-4">
-          <h1 className="font-title text-[36px] text-black text-center py-4">
-            Welcome
-          </h1>
+      <div className="container mx-auto px-4 py-6">
+        <VendorBanner vendor={vendorInfo} />
 
-          {/* Vendor Banner */}
-          <VendorBanner businessName={vendorInfo?.busname} />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+          <QuickActions />
+          <ToDo />
+        </div>
 
-          {/* City, Member Since, Rating */}
-          <div className="bg-white mt-4 rounded-lg shadow-lg flex items-center justify-center container">
-            <div className="grid grid-cols-3 text-center gap-16 my-10">
-              <div className="flex flex-col justify-center items-center">
-                <p className="text-lg mb-2">City</p>
-                <p className="font-bold text-primary text-2xl">{vendorInfo?.city}</p>
-              </div>
-              <div className="flex flex-col justify-center items-center">
-                <p className="text-lg mb-2">Member Since</p>
-                <p className="font-bold text-primary text-2xl">
-                  {new Date(vendorInfo?.createdAt).getFullYear()}
-                </p>
-              </div>
-              <div className="flex flex-col justify-center items-center">
-                <p className="text-lg mb-2">Rating</p>
-                <p className="text-2xl font-bold text-primary ">4.8/5</p>
-              </div>
-            </div>
+        {/* About Section */}
+        <div className="flex items-center mt-8 mb-8">
+          <div className="text-2xl font-bold">About {vendorInfo?.busname}</div>
+          <Link href="/vendor-dashboard/settings">
+            <FiEdit className="text-2xl text-orange hover:text-black ml-4 cursor-pointer" />
+          </Link>
+        </div>
+        <p className="font-body text-[16px]">
+          {vendorInfo?.about || "About section not available"}
+        </p>
+
+        <hr className="border-t border-gray-300 my-4" />
+
+        {/* Services Section */}
+        <div className="flex flex-row mt-8">
+          <div className="w-5/6 text-2xl font-bold mb-8">
+            Services by {vendorInfo?.busname}
           </div>
-
-          {/* About Section */}
-          <div className="flex items-center mt-8 mb-8">
-            <div className="text-2xl font-bold">
-              About {vendorInfo?.busname}
-            </div>
-            <Link href="/vendor-dashboard/settings">
-              <FiEdit className="text-2xl text-orange hover:text-black ml-4 cursor-pointer" />
+          <div className="w-1/6 ml-10">
+            <Link href="/vendor-dashboard/new-service" className="flex items-center">
+              <Button variant="signup">
+                <MdAdd className="mr-2" size={25} />
+                Add new Service
+              </Button>
             </Link>
           </div>
-          <p className="font-body text-[16px]">
-            {vendorInfo?.about || "About section not available"}
-          </p>
-
-          <hr className="border-t border-gray-300 my-4" />
-
-          {/* Services Section */}
-          <div className="flex flex-row mt-8">
-            <div className="w-5/6 text-2xl font-bold mb-8">
-              Services by {vendorInfo?.busname}
-            </div>
-            <div className="w-1/6 ml-10">
-              <Link
-                href="/vendor-dashboard/new-service"
-                className="flex items-center"
-              >
-                <Button variant="signup">
-                  <MdAdd className="mr-2" size={25} />
-                  Add new Service
-                </Button>
-              </Link>
-            </div>
-          </div>
-
-          {services.length > 0 ? (
-            <div className="grid grid-cols-3 gap-6 overflow-x-auto">
-              {services.map((service: Service) => (
-                <OfferingCard
-                  key={service.id}
-                  vendor={service.vendor?.busname || "Unknown"}
-                  name={service.name}
-                  city={service.vendor?.city || "Unknown"}
-                  rating="4.8/5 (180)"
-                  banner={"/images/banner.webp"}
-                  buttonText="View details"
-                  link={`/services/${service.id}`}
-                />
-              ))}
-            </div>
-          ) : (
-            <div className="my-4 text-2xl">No Services found</div>
-          )}
-
         </div>
+
+        {services.length > 0 ? (
+          <div className="grid grid-cols-3 gap-6 overflow-x-auto">
+            {services.map((service: Service) => (
+              <OfferingCard
+                key={service?.id}
+                vendor={service.vendor?.busname || "Unknown"}
+                name={service?.name}
+                city={service.vendor?.city || "Unknown"}
+                rating="4.8/5 (180)"
+                banner={service.banner || "/images/offeringPlaceholder.webp"}
+                buttonText="View details"
+                link={`/services/${service.id}`}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="my-4 text-2xl">No Services found</div>
+        )}
       </div>
       <Footer />
     </div>

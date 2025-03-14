@@ -22,20 +22,24 @@ export const AUTOCOMPLETE_QUERY = gql`
 `;
 
 export const FIND_SERVICES = gql`
-  query FindOfferings($filter: OfferingFilterInput) {
-    findOfferings(filter: $filter) {
-      id
-      name
-      vendor {
-        id
-        busname
-        city
-      }
-      category
-      description
-      banner
+    query GetFilteredOfferings($filter: OfferingFilterInput) {
+        findOfferings(filter: $filter) {
+            id
+            name
+            category
+            visible
+            bus_phone
+            bus_email
+            description
+            banner
+            vendor {
+                id
+                busname
+                city
+                phone
+            }
+        }
     }
-  }
 `;
 
 export const FIND_SERVICE_BY_ID = gql`
@@ -85,6 +89,7 @@ export const FIND_SERVICES_BY_VENDOR = gql`
       name
       category
       description
+      banner
       vendor {
         id
         busname
@@ -116,11 +121,8 @@ export const GET_VENDOR_BY_ID = gql`
     findVendorById(id: $id) {
       id
       email
-      password
       fname
       lname
-      location
-      about
       busname
       phone
       city
@@ -268,6 +270,9 @@ export const FIND_REVIEW_BY_SERVICE = gql`
       createdAt
       offering {
         id
+      }
+      visitor {
+        visitor_fname
       }
     }
   }

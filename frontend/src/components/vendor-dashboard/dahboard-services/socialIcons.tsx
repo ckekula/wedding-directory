@@ -7,7 +7,7 @@ import { SocialTypes } from '@/types/offeringTypes';
 const SocialIcons = ({offering}: { offering: SocialTypes }) => {
   return (
     
-        <div className=' flex flex-row text-2xl items-center justify-end gap-x-4 container'>
+        <div className='flex flex-row text-2xl items-center justify-end gap-x-4'>
             <div
                 onClick={() => {
                     if(offering?.website) {

@@ -59,6 +59,7 @@ const VendorHeader = () => {
           <div className="flex-1 flex justify-center items-center gap-8 text-xl font-title text-text">
             <Link href="/vendor-dashboard">Dashboard</Link>
             <Link href="/vendor-dashboard/analytics">Analytics</Link>
+            <Link href="/vendor-search">Vendors</Link>
             <Link href="/vendor-dashboard/settings">Settings</Link>
             <Link href="/help">Help</Link>
           </div>
@@ -73,7 +74,7 @@ const VendorHeader = () => {
             {/* Profile dropdown */}
             <div className="relative" ref={profileMenuRef}>
               <Image
-                src="/images/profilePic.webp"
+                src="/images/visitorPlaceholder.png"
                 alt="vendor-profile-image"
                 className="rounded-full cursor-pointer"
                 width={50}
