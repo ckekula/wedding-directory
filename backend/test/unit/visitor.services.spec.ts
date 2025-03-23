@@ -1,37 +1,27 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { VisitorService } from '../../src/modules/visitor/visitor.service';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { VisitorEntity } from '../../src/database/entities/visitor.entity';
-import { Repository } from 'typeorm';
-import * as bcrypt from 'bcryptjs';
-import { CreateVisitorInput } from '../../src/graphql/inputs/createVisitor.input';
-import { UpdateVisitorInput } from '../../src/graphql/inputs/updateVisitor.input';
+import { VisitorService } from 'src/modules/visitor/visitor.service';
+import { VisitorEntity } from 'src/database/entities/visitor.entity';
+import { CreateVisitorInput } from 'src/graphql/inputs/createVisitor.input';
+import { UpdateVisitorInput } from 'src/graphql/inputs/updateVisitor.input';
+
+// Mock the VisitorEntity repository
+const mockVisitorRepository = {
+  create: jest.fn(),
+  save: jest.fn(),
+  find: jest.fn(),
+  findOne: jest.fn(),
+  delete: jest.fn(),
+  update: jest.fn(),
+};
+
+// Mock bcrypt.hashSync to return a consistent hash
+jest.mock('bcryptjs', () => ({
+  hashSync: jest.fn().mockReturnValue('hashedpassword'),
+}));
 
 describe('VisitorService', () => {
   let service: VisitorService;
-  let repository: Repository<VisitorEntity>;
-
-  const mockVisitor: VisitorEntity = {
-    id: '1',
-    email: 'test@example.com',
-    password: 'hashedpassword',
-    visitor_fname: 'John',
-    visitor_lname: 'Doe',
-    partner_fname: null,
-    partner_lname: null,
-    engaged_date: null,
-    wed_date: null,
-    wed_venue: null,
-    phone: null,
-    city: null,
-    createdAt: new Date(),
-    updatedAt: new Date(),
-    reviews: [],
-    myVendors: [],
-    guestlist: [],
-    checklists: [],
-    profile_pic_url: null,
-  };
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -39,60 +29,188 @@ describe('VisitorService', () => {
         VisitorService,
         {
           provide: getRepositoryToken(VisitorEntity),
-          useClass: Repository,
+          useValue: mockVisitorRepository,
         },
       ],
     }).compile();
 
     service = module.get<VisitorService>(VisitorService);
-    repository = module.get<Repository<VisitorEntity>>(
-      getRepositoryToken(VisitorEntity),
-    );
   });
 
-  it('should be defined', () => {
-    expect(service).toBeDefined();
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
-  it('should create a visitor', async () => {
-    const createInput: CreateVisitorInput = {
-      email: 'test@example.com',
-      password: 'plainpassword',
-    };
-    jest.spyOn(bcrypt, 'hashSync').mockReturnValue('hashedpassword');
-    jest.spyOn(repository, 'create').mockReturnValue(mockVisitor);
-    jest.spyOn(repository, 'save').mockResolvedValue(mockVisitor);
+  describe('create', () => {
+    it('should create and return a visitor', async () => {
+      const createVisitorInput: CreateVisitorInput = {
+        email: 'test@example.com',
+        password: 'password',
+        visitor_fname: 'John',
+        visitor_lname: 'Doe',
+        partner_fname: 'Jane',
+        partner_lname: 'Doe',
+        engaged_date: '2023-01-01',
+        wed_date: '2024-01-01',
+        wed_venue: 'Test Venue',
+        phone: '1234567890',
+        city: 'Test City',
+      };
 
-    const result = await service.create(createInput);
-    expect(result).toEqual(mockVisitor);
-    expect(bcrypt.hashSync).toHaveBeenCalledWith('plainpassword', 12);
+      const visitor = {
+        id: '1',
+        ...createVisitorInput,
+        password: 'hashedpassword', // Use the mocked hash value
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      } as VisitorEntity;
+
+      mockVisitorRepository.create.mockReturnValue(visitor);
+      mockVisitorRepository.save.mockResolvedValue(visitor);
+
+      const result = await service.create(createVisitorInput);
+
+      expect(result).toEqual(visitor);
+      expect(mockVisitorRepository.create).toHaveBeenCalledWith({
+        ...createVisitorInput,
+        password: 'hashedpassword', // Use the mocked hash value
+      });
+      expect(mockVisitorRepository.save).toHaveBeenCalledWith(visitor);
+    });
   });
 
-  it('should find all visitors', async () => {
-    jest.spyOn(repository, 'find').mockResolvedValue([mockVisitor]);
-    const result = await service.findAllVisitors();
-    expect(result).toEqual([mockVisitor]);
+  describe('updateVisitor', () => {
+    it('should update and return a visitor', async () => {
+      const id = '1';
+      const updateVisitorInput: UpdateVisitorInput = {
+        email: 'updated@example.com',
+        password: 'newpassword',
+        visitor_fname: 'Updated John',
+        visitor_lname: 'Updated Doe',
+        partner_fname: 'Updated Jane',
+        partner_lname: 'Updated Doe',
+        engaged_date: '2023-02-01',
+        wed_date: '2024-02-01',
+        wed_venue: 'Updated Venue',
+        phone: '0987654321',
+        city: 'Updated City',
+      };
+
+      const visitor = {
+        id,
+        ...updateVisitorInput,
+        password: 'hashedpassword', // Use the mocked hash value
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      } as VisitorEntity;
+
+      mockVisitorRepository.update.mockResolvedValue({ affected: 1 });
+      mockVisitorRepository.findOne.mockResolvedValue(visitor);
+
+      const result = await service.updateVisitor(id, updateVisitorInput);
+
+      expect(result).toEqual(visitor);
+      expect(mockVisitorRepository.update).toHaveBeenCalledWith(id, {
+        ...updateVisitorInput,
+        password: 'hashedpassword', // Use the mocked hash value
+      });
+      expect(mockVisitorRepository.findOne).toHaveBeenCalledWith({
+        where: { id },
+      });
+    });
   });
 
-  it('should find a visitor by ID', async () => {
-    jest.spyOn(repository, 'findOne').mockResolvedValue(mockVisitor);
-    const result = await service.findVisitorById('1');
-    expect(result).toEqual(mockVisitor);
+  describe('findAllVisitors', () => {
+    it('should return all visitors', async () => {
+      const visitors = [
+        { id: '1', email: 'test1@example.com' },
+        { id: '2', email: 'test2@example.com' },
+      ] as VisitorEntity[];
+
+      mockVisitorRepository.find.mockResolvedValue(visitors);
+
+      const result = await service.findAllVisitors();
+
+      expect(result).toEqual(visitors);
+      expect(mockVisitorRepository.find).toHaveBeenCalled();
+    });
   });
 
-  it('should update a visitor', async () => {
-    const updateInput: UpdateVisitorInput = { email: 'updated@example.com' };
-    jest.spyOn(repository, 'update').mockResolvedValue(undefined);
-    jest
-      .spyOn(repository, 'findOne')
-      .mockResolvedValue({ ...mockVisitor, ...updateInput });
+  describe('findVisitorById', () => {
+    it('should return a visitor by ID', async () => {
+      const id = '1';
+      const visitor = { id, email: 'test@example.com' } as VisitorEntity;
 
-    const result = await service.updateVisitor('1', updateInput);
-    expect(result.email).toBe('updated@example.com');
+      mockVisitorRepository.findOne.mockResolvedValue(visitor);
+
+      const result = await service.findVisitorById(id);
+
+      expect(result).toEqual(visitor);
+      expect(mockVisitorRepository.findOne).toHaveBeenCalledWith({
+        where: { id },
+      });
+    });
   });
 
-  it('should remove a visitor', async () => {
-    jest.spyOn(repository, 'delete').mockResolvedValue(undefined);
-    await expect(service.remove('1')).resolves.toBeUndefined();
+  describe('remove', () => {
+    it('should delete a visitor', async () => {
+      const id = '1';
+
+      mockVisitorRepository.delete.mockResolvedValue({ affected: 1 });
+
+      await service.remove(id);
+
+      expect(mockVisitorRepository.delete).toHaveBeenCalledWith(id);
+    });
+  });
+
+  describe('getVisitorByEmail', () => {
+    it('should return a visitor by email', async () => {
+      const email = 'test@example.com';
+      const visitor = { id: '1', email } as VisitorEntity;
+
+      mockVisitorRepository.findOne.mockResolvedValue(visitor);
+
+      const result = await service.getVisitorByEmail(email);
+
+      expect(result).toEqual(visitor);
+      expect(mockVisitorRepository.findOne).toHaveBeenCalledWith({
+        where: { email },
+      });
+    });
+  });
+
+  describe('updateProfilePicture', () => {
+    it('should update the profile picture and return the visitor', async () => {
+      const visitorId = '1';
+      const fileUrl = 'profile.jpg';
+      const visitor = {
+        id: visitorId,
+        email: 'test@example.com',
+        profile_pic_url: fileUrl,
+      } as VisitorEntity;
+
+      mockVisitorRepository.findOne.mockResolvedValue(visitor);
+      mockVisitorRepository.save.mockResolvedValue(visitor);
+
+      const result = await service.updateProfilePicture(visitorId, fileUrl);
+
+      expect(result).toEqual(visitor);
+      expect(mockVisitorRepository.findOne).toHaveBeenCalledWith({
+        where: { id: visitorId },
+      });
+      expect(mockVisitorRepository.save).toHaveBeenCalledWith(visitor);
+    });
+
+    it('should throw an error if visitor is not found', async () => {
+      const visitorId = '1';
+      const fileUrl = 'profile.jpg';
+
+      mockVisitorRepository.findOne.mockResolvedValue(null);
+
+      await expect(
+        service.updateProfilePicture(visitorId, fileUrl),
+      ).rejects.toThrow('Visitor not found');
+    });
   });
 });

@@ -1,6 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { ChecklistService } from 'src/modules/checklist/checklist.service';
 import { ChecklistEntity } from 'src/database/entities/checklist.entity';
 import { CreateChecklistInput } from 'src/graphql/inputs/createChecklistInput';
@@ -51,7 +50,6 @@ const createChecklist = (): ChecklistEntity => ({
 
 describe('ChecklistService', () => {
   let service: ChecklistService;
-  let checklistRepository: Repository<ChecklistEntity>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -65,9 +63,8 @@ describe('ChecklistService', () => {
     }).compile();
 
     service = module.get<ChecklistService>(ChecklistService);
-    checklistRepository = module.get<Repository<ChecklistEntity>>(
-      getRepositoryToken(ChecklistEntity),
-    );
+
+    getRepositoryToken(ChecklistEntity);
   });
 
   afterEach(() => {
