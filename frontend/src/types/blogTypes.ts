@@ -26,3 +26,15 @@ export interface BlogPost {
 export interface BlogCardProps {
   post: BlogPost;
 }
+
+export interface BlogResponse {
+  data: BlogPost[];
+  meta: {
+    pagination: {
+      page: number;
+      pageSize: number;
+      pageCount: number;
+      total: number;
+    }
+  }
+}

@@ -1,17 +1,6 @@
 import request from '../../utils/request';
-import { BlogPost } from '../../components/blog/BlogCard';
 
-export interface BlogResponse {
-  data: BlogPost[];
-  meta: {
-    pagination: {
-      page: number;
-      pageSize: number;
-      pageCount: number;
-      total: number;
-    }
-  }
-}
+
 
 export const fetchBlogPosts = async (page = 1, pageSize = 10) => {
   try {
@@ -26,7 +15,7 @@ export const fetchBlogPosts = async (page = 1, pageSize = 10) => {
     
     return response.data;
   } catch (error) {
-    console.error('Failed to fetch blog posts:', error);
+    //console.error('Failed to fetch blog posts:', error);
     throw error;
   }
 };
@@ -45,7 +34,7 @@ export const fetchBlogPostBySlug = async (slug: string) => {
     }
     return null;
   } catch (error) {
-    console.error(`Failed to fetch blog post with slug ${slug}:`, error);
+    //console.error(`Failed to fetch blog post with slug ${slug}:`, error);
     throw error;
   }
 };

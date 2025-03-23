@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { fetchBlogPosts, BlogResponse } from "../../api/blog/blog.api";
+import { fetchBlogPosts } from "../../api/blog/blog.api";
+import { BlogResponse } from "../../types/blogTypes";
 import BlogCard from "../../components/blog/BlogCard";
 import useMediaQuery from "../../hooks/useMediaQuery";
 import Header from "@/components/shared/Headers/Header";
