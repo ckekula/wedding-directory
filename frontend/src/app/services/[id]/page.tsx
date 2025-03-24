@@ -9,17 +9,16 @@ import { FIND_MY_VENDOR_BY_ID, FIND_SERVICE_BY_ID } from "@/graphql/queries";
 import { useMutation, useQuery } from "@apollo/client";
 import SocialIcons from "@/components/vendor-dashboard/dahboard-services/socialIcons";
 import { FiEdit } from "react-icons/fi";
-import Reviews from "@/components/vendor-dashboard/dahboard-services/reviews";
+import Reviews from "@/components/vendor-dashboard/dahboard-services/reviews/Reviews";
 import { useVendorAuth } from "@/contexts/VendorAuthContext";
 import Link from "next/link";
 import LoaderQuantum from "@/components/shared/Loaders/LoaderQuantum";
-import Comments from "@/components/vendor-dashboard/dahboard-services/Comments";
-import WriteReview from "@/components/vendor-dashboard/dahboard-services/WriteReview";
+import Comments from "@/components/vendor-dashboard/dahboard-services/reviews/Comments";
+import WriteReview from "@/components/vendor-dashboard/dahboard-services/reviews/WriteReview";
 import { useAuth } from "@/contexts/VisitorAuthContext";
 import { ADD_TO_MY_VENDORS, REMOVE_FROM_MY_VENDORS } from "@/graphql/mutations";
 import toast from "react-hot-toast";
 import { FaHeart } from "react-icons/fa";
-// import Packages from "@/components/vendor-dashboard/dahboard-services/Packages";
 import QuoteRequestWidget from "@/components/chat/QuoteRequestWidget";
 import GoogleMapComponent from "@/components/vendor-dashboard/dahboard-services/Map";
 
@@ -62,23 +61,14 @@ const Service: React.FC = () => {
   const offering = data?.findOfferingById;
   const isVendorsOffering = offering?.vendor.id === vendor?.id;
 
-  const portfolioImages = Array.isArray(offering.banner) ? offering.banner : [] 
-  .concat(Array.isArray(offering.photo_showcase) ? offering.photo_showcase : [])
-  .length > 0 ? 
-  (Array.isArray(offering.banner) ? offering.banner : []).concat(
-    Array.isArray(offering.photo_showcase) ? offering.photo_showcase : []
-  ) :
-  [
-    "/images/offeringPlaceholder.webp",
+  const portfolioImages = [
+    offering?.banner || "/images/offeringPlaceholder.webp", 
+    ...(offering?.photo_showcase || []),
     "/images/onBoard1.webp",
     "/images/onBoard2.webp",
     "/images/venue.webp",
     "/images/onBoard3.webp",
-    "/images/offeringPlaceholder.webp",
-    "/images/offeringPlaceholder.webp",
-    "/images/offeringPlaceholder.webp",
   ];
-
 
   const handleHeartClick = async () => {
     if (!visitor) {
@@ -153,7 +143,7 @@ const Service: React.FC = () => {
 
         {/* Portfolio Image Section */}
         <div className="w-full max-w-7xl mx-auto overflow-hidden">
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[50px] sm:auto-rows-[100px] lg:auto-rows-[200px] pb-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[50px] sm:auto-rows-[100px] lg:auto-rows-[200px]">
             {/* Banner Image (Spanning Full Height) */}
             {portfolioImages.length > 0 && (
               <div className="relative w-full h-full row-span-2 sm:row-span-2 lg:row-span-2 col-span-2 sm:col-span-2 lg:col-span-2 overflow-hidden rounded-lg">
@@ -177,7 +167,6 @@ const Service: React.FC = () => {
                 />
               </div>
             ))}
-
           </div>
         </div>
 
