@@ -8,6 +8,12 @@ const nextConfig = {
                 port: '',
                 pathname: '/**', // all paths under this hostname are allowed
             },
+            {
+                protocol: 'http',
+                hostname: 'localhost',
+                port: '1337',
+                pathname: '/**', // all paths under this hostname are allowed
+            }
         ],
     },
     optimizeFonts: false,
