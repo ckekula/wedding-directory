@@ -133,7 +133,7 @@ const Service: React.FC = () => {
   return (
     <div className="bg-lightYellow font-body">
       <Header />
-      <div className="container mx-auto justify-center">
+      <div className="container mx-auto justify-center py-2">
         <Link href="/vendor-dashboard">
           <button className="text-black font-body hover:text-gray-500 mr-2">
             &larr;
@@ -141,6 +141,7 @@ const Service: React.FC = () => {
           back
         </Link>
 
+        
         {/* Portfolio Image Section */}
         <div className="w-full max-w-7xl mx-auto overflow-hidden">
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[50px] sm:auto-rows-[100px] lg:auto-rows-[200px]">

@@ -1,28 +1,28 @@
-services:
-  frontend:
-    build:
-      context: ./frontend
-      dockerfile: dockerfile
-    volumes:
-      - ./frontend:/app  # Bind mount the local frontend directory
-      - /app/node_modules # Ensure container's node_modules are used
-    command: npm run dev  # Use development mode
-    ports:
-      - 3000:3000
-    environment:
-      - NODE_ENV=development
+version: '3.8'
 
+services:
   backend:
     build:
       context: ./backend
-      dockerfile: dockerfile
-    volumes:
-      - ./backend:/app  # Bind mount the local backend directory
-      - /app/node_modules # Ensure container's node_modules are used
-    command: npm run start:dev  # Use development mode (for NestJS)
-    ports:
-      - 4000:4000
-    env_file:
-      - backend/.env
+      dockerfile: Dockerfile
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=production
+      - HOSTNAME=0.0.0.0
+    ports:
+      - "4000:4000"
+    restart: always
+    depends_on: []
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    environment:
+      - NODE_ENV=production
+      - HOSTNAME=0.0.0.0
+      - PORT=3000
+    ports:
+      - "3000:3000"
+    restart: always
+    depends_on:
+      - backend

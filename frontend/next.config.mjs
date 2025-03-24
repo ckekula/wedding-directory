@@ -1,4 +1,3 @@
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
@@ -18,6 +17,7 @@ const nextConfig = {
         ],
     },
     optimizeFonts: false,
+    output: "standalone",
 };
 
-export default nextConfig
+export default nextConfig;
