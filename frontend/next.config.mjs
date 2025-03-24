@@ -1,4 +1,3 @@
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
@@ -9,9 +8,16 @@ const nextConfig = {
                 port: '',
                 pathname: '/**', // all paths under this hostname are allowed
             },
+            {
+                protocol: 'http',
+                hostname: 'localhost',
+                port: '1337',
+                pathname: '/**', // all paths under this hostname are allowed
+            }
         ],
     },
     optimizeFonts: false,
+    output: "standalone",
 };
 
-export default nextConfig
+export default nextConfig;

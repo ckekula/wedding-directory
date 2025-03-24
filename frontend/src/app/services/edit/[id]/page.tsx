@@ -2,17 +2,17 @@
 
 import React, { useState } from "react";
 import Header from "@/components/shared/Headers/Header";
-import EditGeneral from "@/components/vendor-dashboard/dahboard-services/EditGeneral";
-import EditSocialLinks from "@/components/vendor-dashboard/dahboard-services/EditSocialLinks";
-import EditPortfolio from "@/components/vendor-dashboard/dahboard-services/EditPortfolio";
-import EditServiceSettings from "@/components/vendor-dashboard/dahboard-services/EditServiceSettings";
+import EditGeneral from "@/components/vendor-dashboard/dahboard-services/edit/EditGeneral";
+import EditSocialLinks from "@/components/vendor-dashboard/dahboard-services/edit/EditSocialLinks";
+import EditPortfolio from "@/components/vendor-dashboard/dahboard-services/edit/EditPortfolio";
+import EditServiceSettings from "@/components/vendor-dashboard/dahboard-services/edit/EditServiceSettings";
+import EditPackages from "@/components/vendor-dashboard/dahboard-services/edit/EditPackages";
 import ServicesMenu from "@/components/vendor-dashboard/dahboard-services/ServicesMenu";
 import VendorBanner from "@/components/vendor-dashboard/VendorBanner";
 import Footer from "@/components/shared/Footer";
 import { useQuery } from "@apollo/client";
 import { GET_VENDOR_BY_ID } from "@/graphql/queries";
 import { useVendorAuth } from "@/contexts/VendorAuthContext";
-import EditPackages from "@/components/vendor-dashboard/dahboard-services/EditPackages";
 
 const EditService = () => {
   const { vendor } = useVendorAuth();

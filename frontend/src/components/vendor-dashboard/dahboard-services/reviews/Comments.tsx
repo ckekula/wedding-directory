@@ -1,3 +1,4 @@
+'use client';
 import { FaRegStar, FaStar } from "react-icons/fa";
 import React, { useState } from "react";
 import { useQuery } from "@apollo/client";

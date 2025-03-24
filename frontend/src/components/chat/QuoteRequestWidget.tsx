@@ -1,3 +1,4 @@
+'use client';
 import { useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { CREATE_CHAT, SEND_MESSAGE } from "@/graphql/mutations";
