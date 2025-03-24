@@ -9,17 +9,16 @@ import { FIND_MY_VENDOR_BY_ID, FIND_SERVICE_BY_ID } from "@/graphql/queries";
 import { useMutation, useQuery } from "@apollo/client";
 import SocialIcons from "@/components/vendor-dashboard/dahboard-services/socialIcons";
 import { FiEdit } from "react-icons/fi";
-import Reviews from "@/components/vendor-dashboard/dahboard-services/reviews";
+import Reviews from "@/components/vendor-dashboard/dahboard-services/reviews/Reviews";
 import { useVendorAuth } from "@/contexts/VendorAuthContext";
 import Link from "next/link";
 import LoaderQuantum from "@/components/shared/Loaders/LoaderQuantum";
-import Comments from "@/components/vendor-dashboard/dahboard-services/Comments";
-import WriteReview from "@/components/vendor-dashboard/dahboard-services/WriteReview";
+import Comments from "@/components/vendor-dashboard/dahboard-services/reviews/Comments";
+import WriteReview from "@/components/vendor-dashboard/dahboard-services/reviews/WriteReview";
 import { useAuth } from "@/contexts/VisitorAuthContext";
 import { ADD_TO_MY_VENDORS, REMOVE_FROM_MY_VENDORS } from "@/graphql/mutations";
 import toast from "react-hot-toast";
 import { FaHeart } from "react-icons/fa";
-// import Packages from "@/components/vendor-dashboard/dahboard-services/Packages";
 import QuoteRequestWidget from "@/components/chat/QuoteRequestWidget";
 import GoogleMapComponent from "@/components/vendor-dashboard/dahboard-services/Map";
 
@@ -62,10 +61,14 @@ const Service: React.FC = () => {
   const offering = data?.findOfferingById;
   const isVendorsOffering = offering?.vendor.id === vendor?.id;
 
-  const portfolioImages = offering?.photo_showcase;
-  console.log("Offering:", offering);
-console.log("Portfolio Images:", portfolioImages);
-
+  const portfolioImages = [
+    offering?.banner || "/images/offeringPlaceholder.webp", 
+    ...(offering?.photo_showcase || []),
+    "/images/onBoard1.webp",
+    "/images/onBoard2.webp",
+    "/images/venue.webp",
+    "/images/onBoard3.webp",
+  ];
 
   const handleHeartClick = async () => {
     if (!visitor) {
@@ -141,50 +144,32 @@ console.log("Portfolio Images:", portfolioImages);
         
         {/* Portfolio Image Section */}
         <div className="w-full max-w-7xl mx-auto overflow-hidden">
-  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[100px] sm:auto-rows-[150px] lg:auto-rows-[200px] pb-4">
-    {portfolioImages.length === 0 ? (
-      // No images, show full-width placeholder
-      <div className="relative w-full h-[300px] sm:h-[400px] lg:h-[500px] overflow-hidden rounded-lg col-span-full">
-        <Image
-          src="/images/offeringPlaceholder.webp"
-          alt="Placeholder"
-          className="w-full h-full object-cover"
-          layout="fill"
-        />
-      </div>
-    ) : portfolioImages.length === 1 ? (
-      // One image, show full width
-      <div className="relative w-full h-[300px] sm:h-[400px] lg:h-[500px] overflow-hidden rounded-lg col-span-full">
-        <Image
-          src={portfolioImages[0]}
-          alt="Portfolio Image"
-          className="w-full h-full object-cover"
-          layout="fill"
-        />
-      </div>
-    ) : (
-      // Two or more images, masonry grid layout
-      portfolioImages.slice(0, 5).map((photo: string, index: number) => (
-        <div
-          key={index}
-          className={`relative overflow-hidden rounded-lg ${
-            index === 0
-              ? "col-span-2 row-span-2 sm:col-span-2 sm:row-span-2 lg:col-span-2 lg:row-span-2 h-[200px] sm:h-[300px] lg:h-[400px]"
-              : "h-[100px] sm:h-[150px] lg:h-[200px]"
-          }`}
-        >
-          <Image
-            src={photo}
-            alt={`Portfolio image ${index + 1}`}
-            className="w-full h-full object-cover"
-            layout="fill"
-          />
-        </div>
-      ))
-    )}
-  </div>
-</div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[50px] sm:auto-rows-[100px] lg:auto-rows-[200px]">
+            {/* Banner Image (Spanning Full Height) */}
+            {portfolioImages.length > 0 && (
+              <div className="relative w-full h-full row-span-2 sm:row-span-2 lg:row-span-2 col-span-2 sm:col-span-2 lg:col-span-2 overflow-hidden rounded-lg">
+                <Image
+                  src={portfolioImages[0]} // Banner Image
+                  alt="Banner Image"
+                  className="w-full h-full object-cover"
+                  layout="fill"
+                />
+              </div>
+            )}
 
+            {/* Other 4 Photos (Filling Remaining Space) */}
+            {portfolioImages.slice(1, 5).map((photo: string, index: number) => (
+              <div key={index} className="relative w-full overflow-hidden rounded-lg">
+                <Image
+                  src={photo}
+                  alt={`Portfolio image ${index + 1}`}
+                  className="w-full h-full object-cover"
+                  layout="fill"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
 
         <div className="flex flex-row gap-x-5">
           <div className="w-3/4">
