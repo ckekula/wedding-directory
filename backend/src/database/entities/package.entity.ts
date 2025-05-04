@@ -12,7 +12,12 @@ export class PackageEntity {
     @Column({ type: 'varchar', length: 500 })
     description: string;
 
-    @Column({ type: 'integer' })
+    @Column({ 
+        type: 'decimal',
+        precision: 10,
+        scale: 2,
+        default: 0
+    })
     pricing: number;
 
     @Column({ type: 'varchar', array: true, nullable: true})

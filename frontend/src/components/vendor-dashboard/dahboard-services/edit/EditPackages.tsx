@@ -41,9 +41,22 @@ const EditPackages: React.FC = () => {
     }
   }, [data]);
 
-  const handlePackageChange = (index: number, field: string, value: string | string[]) => {
+  const handlePackageChange = (index: number, field: keyof Package, value: string) => {
     const updatedPackages = [...packages];
-    updatedPackages[index] = { ...updatedPackages[index], [field]: value };
+    if (field === 'pricing') {
+      updatedPackages[index] = {
+        ...updatedPackages[index],
+        [field]: parseFloat(value) || 0
+      };
+    } else if (field === 'features') {
+      // Skip if features array is passed - handle separately in handleFeatureChange
+      return;
+    } else {
+      updatedPackages[index] = {
+        ...updatedPackages[index],
+        [field]: value
+      };
+    }
     setPackages(updatedPackages);
   };
 
@@ -61,46 +74,60 @@ const EditPackages: React.FC = () => {
 
   const handleSavePackage = async (pkg: Package) => {
     try {
-      if (pkg.id) {
-        await updatePackage({
-          variables: {
-            input: {
-              id: pkg.id,
-              name: pkg.name,
-              description: pkg.description,
-              pricing: parseFloat(pkg.pricing.toString()),
-              features: pkg.features.filter(f => f.trim() !== ""),
-              offeringId
-            }
-          }
-        });
-        toast.success("Package updated successfully!");
-      } else {
+      // Filter out empty features and ensure pricing is a number
+      const validFeatures = pkg.features.filter(f => f.trim() !== "");
+      const numericPrice = parseFloat(pkg.pricing.toString());
+
+      if (isNaN(numericPrice)) {
+        toast.error("Please enter a valid price");
+        return;
+      }
+
+      if (!pkg.id) {
+        // Create new package
+        const createInput = {
+          name: pkg.name.trim(),
+          description: pkg.description.trim(),
+          pricing: numericPrice,
+          features: validFeatures
+        };
+
+        console.log('Creating package with:', { input: createInput, offeringId });
+
         const result = await createPackage({
           variables: {
-            input: {
-              name: pkg.name,
-              description: pkg.description,
-              pricing: parseFloat(pkg.pricing.toString()),
-              features: pkg.features.filter(f => f.trim() !== ""),
-              offeringId
-            }
+            input: createInput,
+            offeringId
           }
         });
         
-        // Check if the mutation was successful and returned data
         if (result.data?.createPackage) {
           toast.success("Package created successfully!");
-          // Update the local state with the new package ID
           const newPackages = packages.map(p => 
             p === pkg ? { ...p, id: result.data.createPackage.id } : p
           );
           setPackages(newPackages);
         }
+      } else {
+        // Update existing package
+        await updatePackage({
+          variables: {
+            input: {
+              id: pkg.id,
+              name: pkg.name.trim(),
+              description: pkg.description.trim(),
+              pricing: numericPrice,
+              features: validFeatures,
+              offeringId
+            }
+          }
+        });
+        toast.success("Package updated successfully!");
       }
-    } catch (error) {
-      toast.error("Failed to save package");
-      console.error("Mutation error:", error);
+    } catch (error: any) {
+      console.error("Full error:", error);
+      const errorMessage = error.graphQLErrors?.[0]?.message || error.message;
+      toast.error(`Failed to save package: ${errorMessage}`);
     }
   };
 
@@ -185,6 +212,8 @@ const EditPackages: React.FC = () => {
               <label className="font-body text-[16px]">Price</label>
               <Input
                 type="number"
+                step="0.01" // Allow decimal values
+                min="0"     // Prevent negative values
                 value={pkg.pricing}
                 onChange={(e) => handlePackageChange(packageIndex, 'pricing', e.target.value)}
                 className="font-body rounded-md mt-2"

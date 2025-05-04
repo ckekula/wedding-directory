@@ -260,8 +260,8 @@ export const SEND_MESSAGE = gql`
 `;
 
 export const CREATE_PACKAGE = gql`
-  mutation CreatePackage($input: CreatePackageInput!) {
-    createPackage(input: $input) {
+  mutation CreatePackage($input: CreatePackageInput!, $offeringId: String!) {
+    createPackage(input: $input, offeringId: $offeringId) {
       id
       name
       description
