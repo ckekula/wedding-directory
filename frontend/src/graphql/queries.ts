@@ -53,6 +53,7 @@ export const FIND_SERVICE_BY_ID = gql`
       bus_email
       pricing
       banner
+      visible
       website
       facebook
       instagram
@@ -79,6 +80,24 @@ export const FIND_PORTFOLIO_BY_ID = gql`
       photo_showcase
       video_showcase
     }
+  }
+`;
+
+export const DELETE_SHOWCASE_IMAGE = gql`
+  mutation DeletePhotoShowcase($id: String!, $index: Int!) {
+    deleteOfferingShowcaseImage(id: $id, index: $index)
+  }
+`;
+
+export const DELETE_BANNER_IMAGE = gql`
+  mutation DeleteBannerImage($id: String!) {
+    deleteOfferingBanner(id: $id)
+  }
+`;
+
+export const DELETE_SHOWCASE_VIDEO = gql`
+  mutation DeleteVideoShowcase($id: String!) {  
+    deleteOfferingVideo(id: $id)
   }
 `;
 
