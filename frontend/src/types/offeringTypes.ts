@@ -20,3 +20,20 @@ export type SocialTypes = {
     instagram?: string;
     x?: string;
 };
+
+export interface Offering {
+    id: string;
+    name: string;
+    category: string;
+    visible: boolean;
+    bus_phone: string | null;
+    bus_email: string | null;
+    description: string | null;
+    banner: string | null;
+    vendor: {
+        id: string;
+        busname: string;
+        city: string;
+        phone: string;
+    } | null;
+}

@@ -145,7 +145,7 @@ const EditGeneral: React.FC<EditProfileProps> = ({isServiceVisible}) => {
               name="description"
               value={profile.description || ""}
               onChange={handleInputChange}
-              className="font-body rounded-md mt-2 mb-3 w-full h-32 p-2"
+              className="font-body rounded-md mt-2 mb-3 w-full h-32 p-2 border-gray-100 border-2"
             />
           </div>
         </form>
