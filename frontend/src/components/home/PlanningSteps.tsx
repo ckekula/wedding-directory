@@ -49,8 +49,8 @@ const PlanningSteps = () => {
                 src="/images/bridaldressing.webp"
                 alt="Wedding Planning"
                 className="rounded-lg object-cover w-full h-full"
-                layout="fill"
-                objectFit="cover"
+                width={500}
+                height={500}
               />
             </div>
           </div>

@@ -108,7 +108,7 @@ const Footer = () => {
         <hr className="border-t border-black pt-4" />
         <div className="flex flex-col md:flex-row justify-between items-center my-4 space-y-4 md:space-y-0">
           <p className="font-body text-xs md:text-sm text-center md:text-left">
-            &copy; 2024 All Rights Reserved by The Team Say I Do
+            &copy; 2025 All Rights Reserved by The Team Say I Do
           </p>
           {/* Social Media Icons */}
           <div className="flex space-x-4">

@@ -28,7 +28,7 @@ const EditService = () => {
   const renderSection = () => {
     switch (activeSection) {
       case "publicProfile":
-        return <EditGeneral isServiceVisible={true} />;
+        return <EditGeneral isServiceVisible={false} />;
       case "socialContact":
         return <EditSocialLinks />;
       case "portfolio":
@@ -38,7 +38,7 @@ const EditService = () => {
       case "packages":
         return <EditPackages />;
       default:
-        return <EditGeneral isServiceVisible={true} />;
+        return <EditGeneral isServiceVisible={false} />;
     }
   };
 
