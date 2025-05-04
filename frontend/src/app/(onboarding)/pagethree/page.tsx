@@ -51,7 +51,7 @@ const OnboardingPageThree = () => {
   };
 
   return (
-    <div className="bg-lightYellow font-title min-h-screen flex items-center justify-center">
+    <div className="bg-semiboldYellow font-title min-h-screen flex items-center justify-center">
       <div className="flex flex-col md:flex-row h-[800px] w-full md:w-10/12 lg:w-8/12 shadow-lg rounded-lg overflow-hidden md:h-[700px]">
 
         {/* Left Image Section */}
@@ -96,11 +96,11 @@ const OnboardingPageThree = () => {
           {/* Input Fields */}
           <div className="mb-6">
             <div className="mb-4">
-              <label className="block font-light mb-2">Where is your hometown? (For better recommendations)</label>
+              <label className="block font-semibold mb-2">Where is your hometown? (For better recommendations)</label>
               <CityInput placeholder="Find your city" onCityChange={setWeddingVenue}/>
             </div>
             <div className="mb-6">
-              <label className="block font-light mt-3 mb-2">What is your Contact Number (optional)</label>
+              <label className="block font-semibold mt-3 mb-2">What is your Contact Number (optional)</label>
               <Input
                 className="h-10 w-full rounded-xl border-2 border-gray-300"
                 type="text"
