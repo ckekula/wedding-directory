@@ -2,9 +2,13 @@
 
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import categories from '../../utils/category.json';
-import { CategoryProps } from "@/types/signupInput";
 
-const CategoryInput: React.FC<CategoryProps> = ({ onCategoryChange }) => {
+interface BusinessCategoryProps {
+  onCategoryChange: (category: string) => void;
+  initialCategory?: string;
+}
+
+const CategoryInput: React.FC<BusinessCategoryProps> = ({ onCategoryChange }) => {
 
   const handleCategorySelect = (value: string) => {
     onCategoryChange(value);

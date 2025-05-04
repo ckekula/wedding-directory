@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { OfferingEntity } from '../../database/entities/offering.entity';
 import { CreateOfferingInput } from '../../graphql/inputs/createOffering.input';
 import { DataSource, Repository } from 'typeorm';
@@ -87,4 +87,60 @@ export class OfferingService {
     const newOffering = { ...offering, video_showcase: fileUrls };
     return await this.offeringRepository.save(newOffering);
   }
+
+  async deleteOfferingBanner(id: string): Promise<boolean> {
+    const offering = await this.offeringRepository.findOne({ where: { id } });
+    if (!offering) {
+      throw new NotFoundException(`Offering with ID ${id} not found`);
+    }
+
+    try {
+      offering.banner = null;
+      await this.offeringRepository.save(offering);
+      return true;
+    } catch (error) {
+      throw new Error(`Failed to delete banner: ${error.message}`);
+    }
+  }
+
+  async deleteOfferingShowcaseImage(id: string, index: number): Promise<boolean> {
+    const offering = await this.offeringRepository.findOne({ where: { id } });
+    if (!offering) {
+      throw new NotFoundException(`Offering with ID ${id} not found`);
+    }
+
+    try {
+      if (!offering.photo_showcase || !Array.isArray(offering.photo_showcase)) {
+        throw new Error('No showcase images found');
+      }
+
+      if (index < 0 || index >= offering.photo_showcase.length) {
+        throw new Error('Invalid image index');
+      }
+
+      // Remove the image at the specified index
+      offering.photo_showcase.splice(index, 1);
+      
+      await this.offeringRepository.save(offering);
+      return true;
+    } catch (error) {
+      throw new Error(`Failed to delete showcase image: ${error.message}`);
+    }
+  }
+
+  async deleteOfferingVideo(id: string): Promise<boolean> {
+    const offering = await this.offeringRepository.findOne({ where: { id } });
+    if (!offering) {
+      throw new NotFoundException(`Offering with ID ${id} not found`);
+    }
+
+    try {
+      offering.video_showcase = null;
+      await this.offeringRepository.save(offering);
+      return true;
+    } catch (error) {
+      throw new Error(`Failed to delete video: ${error.message}`);
+    }
+  }
+
 }

@@ -171,12 +171,12 @@ const Service: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex flex-row gap-x-5">
+        <div className="flex flex-row gap-x-5 mt-4">
           <div className="w-3/4">
             {/* General Section */}
             <div className="bg-white rounded-2xl p-4 mb-4">
               <div className="flex flex-row">
-                <div className="w-8/12 flex flex-col">
+                <div className="w-8/12 flex flex-col justify-between">
                   <div className="text-xl">
                     {offering?.vendor.busname || "Vendor name not available"}
                   </div>
