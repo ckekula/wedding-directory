@@ -267,6 +267,7 @@ export const CREATE_PACKAGE = gql`
       description
       pricing
       features
+      visible
     }
   }
 `;
@@ -279,6 +280,7 @@ export const UPDATE_PACKAGE = gql`
       description
       pricing
       features
+      visible
     }
   }
 `;

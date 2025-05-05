@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { PackageEntity } from "src/database/entities/package.entity";
 import { PackageRepository } from "src/database/repositories/package.repository";
 import { PackageRepositoryType } from "src/database/types/packageTypes";
@@ -21,8 +21,18 @@ export class PackageService {
     return this.packageRepository.updatePackage(input);
   }
 
-  async deletePackage(id: string): Promise<PackageEntity> {
-    return this.packageRepository.deletePackage(id);
+  async deletePackage(id: string): Promise<boolean> {
+    try {
+      const OfferingPackage = await this.packageRepository.findOne({ where: { id } });
+      if (!OfferingPackage) {
+        throw new NotFoundException(`Package with ID ${id} not found`);
+      }
+      
+      await this.packageRepository.remove(OfferingPackage);
+      return true;
+    } catch (error) {
+      throw new Error(`Failed to delete package: ${error.message}`);
+    }
   }
 
   async findPackageByOffering(offeringId: string): Promise<PackageEntity[]> {

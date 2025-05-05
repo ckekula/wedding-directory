@@ -23,6 +23,9 @@ export class PackageEntity {
     @Column({ type: 'varchar', array: true, nullable: true})
     features: string[];
 
+    @Column({ type: 'boolean', default: false })
+    visible: boolean;
+
     @CreateDateColumn({ name: 'created_at', type: 'timestamp' })
     createdAt: Date;
   
