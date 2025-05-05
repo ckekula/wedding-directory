@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import { CiHeart } from "react-icons/ci";
 import Image from "next/image";
 import { useParams } from "next/navigation";
-import { FIND_MY_VENDOR_BY_ID, FIND_SERVICE_BY_ID } from "@/graphql/queries";
+import { FIND_MY_VENDOR_BY_ID, FIND_SERVICE_BY_ID, FIND_PACKAGES_BY_OFFERING } from "@/graphql/queries";
 import { useMutation, useQuery } from "@apollo/client";
 import SocialIcons from "@/components/vendor-dashboard/dahboard-services/socialIcons";
 import { FiEdit } from "react-icons/fi";
@@ -22,6 +22,16 @@ import { FaHeart } from "react-icons/fa";
 import QuoteRequestWidget from "@/components/chat/QuoteRequestWidget";
 import GoogleMapComponent from "@/components/vendor-dashboard/dahboard-services/Map";
 
+// Add this interface before the Service component
+interface Package {
+  id: string;
+  name: string;
+  description: string;
+  pricing: number;
+  features: string[];
+  visible: boolean;
+}
+
 const Service: React.FC = () => {
   const { vendor } = useVendorAuth();
   const { visitor } = useAuth();
@@ -30,6 +40,10 @@ const Service: React.FC = () => {
 
   const { loading, error, data } = useQuery(FIND_SERVICE_BY_ID, {
     variables: { id },
+  });
+
+  const { data: packagesData } = useQuery(FIND_PACKAGES_BY_OFFERING, {
+    variables: { offeringId: id },
   });
 
   // Check if offering is in visitor's my vendors
@@ -218,11 +232,38 @@ const Service: React.FC = () => {
               </div>
               <hr className="border-t border-gray-300 my-4" />
 
-              <div className="mb-3 text-2xl font-bold">Packages</div>
-              <div>
-                <p>{offering.pricing || "Pricing details not available"}</p>
-              </div>
-              <hr className="border-t border-gray-300 my-4" />
+              {/* Packages Section */}
+              {packagesData?.findPackagesByOffering.some((pkg: Package) => pkg.visible) && (
+                <>
+                  <div className="mb-3 text-2xl font-bold">Packages</div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {packagesData?.findPackagesByOffering
+                      .filter((pkg: Package) => pkg.visible)
+                      .map((pkg: Package) => (
+                        <div 
+                          key={pkg.id} 
+                          className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow"
+                        >
+                          <h3 className="text-xl font-semibold mb-2">{pkg.name}</h3>
+                          <p className="text-gray-600 mb-4">{pkg.description}</p>
+                          <div className="text-2xl font-bold text-orange mb-4">
+                            ${pkg.pricing.toFixed(2)}
+                          </div>
+                          <ul className="space-y-2">
+                            {pkg.features.map((feature, index) => (
+                              <li key={index} className="flex items-center">
+                                <span className="text-orange mr-2">•</span>
+                                {feature}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                      ))}
+                  </div>
+                  <hr className="border-t border-gray-300 my-4" />
+                </>
+              )}
+
               <div className="mb-3 text-2xl font-bold">
                 Reviews
               </div>
