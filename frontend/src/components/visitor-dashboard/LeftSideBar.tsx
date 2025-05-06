@@ -68,7 +68,7 @@ const LeftSideBar: React.FC<LeftSideBarProps> = ({ isCollapsed, onToggleCollapse
       {/* Sidebar container */}
       <div
         className={`
-          bg-white rounded-lg shadow-md transition-all duration-300 ease-in-out
+          bg-white font-title rounded-lg shadow-md transition-all duration-300 ease-in-out
           ${isCollapsed ? 'w-16' : 'w-full'}
         `}
       >

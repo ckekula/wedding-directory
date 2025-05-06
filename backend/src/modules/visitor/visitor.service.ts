@@ -1,16 +1,18 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable,NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { VisitorEntity } from '../../database/entities/visitor.entity';
 import { CreateVisitorInput } from '../../graphql/inputs/createVisitor.input';
 import * as bcrypt from 'bcryptjs';
 import { UpdateVisitorInput } from '../../graphql/inputs/updateVisitor.input';
+import { ChecklistService } from '../checklist/checklist.service';
 
 @Injectable()
 export class VisitorService {
   constructor(
     @InjectRepository(VisitorEntity)
     private visitorRepository: Repository<VisitorEntity>,
+    private ChecklistService: ChecklistService,
   ) {}
 
   async create(createVisitorInput: CreateVisitorInput): Promise<VisitorEntity> {
@@ -66,4 +68,24 @@ export class VisitorService {
     // Save the updated visitor to the database
     return await this.visitorRepository.save(visitor);
   }
+
+
+  async setWeddingDate(visitorId: string, weddingDate: Date): Promise<VisitorEntity> {
+  const visitor = await this.visitorRepository.findOne({
+    where: { id: visitorId },
+  });
+  
+  if (!visitor) {
+    throw new NotFoundException(`Visitor with ID ${visitorId} not found`);
+  }
+  
+  // Update wedding date
+  visitor.weddingDate = weddingDate;
+  await this.visitorRepository.save(visitor);
+  
+  // Generate or update checklist tasks
+  await this.ChecklistService.handleWeddingDateChange(visitorId, weddingDate);
+  
+  return visitor;
+}
 }
