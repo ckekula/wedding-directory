@@ -17,6 +17,7 @@ interface Package {
   pricing: number;
   features: string[];
   offeringId?: string;
+  visible: boolean;
 }
 
 const EditPackages: React.FC = () => {
@@ -28,7 +29,6 @@ const EditPackages: React.FC = () => {
   });
 
   const [packages, setPackages] = useState<Package[]>([]);
-  const [packagesEnabled, setPackagesEnabled] = useState(false);
 
   const [createPackage] = useMutation(CREATE_PACKAGE);
   const [updatePackage] = useMutation(UPDATE_PACKAGE);
@@ -37,13 +37,25 @@ const EditPackages: React.FC = () => {
   useEffect(() => {
     if (data?.findPackagesByOffering) {
       setPackages(data.findPackagesByOffering);
-      setPackagesEnabled(data.findPackagesByOffering.length > 0);
     }
   }, [data]);
 
-  const handlePackageChange = (index: number, field: string, value: string | string[]) => {
+  const handlePackageChange = (index: number, field: keyof Package, value: string) => {
     const updatedPackages = [...packages];
-    updatedPackages[index] = { ...updatedPackages[index], [field]: value };
+    if (field === 'pricing') {
+      updatedPackages[index] = {
+        ...updatedPackages[index],
+        [field]: parseFloat(value) || 0
+      };
+    } else if (field === 'features') {
+      // Skip if features array is passed - handle separately in handleFeatureChange
+      return;
+    } else {
+      updatedPackages[index] = {
+        ...updatedPackages[index],
+        [field]: value
+      };
+    }
     setPackages(updatedPackages);
   };
 
@@ -59,62 +71,123 @@ const EditPackages: React.FC = () => {
     setPackages(updatedPackages);
   };
 
+  const handleVisibilityChange = (packageIndex: number, visible: boolean) => {
+    const updatedPackages = [...packages];
+    updatedPackages[packageIndex] = {
+      ...updatedPackages[packageIndex],
+      visible
+    };
+    setPackages(updatedPackages);
+  };
+
   const handleSavePackage = async (pkg: Package) => {
     try {
-      if (pkg.id) {
-        await updatePackage({
-          variables: {
-            input: {
-              id: pkg.id,
-              name: pkg.name,
-              description: pkg.description,
-              pricing: parseFloat(pkg.pricing.toString()),
-              features: pkg.features.filter(f => f.trim() !== ""),
-              offeringId
-            }
-          }
+      const validFeatures = pkg.features.filter(f => f.trim() !== "");
+      const numericPrice = parseFloat(pkg.pricing.toString());
+
+      if (isNaN(numericPrice)) {
+        toast.error("Please enter a valid price");
+        return;
+      }
+
+      if (!pkg.id) {
+        // Create new package
+        console.log('Creating package with:', {
+          input: {
+            name: pkg.name.trim(),
+            description: pkg.description.trim(),
+            pricing: numericPrice,
+            features: validFeatures,
+            visible: pkg.visible
+          },
+          offeringId
         });
-        toast.success("Package updated successfully!");
-      } else {
+
         const result = await createPackage({
           variables: {
             input: {
-              name: pkg.name,
-              description: pkg.description,
-              pricing: parseFloat(pkg.pricing.toString()),
-              features: pkg.features.filter(f => f.trim() !== ""),
-              offeringId
+              name: pkg.name.trim(),
+              description: pkg.description.trim(),
+              pricing: numericPrice,
+              features: validFeatures,
+              visible: pkg.visible
+            },
+            offeringId
+          }
+        });
+
+        if (result.data?.createPackage) {
+          toast.success("Package created successfully!");
+          // Update the local state with the new package
+          const updatedPackages = packages.map(p => 
+            p === pkg ? { ...result.data.createPackage } : p
+          );
+          setPackages(updatedPackages);
+        }
+      } else {
+        console.log('Updating package with:', {
+          input: {
+            id: pkg.id,
+            name: pkg.name.trim(),
+            description: pkg.description.trim(),
+            pricing: numericPrice,
+            features: validFeatures,
+            visible: pkg.visible
+          }
+        });
+
+        const result = await updatePackage({
+          variables: {
+            input: {
+              id: pkg.id,
+              name: pkg.name.trim(),
+              description: pkg.description.trim(),
+              pricing: numericPrice,
+              features: validFeatures,
+              visible: pkg.visible
             }
           }
         });
-        
-        // Check if the mutation was successful and returned data
-        if (result.data?.createPackage) {
-          toast.success("Package created successfully!");
-          // Update the local state with the new package ID
-          const newPackages = packages.map(p => 
-            p === pkg ? { ...p, id: result.data.createPackage.id } : p
+
+        if (result.data?.updatePackage) {
+          toast.success("Package updated successfully!");
+          // Update the local state with the updated package
+          const updatedPackages = packages.map(p => 
+            p.id === pkg.id ? { ...result.data.updatePackage } : p
           );
-          setPackages(newPackages);
+          setPackages(updatedPackages);
         }
       }
-    } catch (error) {
-      toast.error("Failed to save package");
-      console.error("Mutation error:", error);
+    } catch (error: any) {
+      console.error("Full error:", error);
+      const errorMessage = error.graphQLErrors?.[0]?.message || error.message;
+      toast.error(`Failed to save package: ${errorMessage}`);
     }
   };
 
   const handleDeletePackage = async (packageId: string) => {
     try {
-      await deletePackage({
-        variables: { id: packageId }
+      console.log('Deleting package:', packageId);
+      
+      const result = await deletePackage({
+        variables: { id: packageId },
+        update(cache) {
+          // Remove the deleted package from Apollo cache
+          const normalizedId = cache.identify({ id: packageId, __typename: 'Package' });
+          cache.evict({ id: normalizedId });
+          cache.gc();
+        }
       });
-      toast.success("Package deleted successfully!");
-      // Remove the deleted package from local state
-      setPackages(packages.filter(p => p.id !== packageId));
-    } catch (error) {
-      toast.error("Failed to delete package");
-      console.error(error);
+
+      if (result.data?.deletePackage) {
+        toast.success("Package deleted successfully!");
+        // Remove the deleted package from local state
+        setPackages(packages.filter(p => p.id !== packageId));
+      }
+    } catch (error: any) {
+      console.error("Delete error:", error);
+      const errorMessage = error.graphQLErrors?.[0]?.message || error.message;
+      toast.error(`Failed to delete package: ${errorMessage}`);
     }
   };
 
@@ -126,7 +199,8 @@ const EditPackages: React.FC = () => {
         description: "", 
         pricing: 0, 
         features: [""],
-        offeringId
+        offeringId,
+        visible: false
       }
     ]);
   };
@@ -137,30 +211,43 @@ const EditPackages: React.FC = () => {
   return (
     <Fragment>
       <div className="bg-white rounded-2xl p-4 px-8 shadow-lg">
-        <h2 className="font-title text-[30px]">Packages</h2>
-        <hr className="w-[168px] h-px my-4 bg-gray-500 border-0" />
-
-        <div className="flex items-center mb-6">
-          <label className="font-body text-[16px] mr-4">Enable Packages</label>
-          <Switch 
-            checked={packagesEnabled} 
-            onCheckedChange={() => setPackagesEnabled(!packagesEnabled)} 
-          />
+        {/* Modified header section */}
+        <div className="flex justify-between items-center">
+          <h2 className="font-title text-[30px]">Packages</h2>
+          <Button 
+            type="button" 
+            onClick={addNewPackage}
+            className="bg-orange hover:bg-orange-600 text-white"
+          >
+            Add New Package
+          </Button>
         </div>
+        <hr className="w-full h-px my-4 bg-gray-500 border-1" />
 
         {packages.map((pkg, packageIndex) => (
           <div key={packageIndex} className="mb-6 p-4 border rounded-lg">
             <div className="flex justify-between items-center mb-4">
               <h3 className="font-body text-[18px]">{pkg.name}</h3>
-              {pkg.id && (
-                <Button 
-                  variant="destructive" 
-                  size="icon" 
-                  onClick={() => handleDeletePackage(pkg.id!)}
-                >
-                  <Trash2 className="h-4 w-4" />
-                </Button>
-              )}
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2">
+                  <label className="font-body text-[14px]">Visible</label>
+                  <Switch 
+                    checked={pkg.visible}
+                    onCheckedChange={(checked) => handleVisibilityChange(packageIndex, checked)}
+                  />
+                </div>
+                {pkg.id && (
+                  <Button 
+                    variant="destructive" 
+                    size="icon" 
+                    onClick={() => {
+                      handleDeletePackage(pkg.id!);                    
+                    }}
+                  >
+                    <Trash2 className="h-4 w-4" />
+                  </Button>
+                )}
+              </div>
             </div>
             
             <div className="mb-3">
@@ -185,6 +272,8 @@ const EditPackages: React.FC = () => {
               <label className="font-body text-[16px]">Price</label>
               <Input
                 type="number"
+                step="0.01" // Allow decimal values
+                min="0"     // Prevent negative values
                 value={pkg.pricing}
                 onChange={(e) => handlePackageChange(packageIndex, 'pricing', e.target.value)}
                 className="font-body rounded-md mt-2"
@@ -204,32 +293,22 @@ const EditPackages: React.FC = () => {
               ))}
               <Button 
                 type="button" 
-                variant="secondary" 
+                variant="outline" 
                 onClick={() => addFeature(packageIndex)}
-                className="mt-2 mr-2"
+                className="mt-2 mr-2 text-orange hover:text-orange-600 hover:bg-orange-50 border-orange"
               >
                 Add Feature
               </Button>
               <Button 
                 type="button" 
-                variant="default" 
                 onClick={() => handleSavePackage(pkg)}
-                className="mt-2"
+                className="mt-2 bg-orange hover:bg-orange-600 text-white"
               >
                 {pkg.id ? 'Update Package' : 'Create Package'}
               </Button>
             </div>
           </div>
         ))}
-        
-        <Button 
-          type="button" 
-          variant="outline" 
-          onClick={addNewPackage}
-          className="mt-4 w-full"
-        >
-          Add New Package
-        </Button>
       </div>
     </Fragment>
   );

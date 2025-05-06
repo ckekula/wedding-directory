@@ -276,6 +276,7 @@ export const FIND_PACKAGES_BY_OFFERING = gql`
       description
       pricing
       features
+      visible
     }
   }
 `;

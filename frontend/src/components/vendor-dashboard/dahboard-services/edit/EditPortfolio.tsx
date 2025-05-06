@@ -12,10 +12,13 @@ import { useQuery, useMutation } from "@apollo/client";
 import { FIND_PORTFOLIO_BY_ID, DELETE_SHOWCASE_IMAGE, DELETE_BANNER_IMAGE, DELETE_SHOWCASE_VIDEO } from "@/graphql/queries";
 
 const EditPortfolio: React.FC = () => {
+  const params = useParams();
+  // Ensure id is a string
+  const id = Array.isArray(params.id) ? params.id[0] : params.id;
 
-  const { id } = useParams();
-  const { loading, error, data } = useQuery(FIND_PORTFOLIO_BY_ID, {
-      variables: { id },
+  const { loading, error, data, refetch: refetchPortfolio } = useQuery(FIND_PORTFOLIO_BY_ID, {
+    variables: { id },
+    skip: !id,
   });
 
   const portfolio = data?.findOfferingById;
@@ -35,6 +38,8 @@ const EditPortfolio: React.FC = () => {
   const [deleteBannerImage] = useMutation(DELETE_BANNER_IMAGE);
   const [deleteShowcaseImage] = useMutation(DELETE_SHOWCASE_IMAGE);
   const [deleteShowcaseVideo] = useMutation(DELETE_SHOWCASE_VIDEO);
+
+  const [isUploading, setIsUploading] = useState(false);
 
   // Update the state when data is fetched
   useEffect(() => {
@@ -118,21 +123,41 @@ const EditPortfolio: React.FC = () => {
     }
   };
 
-  // Handle Save Showcase Images
+  // Modify handleSaveShowcase function
   const handleSaveShowcase = async () => {
-    const filesToUpload = showcaseFiles.filter((file) => file !== null) as File[]; // Filter out null values
+    setIsUploading(true);
+    try {
+      const filesToUpload = showcaseFiles.filter((file) => file !== null) as File[];
 
-    if (filesToUpload.length > 0 && id) {
-      try {
-        const uploadedUrls = await uploadOfferingImageShowcase(filesToUpload, id as string);
-        console.log("Showcase images uploaded successfully. URLs:", uploadedUrls);
+      if (filesToUpload.length > 0 && id) {
+        // Upload new files
+        const uploadedUrls = await uploadOfferingImageShowcase(filesToUpload, id);
+
+        // Create new array combining existing and new URLs
+        const updatedPreviews = showcasePreviews.map((currentPreview, index) => {
+          // If there's a new file at this index, use the new URL
+          if (showcaseFiles[index]) {
+            const fileIndex = filesToUpload.findIndex(file => file === showcaseFiles[index]);
+            return uploadedUrls[fileIndex];
+          }
+          // Otherwise keep the existing preview
+          return currentPreview;
+        });
+
+        // Update state
+        setShowcasePreviews(updatedPreviews);
+        setShowcaseFiles(Array(5).fill(null));
+        
+        // Refresh the portfolio data
+        await refetchPortfolio();
+        
         toast.success("Images uploaded successfully!");
-      } catch (error) {
-        console.error("Failed to upload showcase images:", error);
-        toast.error("Failed to upload images.");
       }
-    } else {
-      console.error("No showcase files or offeringId found.");
+    } catch (error: any) {
+      console.error("Failed to upload showcase images:", error);
+      toast.error("Upload failed: " + (error.message || "Unknown error"));
+    } finally {
+      setIsUploading(false);
     }
   };
 
@@ -157,7 +182,7 @@ const EditPortfolio: React.FC = () => {
     if (!id) return;
     try {
       await deleteShowcaseImage({
-        variables: { id, index }
+        variables: { id, index },
       });
       // Update local state after successful deletion
       const newPreviews = [...showcasePreviews];
@@ -178,7 +203,7 @@ const EditPortfolio: React.FC = () => {
     if (!id) return;
     try {
       await deleteBannerImage({
-        variables: { id }
+        variables: { id },
       });
       setBannerPreview(null);
       setBannerFile(null);
@@ -194,7 +219,7 @@ const EditPortfolio: React.FC = () => {
     if (!id) return;
     try {
       await deleteShowcaseVideo({
-        variables: { id }
+        variables: { id },
       });
       setVideoPreview(null);
       setVideoFile(null);
@@ -251,52 +276,62 @@ const EditPortfolio: React.FC = () => {
         <div className="mb-6">
           <div className="flex justify-between items-center mb-4">
             <label className="font-body text-[16px]">Upload photo showcase</label>
-            <button type="button" onClick={handleSaveShowcase}>
-              <IoMdCloudUpload size={25} className="text-orange" />
+            <button 
+              type="button" 
+              onClick={handleSaveShowcase}
+              disabled={isUploading}
+            >
+              {isUploading ? (
+                <span className="animate-spin">⌛</span>
+              ) : (
+                <IoMdCloudUpload size={25} className="text-orange" />
+              )}
             </button>
           </div>
           <div className="grid grid-cols-5 gap-4">
-            {Array(5).fill(null).map((_, index) => (
-              <div key={index} className="relative w-full">
-                <div 
-                  className="aspect-square w-full border-2 border-dashed border-gray-300 rounded-lg 
+            {Array(5)
+              .fill(null)
+              .map((_, index) => (
+                <div key={index} className="relative w-full">
+                  <div
+                    className="aspect-square w-full border-2 border-gray-300 rounded-lg 
                              flex flex-col justify-center items-center bg-gray-50 hover:bg-gray-100 
                              transition-colors duration-200"
-                >
-                  <input
-                    type="file"
-                    accept="image/*"
-                    className="absolute inset-0 opacity-0 cursor-pointer z-10"
-                    onChange={handleShowcaseChange(index)}
-                  />
-                  {showcasePreviews[index] ? (
-                    <>
-                      <div className="relative w-full h-full">
-                        <Image 
-                          src={showcasePreviews[index] as string} 
-                          alt={`Showcase Preview ${index}`} 
-                          className="object-cover rounded-lg"
-                          fill
-                        />
-                        <button
-                          type="button"
-                          onClick={() => handleDeleteShowcase(index)}
-                          className="absolute top-2 right-2 p-1.5 bg-white rounded-full 
+                  >
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="absolute inset-0 opacity-0 cursor-pointer z-10"
+                      onChange={handleShowcaseChange(index)}
+                    />
+                    {showcasePreviews[index] ? (
+                      <>
+                        <div className="relative w-full h-full">
+                          <Image
+                            src={showcasePreviews[index] as string}
+                            alt={`Showcase Preview ${index}`}
+                            className="object-cover rounded-lg"
+                            fill
+                          />
+                          <button
+                            type="button"
+                            onClick={() => handleDeleteShowcase(index)}
+                            className="absolute top-2 right-2 p-1.5 bg-white rounded-full 
                                    shadow-md z-20 hover:bg-red-50 transition-colors duration-200"
-                        >
-                          <IoMdTrash size={18} className="text-red-500" />
-                        </button>
+                          >
+                            <IoMdTrash size={18} className="text-red-500" />
+                          </button>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="flex flex-col items-center p-4">
+                        <CiCirclePlus size={30} className="text-orange mb-2" />
+                        <span className="text-xs text-gray-500">Image {index + 1}</span>
                       </div>
-                    </>
-                  ) : (
-                    <div className="flex flex-col items-center p-4">
-                      <CiCirclePlus size={30} className="text-orange mb-2" />
-                      <span className="text-xs text-gray-500">Image {index + 1}</span>
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
         </div>
 

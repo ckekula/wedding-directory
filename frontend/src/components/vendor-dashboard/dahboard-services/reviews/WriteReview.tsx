@@ -22,6 +22,17 @@ const WriteReview: React.FC<WriteReviewProps> = ({ serviceId }) => {
         setRating(rating);
     };
 
+    const handleWriteReviewClick = () => {
+        if (!visitor) {
+            toast.error("You must be logged in to write a review", {
+                duration: 3000,
+                position: 'top-center',
+            });
+            return;
+        }
+        setShowForm((prev) => !prev);
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (rating === 0) {
@@ -58,16 +69,16 @@ const WriteReview: React.FC<WriteReviewProps> = ({ serviceId }) => {
 
     return (
         <div className='font-body'>
-            {/* Expand/Collapse button */}
             <Button
-                onClick={() => setShowForm((prev) => !prev)}
+                onClick={handleWriteReviewClick}
                 className='w-40 mx-2 font-bold hover:border-orange hover:text-orange hover:bg-orange/15'
-                variant="ornageOutline">
+                variant="ornageOutline"
+            >
                 {showForm ? "Hide Review" : "Write a Review"}
             </Button>
 
-            {/* Conditionally render the review form */}
-            {showForm && (
+            {/* Only show the form if user is logged in and showForm is true */}
+            {visitor && showForm && (
                 <form onSubmit={handleSubmit}>
                     <hr className="border-t border-gray-300 my-4" />
                     <div className="mb-3 text-2xl font-bold font-title">Write a Review</div>
