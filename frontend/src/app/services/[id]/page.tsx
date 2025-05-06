@@ -3,7 +3,6 @@
 import Header from "@/components/shared/Headers/Header";
 import React, { useEffect, useState } from "react";
 import { CiHeart } from "react-icons/ci";
-import Image from "next/image";
 import { useParams } from "next/navigation";
 import { FIND_MY_VENDOR_BY_ID, FIND_SERVICE_BY_ID, FIND_PACKAGES_BY_OFFERING } from "@/graphql/queries";
 import { useMutation, useQuery } from "@apollo/client";

@@ -32,6 +32,9 @@ export const FIND_SERVICES = gql`
             bus_email
             description
             banner
+            reviews {
+                rating
+            }
             vendor {
                 id
                 busname

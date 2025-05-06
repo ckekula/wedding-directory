@@ -94,7 +94,10 @@ const VendorSearch: React.FC = () => {
                       vendor={offering.vendor?.busname || "N/A"}
                       city={offering.vendor?.city || "N/A"}
                       banner={offering.banner || "/images/offeringPlaceholder.webp"}
-                      rating="⭐ 4.9 (154)"
+                      rating={offering.reviews.length > 0 
+                        ? (offering.reviews.reduce((acc, review) => acc + Number(review.rating), 0) / offering.reviews.length)
+                        : 0
+                      }
                       buttonText="View Details"
                       link={`/services/${offering.id}`}
                     />
