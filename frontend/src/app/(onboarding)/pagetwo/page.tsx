@@ -13,6 +13,8 @@ import { useMutation } from '@apollo/client';
 import { useAuth } from '@/contexts/VisitorAuthContext';
 import { UPDATE_VISITOR, SET_WEDDING_DATE } from "@/graphql/mutations";
 import toast from 'react-hot-toast';
+import { Loader2 } from "lucide-react";
+
 
 const OnboardingPageTwo = () => {
   const router = useRouter();
@@ -22,6 +24,7 @@ const OnboardingPageTwo = () => {
   // Store the form data in state
   const [engageDate, setEngageDate] = useState('');
   const [weddingDate, setWeddingDate] = useState('');
+  const [loading, setLoading] = useState(false);
 
 
   // Define the mutation
@@ -31,6 +34,7 @@ const OnboardingPageTwo = () => {
   // Handle the form submission
    const handleNext = async () => {
      try {
+        setLoading(true);
        // First update the engagement date
        if (engageDate) {
          await updateVisitor({
@@ -61,6 +65,7 @@ const OnboardingPageTwo = () => {
      } catch (error) {
        console.error("Error updating visitor: ", error);
        toast.error("Failed to save your dates. Please try again.");
+       setLoading(false);
      }
    };
 
@@ -154,7 +159,6 @@ const OnboardingPageTwo = () => {
                     onChange={(e) => setWeddingDate(e.target.value)}
                   />
                 </div>
-
               </div>
             </div>
             {/* Still Deciding Checkbox */}
@@ -165,8 +169,16 @@ const OnboardingPageTwo = () => {
             <Button
               className="w-full bg-primary hover:bg-primary-dark text-black font-bold rounded-lg h-12"
               onClick={handleNext}
+              disabled={loading}
             >
-              Next
+              {loading ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Saving...
+                </>
+              ) : (
+                "Next"
+              )}
             </Button>
           </div>
 
@@ -174,6 +186,7 @@ const OnboardingPageTwo = () => {
           <button
             className="mt-10 text-center text-black block w-full"
             onClick={handleSkip}
+            disabled={loading}
           >
             Skip the onboarding process
           </button>
