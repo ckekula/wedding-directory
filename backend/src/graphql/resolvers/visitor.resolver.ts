@@ -37,4 +37,14 @@ export class VisitorResolver {
   ): Promise<VisitorEntity> {
     return this.visitorService.updateVisitor(id, updateVisitorInput);
   }
+
+  @Mutation(() => VisitorModel)
+async setWeddingDate(
+  @Args('visitorId') visitorId: string,
+  @Args('weddingDate') weddingDate: Date,
+): Promise<VisitorEntity> {
+  return this.visitorService.setWeddingDate(visitorId, weddingDate);
+}
+
+
 }

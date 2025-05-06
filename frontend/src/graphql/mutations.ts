@@ -162,7 +162,10 @@ export const DELETE_CHECKLIST = gql`
 `;
 
 export const UPDATE_BUDGET_ITEM = gql`
-  mutation UpdateBudgetItem($id: String!, $updateBudgetItemInput: UpdateBudgetItemInput!) {
+  mutation UpdateBudgetItem(
+    $id: String!
+    $updateBudgetItemInput: UpdateBudgetItemInput!
+  ) {
     updateBudgetItem(id: $id, updateBudgetItemInput: $updateBudgetItemInput) {
       itemName
       estimatedCost
@@ -172,7 +175,6 @@ export const UPDATE_BUDGET_ITEM = gql`
     }
   }
 `;
-
 
 export const CREATE_BUDGET_TOOL = gql`
   mutation CreateBudgetTool($input: CreateBudgetToolInput!) {
@@ -301,6 +303,15 @@ export const CREATE_REVIEW = gql`
       visitor {
         id
       }
+    }
+  }
+`;
+
+export const SET_WEDDING_DATE = gql`
+  mutation SetWeddingDate($visitorId: String!, $weddingDate: DateTime!) {
+    setWeddingDate(visitorId: $visitorId, weddingDate: $weddingDate) {
+      id
+      wed_date
     }
   }
 `;

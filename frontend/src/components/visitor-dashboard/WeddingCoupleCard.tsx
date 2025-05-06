@@ -21,18 +21,18 @@ const WeddingCoupleCard: React.FC<WeddingCoupleProps> = ({ profilePic, setProfil
         {/* Text Container - Center column */}
         <div className="flex-1 flex items-center justify-center text-center">
           <div>
-            <p className="text-gray-800 mb-4 text-sm">The marriage of</p>
+            <p className="text-gray-800 mb-4 text-sm font-merriweather">The marriage of</p>
             <div className="space-y-0">
               <div className="text-4xl font-marck -ml-20">{brideName || 'Bride'}</div>
-              <div className="text-lg ml-2">AND</div>
+              <div className="text-lg ml-2 font-merriweather">AND</div>
               <div className="text-4xl font-marck -mr-24">{groomName || 'Groom'}</div>
             </div>
           </div>
         </div>
         {/* Countdown Container - Right side on desktop */}
         <div className="w-full md:w-1/3 flex flex-col items-center justify-center text-center rounded-lg p-4">
-          <p className="text-gray-800 mb-2">Days until the wedding:</p>
-          <div className="text-3xl font-bold text-orange">
+          <p className="text-gray-800 mb-2 font-merriweather">Days until the wedding:</p>
+          <div className="text-3xl font-bold font-title text-orange">
             {daysLeft} {daysLeft === 1 ? 'day' : 'days'}
           </div>
         </div>
