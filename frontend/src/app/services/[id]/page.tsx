@@ -21,6 +21,7 @@ import toast from "react-hot-toast";
 import { FaHeart } from "react-icons/fa";
 import QuoteRequestWidget from "@/components/chat/QuoteRequestWidget";
 import GoogleMapComponent from "@/components/vendor-dashboard/dahboard-services/Map";
+import PortfolioImages from "@/components/vendor-dashboard/dahboard-services/PortfolioImages";
 
 // Add this interface before the Service component
 interface Package {
@@ -74,15 +75,6 @@ const Service: React.FC = () => {
 
   const offering = data?.findOfferingById;
   const isVendorsOffering = offering?.vendor.id === vendor?.id;
-
-  const portfolioImages = [
-    offering?.banner || "/images/offeringPlaceholder.webp", 
-    ...(offering?.photo_showcase || []),
-    "/images/onBoard1.webp",
-    "/images/onBoard2.webp",
-    "/images/venue.webp",
-    "/images/onBoard3.webp",
-  ];
 
   const handleHeartClick = async () => {
     if (!visitor) {
@@ -155,35 +147,11 @@ const Service: React.FC = () => {
           back
         </Link>
 
-        
-        {/* Portfolio Image Section */}
-        <div className="w-full max-w-7xl mx-auto overflow-hidden">
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[50px] sm:auto-rows-[100px] lg:auto-rows-[200px]">
-            {/* Banner Image (Spanning Full Height) */}
-            {portfolioImages.length > 0 && (
-              <div className="relative w-full h-full row-span-2 sm:row-span-2 lg:row-span-2 col-span-2 sm:col-span-2 lg:col-span-2 overflow-hidden rounded-lg">
-                <Image
-                  src={portfolioImages[0]} // Banner Image
-                  alt="Banner Image"
-                  className="w-full h-full object-cover"
-                  layout="fill"
-                />
-              </div>
-            )}
-
-            {/* Other 4 Photos (Filling Remaining Space) */}
-            {portfolioImages.slice(1, 5).map((photo: string, index: number) => (
-              <div key={index} className="relative w-full overflow-hidden rounded-lg">
-                <Image
-                  src={photo}
-                  alt={`Portfolio image ${index + 1}`}
-                  className="w-full h-full object-cover"
-                  layout="fill"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
+        {/* Replace the Portfolio Image Section with the new component */}
+        <PortfolioImages 
+          banner={offering?.banner}
+          photoShowcase={offering?.photo_showcase || []}
+        />
 
         <div className="flex flex-row gap-x-5 mt-4">
           <div className="w-3/4">
