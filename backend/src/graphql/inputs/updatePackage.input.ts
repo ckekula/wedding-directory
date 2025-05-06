@@ -17,4 +17,7 @@ export class UpdatePackageInput {
 
     @Field(() => [String])
     features: string[];
+
+    @Field(() => Boolean, { defaultValue: false })
+    visible: boolean;
 }
