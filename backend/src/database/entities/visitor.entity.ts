@@ -10,6 +10,7 @@ import { ReviewEntity } from "./review.entity";
 import { MyVendorsEntity } from "./myVendors.entity";
 import { GuestListEntity } from "./guestlist.entity";
 import { ChecklistEntity } from "./checklist.entity";
+import { PaymentEntity } from "./payment.entity";
 import { ObjectType, Field, ID } from "@nestjs/graphql";
 
 @ObjectType()
@@ -80,5 +81,9 @@ export class VisitorEntity {
     cascade: true,
   })
   checklists: ChecklistEntity[];
+
+  @OneToMany(() => PaymentEntity, (payment) => payment.visitor)
+  payments: PaymentEntity[];
+
   weddingDate: Date;
 }
