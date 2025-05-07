@@ -13,4 +13,7 @@ export class CreatePackageInput {
 
     @Field(() => [String])
     features: string[];
+
+    @Field(() => Boolean, { defaultValue: false })
+    visible: boolean;
 }

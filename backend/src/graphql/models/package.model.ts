@@ -18,6 +18,9 @@ export class PackageModel {
   @Field(() => [String])
   features: string[];
 
+  @Field(() => Boolean)
+  visible: boolean;
+
   @Field()
   createdAt: Date;
 

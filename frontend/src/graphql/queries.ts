@@ -32,6 +32,9 @@ export const FIND_SERVICES = gql`
             bus_email
             description
             banner
+            reviews {
+                rating
+            }
             vendor {
                 id
                 busname
@@ -53,6 +56,7 @@ export const FIND_SERVICE_BY_ID = gql`
       bus_email
       pricing
       banner
+      visible
       website
       facebook
       instagram
@@ -82,6 +86,24 @@ export const FIND_PORTFOLIO_BY_ID = gql`
   }
 `;
 
+export const DELETE_SHOWCASE_IMAGE = gql`
+  mutation DeletePhotoShowcase($id: String!, $index: Int!) {
+    deleteOfferingShowcaseImage(id: $id, index: $index)
+  }
+`;
+
+export const DELETE_BANNER_IMAGE = gql`
+  mutation DeleteBannerImage($id: String!) {
+    deleteOfferingBanner(id: $id)
+  }
+`;
+
+export const DELETE_SHOWCASE_VIDEO = gql`
+  mutation DeleteVideoShowcase($id: String!) {  
+    deleteOfferingVideo(id: $id)
+  }
+`;
+
 export const FIND_SERVICES_BY_VENDOR = gql`
   query FindOfferingsByVendor($id: String!) {
     findOfferingsByVendor(id: $id) {
@@ -90,6 +112,9 @@ export const FIND_SERVICES_BY_VENDOR = gql`
       category
       description
       banner
+      reviews{
+        rating
+      }
       vendor {
         id
         busname
@@ -257,6 +282,7 @@ export const FIND_PACKAGES_BY_OFFERING = gql`
       description
       pricing
       features
+      visible
     }
   }
 `;

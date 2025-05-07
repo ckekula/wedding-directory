@@ -12,12 +12,12 @@ export const uploadOfferingImageShowcase = async (files: File[], offeringId: str
   }
 
   const formData = new FormData();
-
+  
   files.forEach((file) => {
-    formData.append(`files`, file); // Notice 'files', not 'file', to align with multiple file upload
+    formData.append('files', file);  // Match the backend's FilesInterceptor name
   });
-
-  formData.append("offeringId", offeringId);
+  
+  formData.append('offeringId', offeringId);  // Match the backend's @Body parameter name
 
   try {
     const response = await request.post("/upload/offering-showcase", formData, {
@@ -26,7 +26,7 @@ export const uploadOfferingImageShowcase = async (files: File[], offeringId: str
       },
     });
 
-    return response.data.uploadedUrls; // Assuming the response contains an array of uploaded file URLs
+    return response.data.uploadedUrls;  // Match the backend's response structure
   } catch (error) {
     if (error instanceof Error) {
       console.error("Error uploading showcase images:", error.message);

@@ -8,7 +8,8 @@ import { Button } from "@/components/ui/button";
 import { FIND_SERVICES } from "@/graphql/queries";
 import { useLazyQuery } from "@apollo/client";
 import FilterSearchBar from "@/components/vendor-search/FilterSearchBar";
-import { Service } from '@/types/serviceTypes';
+import { Offering } from '@/types/offeringTypes';
+import LoaderJelly from "@/components/shared/Loaders/LoaderJelly";
 
 const VendorSearch: React.FC = () => {
   const [city, setCity] = useState<string>("");
@@ -74,25 +75,33 @@ const VendorSearch: React.FC = () => {
           </div>
 
           {/* Data Loading/Error/Result State */}
-          {loading && <div className="my-4 text-2xl">Loading...</div>}
-          {error && <div className="my-4 text-2xl">Error: {error.message}</div>}
-
-          {!loading && data?.findOfferings?.length > 0 ? (
+          {loading ? (
+            <LoaderJelly />
+          ) : error ? (
+            <div className="my-4 text-2xl">Oops! We went to a trouble. Please try again after few minutes. :(</div>
+          ) : data?.findOfferings?.filter((offering: Offering) => offering.visible)?.length > 0 ? (
             <div>
-              <div className="my-4 text-2xl">Found {data.findOfferings.length} vendors</div>
+              <div className="my-4 text-2xl">
+                Found {data.findOfferings.filter((offering: Offering) => offering.visible).length} vendors
+              </div>
               <div className="grid xl:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-6 overflow-x-auto">
-                {data.findOfferings.map((service: Service) => (
-                  <OfferingCard
-                    key={service.id}
-                    name={service.name}
-                    vendor={service.vendor?.busname || "N/A"}
-                    city={service.vendor?.city || "N/A"}
-                    banner={service.banner}
-                    rating="⭐ 4.9 (154)"
-                    buttonText="View Details"
-                    link={`/services/${service.id}`}
-                  />
-                ))}
+                {data.findOfferings
+                  .filter((offering: Offering) => offering.visible)
+                  .map((offering: Offering) => (
+                    <OfferingCard
+                      key={offering.id}
+                      name={offering.name}
+                      vendor={offering.vendor?.busname || "N/A"}
+                      city={offering.vendor?.city || "N/A"}
+                      banner={offering.banner || "/images/offeringPlaceholder.webp"}
+                      rating={offering.reviews.length > 0 
+                        ? (offering.reviews.reduce((acc, review) => acc + Number(review.rating), 0) / offering.reviews.length)
+                        : 0
+                      }
+                      buttonText="View Details"
+                      link={`/services/${offering.id}`}
+                    />
+                  ))}
               </div>
             </div>
           ) : (

@@ -6,7 +6,8 @@ import { useMutation, useQuery } from "@apollo/client";
 import { GET_VISITOR_BY_ID } from "@/graphql/queries";
 import { WeddingDetailsData } from "@/types/visitorProfileTypes";
 import { useAuth } from "@/contexts/VisitorAuthContext";
-import { UPDATE_VISITOR } from "@/graphql/mutations";
+import { UPDATE_VISITOR, SET_WEDDING_DATE } from "@/graphql/mutations";
+import toast from "react-hot-toast";
 
 const WeddingDetails: React.FC = () => {
   const { visitor } = useAuth();
@@ -15,6 +16,16 @@ const WeddingDetails: React.FC = () => {
     variables: { id: visitor?.id },
     skip: !visitor?.id,
   });
+
+    const [setWeddingDate] = useMutation(SET_WEDDING_DATE, {
+      onCompleted: () => {
+        toast.success("Wedding date updated and checklist generated!");
+      },
+      onError: (error) => {
+        console.error("Error setting wedding date:", error);
+        toast.error("Failed to update wedding date");
+      },
+    });
 
   const visitorData = data?.findVisitorById;
 
@@ -45,7 +56,7 @@ const WeddingDetails: React.FC = () => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     updateVisitor({
@@ -57,11 +68,26 @@ const WeddingDetails: React.FC = () => {
           partner_fname: weddingDetails.partnerFirstName,
           partner_lname: weddingDetails.partnerLastName,
           engaged_date: weddingDetails.engagementDate,
-          wed_date: weddingDetails.weddingDate,
           wed_venue: weddingDetails.weddingVenue
         }
       },
     });
+
+    if (
+      weddingDetails.weddingDate &&
+      weddingDetails.weddingDate !== "Your wedding date"
+    ) {
+      await setWeddingDate({
+        variables: {
+          visitorId: visitor?.id,
+          weddingDate: new Date(weddingDetails.weddingDate).toISOString(),
+        },
+      });
+    }
+
+    toast.success("Wedding details saved successfully!");
+
+
   };
 
   if (loading) return <p className="text-center p-4">Loading...</p>;

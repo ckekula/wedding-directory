@@ -58,7 +58,7 @@ const OnboardingPageOne = () => {
   };
 
   return (
-    <div className="bg-lightYellow font-title min-h-screen flex items-center justify-center">
+    <div className="bg-bofont-semiboldYellow font-title min-h-screen flex items-center justify-center">
       <div className="flex flex-col md:flex-row h-[800px] w-full md:w-10/12 lg:w-8/12 shadow-lg rounded-lg overflow-hidden md:h-[700px]">
 
         {/* Left Image Section */}
@@ -92,7 +92,7 @@ const OnboardingPageOne = () => {
           {/* Input Fields */}
           <div className="flex flex-wrap -mx-2 mb-6">
             <div className="w-full md:w-1/2 px-2 mb-4">
-              <label className="block font-light mb-2">First name</label>
+              <label className="block font-semibold mb-2">First name</label>
               <Input
                 className="h-10 w-full rounded-xl border-2 border-gray-300"
                 type="text"
@@ -102,7 +102,7 @@ const OnboardingPageOne = () => {
               />
             </div>
             <div className="w-full md:w-1/2 px-2 mb-4">
-              <label className="block font-light mb-2">Last name</label>
+              <label className="block font-semibold mb-2">Last name</label>
               <Input
                 className="h-10 w-full rounded-xl border-2 border-gray-300"
                 type="text"
@@ -112,7 +112,7 @@ const OnboardingPageOne = () => {
               />
             </div>
             <div className="w-full md:w-1/2 px-2 mb-4">
-              <label className="block font-light mb-2">Partner&apos;s first name</label>
+              <label className="block font-semibold mb-2">Partner&apos;s first name</label>
               <Input
                 className="h-10 w-full rounded-xl border-2 border-gray-300"
                 type="text"
@@ -122,7 +122,7 @@ const OnboardingPageOne = () => {
               />
             </div>
             <div className="w-full md:w-1/2 px-2 mb-4">
-              <label className="block font-light mb-2">Partner&apos;s last name</label>
+              <label className="block font-semibold mb-2">Partner&apos;s last name</label>
               <Input
                 className="h-10 w-full rounded-xl border-2 border-gray-300"
                 type="text"
