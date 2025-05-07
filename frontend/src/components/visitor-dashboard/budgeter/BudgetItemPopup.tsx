@@ -7,6 +7,7 @@ import { useMutation } from '@apollo/client';
 import { CREATE_BUDGET_ITEM } from '@/graphql/mutations';
 import toast from 'react-hot-toast';
 import { BudgetItemPopupProps } from '@/types/budgeterTypes';
+import budgetCategories from "@/utils/budgetCategories";
 
 const BudgetItemPopup: React.FC<BudgetItemPopupProps> = ({
                                                            isOpen,
@@ -104,7 +105,7 @@ const BudgetItemPopup: React.FC<BudgetItemPopupProps> = ({
 
             <div>
               <label className="block mb-2 font-body">Budget Category</label>
-              <Input
+              <select
                 value={formData.category}
                 onChange={(e) =>
                   setFormData((prev) => ({
@@ -112,9 +113,15 @@ const BudgetItemPopup: React.FC<BudgetItemPopupProps> = ({
                     category: e.target.value,
                   }))
                 }
-                placeholder="Enter category"
+                className="  w-full rounded-md border border-input font-body bg-background px-3 h-10"
                 required
-              />
+              >
+                {budgetCategories.map((category) => (
+                  <option key={category} value={category}>
+                    {category}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
