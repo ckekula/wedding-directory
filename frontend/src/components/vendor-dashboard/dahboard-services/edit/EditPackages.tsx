@@ -136,9 +136,12 @@ const EditPackages: React.FC = () => {
           setPackages(updatedPackages);
         }
       }
-    } catch {
-      // const errorMessage = error.graphQLErrors?.[0]?.message || error.message;
-      toast.error(`Failed to save package`);
+    } catch (error: unknown) {
+      console.error("Full error:", error);
+      const errorMessage = error instanceof Error 
+        ? error.message 
+        : "An unknown error occurred";
+      toast.error(`Failed to save package: ${errorMessage}`);
     }
   };
 
@@ -159,9 +162,12 @@ const EditPackages: React.FC = () => {
         // Remove the deleted package from local state
         setPackages(packages.filter(p => p.id !== packageId));
       }
-    } catch {
-      // const errorMessage = error.graphQLErrors?.[0]?.message || error.message;
-      toast.error(`Failed to delete package`);
+    } catch (error: unknown) {
+      console.error("Delete error:", error);
+      const errorMessage = error instanceof Error
+        ? error.message
+        : "An unknown error occurred";
+      toast.error(`Failed to delete package: ${errorMessage}`);
     }
   };
 
