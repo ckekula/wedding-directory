@@ -23,6 +23,7 @@ export interface VendorProps {
     fname: string,
     lname: string,
     city: string,
+    busname: string,
     phone: string,
     email: string,
   }

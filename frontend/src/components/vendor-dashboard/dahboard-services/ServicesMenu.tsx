@@ -1,9 +1,21 @@
 import { ServicesMenuProps } from "@/types/serviceTypes";
+import Link from "next/link";
 import React from "react";
+import { useParams } from "next/navigation";
 
 const ServicesMenu: React.FC<ServicesMenuProps> = ({ setActiveSection }) => {
+  const params = useParams();
+  const id = params?.id;
+
   return (
     <div className="container bg-white w-[280px] shadow-md rounded-2xl p-8">
+      <Link href={`/services/${id}`}>
+        <button className="text-black font-body hover:text-gray-500 mr-2">
+          &larr;
+        </button>
+        back
+      </Link>
+
       <h2 className="font-title font-bold text-[32px]">Services</h2>
       <hr className="w-[131px] h-px my-4 bg-gray-400 border-0 dark:bg-gray-700"></hr>
 

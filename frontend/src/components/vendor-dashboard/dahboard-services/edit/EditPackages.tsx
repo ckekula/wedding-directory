@@ -92,17 +92,6 @@ const EditPackages: React.FC = () => {
 
       if (!pkg.id) {
         // Create new package
-        console.log('Creating package with:', {
-          input: {
-            name: pkg.name.trim(),
-            description: pkg.description.trim(),
-            pricing: numericPrice,
-            features: validFeatures,
-            visible: pkg.visible
-          },
-          offeringId
-        });
-
         const result = await createPackage({
           variables: {
             input: {
@@ -125,17 +114,6 @@ const EditPackages: React.FC = () => {
           setPackages(updatedPackages);
         }
       } else {
-        console.log('Updating package with:', {
-          input: {
-            id: pkg.id,
-            name: pkg.name.trim(),
-            description: pkg.description.trim(),
-            pricing: numericPrice,
-            features: validFeatures,
-            visible: pkg.visible
-          }
-        });
-
         const result = await updatePackage({
           variables: {
             input: {
@@ -158,17 +136,14 @@ const EditPackages: React.FC = () => {
           setPackages(updatedPackages);
         }
       }
-    } catch (error: any) {
-      console.error("Full error:", error);
-      const errorMessage = error.graphQLErrors?.[0]?.message || error.message;
-      toast.error(`Failed to save package: ${errorMessage}`);
+    } catch {
+      // const errorMessage = error.graphQLErrors?.[0]?.message || error.message;
+      toast.error(`Failed to save package`);
     }
   };
 
   const handleDeletePackage = async (packageId: string) => {
     try {
-      console.log('Deleting package:', packageId);
-      
       const result = await deletePackage({
         variables: { id: packageId },
         update(cache) {
@@ -184,10 +159,9 @@ const EditPackages: React.FC = () => {
         // Remove the deleted package from local state
         setPackages(packages.filter(p => p.id !== packageId));
       }
-    } catch (error: any) {
-      console.error("Delete error:", error);
-      const errorMessage = error.graphQLErrors?.[0]?.message || error.message;
-      toast.error(`Failed to delete package: ${errorMessage}`);
+    } catch {
+      // const errorMessage = error.graphQLErrors?.[0]?.message || error.message;
+      toast.error(`Failed to delete package`);
     }
   };
 

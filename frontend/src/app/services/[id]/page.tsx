@@ -131,8 +131,8 @@ const Service: React.FC = () => {
           throw new Error("Failed to add to vendors");
         }
       }
-    } catch (error) {
-      console.error("Error saving to myVendors:", error);
+    } catch {
+      // console.error("Error saving to myVendors:", error);
       toast.error("Couldn't save to your favorites");
     }
   };
@@ -272,9 +272,13 @@ const Service: React.FC = () => {
               <div>
                 <Reviews serviceId={offering?.id} />
               </div>
-              <div>
-                <WriteReview serviceId={offering?.id} />
-              </div>
+              
+              {!isVendorsOffering ? (
+                <div>
+                  <WriteReview serviceId={offering?.id} />
+                </div>
+              ) : null}
+
               <div>
                 <Comments serviceId={offering?.id} />
               </div>
