@@ -5,8 +5,7 @@ const BudgetHeader = ({ budget = 0.00, totalCost = 0.00 }) => {
   const utilizationPercentage = ((totalCost / budget) * 100).toFixed(2);
 
   const breadcrumbItems = [
-    { label: "Home", href: "/" },
-    { label: "Visitor Dashboard", href: "/visitor-dashboard" },
+    { label: "Dashboard", href: "/visitor-dashboard" },
     { label: "Budgeter" },
   ];
 

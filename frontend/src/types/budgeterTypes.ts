@@ -1,5 +1,3 @@
-
-
 // Utility types
 export interface AmountPaidProps {
   amountPaid: number;
@@ -28,10 +26,9 @@ export interface CreateBudgetInput {
 
 // Props for the BudgetItemsPanel component
 export interface BudgetItemsPanelProps {
-  /**
-   * The unique identifier for the budget tool.
-   */
   budgetToolId: string;
+  visitorId: string;
+  categoryPayments?: { [key: string]: number };
 }
 
 // Data structure for a single budget item

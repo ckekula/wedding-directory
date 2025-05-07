@@ -178,23 +178,30 @@ export const GET_BUDGET_TOOL = gql`
     budgetTool(visitorId: $visitorId) {
       id
       totalBudget
-      visitor {
-        id
-        email
-      }
       budgetItems {
         id
         itemName
-        category
         estimatedCost
         amountPaid
+        category
+        specialNotes
         isPaidInFull
       }
-      createdAt
-      updatedAt
+    }
+    visitorPayments(visitorId: $visitorId) {
+      id
+      amount
+      status
+      package {
+        name
+        offering {
+          category
+        }
+      }
     }
   }
 `;
+
 export const GET_BUDGET_ITEMS = gql`
   query GetBudgetItems($budgetToolId: String!) {
     budgetItems(budgetToolId: $budgetToolId) {
@@ -441,6 +448,24 @@ export const GET_VENDOR_PAYMENTS = gql`
       }
       package {
         id
+        name
+        offering{
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+
+export const GET_VISITOR_PAYMENTS = gql`
+  query GetVisitorPayments($visitorId: String!) {
+    visitorPayments(visitorId: $visitorId) {
+      id
+      amount
+      status
+      createdAt
+      package {
         name
         offering{
           id

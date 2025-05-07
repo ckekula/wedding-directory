@@ -12,7 +12,6 @@ import { BudgetItemData } from '@/types/budgeterTypes';
 const BudgeterPage = () => {
   const { visitorId } = useParams() as { visitorId: string };
 
-
   const { data, loading, error } = useQuery(GET_BUDGET_TOOL, {
     variables: { visitorId },
     skip: !visitorId,
@@ -23,6 +22,16 @@ const BudgeterPage = () => {
 
   const budgetTool = data?.budgetTool;
   const budgetToolId: string = data?.budgetTool?.id;
+  const visitorPayments = data?.visitorPayments || [];
+
+  // Process payments by category
+  const paymentsByCategory = visitorPayments.reduce((acc: { [key: string]: number }, payment: any) => {
+    if (payment.status === 'COMPLETED' && payment.package?.offering?.category) {
+      const category = payment.package.offering.category;
+      acc[category] = (acc[category] || 0) + payment.amount;
+    }
+    return acc;
+  }, {});
 
   if (budgetToolId == null) {
     return <div className="p-6 max-w-[1064px] items-center">
@@ -30,8 +39,17 @@ const BudgeterPage = () => {
     </div>;
   }
 
-  const totalCost = budgetTool.budgetItems.reduce((sum:number, item: BudgetItemData) => sum + item.estimatedCost, 0);
-  const amountPaid = budgetTool.budgetItems.reduce((sum:number, item: BudgetItemData) => sum + item.amountPaid, 0);
+  // Calculate total cost including both budget items and payments
+  const totalCost = budgetTool.budgetItems.reduce((sum:number, item: BudgetItemData) => {
+    const categoryPayment = paymentsByCategory[item.category] || 0;
+    return sum + item.estimatedCost;
+  }, 0);
+
+  // Calculate amount paid including both manual entries and payments
+  const amountPaid = budgetTool.budgetItems.reduce((sum:number, item: BudgetItemData) => {
+    const categoryPayment = paymentsByCategory[item.category] || 0;
+    return sum + item.amountPaid + categoryPayment;
+  }, 0);
 
   return (
     <div className="p-6 max-w-[1064px] items-center">
@@ -41,7 +59,11 @@ const BudgeterPage = () => {
         <AmountPaid amountPaid={amountPaid} totalCost={totalCost} />
       </div>
       <div>
-        <BudgetItemsPanel budgetToolId={budgetToolId}/>
+        <BudgetItemsPanel 
+          budgetToolId={budgetToolId}
+          visitorId={visitorId}
+          categoryPayments={paymentsByCategory}
+        />
       </div>
     </div>
   );

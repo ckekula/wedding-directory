@@ -54,7 +54,10 @@ export class PaymentService {
       where: { visitor: { id: visitorId } },
       relations: {
         vendor: true,
-        package: true,
+        package: {
+          offering: true
+        }
+      
       },
     });
   }

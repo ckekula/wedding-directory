@@ -1,13 +1,24 @@
 import React, { useState } from "react";
 import { ChevronUp, Trash2 } from "lucide-react";
 import {
-  BudgetItemProps,
   BudgetItemUpdateInput,
   UpdateBudgetItemInput,
 } from "@/types/budgeterTypes";
 import budgetCategories from "@/utils/budgetCategories"
 
-const BudgetItem: React.FC<BudgetItemProps> = ({
+interface BudgetItemComponentProps {
+  itemId: string;  // Add this line
+  itemName?: string;
+  estimatedCost?: number;
+  paidAmount?: number;
+  category?: string;
+  specialNotes?: string | null;
+  onSave?: (input: BudgetItemUpdateInput) => void;
+  onDelete?: (input: BudgetItemUpdateInput) => void;
+  externalPayments: number;
+}
+
+const BudgetItem: React.FC<BudgetItemComponentProps> = ({
   itemName = "",
   estimatedCost = 0.0,
   paidAmount = 0.0,
@@ -15,6 +26,7 @@ const BudgetItem: React.FC<BudgetItemProps> = ({
   specialNotes = null,
   onSave = () => {},
   onDelete = () => {},
+  externalPayments,
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [editedValues, setEditedValues] = useState<UpdateBudgetItemInput>({
@@ -177,6 +189,9 @@ const BudgetItem: React.FC<BudgetItemProps> = ({
           </div>
         </div>
       )}
+      <div className="text-sm text-gray-600 px-6 py-4">
+        External Payments: ${externalPayments.toFixed(2)}
+      </div>
     </div>
   );
 };
