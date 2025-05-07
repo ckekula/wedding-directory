@@ -27,9 +27,13 @@ export interface Service {
   id: string;
   name: string;
   description: string;
+  reviews: Review[];
   vendor?: {
     busname: string;
     city: string;
   };
   banner: string;
+}
+interface Review {
+    rating: string;
 }

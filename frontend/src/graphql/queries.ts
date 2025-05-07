@@ -112,6 +112,9 @@ export const FIND_SERVICES_BY_VENDOR = gql`
       category
       description
       banner
+      reviews{
+        rating
+      }
       vendor {
         id
         busname
