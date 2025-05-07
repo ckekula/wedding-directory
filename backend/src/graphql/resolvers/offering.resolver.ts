@@ -1,15 +1,18 @@
-import { Resolver, Args, Mutation,Query,Int } from '@nestjs/graphql';
+import { Resolver, Args, Mutation, Query, Int, ResolveField, Parent } from '@nestjs/graphql';
 import { OfferingService } from '../../modules/offering/offering.service';
 import { OfferingModel } from '../models/offering.model';
 import { OfferingEntity } from '../../database/entities/offering.entity';
 import { CreateOfferingInput } from '../inputs/createOffering.input';
 import { OfferingFilterInput } from '../inputs/offeringFilter.input';
 import { UpdateOfferingInput } from '../inputs/updateOffering.input';
+import { ReviewModel } from '../models/review.model';
+import { ReviewService } from 'src/modules/review/review.service';
 
-@Resolver()
+@Resolver(() => OfferingModel)
 export class OfferingResolver {
   constructor(
     private readonly offeringService: OfferingService,
+    private readonly reviewService: ReviewService,
   ) {}
 
   @Mutation(() => OfferingModel)
@@ -81,4 +84,9 @@ export class OfferingResolver {
     return this.offeringService.deleteOfferingVideo(id);
   }
 
+  @ResolveField(() => [ReviewModel])
+  async reviews(@Parent() offering: OfferingModel) {
+    const { id } = offering;
+    return this.reviewService.findReviewsByOffering(id);
+  }
 }
