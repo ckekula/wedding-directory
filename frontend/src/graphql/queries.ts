@@ -425,3 +425,28 @@ export const FIND_VENDOR_BY_SERVICE = gql`
     }
   }
 `;
+
+
+export const GET_VENDOR_PAYMENTS = gql`
+  query GetVendorPayments($vendorId: String!) {
+    vendorPayments(vendorId: $vendorId) {
+      id
+      amount
+      status
+      createdAt
+      visitor {
+        id
+        visitor_fname
+        email
+      }
+      package {
+        id
+        name
+        offering{
+          id
+          name
+        }
+      }
+    }
+  }
+`;

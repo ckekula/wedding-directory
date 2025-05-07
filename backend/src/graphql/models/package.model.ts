@@ -1,5 +1,5 @@
-import { Field, ObjectType } from "node_modules/@nestjs/graphql/dist";
-import { OfferingModel } from "./offering.model";
+import { ObjectType, Field } from '@nestjs/graphql';
+import { OfferingModel } from './offering.model';
 
 @ObjectType()
 export class PackageModel {
@@ -26,8 +26,7 @@ export class PackageModel {
 
   @Field()
   updatedAt: Date;
-  
+
   @Field(() => OfferingModel)
-  offering: OfferingModel
-  
+  offering: OfferingModel;
 }
