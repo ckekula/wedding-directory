@@ -11,39 +11,58 @@ import { GoHorizontalRule } from "react-icons/go";
 import { useRouter } from 'next/navigation';
 import { useMutation } from '@apollo/client';
 import { useAuth } from '@/contexts/VisitorAuthContext';
-import { UPDATE_VISITOR } from '@/graphql/mutations';
+import { UPDATE_VISITOR, SET_WEDDING_DATE } from "@/graphql/mutations";
+import toast from 'react-hot-toast';
 
 const OnboardingPageTwo = () => {
   const router = useRouter();
   const { visitor } = useAuth(); // get visitor from the auth context
+  
 
   // Store the form data in state
   const [engageDate, setEngageDate] = useState('');
   const [weddingDate, setWeddingDate] = useState('');
 
+
   // Define the mutation
   const [updateVisitor] = useMutation(UPDATE_VISITOR);
+  const [setWeddingDateChecklist] = useMutation(SET_WEDDING_DATE);
 
   // Handle the form submission
-  const handleNext = async () => {
-    try {
-      // Call the mutation to update the visitor
-      await updateVisitor({
-        variables: {
-          id: visitor?.id, // Use the visitor ID from context
-          input: {
-            engaged_date: engageDate,
-            wed_date: weddingDate,
-          },
-        },
-      });
+   const handleNext = async () => {
+     try {
+       // First update the engagement date
+       if (engageDate) {
+         await updateVisitor({
+           variables: {
+             id: visitor?.id,
+             input: {
+               engaged_date: engageDate,
+               // Don't include wedding date here
+             },
+           },
+         });
+       }
 
-      // Navigate to the next onboarding page
-      router.push("/pagethree");
-    } catch (error) {
-      console.error("Error updating visitor: ", error);
-    }
-  };
+       // Then set wedding date separately to trigger checklist creation
+       if (weddingDate) {
+         await setWeddingDateChecklist({
+           variables: {
+             visitorId: visitor?.id,
+             weddingDate: new Date(weddingDate).toISOString(),
+           },
+         });
+
+         toast.success("Wedding date set! Your planning checklist is ready.");
+       }
+
+       // Navigate to the next onboarding page
+       router.push("/pagethree");
+     } catch (error) {
+       console.error("Error updating visitor: ", error);
+       toast.error("Failed to save your dates. Please try again.");
+     }
+   };
 
   const handleClose = () => {
     router.push("/visitor-dashboard");
@@ -135,6 +154,7 @@ const OnboardingPageTwo = () => {
                     onChange={(e) => setWeddingDate(e.target.value)}
                   />
                 </div>
+
               </div>
             </div>
             {/* Still Deciding Checkbox */}
