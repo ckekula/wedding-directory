@@ -92,17 +92,6 @@ const EditPackages: React.FC = () => {
 
       if (!pkg.id) {
         // Create new package
-        console.log('Creating package with:', {
-          input: {
-            name: pkg.name.trim(),
-            description: pkg.description.trim(),
-            pricing: numericPrice,
-            features: validFeatures,
-            visible: pkg.visible
-          },
-          offeringId
-        });
-
         const result = await createPackage({
           variables: {
             input: {
@@ -125,17 +114,6 @@ const EditPackages: React.FC = () => {
           setPackages(updatedPackages);
         }
       } else {
-        console.log('Updating package with:', {
-          input: {
-            id: pkg.id,
-            name: pkg.name.trim(),
-            description: pkg.description.trim(),
-            pricing: numericPrice,
-            features: validFeatures,
-            visible: pkg.visible
-          }
-        });
-
         const result = await updatePackage({
           variables: {
             input: {
@@ -169,8 +147,6 @@ const EditPackages: React.FC = () => {
 
   const handleDeletePackage = async (packageId: string) => {
     try {
-      console.log('Deleting package:', packageId);
-      
       const result = await deletePackage({
         variables: { id: packageId },
         update(cache) {

@@ -3,7 +3,7 @@
 import Header from "@/components/shared/Headers/Header";
 import React, { useEffect, useState } from "react";
 import { CiHeart } from "react-icons/ci";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { FIND_MY_VENDOR_BY_ID, FIND_SERVICE_BY_ID, FIND_PACKAGES_BY_OFFERING } from "@/graphql/queries";
 import { useMutation, useQuery } from "@apollo/client";
 import SocialIcons from "@/components/vendor-dashboard/dahboard-services/socialIcons";
@@ -21,6 +21,7 @@ import { FaHeart } from "react-icons/fa";
 import QuoteRequestWidget from "@/components/chat/QuoteRequestWidget";
 import GoogleMapComponent from "@/components/vendor-dashboard/dahboard-services/Map";
 import PortfolioImages from "@/components/vendor-dashboard/dahboard-services/PortfolioImages";
+import request from '@/utils/request';
 
 // Add this interface before the Service component
 interface Package {
@@ -37,6 +38,7 @@ const Service: React.FC = () => {
   const { visitor } = useAuth();
   const params = useParams();
   const { id } = params;
+  const router = useRouter();
 
   const { loading, error, data } = useQuery(FIND_SERVICE_BY_ID, {
     variables: { id },
@@ -129,9 +131,29 @@ const Service: React.FC = () => {
           throw new Error("Failed to add to vendors");
         }
       }
-    } catch (error) {
-      console.error("Error saving to myVendors:", error);
+    } catch {
+      // console.error("Error saving to myVendors:", error);
       toast.error("Couldn't save to your favorites");
+    }
+  };
+
+  const handlePayAdvance = async (amount: number, packageId: string) => {
+    try {
+      if (!visitor) {
+        toast.error("Please login to pay advance");
+        return;
+      }
+
+      const { data } = await request.post('/api/stripe/create-checkout-session', {
+        amount,
+        packageId,
+        visitorId: visitor.id,
+        vendorId: offering.vendor.id,
+      });
+      window.location.href = data.url;
+    } catch (error) {
+      console.error('Error:', error);
+      toast.error('Payment processing failed. Please try again.');
     }
   };
 
@@ -216,7 +238,7 @@ const Service: React.FC = () => {
                           <div className="text-2xl font-bold text-orange mb-4">
                             ${pkg.pricing.toFixed(2)}
                           </div>
-                          <ul className="space-y-2">
+                          <ul className="space-y-2 mb-4">
                             {pkg.features.map((feature, index) => (
                               <li key={index} className="flex items-center">
                                 <span className="text-orange mr-2">•</span>
@@ -224,6 +246,19 @@ const Service: React.FC = () => {
                               </li>
                             ))}
                           </ul>
+                          <button
+                            onClick={() => {
+                              if (!visitor) {
+                                toast.error("Please login to pay advance");
+                                return;
+                              }
+                              const advanceAmount = pkg.pricing * 0.2; // Calculate 20% of the price
+                              handlePayAdvance(advanceAmount, pkg.id);
+                            }}
+                            className="w-full bg-orange text-white py-2 px-4 rounded-md hover:bg-orange-600 transition-colors"
+                          >
+                            Pay 20% Advance (${(pkg.pricing * 0.2).toFixed(2)})
+                          </button>
                         </div>
                       ))}
                   </div>
@@ -237,9 +272,13 @@ const Service: React.FC = () => {
               <div>
                 <Reviews serviceId={offering?.id} />
               </div>
-              <div>
-                <WriteReview serviceId={offering?.id} />
-              </div>
+              
+              {!isVendorsOffering ? (
+                <div>
+                  <WriteReview serviceId={offering?.id} />
+                </div>
+              ) : null}
+
               <div>
                 <Comments serviceId={offering?.id} />
               </div>

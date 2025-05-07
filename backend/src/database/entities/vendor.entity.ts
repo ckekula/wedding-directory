@@ -7,6 +7,7 @@ import {
   OneToMany,
 } from 'typeorm';
 import { OfferingEntity } from './offering.entity';
+import { PaymentEntity } from './payment.entity';
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 
 @ObjectType()
@@ -52,7 +53,6 @@ export class VendorEntity {
   createdAt: Date;
 
   @UpdateDateColumn({ name: 'updated_at', type: 'timestamp', nullable: false })
-
   updatedAt: Date;
 
   @OneToMany(() => OfferingEntity, (o) => o.vendor, {
@@ -61,5 +61,6 @@ export class VendorEntity {
   })
   offering: OfferingEntity[];
 
-  
+  @OneToMany(() => PaymentEntity, payment => payment.vendor)
+  payments: PaymentEntity[];
 }

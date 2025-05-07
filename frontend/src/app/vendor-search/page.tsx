@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import Footer from "@/components/shared/Footer";
 import Header from "@/components/shared/Headers/Header";
 import OfferingCard from "@/components/vendor-search/OfferingCard";
@@ -34,6 +34,10 @@ const VendorSearch: React.FC = () => {
     }
   }, [city, category, getServices]);
 
+    // Load initial data when component mounts
+  useEffect(() => {
+    handleSearch();
+  }, [handleSearch]);
 
   // Handlers for filter changes
   const handleCityChange = useCallback((newCity: string) => {
@@ -105,7 +109,7 @@ const VendorSearch: React.FC = () => {
               </div>
             </div>
           ) : (
-            <div className="my-4 text-2xl">No vendors found</div>
+            <div className="my-4 text-xl">No vendors found</div>
           )}
         </div>
 

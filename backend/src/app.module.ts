@@ -18,6 +18,8 @@ import { ReviewModule } from "./modules/review/review.module";
 import { PackageModule } from "./modules/package/package.module";
 import { ChatModule } from "./modules/chat/chat.module";
 import { MongooseModule } from "@nestjs/mongoose";
+import { StripeModule } from "./modules/stripe/stripe.module";
+import { PaymentModule } from "./modules/payment/payment.module";
 
 @Module({
   imports: [
@@ -45,7 +47,6 @@ import { MongooseModule } from "@nestjs/mongoose";
 
     VendorModule,
     VisitorModule,
-
     OfferingModule,
     GuestListModule,
     UploadModule,
@@ -56,8 +57,8 @@ import { MongooseModule } from "@nestjs/mongoose";
     MyVendorsModule,
     ReviewModule,
     PackageModule,
-   
+    StripeModule,
+    PaymentModule,
   ],
-  
 })
 export class AppModule {}

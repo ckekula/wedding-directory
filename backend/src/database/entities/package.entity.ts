@@ -1,5 +1,6 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { OfferingEntity } from "./offering.entity";
+import { PaymentEntity } from './payment.entity';
 
 @Entity({ name: 'package' })
 export class PackageEntity {
@@ -35,4 +36,7 @@ export class PackageEntity {
     @ManyToOne(() => OfferingEntity, o => o.packages)
     @JoinColumn({ name: 'offering_id' })
     offering: OfferingEntity;
+
+    @OneToMany(() => PaymentEntity, payment => payment.package)
+    payments: PaymentEntity[];
 }

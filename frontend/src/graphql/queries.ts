@@ -149,8 +149,10 @@ export const GET_VENDOR_BY_ID = gql`
       fname
       lname
       busname
+      about
       phone
       city
+      location
       createdAt
     }
   }
@@ -422,6 +424,31 @@ export const FIND_VENDOR_BY_SERVICE = gql`
   query FindVendorsByOffering($offering_id: String!) {
     findVendorsByOffering(offering_id: $offering_id) {
       location
+    }
+  }
+`;
+
+
+export const GET_VENDOR_PAYMENTS = gql`
+  query GetVendorPayments($vendorId: String!) {
+    vendorPayments(vendorId: $vendorId) {
+      id
+      amount
+      status
+      createdAt
+      visitor {
+        id
+        visitor_fname
+        email
+      }
+      package {
+        id
+        name
+        offering{
+          id
+          name
+        }
+      }
     }
   }
 `;
