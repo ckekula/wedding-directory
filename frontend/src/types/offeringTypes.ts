@@ -2,7 +2,7 @@ export interface OfferingProps {
     name: string,
     vendor: string,
     city: string, 
-    rating: string, 
+    reviews: Review[];
     banner: string,
     link: string,
     buttonText: string
@@ -21,19 +21,21 @@ export type SocialTypes = {
     x?: string;
 };
 
+interface Review {
+    rating: string;
+}
+
 export interface Offering {
     id: string;
     name: string;
     category: string;
     visible: boolean;
-    bus_phone: string | null;
-    bus_email: string | null;
-    description: string | null;
     banner: string | null;
+    reviews: Review[];
     vendor: {
         id: string;
         busname: string;
         city: string;
         phone: string;
-    } | null;
+    };
 }
