@@ -6,6 +6,8 @@ import { VisitorEntity } from 'src/database/entities/visitor.entity';
 import { VendorEntity } from 'src/database/entities/vendor.entity';
 import { PackageEntity } from 'src/database/entities/package.entity';
 
+const USD_TO_LKR_RATE = 322.58; // 1 USD = 322.58 LKR (inverse of LKR_TO_USD_RATE)
+
 @Injectable()
 export class PaymentService {
   constructor(
@@ -23,20 +25,23 @@ export class PaymentService {
     visitorId: string,
     vendorId: string,
     packageId: string,
-    amount: number,
+    amount: number, // amount in USD
     stripeSessionId: string,
   ) {
     const visitor = await this.visitorRepository.findOneBy({ id: visitorId });
     const vendor = await this.vendorRepository.findOneBy({ id: vendorId });
     const package_ = await this.packageRepository.findOneBy({ id: packageId });
 
+    // Convert USD to LKR and round to 2 decimal places
+    const amountInLKR = Number((amount * USD_TO_LKR_RATE).toFixed(2));
+
     const payment = this.paymentRepository.create({
       visitor,
       vendor,
       package: package_,
-      amount,
+      amount: amountInLKR, // Save the LKR amount
       stripeSessionId,
-      status: 'pending',
+      status: 'completed',
     });
 
     return this.paymentRepository.save(payment);
@@ -54,7 +59,10 @@ export class PaymentService {
       where: { visitor: { id: visitorId } },
       relations: {
         vendor: true,
-        package: true,
+        package: {
+          offering: true
+        }
+      
       },
     });
   }

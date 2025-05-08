@@ -2,6 +2,7 @@ import { StripeSession } from '@/types/stripeTypes';
 import { redirect } from 'next/navigation';
 import request from '@/utils/request';
 import { ReactElement } from 'react';
+import Link from 'next/link';
 
 interface PageProps {
   searchParams: { session_id?: string };
@@ -40,7 +41,7 @@ export default async function PaymentSuccess({
 
     if (session.status === 'complete') {
       return (
-        <div className="min-h-screen bg-lightYellow flex items-center justify-center">
+        <div className="min-h-screen bg-lightYellow flex items-center justify-center py-12">
           <div className="bg-white p-8 rounded-lg shadow-md max-w-md w-full">
             <div className="text-center">
               <h1 className="text-2xl font-bold text-green-600 mb-4">
@@ -65,15 +66,31 @@ export default async function PaymentSuccess({
                 We appreciate your business! A confirmation email will be sent to{' '}
                 <span className="font-semibold">{session.customer_details.email}</span>
               </p>
-              <p className="text-gray-500 text-sm">
+              <p className="text-gray-500 text-sm mb-8">
                 If you have any questions, please email{' '}
                 <a
-                  href="mailto:orders@example.com"
+                  href="mailto:senani.online@gmail.com"
                   className="text-orange hover:text-orange-600"
                 >
-                  orders@example.com
+                  senani.online@gmail.com
                 </a>
               </p>
+              
+              {/* Navigation Buttons */}
+              <div className="flex flex-col space-y-4">
+                <Link
+                  href="/visitor-dashboard"
+                  className="w-full bg-orange text-white py-2 px-4 rounded-md hover:bg-orange-600 transition-colors font-medium"
+                >
+                  Go to Dashboard
+                </Link>
+                <Link
+                  href="/visitor-dashboard/payments-history"
+                  className="w-full border-2 border-orange text-orange py-2 px-4 rounded-md hover:bg-orange hover:text-white transition-colors font-medium"
+                >
+                  View My Payments
+                </Link>
+              </div>
             </div>
           </div>
         </div>

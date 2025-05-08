@@ -11,8 +11,10 @@ import { AmountPaidProps, PaidPercentage } from '@/types/budgeterTypes';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const AmountPaid:React.FC<AmountPaidProps> = ({ amountPaid = 0.00, totalCost }) => {
-  const paidPercentage: PaidPercentage = ((amountPaid / totalCost) * 100).toFixed(0);
+const AmountPaid:React.FC<AmountPaidProps> = ({ amountPaid = 0.00, totalCost= 0.00 }) => {
+    const paidPercentage: PaidPercentage = totalCost > 0 
+    ? ((amountPaid / totalCost) * 100).toFixed(0)
+    : "0";
 
   const data = {
     datasets: [
