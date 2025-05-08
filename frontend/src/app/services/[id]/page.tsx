@@ -166,6 +166,7 @@ const Service: React.FC = () => {
       });
       window.location.href = data.url;
     } catch (error) {
+      console.log(error);
       toast.error('An unexpected error occurred');
     }
   };
