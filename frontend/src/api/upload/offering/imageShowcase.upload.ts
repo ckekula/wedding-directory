@@ -29,9 +29,9 @@ export const uploadOfferingImageShowcase = async (files: File[], offeringId: str
     return response.data.uploadedUrls;  // Match the backend's response structure
   } catch (error) {
     if (error instanceof Error) {
-      console.error("Error uploading showcase images:", error.message);
+      //console.error("Error uploading showcase images:", error.message);
     } else {
-      console.error("Error uploading showcase images:", error);
+      //console.error("Error uploading showcase images:", error);
     }
     throw error;
   }

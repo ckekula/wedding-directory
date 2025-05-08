@@ -9,6 +9,18 @@ import BudgetItemsPanel from '@/components/visitor-dashboard/budgeter/BudgetItem
 import CreateBudgetTool from '@/components/visitor-dashboard/budgeter/CreateBudgetTool';
 import { BudgetItemData } from '@/types/budgeterTypes';
 
+interface Package {
+  pricing?: number;
+  offering?: {
+    category?: string;
+  };
+}
+
+interface Payment {
+  amount: number;
+  package?: Package;
+}
+
 const BudgeterPage = () => {
   const { visitorId } = useParams() as { visitorId: string };
 
@@ -25,14 +37,10 @@ const BudgeterPage = () => {
   const visitorPayments = data?.visitorPayments || [];
 
   // Process payments by category
-  const paymentsByCategory = visitorPayments.reduce((acc: { [key: string]: number }, payment: any) => {
-    try {
-      if (payment.package?.offering?.category) {
-        const category = payment.package.offering.category;
-        acc[category] = (acc[category] || 0) + payment.amount;
-      }
-    } catch (error) {
-      // Silent error handling
+  const paymentsByCategory = visitorPayments.reduce((acc: { [key: string]: number }, payment: Payment) => {
+    if (payment.package?.offering?.category) {
+      const category = payment.package.offering.category;
+      acc[category] = (acc[category] || 0) + payment.amount;
     }
     return acc;
   }, {});
@@ -45,17 +53,16 @@ const BudgeterPage = () => {
 
   // Calculate total cost including both budget items and package prices
   const totalCost = budgetTool.budgetItems.reduce((sum:number, item: BudgetItemData) => {
-    const categoryPayment = paymentsByCategory[item.category] || 0;
     return sum + item.estimatedCost;
-  }, 0) + visitorPayments.reduce((sum: number, payment: any) => {
+  }, 0) + visitorPayments.reduce((sum: number, payment: Payment) => {
     return sum + (payment.package?.pricing || 0);
   }, 0);
 
   // Calculate amount paid including both manual entries and payment amounts
   const amountPaid = budgetTool.budgetItems.reduce((sum:number, item: BudgetItemData) => {
-    const categoryPayment = paymentsByCategory[item.category] || 0;
-    return sum + item.amountPaid + categoryPayment;
-  }, 0) + visitorPayments.reduce((sum: number, payment: any) => {
+    const categoryPayments = paymentsByCategory[item.category] || 0;
+    return sum + item.amountPaid + categoryPayments;
+  }, 0) + visitorPayments.reduce((sum: number, payment: Payment) => {
     return sum + (payment.amount || 0);
   }, 0);
 

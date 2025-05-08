@@ -15,9 +15,9 @@ export const uploadProfilePicture = async (file: File, visitorId: string) => {
     return response.data.fileUrl; // Assuming the response contains the uploaded file URL
   } catch (error) {
     if (error instanceof Error) {
-      console.error("Error uploading profile picture:", error.message);
+      //console.error("Error uploading profile picture:", error.message);
     } else {
-      console.error("Error uploading profile picture:", error);
+      //console.error("Error uploading profile picture:", error);
     }
     throw error;
   }
