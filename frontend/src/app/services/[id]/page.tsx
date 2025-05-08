@@ -180,7 +180,7 @@ const Service: React.FC = () => {
             (offering?.photo_showcase?.length || 0) +
             (offering?.video_showcase?.length || 0)
           }
-          portfolioLink={`/services/${id}/portfolio`}
+          portfolioLink={`/services/${id}/gallery`}
         />
 
         {/* Add "See More" button if there are additional media items */}

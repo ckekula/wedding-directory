@@ -38,7 +38,7 @@ const PortfolioImages: React.FC<PortfolioImagesProps> = ({
           href={portfolioLink}
           className="absolute bottom-0 right-0 m-4 z-10"
         >
-          <div className="flex items-center gap-2 bg-slate-400 hover:bg-orange-600 text-white py-2 px-4 rounded-lg transition-all shadow-lg hover:shadow-xl group-hover:scale-105">
+          <div className="flex border-2 border-slate-700 items-center gap-2 bg-slate-400 hover:bg-orange-600 text-white py-2 px-4 rounded-lg transition-all shadow-lg hover:shadow-xl group-hover:scale-105">
             <RiGalleryView2 className="text-lg text-slate-900" />
             <span className="font-title font-bold text-slate-800">See all</span>
             
