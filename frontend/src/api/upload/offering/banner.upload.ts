@@ -15,9 +15,9 @@ export const uploadOfferingBanner = async (file: File, offeringId: string) => {
     return response.data.fileUrl; // Assuming the response contains the uploaded file URL
   } catch (error) {
     if (error instanceof Error) {
-      console.error("Error uploading banner image:", error.message);
+      //console.error("Error uploading banner image:", error.message);
     } else {
-      console.error("Error uploading banner image:", error);
+      //console.error("Error uploading banner image:", error);
     }
     throw error;
   }
