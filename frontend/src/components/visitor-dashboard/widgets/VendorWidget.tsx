@@ -65,11 +65,7 @@ const VendorWidget: React.FC<VendorWidgetProps> = ({ vendors, visitorId }) => {
                     {vendor.offering?.vendor?.busname || "No business name"}
                   </p>
                 </div>
-                <div className="ml-2">
-                  <span className="text-orange-400 opacity-0 group-hover:opacity-100 transition-opacity">
-                    →
-                  </span>
-                </div>
+                
               </div>
             ))}
           </div>
