@@ -3,13 +3,17 @@
 import Link from "next/link";
 import { formatDistanceToNow } from "date-fns";
 import { useQuery } from "@apollo/client";
-import { GET_CHAT_VISITOR_DETAILS } from "@/graphql/queries";
+import {
+  GET_CHAT_VISITOR_DETAILS,
+  GET_OFFERING_DETAILS,
+} from "@/graphql/queries";
 import { FaUserCircle } from "react-icons/fa";
 import { FaInbox } from "react-icons/fa6";
 
 interface Chat {
   chatId: string;
   visitorId: string;
+  offeringId: string;
   messages: {
     content: string;
     timestamp: string;
@@ -19,14 +23,21 @@ interface Chat {
 interface ChatListProps {
   chats: Chat[];
 }
+
 const ChatListItem = ({ chat }: { chat: Chat }) => {
-  const { data, loading, error } = useQuery(GET_CHAT_VISITOR_DETAILS, {
+  const { data: visitorData } = useQuery(GET_CHAT_VISITOR_DETAILS, {
     variables: { id: chat.visitorId },
   });
 
-  const lastMessage = chat.messages[chat.messages.length - 1];
+  const { data: offeringData } = useQuery(GET_OFFERING_DETAILS, {
+    variables: { id: chat.offeringId },
+  });
 
-  if (loading) {
+  const lastMessage = chat.messages[chat.messages.length - 1];
+  const visitor = visitorData?.findVisitorById;
+  const offering = offeringData?.findOfferingById;
+
+  if (!visitor) {
     return (
       <div className="animate-pulse flex items-center p-4">
         <div className="w-12 h-12 bg-gray-200 rounded-full mr-4"></div>
@@ -37,10 +48,6 @@ const ChatListItem = ({ chat }: { chat: Chat }) => {
       </div>
     );
   }
-
-  if (error) return null;
-
-  const visitor = data?.findVisitorById;
 
   return (
     <Link
@@ -57,7 +64,7 @@ const ChatListItem = ({ chat }: { chat: Chat }) => {
               {visitor?.visitor_fname} & {visitor?.partner_fname}
             </h3>
             <span className="px-2 py-1 text-xs bg-primary/10 text-accent rounded-full font-body">
-              {visitor?.email}
+              {offering?.name || "Service"}
             </span>
           </div>
           {lastMessage && (
@@ -70,6 +77,9 @@ const ChatListItem = ({ chat }: { chat: Chat }) => {
         </div>
         <p className="text-sm text-gray-600 mt-1 line-clamp-1 font-body">
           {lastMessage?.content || "No messages yet"}
+        </p>
+        <p className="text-xs text-gray-400 mt-1">
+          {visitor?.email} • {offering?.category}
         </p>
       </div>
     </Link>

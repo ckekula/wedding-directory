@@ -6,5 +6,5 @@ export class CreateChatInput {
   visitorId: string;
 
   @Field()
-  vendorId: string;
+  offeringId: string;
 }

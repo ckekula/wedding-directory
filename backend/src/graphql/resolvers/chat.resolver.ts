@@ -1,7 +1,7 @@
-import { Resolver, Query, Args, Mutation } from '@nestjs/graphql';
-import { ChatService } from '../../modules/chat/chat.service';
-import { ChatType } from '../../database/types/chatTypes';
-import { CreateChatInput } from '../inputs/createChat.input';
+import { Resolver, Query, Args, Mutation } from "@nestjs/graphql";
+import { ChatService } from "../../modules/chat/chat.service";
+import { ChatType } from "../../database/types/chatTypes";
+import { CreateChatInput } from "../inputs/createChat.input";
 
 @Resolver()
 export class ChatResolver {
@@ -9,48 +9,53 @@ export class ChatResolver {
 
   // Keep your existing queries
   @Query(() => [ChatType])
-  async getVendorChats(@Args('vendorId') vendorId: string) {
+  async getVendorChats(@Args("vendorId") vendorId: string) {
     return this.chatService.getVendorChats(vendorId);
   }
 
   @Query(() => [ChatType])
-  async getVisitorChats(@Args('visitorId') visitorId: string) {
+  async getOfferingChats(@Args("offeringId") offeringId: string) {
+    return this.chatService.getOfferingChats(offeringId);
+  }
+
+  @Query(() => [ChatType])
+  async getVisitorChats(@Args("visitorId") visitorId: string) {
     return this.chatService.getVisitorChats(visitorId);
   }
 
   @Query(() => ChatType)
-  async getChatHistory(@Args('chatId') chatId: string) {
+  async getChatHistory(@Args("chatId") chatId: string) {
     return this.chatService.getChatHistory(chatId);
   }
   @Query(() => ChatType)
   async getChat(
-    @Args('visitorId') visitorId: string,
-    @Args('vendorId') vendorId: string,
+    @Args("visitorId") visitorId: string,
+    @Args("offeringId") offeringId: string
   ) {
-    return this.chatService.findOrCreateChat(vendorId, visitorId);
+    return this.chatService.findOrCreateChat(offeringId, visitorId);
   }
 
-  // Add these new mutations
+  
   @Mutation(() => ChatType)
   async createChat(@Args('createChatInput') createChatInput: CreateChatInput) {
     return this.chatService.findOrCreateChat(
-      createChatInput.vendorId,
+      createChatInput.offeringId,
       createChatInput.visitorId
     );
   }
 
   @Mutation(() => ChatType)
   async sendMessage(
-    @Args('chatId') chatId: string,
-    @Args('content') content: string,
-    @Args('visitorSenderId', { nullable: true }) visitorSenderId?: string,
-    @Args('vendorSenderId', { nullable: true }) vendorSenderId?: string
+    @Args("chatId") chatId: string,
+    @Args("content") content: string,
+    @Args("visitorSenderId", { nullable: true }) visitorSenderId?: string,
+    @Args("vendorSenderId", { nullable: true }) vendorSenderId?: string
   ) {
     return this.chatService.sendMessage({
       chatId,
       content,
       visitorSenderId,
-      vendorSenderId
+      vendorSenderId,
     });
   }
 }
