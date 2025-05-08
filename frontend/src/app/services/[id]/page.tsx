@@ -3,7 +3,7 @@
 import Header from "@/components/shared/Headers/Header";
 import React, { useEffect, useState } from "react";
 import { CiHeart } from "react-icons/ci";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, } from "next/navigation";
 import { FIND_MY_VENDOR_BY_ID, FIND_SERVICE_BY_ID, FIND_PACKAGES_BY_OFFERING } from "@/graphql/queries";
 import { useMutation, useQuery } from "@apollo/client";
 import SocialIcons from "@/components/vendor-dashboard/dahboard-services/socialIcons";
@@ -38,7 +38,7 @@ const Service: React.FC = () => {
   const { visitor } = useAuth();
   const params = useParams();
   const { id } = params;
-  const router = useRouter();
+ // const router = useRouter();
 
   const { loading, error, data } = useQuery(FIND_SERVICE_BY_ID, {
     variables: { id },
@@ -169,10 +169,27 @@ const Service: React.FC = () => {
         </Link>
 
         {/* Replace the Portfolio Image Section with the new component */}
-        <PortfolioImages 
+        <PortfolioImages
           banner={offering?.banner}
-          photoShowcase={offering?.photo_showcase || []}
+          photoShowcase={offering?.photo_showcase?.slice(0, 4) || []}
+          hasMoreMedia={
+            (offering?.photo_showcase && offering.photo_showcase.length > 4) ||
+            offering?.video_showcase?.length > 0
+          }
+          totalMediaCount={
+            (offering?.photo_showcase?.length || 0) +
+            (offering?.video_showcase?.length || 0)
+          }
+          portfolioLink={`/services/${id}/gallery`}
         />
+
+        {/* Add "See More" button if there are additional media items */}
+        {((offering?.photo_showcase && offering.photo_showcase.length > 4) ||
+          offering?.video_showcase?.length > 0) && (
+          <div className="flex justify-center mt-2 mb-4">
+            
+          </div>
+        )}
 
         <div className="flex flex-row gap-x-5 mt-4">
           <div className="w-3/4">
@@ -222,19 +239,25 @@ const Service: React.FC = () => {
               <hr className="border-t border-gray-300 my-4" />
 
               {/* Packages Section */}
-              {packagesData?.findPackagesByOffering.some((pkg: Package) => pkg.visible) && (
+              {packagesData?.findPackagesByOffering.some(
+                (pkg: Package) => pkg.visible
+              ) && (
                 <>
                   <div className="mb-3 text-2xl font-bold">Packages</div>
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {packagesData?.findPackagesByOffering
                       .filter((pkg: Package) => pkg.visible)
                       .map((pkg: Package) => (
-                        <div 
-                          key={pkg.id} 
+                        <div
+                          key={pkg.id}
                           className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow"
                         >
-                          <h3 className="text-xl font-semibold mb-2">{pkg.name}</h3>
-                          <p className="text-gray-600 mb-4">{pkg.description}</p>
+                          <h3 className="text-xl font-semibold mb-2">
+                            {pkg.name}
+                          </h3>
+                          <p className="text-gray-600 mb-4">
+                            {pkg.description}
+                          </p>
                           <div className="text-2xl font-bold text-orange mb-4">
                             ${pkg.pricing.toFixed(2)}
                           </div>
@@ -266,13 +289,11 @@ const Service: React.FC = () => {
                 </>
               )}
 
-              <div className="mb-3 text-2xl font-bold">
-                Reviews
-              </div>
+              <div className="mb-3 text-2xl font-bold">Reviews</div>
               <div>
                 <Reviews serviceId={offering?.id} />
               </div>
-              
+
               {!isVendorsOffering ? (
                 <div>
                   <WriteReview serviceId={offering?.id} />
@@ -283,9 +304,7 @@ const Service: React.FC = () => {
                 <Comments serviceId={offering?.id} />
               </div>
               <hr className="border-t border-gray-300 my-4" />
-              <div className="mb-3 text-2xl font-bold">
-                Contact
-              </div>
+              <div className="mb-3 text-2xl font-bold">Contact</div>
               <div className="flex flex-col gap-y-1">
                 <div>Email: {offering.bus_email || "Email not available"}</div>
                 <div>
@@ -294,9 +313,7 @@ const Service: React.FC = () => {
                 </div>
               </div>
               <hr className="border-t border-gray-300 my-4" />
-              <div className="mb-3 text-2xl font-bold">
-                Location
-              </div>
+              <div className="mb-3 text-2xl font-bold">Location</div>
               <div className="mb-3 text-2xl font-bold">
                 <GoogleMapComponent serviceId={offering?.id} />
               </div>
@@ -304,9 +321,8 @@ const Service: React.FC = () => {
           </div>
 
           <div className="w-1/4 sticky top-20">
-              <QuoteRequestWidget vendorId={offering?.vendor.id} />
+            <QuoteRequestWidget vendorId={offering?.vendor.id} />
           </div>
-
         </div>
       </div>
     </div>
