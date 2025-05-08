@@ -13,9 +13,18 @@ class VendorType {
 }
 
 @ObjectType()
+class OfferingType {
+  @Field(() => ID)
+  id: string;
+}
+
+@ObjectType()
 export class ChatType {
   @Field(() => ID)
   chatId: string;
+
+  @Field({nullable: true})
+  offeringId: string;
 
   @Field()
   vendorId: string;
@@ -28,6 +37,9 @@ export class ChatType {
 
   @Field(() => VendorType, { nullable: true })
   vendor: VendorType;
+  
+  @Field(() => OfferingType, { nullable: true })
+  offering: OfferingType;
 
   @Field(() => [MessageType])
   messages: MessageType[];
