@@ -22,8 +22,20 @@ COPY --from=deps /app/node_modules ./node_modules
 # Copy all project files
 COPY . .
 
-# ✅ Copy environment file BEFORE build
-COPY .env.production .env
+# Accept build-time environment variables
+ARG NEXT_PUBLIC_API_URL
+ARG NEXT_PUBLIC_GRAPHQL_URL
+ARG NEXT_PUBLIC_BASE_URL
+ARG NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
+
+# Inject build-time environment variables into the build
+ENV NODE_ENV=production
+ENV NEXT_TELEMETRY_DISABLED=1
+ENV PORT=3000
+ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+ENV NEXT_PUBLIC_GRAPHQL_URL=${NEXT_PUBLIC_GRAPHQL_URL}
+ENV NEXT_PUBLIC_BASE_URL=${NEXT_PUBLIC_BASE_URL}
+ENV NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=${NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
 
 # Build the Next.js app in standalone mode
 RUN npm run build
@@ -31,16 +43,6 @@ RUN npm run build
 # Production Layer
 FROM base AS runner
 WORKDIR /app
-
-ARG NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
-
-ENV NODE_ENV=production
-ENV NEXT_TELEMETRY_DISABLED=1
-ENV PORT=3000
-ENV NEXT_PUBLIC_API_URL=https://api.sayido.lk
-ENV NEXT_PUBLIC_GRAPHQL_URL=https://api.sayido.lk/graphql
-ENV NEXT_PUBLIC_BASE_URL=https://api.sayido.lk
-ENV NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=${NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
 
 # Create a safer non-root user
 RUN addgroup --system --gid 1001 nodejs
