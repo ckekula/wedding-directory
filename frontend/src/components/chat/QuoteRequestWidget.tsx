@@ -11,9 +11,10 @@ import { useVendorAuth } from "@/contexts/VendorAuthContext";
 
 interface QuoteRequestWidgetProps {
   vendorId: string;
+  offeringId: string;
 }
 
-const QuoteRequestWidget = ({ vendorId }: QuoteRequestWidgetProps) => {
+const QuoteRequestWidget = ({ vendorId,offeringId }: QuoteRequestWidgetProps) => {
   const { visitor } = useAuth();
   const [message, setMessage] = useState("");
   const [createChat] = useMutation(CREATE_CHAT);
@@ -47,7 +48,7 @@ const QuoteRequestWidget = ({ vendorId }: QuoteRequestWidgetProps) => {
       const chatResponse = await createChat({
         variables: {
           visitorId: visitor.id,
-          vendorId,
+          offeringId: offeringId,
         },
       });
 

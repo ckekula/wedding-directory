@@ -5,7 +5,6 @@ import { GET_VENDOR_MESSAGES } from "@/graphql/queries";
 import ChatList from "../../../components/chat/VendorChatList";
 import { useVendorAuth } from "../../../contexts/VendorAuthContext";
 
-
 export default function ChatsPage() {
   const { vendor } = useVendorAuth();
 
@@ -33,8 +32,9 @@ export default function ChatsPage() {
   return (
     <div className="max-w-4xl mx-auto p-6">
       <div className="flex items-center gap-3 mb-8">
-       
-        <h3 className="text-3xl font-bold text-gray-800 font-title">My Conversations</h3>
+        <h3 className="text-3xl font-bold text-gray-800 font-title">
+          My Conversations
+        </h3>
       </div>
       <ChatList chats={data.getVendorChats} />
     </div>
