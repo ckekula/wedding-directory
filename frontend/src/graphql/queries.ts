@@ -191,10 +191,13 @@ export const GET_BUDGET_TOOL = gql`
     visitorPayments(visitorId: $visitorId) {
       id
       amount
+      createdAt
       status
       package {
         name
+        pricing
         offering {
+          name
           category
         }
       }

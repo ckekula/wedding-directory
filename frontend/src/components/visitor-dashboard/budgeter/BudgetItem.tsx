@@ -189,9 +189,6 @@ const BudgetItem: React.FC<BudgetItemComponentProps> = ({
           </div>
         </div>
       )}
-      <div className="text-sm text-gray-600 px-6 py-4">
-        External Payments: ${externalPayments.toFixed(2)}
-      </div>
     </div>
   );
 };

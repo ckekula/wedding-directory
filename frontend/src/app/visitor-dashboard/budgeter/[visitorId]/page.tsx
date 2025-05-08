@@ -26,12 +26,39 @@ const BudgeterPage = () => {
 
   // Process payments by category
   const paymentsByCategory = visitorPayments.reduce((acc: { [key: string]: number }, payment: any) => {
-    if (payment.status === 'COMPLETED' && payment.package?.offering?.category) {
-      const category = payment.package.offering.category;
-      acc[category] = (acc[category] || 0) + payment.amount;
+    try {
+      // Debug logging
+      console.log('Processing payment:', {
+        id: payment.id,
+        amount: payment.amount,
+        status: payment.status,
+        category: payment.package?.offering?.category,
+        serviceName: payment.package?.offering?.name,
+        createdAt: payment.createdAt,
+        packageName: payment.package?.name,
+        packagePrice: payment.package?.pricing,
+      });
+
+      // Check if payment has required properties
+      if (payment.package?.offering?.category) {
+        const category = payment.package.offering.category;
+        
+        // Include all payments regardless of status
+        acc[category] = (acc[category] || 0) + payment.amount;
+        
+        // Debug logging for category total
+        console.log(`Category ${category} total:`, acc[category]);
+      } else {
+        console.warn('Payment missing category information:', payment);
+      }
+    } catch (error) {
+      console.error('Error processing payment:', error, payment);
     }
     return acc;
   }, {});
+
+  // Debug log final results
+  console.log('Final payments by category:', paymentsByCategory);
 
   if (budgetToolId == null) {
     return <div className="p-6 max-w-[1064px] items-center">
@@ -63,6 +90,7 @@ const BudgeterPage = () => {
           budgetToolId={budgetToolId}
           visitorId={visitorId}
           categoryPayments={paymentsByCategory}
+          payments={visitorPayments} // Add this new prop
         />
       </div>
     </div>

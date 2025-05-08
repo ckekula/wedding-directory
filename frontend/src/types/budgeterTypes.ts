@@ -28,7 +28,8 @@ export interface CreateBudgetInput {
 export interface BudgetItemsPanelProps {
   budgetToolId: string;
   visitorId: string;
-  categoryPayments?: { [key: string]: number };
+  categoryPayments: { [key: string]: number };
+  payments: PaymentData[];
 }
 
 // Data structure for a single budget item
@@ -74,7 +75,20 @@ export interface BudgetItemUpdateInput {
   isPaidInFull: boolean;
 }
 
-
+export interface PaymentData {
+  id: string;
+  amount: number;
+  status: string;
+  createdAt: string;
+  package: {
+    name: string;
+    pricing: number;
+    offering: {
+      name: string;
+      category: string;
+    };
+  };
+}
 
 export interface BudgetItemPopupProps {
   isOpen: boolean;

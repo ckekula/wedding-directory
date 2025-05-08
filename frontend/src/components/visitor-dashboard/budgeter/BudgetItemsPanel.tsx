@@ -6,12 +6,14 @@ import { Search, Plus } from 'lucide-react';
 import { DELETE_BUDGET_ITEM, UPDATE_BUDGET_ITEM } from '@/graphql/mutations';
 import BudgetItemPopup from '@/components/visitor-dashboard/budgeter/BudgetItemPopup';
 import { toast } from 'react-hot-toast';
+import PaymentItem from './PaymentItem';
 
-import { BudgetItemsPanelProps, BudgetItemData, UpdateBudgetItemInput } from '@/types/budgeterTypes';
+import { BudgetItemsPanelProps, BudgetItemData, UpdateBudgetItemInput, PaymentData } from '@/types/budgeterTypes';
 
 const BudgetItemsPanel: React.FC<BudgetItemsPanelProps> = ({ 
   budgetToolId,
-  categoryPayments = {} // Add default empty object for categoryPayments
+  categoryPayments = {}, // Add default empty object for categoryPayments
+  payments = [] // Add payments with default empty array
 }) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [isAddModalOpen, setIsAddModalOpen] = useState<boolean>(false);
@@ -108,8 +110,41 @@ const BudgetItemsPanel: React.FC<BudgetItemsPanelProps> = ({
       return acc;
     }, {});
 
+    // Group payments by category
+    const groupedPayments = payments.reduce((acc: { [key: string]: PaymentData[] }, payment) => {
+      // Remove the status check to show all payments
+      if (payment.package?.offering?.category) {
+        const category = payment.package.offering.category;
+        if (!acc[category]) {
+          acc[category] = [];
+        }
+        
+        // Debug logging
+        console.log('Grouping payment:', {
+          category,
+          offeringName: payment.package.offering.name,
+          packageName: payment.package.name,
+          amount: payment.amount,
+          status: payment.status || 'Pending',
+          date: payment.createdAt
+        });
+        
+        acc[category].push(payment);
+      }
+      return acc;
+    }, {});
+
+    // Debug log grouped payments
+    console.log('Grouped payments by category:', groupedPayments);
+
+    // Combine unique categories from both items and payments
+    const allCategories = new Set([
+      ...Object.keys(groupedItems),
+      ...Object.keys(groupedPayments)
+    ]);
+
     // Render items by category
-    return Object.entries(groupedItems).map(([category, items]) => (
+    return Array.from(allCategories).map((category) => (
       <div key={category} className="mb-6">
         {/* Category Header */}
         <div className="bg-gray-50 px-6 py-3 rounded-t-lg border-b font-semibold text-gray-700">
@@ -118,25 +153,29 @@ const BudgetItemsPanel: React.FC<BudgetItemsPanelProps> = ({
 
         {/* Category Items */}
         <div className="space-y-2 mt-2">
-          {items.map((item) => {
-            const categoryPaidAmount = categoryPayments[item.category] || 0;
-            const totalPaidAmount = item.amountPaid + categoryPaidAmount;
+          {/* Render Budget Items */}
+          {groupedItems[category]?.map((item) => (
+            <BudgetItem
+              key={`item-${item.id}`}
+              itemId={item.id}
+              itemName={item.itemName}
+              estimatedCost={item.estimatedCost}
+              paidAmount={item.amountPaid}
+              category={item.category}
+              specialNotes={item.specialNotes}
+              onSave={(data) => handleUpdateBudgetItem(item.id, data)}
+              onDelete={() => handleDeleteBudgetItem(item.id)}
+              externalPayments={categoryPayments[item.category] || 0}
+            />
+          ))}
 
-            return (
-              <BudgetItem
-                key={item.id}
-                itemId={item.id}
-                itemName={item.itemName}
-                estimatedCost={item.estimatedCost}
-                paidAmount={totalPaidAmount}
-                category={item.category}
-                specialNotes={item.specialNotes}
-                onSave={(data) => handleUpdateBudgetItem(item.id, data)}
-                onDelete={() => handleDeleteBudgetItem(item.id)}
-                externalPayments={categoryPaidAmount}
-              />
-            );
-          })}
+          {/* Render Related Payments */}
+          {groupedPayments[category]?.map((payment) => (
+            <PaymentItem
+              key={`payment-${payment.id}`}
+              payment={payment}
+            />
+          ))}
         </div>
       </div>
     ));
