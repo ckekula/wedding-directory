@@ -2,17 +2,52 @@
 
 import Image from "next/image";
 import React from "react";
+import Link from "next/link";
+import { RiGalleryView2 } from "react-icons/ri";
 
 interface PortfolioImagesProps {
   banner?: string | null;
   photoShowcase?: string[] | null;
+  hasMoreMedia?: boolean | null;
+  totalMediaCount?: number | null;
+  portfolioLink?: string | null;
 }
 
-const PortfolioImages: React.FC<PortfolioImagesProps> = ({ banner, photoShowcase = [] }) => {
+const PortfolioImages: React.FC<PortfolioImagesProps> = ({
+  banner,
+  photoShowcase = [],
+  hasMoreMedia = false,
+  totalMediaCount = 0,
+  portfolioLink,
+}) => {
   const hasImages = banner || (photoShowcase && photoShowcase.length > 0);
-  const images = hasImages 
-    ? [banner, ...(photoShowcase || [])].filter((img): img is string => Boolean(img)) 
+  const images = hasImages
+    ? [banner, ...(photoShowcase || [])].filter((img): img is string =>
+        Boolean(img)
+      )
     : ["/images/offeringPlaceholder.webp"];
+
+  // Helper function to render the "View more" overlay
+  const renderViewMoreOverlay = (index: number) => {
+    if (hasMoreMedia && portfolioLink && index === images.length - 1) {
+      const moreCount = (totalMediaCount || 0) - images.length;
+      if (moreCount <= 0) return null;
+
+      return (
+        <Link
+          href={portfolioLink}
+          className="absolute bottom-0 right-0 m-4 z-10"
+        >
+          <div className="flex items-center gap-2 bg-slate-400 hover:bg-orange-600 text-white py-2 px-4 rounded-lg transition-all shadow-lg hover:shadow-xl group-hover:scale-105">
+            <RiGalleryView2 className="text-lg text-slate-900" />
+            <span className="font-title font-bold text-slate-800">See all</span>
+            
+          </div>
+        </Link>
+      );
+    }
+    return null;
+  };
 
   if (images.length === 1) {
     // Single image layout
@@ -25,6 +60,7 @@ const PortfolioImages: React.FC<PortfolioImagesProps> = ({ banner, photoShowcase
           fill
           priority
         />
+        {renderViewMoreOverlay(0)}
       </div>
     );
   }
@@ -35,8 +71,8 @@ const PortfolioImages: React.FC<PortfolioImagesProps> = ({ banner, photoShowcase
       <div className="w-full max-w-7xl mx-auto overflow-hidden">
         <div className="grid grid-cols-2 gap-4 h-[500px]">
           {images.map((photo, index) => (
-            <div 
-              key={index} 
+            <div
+              key={index}
               className="relative w-full h-full overflow-hidden rounded-lg"
             >
               <Image
@@ -46,6 +82,7 @@ const PortfolioImages: React.FC<PortfolioImagesProps> = ({ banner, photoShowcase
                 fill
                 priority={index === 0}
               />
+              {renderViewMoreOverlay(index)}
             </div>
           ))}
         </div>
@@ -68,22 +105,26 @@ const PortfolioImages: React.FC<PortfolioImagesProps> = ({ banner, photoShowcase
               priority
             />
           </div>
-          
+
           {/* Right column with two stacked images */}
           <div className="grid grid-rows-2 gap-4 h-full">
-            {images.slice(1).map((photo, index) => (
-              <div 
-                key={index} 
-                className="relative w-full h-full overflow-hidden rounded-lg"
-              >
-                <Image
-                  src={photo}
-                  alt={`Portfolio image ${index + 2}`}
-                  className="w-full h-full object-cover"
-                  fill
-                />
-              </div>
-            ))}
+            {images.slice(1).map((photo, index) => {
+              const actualIndex = index + 1;
+              return (
+                <div
+                  key={index}
+                  className="relative w-full h-full overflow-hidden rounded-lg"
+                >
+                  <Image
+                    src={photo}
+                    alt={`Portfolio image ${actualIndex + 1}`}
+                    className="w-full h-full object-cover"
+                    fill
+                  />
+                  {renderViewMoreOverlay(actualIndex)}
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -105,7 +146,7 @@ const PortfolioImages: React.FC<PortfolioImagesProps> = ({ banner, photoShowcase
               priority
             />
           </div>
-          
+
           {/* Right column with one top image and two bottom images */}
           <div className="grid grid-rows-2 gap-4 h-full">
             {/* Top image taking full width */}
@@ -117,22 +158,26 @@ const PortfolioImages: React.FC<PortfolioImagesProps> = ({ banner, photoShowcase
                 fill
               />
             </div>
-            
+
             {/* Bottom row with two images */}
             <div className="grid grid-cols-2 gap-4">
-              {images.slice(2).map((photo, index) => (
-                <div 
-                  key={index} 
-                  className="relative w-full h-full overflow-hidden rounded-lg"
-                >
-                  <Image
-                    src={photo}
-                    alt={`Portfolio image ${index + 3}`}
-                    className="w-full h-full object-cover"
-                    fill
-                  />
-                </div>
-              ))}
+              {images.slice(2).map((photo, index) => {
+                const actualIndex = index + 2;
+                return (
+                  <div
+                    key={index}
+                    className="relative w-full h-full overflow-hidden rounded-lg"
+                  >
+                    <Image
+                      src={photo}
+                      alt={`Portfolio image ${actualIndex + 1}`}
+                      className="w-full h-full object-cover"
+                      fill
+                    />
+                    {renderViewMoreOverlay(actualIndex)}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
@@ -140,7 +185,7 @@ const PortfolioImages: React.FC<PortfolioImagesProps> = ({ banner, photoShowcase
     );
   }
 
-  // More than 3 images - masonry grid layout
+  // More than 4 images - masonry grid layout
   return (
     <div className="w-full max-w-7xl mx-auto overflow-hidden">
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[50px] sm:auto-rows-[100px] lg:auto-rows-[200px]">
@@ -156,19 +201,26 @@ const PortfolioImages: React.FC<PortfolioImagesProps> = ({ banner, photoShowcase
         </div>
 
         {/* Showcase Images */}
-        {images.slice(1, 5).map((photo, index) => (
-          <div 
-            key={index} 
-            className="relative w-full h-full overflow-hidden rounded-lg"
-          >
-            <Image
-              src={photo}
-              alt={`Portfolio image ${index + 1}`}
-              className="w-full h-full object-cover"
-              fill
-            />
-          </div>
-        ))}
+        {images.slice(1, 5).map((photo, index) => {
+          const actualIndex = index + 1;
+          // Render overlay on the last showcase image (4th one)
+          const isLastShowcaseImage = index === 3;
+
+          return (
+            <div
+              key={index}
+              className="relative w-full h-full overflow-hidden rounded-lg"
+            >
+              <Image
+                src={photo}
+                alt={`Portfolio image ${actualIndex + 1}`}
+                className="w-full h-full object-cover"
+                fill
+              />
+              {isLastShowcaseImage && renderViewMoreOverlay(4)}
+            </div>
+          );
+        })}
       </div>
     </div>
   );
