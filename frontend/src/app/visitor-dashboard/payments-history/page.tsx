@@ -120,7 +120,7 @@ const PaymentsHistoryPage = () => {
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">
                                             <div className="text-sm text-gray-900">
-                                                ${payment.amount.toFixed(2)}
+                                                {payment.amount.toFixed(2)} LKR
                                             </div>
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap">

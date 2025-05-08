@@ -26,7 +26,6 @@ const BudgetItem: React.FC<BudgetItemComponentProps> = ({
   specialNotes = null,
   onSave = () => {},
   onDelete = () => {},
-  externalPayments,
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [editedValues, setEditedValues] = useState<UpdateBudgetItemInput>({

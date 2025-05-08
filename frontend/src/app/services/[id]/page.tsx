@@ -23,6 +23,9 @@ import GoogleMapComponent from "@/components/vendor-dashboard/dahboard-services/
 import PortfolioImages from "@/components/vendor-dashboard/dahboard-services/PortfolioImages";
 import request from '@/utils/request';
 
+// Add this constant at the top of the file with other imports
+const LKR_TO_USD_RATE = 0.0031; // 1 LKR = 0.0031 USD (you should use real-time rates)
+
 // Add this interface before the Service component
 interface Package {
   id: string;
@@ -144,11 +147,21 @@ const Service: React.FC = () => {
         return;
       }
 
+      // Convert LKR to USD and round to 2 decimal places
+      const amountInUSD = Number((amount * LKR_TO_USD_RATE).toFixed(2));
+
+      // Ensure minimum charge amount for Stripe (0.50 USD)
+      if (amountInUSD < 0.5) {
+        toast.error('Amount is too small for processing');
+        return;
+      }
+
       const { data } = await request.post('/api/stripe/create-checkout-session', {
-        amount,
+        amount: amountInUSD, // Send amount in USD
         packageId,
         visitorId: visitor.id,
         vendorId: offering.vendor.id,
+        originalAmountLKR: amount // Send original LKR amount for reference
       });
       window.location.href = data.url;
     } catch (error) {
@@ -259,7 +272,7 @@ const Service: React.FC = () => {
                             {pkg.description}
                           </p>
                           <div className="text-2xl font-bold text-orange mb-4">
-                            ${pkg.pricing.toFixed(2)}
+                            {pkg.pricing.toFixed(2)} LKR
                           </div>
                           <ul className="space-y-2 mb-4">
                             {pkg.features.map((feature, index) => (
@@ -276,11 +289,16 @@ const Service: React.FC = () => {
                                 return;
                               }
                               const advanceAmount = pkg.pricing * 0.2; // Calculate 20% of the price
+                              const advanceAmountUSD = (advanceAmount * LKR_TO_USD_RATE).toFixed(2);
                               handlePayAdvance(advanceAmount, pkg.id);
                             }}
                             className="w-full bg-orange text-white py-2 px-4 rounded-md hover:bg-orange-600 transition-colors"
                           >
-                            Pay 20% Advance (${(pkg.pricing * 0.2).toFixed(2)})
+                            {(() => {
+                              const advanceAmount = pkg.pricing * 0.2;
+                              const advanceAmountUSD = (advanceAmount * LKR_TO_USD_RATE).toFixed(2);
+                              return `Pay 20% Advance (${advanceAmount.toFixed(2)} LKR ≈ $${advanceAmountUSD} USD)`;
+                            })()}
                           </button>
                         </div>
                       ))}

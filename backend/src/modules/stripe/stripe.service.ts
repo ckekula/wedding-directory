@@ -21,7 +21,7 @@ export class StripeService {
       line_items: [
         {
           price_data: {
-            currency: 'usd',
+            currency: 'USD',
             product_data: {
               name: 'Advance Payment',
               description: `20% advance payment for package ${packageId}`,

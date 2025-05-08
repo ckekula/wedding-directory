@@ -112,30 +112,15 @@ const BudgetItemsPanel: React.FC<BudgetItemsPanelProps> = ({
 
     // Group payments by category
     const groupedPayments = payments.reduce((acc: { [key: string]: PaymentData[] }, payment) => {
-      // Remove the status check to show all payments
       if (payment.package?.offering?.category) {
         const category = payment.package.offering.category;
         if (!acc[category]) {
           acc[category] = [];
         }
-        
-        // Debug logging
-        console.log('Grouping payment:', {
-          category,
-          offeringName: payment.package.offering.name,
-          packageName: payment.package.name,
-          amount: payment.amount,
-          status: payment.status || 'Pending',
-          date: payment.createdAt
-        });
-        
         acc[category].push(payment);
       }
       return acc;
     }, {});
-
-    // Debug log grouped payments
-    console.log('Grouped payments by category:', groupedPayments);
 
     // Combine unique categories from both items and payments
     const allCategories = new Set([

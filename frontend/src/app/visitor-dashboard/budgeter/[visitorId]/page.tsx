@@ -27,38 +27,15 @@ const BudgeterPage = () => {
   // Process payments by category
   const paymentsByCategory = visitorPayments.reduce((acc: { [key: string]: number }, payment: any) => {
     try {
-      // Debug logging
-      console.log('Processing payment:', {
-        id: payment.id,
-        amount: payment.amount,
-        status: payment.status,
-        category: payment.package?.offering?.category,
-        serviceName: payment.package?.offering?.name,
-        createdAt: payment.createdAt,
-        packageName: payment.package?.name,
-        packagePrice: payment.package?.pricing,
-      });
-
-      // Check if payment has required properties
       if (payment.package?.offering?.category) {
         const category = payment.package.offering.category;
-        
-        // Include all payments regardless of status
         acc[category] = (acc[category] || 0) + payment.amount;
-        
-        // Debug logging for category total
-        console.log(`Category ${category} total:`, acc[category]);
-      } else {
-        console.warn('Payment missing category information:', payment);
       }
     } catch (error) {
-      console.error('Error processing payment:', error, payment);
+      // Silent error handling
     }
     return acc;
   }, {});
-
-  // Debug log final results
-  console.log('Final payments by category:', paymentsByCategory);
 
   if (budgetToolId == null) {
     return <div className="p-6 max-w-[1064px] items-center">
@@ -66,24 +43,32 @@ const BudgeterPage = () => {
     </div>;
   }
 
-  // Calculate total cost including both budget items and payments
+  // Calculate total cost including both budget items and package prices
   const totalCost = budgetTool.budgetItems.reduce((sum:number, item: BudgetItemData) => {
     const categoryPayment = paymentsByCategory[item.category] || 0;
     return sum + item.estimatedCost;
+  }, 0) + visitorPayments.reduce((sum: number, payment: any) => {
+    return sum + (payment.package?.pricing || 0);
   }, 0);
 
-  // Calculate amount paid including both manual entries and payments
+  // Calculate amount paid including both manual entries and payment amounts
   const amountPaid = budgetTool.budgetItems.reduce((sum:number, item: BudgetItemData) => {
     const categoryPayment = paymentsByCategory[item.category] || 0;
     return sum + item.amountPaid + categoryPayment;
+  }, 0) + visitorPayments.reduce((sum: number, payment: any) => {
+    return sum + (payment.amount || 0);
   }, 0);
+
+  // Add defaulted values for safety
+const safeAmountPaid = amountPaid || 0;
+const safeTotalCost = totalCost || 0;
 
   return (
     <div className="p-6 max-w-[1064px] items-center">
       <BudgetHeader budget={budgetTool.totalBudget} totalCost={totalCost} />
       <div className="grid grid-cols-2 gap-[5px] py-[5px]">
-        <TotalCost totalCost={totalCost} budget={budgetTool.totalBudget} />
-        <AmountPaid amountPaid={amountPaid} totalCost={totalCost} />
+        <TotalCost totalCost={safeTotalCost} budget={budgetTool.totalBudget} />
+        <AmountPaid amountPaid={safeAmountPaid} totalCost={totalCost} />
       </div>
       <div>
         <BudgetItemsPanel 
