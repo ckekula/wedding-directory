@@ -153,9 +153,17 @@ const EditPortfolio: React.FC = () => {
         
         toast.success("Images uploaded successfully!");
       }
-    } catch (error: any) {
-      console.error("Failed to upload showcase images:", error);
-      toast.error("Upload failed: " + (error.message || "Unknown error"));
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        toast.error("Upload failed: " + error.message);
+      } else {
+        toast.error("Upload failed: Unknown error");
+      }
+      if (error instanceof Error) {
+        toast.error("Upload failed: " + error.message);
+      } else {
+        toast.error("Upload failed: Unknown error");
+      }
     } finally {
       setIsUploading(false);
     }

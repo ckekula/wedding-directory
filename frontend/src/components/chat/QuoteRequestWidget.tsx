@@ -6,6 +6,9 @@ import { GET_VISITOR_BY_ID } from "@/graphql/queries";
 import { useAuth } from "@/contexts/VisitorAuthContext";
 import Link from "next/link";
 import { Confetti } from "@/components/ui/confetti";
+import toast from "react-hot-toast";
+import { useVendorAuth } from "@/contexts/VendorAuthContext";
+
 interface QuoteRequestWidgetProps {
   vendorId: string;
 }
@@ -17,7 +20,9 @@ const QuoteRequestWidget = ({ vendorId }: QuoteRequestWidgetProps) => {
   const [sendMessage] = useMutation(SEND_MESSAGE);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
+  const { vendor } = useVendorAuth();
   
+  const isVendorsOffering = vendorId === vendor?.id;
 
   const { data: visitorData } = useQuery(GET_VISITOR_BY_ID, {
     variables: { id: visitor?.id },
@@ -28,12 +33,12 @@ const QuoteRequestWidget = ({ vendorId }: QuoteRequestWidgetProps) => {
     e.preventDefault();
 
     if (!visitor?.id) {
-      console.error("No visitor ID found");
+      toast.error("Please log in as a visitor to send a quote request");
       return;
     }
 
     if (!message.trim()) {
-      console.error("Message cannot be empty");
+      toast.error("Message cannot be empty");
       return;
     }
 
@@ -45,8 +50,6 @@ const QuoteRequestWidget = ({ vendorId }: QuoteRequestWidgetProps) => {
           vendorId,
         },
       });
-
-      console.log("Chat Response:", chatResponse);
 
       const chatId = chatResponse.data?.createChat?.chatId;
 
@@ -64,11 +67,13 @@ const QuoteRequestWidget = ({ vendorId }: QuoteRequestWidgetProps) => {
       });
 
       if (messageResponse.data?.sendMessage) {
-        console.log("Message sent successfully");
+        toast.success("Quote request sent successfully!");
+        // Reset form
         setMessage("");
         setShowSuccess(true); // Show success modal and confetti
       }
     } catch (error) {
+      toast.error("Failed to send quote request. Please try again.");
       console.error("Error in quote request:", error);
     } finally {
       setIsSubmitting(false);
@@ -86,78 +91,97 @@ const QuoteRequestWidget = ({ vendorId }: QuoteRequestWidgetProps) => {
         month: "long",
         day: "numeric",
       })
-    : "Date not set";
+    : "Not set";
 
   return (
     <>
       {showSuccess && <Confetti />}
       <div className="bg-white rounded-xl shadow-lg p-8 max-w-2xl mx-auto">
-       
-          <div className="space-y-6">
-            {/* Header */}
-            <div className="text-center mb-8">
-              <h3 className="text-2xl font-bold font-title text-gray-800">
-                Get Your Personalized Quote
-              </h3>
-              <p className="text-gray-600 mt-2">
-                We&apos;ll get back to you within 24 hours
+        {isVendorsOffering ? (
+          // 👇 VENDOR VIEW
+          <div className="text-center space-y-4">
+            <h3 className="text-2xl font-bold font-title text-gray-800">
+              View your quotes
+            </h3>
+            <p className="text-gray-600">
+              Couples can request quotes here. You can view their messages in your dashboard.
+            </p>
+            <Link
+              href={`/vendor-dashboard/chats`}
+              className="inline-block bg-orange text-white py-2 px-4 rounded-lg mt-4 hover:bg-white hover:text-orange hover:border-orange border-2 transition"
+            >
+              Go to your Inbox
+            </Link>
+          </div>
+        ) : (
+          // 👇 VISITOR VIEW (original form)
+          <>
+            <div className="space-y-6">
+              {/* Header */}
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-bold font-title text-gray-800">
+                  Get Your Personalized Quote
+                </h3>
+                <p className="text-gray-600 mt-2">
+                  We&apos;ll get back to you within 24 hours
+                </p>
+              </div>
+
+              {/* User Info Card */}
+              <div className="shadow-md bg-slate-50 p-4 mb-6">
+                <div className="flex items-center space-x-4">
+                  <div className="h-12 w-12 bg-slate-100 rounded-full flex items-center justify-center">
+                    <span className="text-orange text-lg font-semibold">
+                      {fullName.split(" ")[0]?.[0]}
+                    </span>
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-gray-900 font-medium">{fullName}</p>
+                    <p className="text-gray-500 text-sm">{visitorInfo?.email}</p>
+                    <p className="text-gray-500 text-sm">
+                      Wedding Date: {weddingDate}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Message Form */}
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div>
+                  <textarea
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                    className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-slate-600 focus:border-slate-600 resize-none transition-all duration-200"
+                    rows={5}
+                    placeholder="Tell us about your wedding plans and what you're looking for..."
+                    required
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full bg-orange hover:bg-white hover:text-orange hover:border-2 hover:border-orange text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2 disabled:opacity-70"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <span className="animate-spin">⏳</span>
+                      <span>Sending...</span>
+                    </>
+                  ) : (
+                    "Send Quote Request"
+                  )}
+                </button>
+              </form>
+
+              {/* Footer Note */}
+              <p className="text-center text-gray-500 text-sm mt-4">
+                By sending this request, you&apos;ll create a conversation with
+                the vendor
               </p>
             </div>
-
-            {/* User Info Card */}
-            <div className="shadow-md bg-slate-50 p-4 mb-6">
-              <div className="flex items-center space-x-4">
-                <div className="h-12 w-12 bg-slate-100 rounded-full flex items-center justify-center">
-                  <span className="text-orange text-lg font-semibold">
-                    {fullName.split(" ")[0]?.[0]}
-                  </span>
-                </div>
-                <div className="flex-1 ">
-                  <p className="text-gray-900 font-medium">{fullName}</p>
-                  <p className="text-gray-500 text-sm">{visitorInfo?.email}</p>
-                  <p className="text-gray-500 text-sm">
-                    Wedding Date: {weddingDate}
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            {/* Message Form */}
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
-                <textarea
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-slate-600 focus:border-slate-600 resize-none transition-all duration-200"
-                  rows={5}
-                  placeholder="Tell us about your wedding plans and what you're looking for..."
-                  required
-                />
-              </div>
-
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full bg-orange hover:bg-white hover:text-orange hover:border-2 hover:border-orange text-white font-medium py-3 px-6 rounded-lg transition-colors duration-200 flex items-center justify-center space-x-2 disabled:opacity-70"
-              >
-                {isSubmitting ? (
-                  <>
-                    <span className="animate-spin">⏳</span>
-                    <span>Sending...</span>
-                  </>
-                ) : (
-                  "Send Quote Request"
-                )}
-              </button>
-            </form>
-
-            {/* Footer Note */}
-            <p className="text-center text-gray-500 text-sm mt-4">
-              By sending this request, you&apos;ll create a conversation with
-              the vendor
-            </p>
-          </div>
-        
+          </>
+        )}
       </div>
 
       {showSuccess && (
