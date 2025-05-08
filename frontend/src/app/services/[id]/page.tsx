@@ -3,8 +3,12 @@
 import Header from "@/components/shared/Headers/Header";
 import React, { useEffect, useState } from "react";
 import { CiHeart } from "react-icons/ci";
-import { useParams, } from "next/navigation";
-import { FIND_MY_VENDOR_BY_ID, FIND_SERVICE_BY_ID, FIND_PACKAGES_BY_OFFERING } from "@/graphql/queries";
+import { useParams } from "next/navigation";
+import {
+  FIND_MY_VENDOR_BY_ID,
+  FIND_SERVICE_BY_ID,
+  FIND_PACKAGES_BY_OFFERING,
+} from "@/graphql/queries";
 import { useMutation, useQuery } from "@apollo/client";
 import SocialIcons from "@/components/vendor-dashboard/dahboard-services/socialIcons";
 import { FiEdit } from "react-icons/fi";
@@ -21,7 +25,7 @@ import { FaHeart } from "react-icons/fa";
 import QuoteRequestWidget from "@/components/chat/QuoteRequestWidget";
 import GoogleMapComponent from "@/components/vendor-dashboard/dahboard-services/Map";
 import PortfolioImages from "@/components/vendor-dashboard/dahboard-services/PortfolioImages";
-import request from '@/utils/request';
+import request from "@/utils/request";
 
 // Add this constant at the top of the file with other imports
 const LKR_TO_USD_RATE = 0.0031; // 1 LKR = 0.0031 USD (you should use real-time rates)
@@ -41,7 +45,7 @@ const Service: React.FC = () => {
   const { visitor } = useAuth();
   const params = useParams();
   const { id } = params;
- // const router = useRouter();
+  // const router = useRouter();
 
   const { loading, error, data } = useQuery(FIND_SERVICE_BY_ID, {
     variables: { id },
@@ -152,20 +156,23 @@ const Service: React.FC = () => {
 
       // Ensure minimum charge amount for Stripe (0.50 USD)
       if (amountInUSD < 0.5) {
-        toast.error('Amount is too small for processing');
+        toast.error("Amount is too small for processing");
         return;
       }
 
-      const { data } = await request.post('/api/stripe/create-checkout-session', {
-        amount: amountInUSD, // Send amount in USD
-        packageId,
-        visitorId: visitor.id,
-        vendorId: offering.vendor.id,
-        originalAmountLKR: amount // Send original LKR amount for reference
-      });
+      const { data } = await request.post(
+        "/api/stripe/create-checkout-session",
+        {
+          amount: amountInUSD, // Send amount in USD
+          packageId,
+          visitorId: visitor.id,
+          vendorId: offering.vendor.id,
+          originalAmountLKR: amount, // Send original LKR amount for reference
+        }
+      );
       window.location.href = data.url;
     } catch {
-      toast.error('Payment processing failed. Please try again.');
+      toast.error("Payment processing failed. Please try again.");
     }
   };
 
@@ -198,9 +205,7 @@ const Service: React.FC = () => {
         {/* Add "See More" button if there are additional media items */}
         {((offering?.photo_showcase && offering.photo_showcase.length > 4) ||
           offering?.video_showcase?.length > 0) && (
-          <div className="flex justify-center mt-2 mb-4">
-            
-          </div>
+          <div className="flex justify-center mt-2 mb-4"></div>
         )}
 
         <div className="flex flex-row gap-x-5 mt-4">
@@ -255,53 +260,87 @@ const Service: React.FC = () => {
                 (pkg: Package) => pkg.visible
               ) && (
                 <>
-                  <div className="mb-3 text-2xl font-bold">Packages</div>
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <div className="mb-6 text-2xl font-bold">Packages</div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
                     {packagesData?.findPackagesByOffering
                       .filter((pkg: Package) => pkg.visible)
                       .map((pkg: Package) => (
                         <div
                           key={pkg.id}
-                          className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow"
+                          className="bg-white rounded-xl border-2 border-gray-200 shadow-md overflow-hidden transition-all hover:shadow-lg"
                         >
-                          <h3 className="text-xl font-semibold mb-2">
-                            {pkg.name}
-                          </h3>
-                          <p className="text-gray-600 mb-4">
-                            {pkg.description}
-                          </p>
-                          <div className="text-2xl font-bold text-orange mb-4">
-                            {pkg.pricing.toFixed(2)} LKR
+                          <div className="p-4 text-center bg-gray-50 border-b border-gray-200">
+                            <h3 className="text-xl font-bold text-gray-800">
+                              {pkg.name}
+                            </h3>
                           </div>
-                          <ul className="space-y-2 mb-4">
-                            {pkg.features.map((feature, index) => (
-                              <li key={index} className="flex items-center">
-                                <span className="text-orange mr-2">•</span>
-                                {feature}
-                              </li>
-                            ))}
-                          </ul>
-                          <button
-                            onClick={() => {
-                              if (!visitor) {
-                                toast.error("Please login to pay advance");
-                                return;
-                              }
-                              const advanceAmount = pkg.pricing * 0.2; // Calculate 20% of the price
-                              handlePayAdvance(advanceAmount, pkg.id);
-                            }}
-                            className="w-full bg-orange text-white py-2 px-4 rounded-md hover:bg-orange-600 transition-colors"
-                          >
-                            {(() => {
-                              const advanceAmount = pkg.pricing * 0.2;
-                              const advanceAmountUSD = (advanceAmount * LKR_TO_USD_RATE).toFixed(2);
-                              return `Pay 20% Advance (${advanceAmount.toFixed(2)} LKR ≈ $${advanceAmountUSD} USD)`;
-                            })()}
-                          </button>
+                          <div className="p-6">
+                            <div className="text-center mb-6">
+                              <div className="text-3xl font-bold text-orange">
+                                <span className="text-sm align-top text-gray-600">
+                                  LKR
+                                </span>{" "}
+                                {pkg.pricing.toLocaleString()}
+                              </div>
+                              <p className="text-gray-600 mt-2">
+                                {pkg.description}
+                              </p>
+                            </div>
+                            <div className="space-y-3 mb-6 min-h-[100px]">
+                              {pkg.features.map(
+                                (feature: string, idx: number) => (
+                                  <div key={idx} className="flex items-start">
+                                    <svg
+                                      className="w-5 h-5 text-green-500 mr-2 flex-shrink-0"
+                                      fill="currentColor"
+                                      viewBox="0 0 20 20"
+                                    >
+                                      <path
+                                        fillRule="evenodd"
+                                        d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                                        clipRule="evenodd"
+                                      />
+                                    </svg>
+                                    <span className="text-gray-700">
+                                      {feature}
+                                    </span>
+                                  </div>
+                                )
+                              )}
+                            </div>
+                            <div className="pt-4 border-t border-gray-100">
+                              <button
+                                onClick={() => {
+                                  if (!visitor) {
+                                    toast.error("Please login to pay advance");
+                                    return;
+                                  }
+                                  const advanceAmount: number =
+                                    pkg.pricing * 0.2;
+                                  handlePayAdvance(advanceAmount, pkg.id);
+                                }}
+                                className="w-full py-3 px-4 rounded-[22px] font-bold bg-orange text-white hover:bg-white hover:text-orange hover:border-2 hover:border-orange transition-colors flex flex-col items-center"
+                              >
+                                <span>Pay 20% Advance</span>
+                                <span className="font-normal">
+                                  LKR {(pkg.pricing * 0.2).toLocaleString()}
+                                </span>
+                                <div className="text-xs mt-1 opacity-80">
+                                  ≈ $
+                                  {(
+                                    pkg.pricing *
+                                    0.2 *
+                                    LKR_TO_USD_RATE
+                                  ).toFixed(2)}{" "}
+                                  USD
+                                </div>
+                              </button>
+                            </div>
+                          </div>
                         </div>
                       ))}
                   </div>
-                  <hr className="border-t border-gray-300 my-4" />
+                  <hr className="border-t border-gray-300 my-6" />
                 </>
               )}
 
@@ -337,7 +376,12 @@ const Service: React.FC = () => {
           </div>
 
           <div className="w-1/4 sticky top-20">
-            <QuoteRequestWidget vendorId={offering?.vendor.id} />
+            <QuoteRequestWidget
+              vendorId={offering?.vendor?.id}
+              offeringId={
+                typeof params.id === "string" ? params.id : params.id[0]
+              }
+            />
           </div>
         </div>
       </div>

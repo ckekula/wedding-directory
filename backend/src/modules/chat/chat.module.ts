@@ -5,11 +5,12 @@ import { ChatService } from "./chat.service";
 import { ChatResolver } from "src/graphql/resolvers/chat.resolver";
 import { VisitorEntity } from "../../database/entities/visitor.entity";
 import { VendorEntity } from "../../database/entities/vendor.entity";
+import { OfferingEntity } from "../../database/entities/offering.entity";
 import { TypeOrmModule } from "@nestjs/typeorm";
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: "Chat", schema: ChatSchema }]),
-    TypeOrmModule.forFeature([VisitorEntity, VendorEntity]),
+    TypeOrmModule.forFeature([VisitorEntity, VendorEntity,OfferingEntity]),
   ],
   providers: [ChatService, ChatResolver],
   exports: [ChatService],

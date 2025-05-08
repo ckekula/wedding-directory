@@ -222,15 +222,21 @@ export const REMOVE_FROM_MY_VENDORS = gql`
   }
 `;
 export const CREATE_CHAT = gql`
-  mutation CreateChat($visitorId: String!, $vendorId: String!) {
+  mutation CreateChat($visitorId: String!, $offeringId: String!) {
     createChat(
-      createChatInput: { visitorId: $visitorId, vendorId: $vendorId }
+      createChatInput: { visitorId: $visitorId, offeringId: $offeringId }
     ) {
       chatId
+      visitorId
+      offeringId
+      vendorId
       visitor {
         id
       }
       vendor {
+        id
+      }
+      offering {
         id
       }
     }
