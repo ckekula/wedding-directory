@@ -39,7 +39,7 @@ ENV NEXT_TELEMETRY_DISABLED=1
 ENV PORT=3000
 ENV NEXT_PUBLIC_API_URL=https://api.sayido.lk
 ENV NEXT_PUBLIC_GRAPHQL_URL=https://api.sayido.lk/graphql
-ENV NEXT_PUBLIC_BASE_URL=https://sayido.lk
+ENV NEXT_PUBLIC_BASE_URL=https://api.sayido.lk
 ENV NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=${NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
 
 # Create a safer non-root user
