@@ -32,6 +32,9 @@ export const FIND_SERVICES = gql`
             bus_email
             description
             banner
+            reviews {
+                rating
+            }
             vendor {
                 id
                 busname
@@ -53,6 +56,7 @@ export const FIND_SERVICE_BY_ID = gql`
       bus_email
       pricing
       banner
+      visible
       website
       facebook
       instagram
@@ -82,6 +86,24 @@ export const FIND_PORTFOLIO_BY_ID = gql`
   }
 `;
 
+export const DELETE_SHOWCASE_IMAGE = gql`
+  mutation DeletePhotoShowcase($id: String!, $index: Int!) {
+    deleteOfferingShowcaseImage(id: $id, index: $index)
+  }
+`;
+
+export const DELETE_BANNER_IMAGE = gql`
+  mutation DeleteBannerImage($id: String!) {
+    deleteOfferingBanner(id: $id)
+  }
+`;
+
+export const DELETE_SHOWCASE_VIDEO = gql`
+  mutation DeleteVideoShowcase($id: String!) {  
+    deleteOfferingVideo(id: $id)
+  }
+`;
+
 export const FIND_SERVICES_BY_VENDOR = gql`
   query FindOfferingsByVendor($id: String!) {
     findOfferingsByVendor(id: $id) {
@@ -90,6 +112,9 @@ export const FIND_SERVICES_BY_VENDOR = gql`
       category
       description
       banner
+      reviews{
+        rating
+      }
       vendor {
         id
         busname
@@ -124,8 +149,10 @@ export const GET_VENDOR_BY_ID = gql`
       fname
       lname
       busname
+      about
       phone
       city
+      location
       createdAt
     }
   }
@@ -153,23 +180,33 @@ export const GET_BUDGET_TOOL = gql`
     budgetTool(visitorId: $visitorId) {
       id
       totalBudget
-      visitor {
-        id
-        email
-      }
       budgetItems {
         id
         itemName
-        category
         estimatedCost
         amountPaid
+        category
+        specialNotes
         isPaidInFull
       }
+    }
+    visitorPayments(visitorId: $visitorId) {
+      id
+      amount
       createdAt
-      updatedAt
+      status
+      package {
+        name
+        pricing
+        offering {
+          name
+          category
+        }
+      }
     }
   }
 `;
+
 export const GET_BUDGET_ITEMS = gql`
   query GetBudgetItems($budgetToolId: String!) {
     budgetItems(budgetToolId: $budgetToolId) {
@@ -257,6 +294,7 @@ export const FIND_PACKAGES_BY_OFFERING = gql`
       description
       pricing
       features
+      visible
     }
   }
 `;
@@ -396,6 +434,49 @@ export const FIND_VENDOR_BY_SERVICE = gql`
   query FindVendorsByOffering($offering_id: String!) {
     findVendorsByOffering(offering_id: $offering_id) {
       location
+    }
+  }
+`;
+
+
+export const GET_VENDOR_PAYMENTS = gql`
+  query GetVendorPayments($vendorId: String!) {
+    vendorPayments(vendorId: $vendorId) {
+      id
+      amount
+      status
+      createdAt
+      visitor {
+        id
+        visitor_fname
+        email
+      }
+      package {
+        id
+        name
+        offering{
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+
+export const GET_VISITOR_PAYMENTS = gql`
+  query GetVisitorPayments($visitorId: String!) {
+    visitorPayments(visitorId: $visitorId) {
+      id
+      amount
+      status
+      createdAt
+      package {
+        name
+        offering{
+          id
+          name
+        }
+      }
     }
   }
 `;

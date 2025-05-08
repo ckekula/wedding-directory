@@ -10,9 +10,9 @@ import { FaLocationDot } from "react-icons/fa6";
 const VendorBanner = ({ vendor }: VendorProps) => {
   const getGreeting = () => {
     const hour = new Date().getHours();
-    if (hour < 12) return "Good morning";
-    if (hour < 15) return "Good afternoon";
-    return "Good evening";
+    if (hour < 12) return "Good Morning";
+    if (hour < 15) return "Good Afternoon";
+    return "Good Evening";
   };
 
   return (
@@ -33,8 +33,8 @@ const VendorBanner = ({ vendor }: VendorProps) => {
       </div>
 
       <div className='text-center'>
-        <p className='text-2xl'>{getGreeting()}!</p>
-        <p className='text-4xl'>{vendor?.fname} {vendor?.lname}</p>
+        <p className='text-xl mb-2'>{getGreeting()} {vendor?.fname} {vendor?.lname}!</p>
+        <p className='text-4xl'>{vendor?.busname}</p>
       </div>
 
       <div className='text-left'>

@@ -108,7 +108,7 @@ const VendorDashBoard: React.FC = () => {
                 vendor={service.vendor?.busname || "Unknown"}
                 name={service?.name}
                 city={service.vendor?.city || "Unknown"}
-                rating="4.8/5 (180)"
+                rating={Number(service?.reviews?.[0]?.rating) || 0}
                 banner={service.banner || "/images/offeringPlaceholder.webp"}
                 buttonText="View details"
                 link={`/services/${service.id}`}

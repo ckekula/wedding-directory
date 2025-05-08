@@ -3,9 +3,8 @@
 import Header from "@/components/shared/Headers/Header";
 import React, { useEffect, useState } from "react";
 import { CiHeart } from "react-icons/ci";
-import Image from "next/image";
-import { useParams } from "next/navigation";
-import { FIND_MY_VENDOR_BY_ID, FIND_SERVICE_BY_ID } from "@/graphql/queries";
+import { useParams, } from "next/navigation";
+import { FIND_MY_VENDOR_BY_ID, FIND_SERVICE_BY_ID, FIND_PACKAGES_BY_OFFERING } from "@/graphql/queries";
 import { useMutation, useQuery } from "@apollo/client";
 import SocialIcons from "@/components/vendor-dashboard/dahboard-services/socialIcons";
 import { FiEdit } from "react-icons/fi";
@@ -21,15 +20,37 @@ import toast from "react-hot-toast";
 import { FaHeart } from "react-icons/fa";
 import QuoteRequestWidget from "@/components/chat/QuoteRequestWidget";
 import GoogleMapComponent from "@/components/vendor-dashboard/dahboard-services/Map";
+import PortfolioImages from "@/components/vendor-dashboard/dahboard-services/PortfolioImages";
+import request from '@/utils/request';
+
+// Add this constant at the top of the file with other imports
+const LKR_TO_USD_RATE = 0.0031; // 1 LKR = 0.0031 USD (you should use real-time rates)
+
+// Add this interface before the Service component
+interface Package {
+  id: string;
+  name: string;
+  description: string;
+  pricing: number;
+  features: string[];
+  visible: boolean;
+}
 
 const Service: React.FC = () => {
   const { vendor } = useVendorAuth();
   const { visitor } = useAuth();
   const params = useParams();
   const { id } = params;
+ // const router = useRouter();
 
-  const { loading, error, data } = useQuery(FIND_SERVICE_BY_ID, {
+  const { loading, data } = useQuery(FIND_SERVICE_BY_ID, {
     variables: { id },
+  });
+
+  const queryError = useQuery(FIND_SERVICE_BY_ID, { variables: { id } }).error;
+
+  const { data: packagesData } = useQuery(FIND_PACKAGES_BY_OFFERING, {
+    variables: { offeringId: id },
   });
 
   // Check if offering is in visitor's my vendors
@@ -56,19 +77,10 @@ const Service: React.FC = () => {
   }, [myVendorData]);
 
   if (loading || myVendorLoading) return <LoaderQuantum />;
-  if (error) return <p>Error: {error.message}</p>;
+  if (queryError) return <p>Error: {queryError.message}</p>;
 
   const offering = data?.findOfferingById;
   const isVendorsOffering = offering?.vendor.id === vendor?.id;
-
-  const portfolioImages = [
-    offering?.banner || "/images/offeringPlaceholder.webp", 
-    ...(offering?.photo_showcase || []),
-    "/images/onBoard1.webp",
-    "/images/onBoard2.webp",
-    "/images/venue.webp",
-    "/images/onBoard3.webp",
-  ];
 
   const handleHeartClick = async () => {
     if (!visitor) {
@@ -124,9 +136,38 @@ const Service: React.FC = () => {
           throw new Error("Failed to add to vendors");
         }
       }
-    } catch (error) {
-      console.error("Error saving to myVendors:", error);
+    } catch {
       toast.error("Couldn't save to your favorites");
+    }
+  };
+
+  const handlePayAdvance = async (amount: number, packageId: string) => {
+    try {
+      if (!visitor) {
+        toast.error("Please login to pay advance");
+        return;
+      }
+
+      // Convert LKR to USD and round to 2 decimal places
+      const amountInUSD = Number((amount * LKR_TO_USD_RATE).toFixed(2));
+
+      // Ensure minimum charge amount for Stripe (0.50 USD)
+      if (amountInUSD < 0.5) {
+        toast.error('Amount is too small for processing');
+        return;
+      }
+
+      const { data } = await request.post('/api/stripe/create-checkout-session', {
+        amount: amountInUSD, // Send amount in USD
+        packageId,
+        visitorId: visitor.id,
+        vendorId: offering.vendor.id,
+        originalAmountLKR: amount // Send original LKR amount for reference
+      });
+      window.location.href = data.url;
+    } catch (error) {
+      console.log(error);
+      toast.error('An unexpected error occurred');
     }
   };
 
@@ -141,42 +182,35 @@ const Service: React.FC = () => {
           back
         </Link>
 
-        
-        {/* Portfolio Image Section */}
-        <div className="w-full max-w-7xl mx-auto overflow-hidden">
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[50px] sm:auto-rows-[100px] lg:auto-rows-[200px]">
-            {/* Banner Image (Spanning Full Height) */}
-            {portfolioImages.length > 0 && (
-              <div className="relative w-full h-full row-span-2 sm:row-span-2 lg:row-span-2 col-span-2 sm:col-span-2 lg:col-span-2 overflow-hidden rounded-lg">
-                <Image
-                  src={portfolioImages[0]} // Banner Image
-                  alt="Banner Image"
-                  className="w-full h-full object-cover"
-                  layout="fill"
-                />
-              </div>
-            )}
+        {/* Replace the Portfolio Image Section with the new component */}
+        <PortfolioImages
+          banner={offering?.banner}
+          photoShowcase={offering?.photo_showcase?.slice(0, 4) || []}
+          hasMoreMedia={
+            (offering?.photo_showcase && offering.photo_showcase.length > 4) ||
+            offering?.video_showcase?.length > 0
+          }
+          totalMediaCount={
+            (offering?.photo_showcase?.length || 0) +
+            (offering?.video_showcase?.length || 0)
+          }
+          portfolioLink={`/services/${id}/gallery`}
+        />
 
-            {/* Other 4 Photos (Filling Remaining Space) */}
-            {portfolioImages.slice(1, 5).map((photo: string, index: number) => (
-              <div key={index} className="relative w-full overflow-hidden rounded-lg">
-                <Image
-                  src={photo}
-                  alt={`Portfolio image ${index + 1}`}
-                  className="w-full h-full object-cover"
-                  layout="fill"
-                />
-              </div>
-            ))}
+        {/* Add "See More" button if there are additional media items */}
+        {((offering?.photo_showcase && offering.photo_showcase.length > 4) ||
+          offering?.video_showcase?.length > 0) && (
+          <div className="flex justify-center mt-2 mb-4">
+            
           </div>
-        </div>
+        )}
 
-        <div className="flex flex-row gap-x-5">
+        <div className="flex flex-row gap-x-5 mt-4">
           <div className="w-3/4">
             {/* General Section */}
             <div className="bg-white rounded-2xl p-4 mb-4">
               <div className="flex flex-row">
-                <div className="w-8/12 flex flex-col">
+                <div className="w-8/12 flex flex-col justify-between">
                   <div className="text-xl">
                     {offering?.vendor.busname || "Vendor name not available"}
                   </div>
@@ -218,27 +252,77 @@ const Service: React.FC = () => {
               </div>
               <hr className="border-t border-gray-300 my-4" />
 
-              <div className="mb-3 text-2xl font-bold">Packages</div>
-              <div>
-                <p>{offering.pricing || "Pricing details not available"}</p>
-              </div>
-              <hr className="border-t border-gray-300 my-4" />
-              <div className="mb-3 text-2xl font-bold">
-                Reviews
-              </div>
+              {/* Packages Section */}
+              {packagesData?.findPackagesByOffering.some(
+                (pkg: Package) => pkg.visible
+              ) && (
+                <>
+                  <div className="mb-3 text-2xl font-bold">Packages</div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {packagesData?.findPackagesByOffering
+                      .filter((pkg: Package) => pkg.visible)
+                      .map((pkg: Package) => (
+                        <div
+                          key={pkg.id}
+                          className="bg-white rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow"
+                        >
+                          <h3 className="text-xl font-semibold mb-2">
+                            {pkg.name}
+                          </h3>
+                          <p className="text-gray-600 mb-4">
+                            {pkg.description}
+                          </p>
+                          <div className="text-2xl font-bold text-orange mb-4">
+                            {pkg.pricing.toFixed(2)} LKR
+                          </div>
+                          <ul className="space-y-2 mb-4">
+                            {pkg.features.map((feature, index) => (
+                              <li key={index} className="flex items-center">
+                                <span className="text-orange mr-2">•</span>
+                                {feature}
+                              </li>
+                            ))}
+                          </ul>
+                          <button
+                            onClick={() => {
+                              if (!visitor) {
+                                toast.error("Please login to pay advance");
+                                return;
+                              }
+                              const advanceAmount = pkg.pricing * 0.2; // Calculate 20% of the price
+                              handlePayAdvance(advanceAmount, pkg.id);
+                            }}
+                            className="w-full bg-orange text-white py-2 px-4 rounded-md hover:bg-orange-600 transition-colors"
+                          >
+                            {(() => {
+                              const advanceAmount = pkg.pricing * 0.2;
+                              const advanceAmountUSD = (advanceAmount * LKR_TO_USD_RATE).toFixed(2);
+                              return `Pay 20% Advance (${advanceAmount.toFixed(2)} LKR ≈ $ ${advanceAmountUSD} USD)`;
+                            })()}
+                          </button>
+                        </div>
+                      ))}
+                  </div>
+                  <hr className="border-t border-gray-300 my-4" />
+                </>
+              )}
+
+              <div className="mb-3 text-2xl font-bold">Reviews</div>
               <div>
                 <Reviews serviceId={offering?.id} />
               </div>
-              <div>
-                <WriteReview serviceId={offering?.id} />
-              </div>
+
+              {!isVendorsOffering ? (
+                <div>
+                  <WriteReview serviceId={offering?.id} />
+                </div>
+              ) : null}
+
               <div>
                 <Comments serviceId={offering?.id} />
               </div>
               <hr className="border-t border-gray-300 my-4" />
-              <div className="mb-3 text-2xl font-bold">
-                Contact
-              </div>
+              <div className="mb-3 text-2xl font-bold">Contact</div>
               <div className="flex flex-col gap-y-1">
                 <div>Email: {offering.bus_email || "Email not available"}</div>
                 <div>
@@ -247,9 +331,7 @@ const Service: React.FC = () => {
                 </div>
               </div>
               <hr className="border-t border-gray-300 my-4" />
-              <div className="mb-3 text-2xl font-bold">
-                Location
-              </div>
+              <div className="mb-3 text-2xl font-bold">Location</div>
               <div className="mb-3 text-2xl font-bold">
                 <GoogleMapComponent serviceId={offering?.id} />
               </div>
@@ -257,9 +339,8 @@ const Service: React.FC = () => {
           </div>
 
           <div className="w-1/4 sticky top-20">
-              <QuoteRequestWidget vendorId={offering?.vendor.id} />
+            <QuoteRequestWidget vendorId={offering?.vendor.id} />
           </div>
-
         </div>
       </div>
     </div>

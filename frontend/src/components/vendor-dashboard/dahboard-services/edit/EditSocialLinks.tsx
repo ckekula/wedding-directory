@@ -30,11 +30,11 @@ const EditSocialLinks: React.FC = () => {
   useEffect(() => {
     if (serviceData) {
       setProfile({
-        websiteURL: "",
-        xURL: "",
-        tiktokURL: "",
-        facebookURL: "",
-        instagramURL: "",
+        websiteURL: serviceData.website || "",
+        xURL: serviceData.x || "",
+        tiktokURL: serviceData.tiktok || "",
+        facebookURL: serviceData.facebook || "",
+        instagramURL: serviceData.instagram || "",
       });
     }
   }, [serviceData]);

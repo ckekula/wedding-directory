@@ -30,8 +30,8 @@ export class PackageResolver {
     return this.packageService.updatePackage(input);
   }
 
-  @Mutation(() => PackageModel)
-  async deletePackage(@Args('id') id: string): Promise<PackageEntity> {
+  @Mutation(() => Boolean)
+  async deletePackage(@Args('id') id: string): Promise<boolean> {
     return this.packageService.deletePackage(id);
   }
 }

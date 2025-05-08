@@ -11,15 +11,12 @@ import { useParams } from "next/navigation";
 import { UPDATE_SERVICE_PROFILE } from "@/graphql/mutations";
 import toast from "react-hot-toast";
 
-const EditGeneral: React.FC<EditProfileProps> = ({isServiceVisible}) => {
-
+const EditGeneral: React.FC<EditProfileProps> = () => {
   const params = useParams();
   const { id } = params;
   const { loading, error, data } = useQuery(FIND_SERVICE_BY_ID, {
     variables: { id },
   });
-
-  const serviceData = data?.findOfferingById;
 
   // Form state
   const [profile, setProfile] = useState<ProfileData>({
@@ -27,21 +24,38 @@ const EditGeneral: React.FC<EditProfileProps> = ({isServiceVisible}) => {
     businessPhone: "",
     businessEmail: "",
     description: "",
+    showCategoryDropdown: false,
   });
+
+  const [serviceVisibility, setServiceVisibility] = useState(false);
 
   // Update state with fetched data
   useEffect(() => {
-    if (serviceData) {
+    if (data?.findOfferingById) {
+      const service = data.findOfferingById;
       setProfile({
-        category: serviceData.category || "",
-        businessPhone: serviceData.bus_phone || "",
-        businessEmail: serviceData.bus_email || "",
-        description: serviceData.description || "",
+        category: service.category || "",
+        businessPhone: service.bus_phone || "",  // Changed from bus_phone
+        businessEmail: service.bus_email || "",  // Changed from bus_email
+        description: service.description || "",
+        showCategoryDropdown: false,
       });
+      setServiceVisibility(service.visible || false);
     }
-  }, [serviceData]);
+  }, [data]);
 
+  // Update mutation to include visibility
   const [updateVendor] = useMutation(UPDATE_SERVICE_PROFILE, {
+    variables: {
+      id,
+      input: {
+        category: profile.category,
+        bus_phone: profile.businessPhone,
+        bus_email: profile.businessEmail,
+        description: profile.description,
+        visible: serviceVisibility,
+      },
+    },
     onCompleted: () => {
       toast.success("Updated Successfully!");
     },
@@ -50,11 +64,6 @@ const EditGeneral: React.FC<EditProfileProps> = ({isServiceVisible}) => {
       console.error("Error updating vendor:", error);
     },
   });
-
-  const [serviceVisibility, setServiceVisibility] = useState(isServiceVisible);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
 
   // Handle input changes
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -69,29 +78,25 @@ const EditGeneral: React.FC<EditProfileProps> = ({isServiceVisible}) => {
   const handleCategoryChange = (category: string) => {
     setProfile((prevProfile) => ({
       ...prevProfile,
-      businessCategory: category,
+      category: category,
+      showCategoryDropdown: false,
+    }));
+  };
+
+  // Toggle category dropdown
+  const toggleCategoryDropdown = () => {
+    setProfile((prev) => ({
+      ...prev,
+      showCategoryDropdown: !prev.showCategoryDropdown,
     }));
   };
 
   // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     try {
-      await updateVendor({
-        variables: {
-          id,
-          input: {
-            category: profile.category,
-            bus_phone: profile.businessPhone,
-            bus_email: profile.businessEmail,
-            description: profile.description,
-          },
-        },
-      });
-      toast.success("Profile saved successfully!");
+      await updateVendor();
     } catch (err) {
-      toast.error("Profile update failed!");
       console.error("Failed to update profile:", err);
     }
   };
@@ -100,6 +105,9 @@ const EditGeneral: React.FC<EditProfileProps> = ({isServiceVisible}) => {
   const handleVisibilityToggle = () => {
     setServiceVisibility(!serviceVisibility);
   };
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error.message}</p>;
 
   return (
     <Fragment>
@@ -116,9 +124,22 @@ const EditGeneral: React.FC<EditProfileProps> = ({isServiceVisible}) => {
         <form onSubmit={handleSubmit} className="mb-8">
           <div>
             <label className="font-body text-[16px]">Business Category</label>
-            {/* Use BusinessCategory component */}
-            <div className="font-body rounded-md mt-2 mb-3">
-              <BusinessCategory onCategoryChange={handleCategoryChange} />
+            <div className="relative">
+              {profile.showCategoryDropdown ? (
+                <div className="font-body rounded-md mt-2 mb-3">
+                  <BusinessCategory 
+                    onCategoryChange={handleCategoryChange} 
+                    initialCategory={profile.category}
+                  />
+                </div>
+              ) : (
+                <div 
+                  onClick={toggleCategoryDropdown}
+                  className="font-body rounded-md mt-2 mb-3 p-2 border-2 border-gray-100 cursor-pointer hover:bg-gray-50"
+                >
+                  {profile.category || "Select Category"}
+                </div>
+              )}
             </div>
           </div>
           <div>
@@ -145,7 +166,7 @@ const EditGeneral: React.FC<EditProfileProps> = ({isServiceVisible}) => {
               name="description"
               value={profile.description || ""}
               onChange={handleInputChange}
-              className="font-body rounded-md mt-2 mb-3 w-full h-32 p-2"
+              className="font-body rounded-md mt-2 mb-3 w-full h-32 p-2 border-gray-100 border-2"
             />
           </div>
         </form>

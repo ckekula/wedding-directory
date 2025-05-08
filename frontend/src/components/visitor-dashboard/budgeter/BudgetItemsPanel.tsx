@@ -6,10 +6,15 @@ import { Search, Plus } from 'lucide-react';
 import { DELETE_BUDGET_ITEM, UPDATE_BUDGET_ITEM } from '@/graphql/mutations';
 import BudgetItemPopup from '@/components/visitor-dashboard/budgeter/BudgetItemPopup';
 import { toast } from 'react-hot-toast';
+import PaymentItem from './PaymentItem';
 
-import { BudgetItemsPanelProps, BudgetItemData, UpdateBudgetItemInput } from '@/types/budgeterTypes';
+import { BudgetItemsPanelProps, BudgetItemData, UpdateBudgetItemInput, PaymentData } from '@/types/budgeterTypes';
 
-const BudgetItemsPanel: React.FC<BudgetItemsPanelProps> = ({ budgetToolId }) => {
+const BudgetItemsPanel: React.FC<BudgetItemsPanelProps> = ({ 
+  budgetToolId,
+  categoryPayments = {}, // Add default empty object for categoryPayments
+  payments = [] // Add payments with default empty array
+}) => {
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [isAddModalOpen, setIsAddModalOpen] = useState<boolean>(false);
 
@@ -82,11 +87,84 @@ const BudgetItemsPanel: React.FC<BudgetItemsPanelProps> = ({ budgetToolId }) => 
 
   const budgetItems: BudgetItemData[] = budgetItemsData?.budgetItems || [];
   const totalItems = budgetItems.length;
-  const paidInFullItems = budgetItems.filter((item) => item.isPaidInFull).length;
+  
+  // Update paidInFullItems calculation to include external payments
+  const paidInFullItems = budgetItems.filter((item) => {
+    const categoryPaidAmount = categoryPayments[item.category] || 0;
+    const totalPaidAmount = item.amountPaid + categoryPaidAmount;
+    return totalPaidAmount >= item.estimatedCost;
+  }).length;
 
   const filteredItems = budgetItems.filter((item) =>
     item.itemName.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const renderBudgetItems = () => {
+    // Group items by category
+    const groupedItems = filteredItems.reduce((acc: { [key: string]: BudgetItemData[] }, item) => {
+      const category = item.category || 'Uncategorized';
+      if (!acc[category]) {
+        acc[category] = [];
+      }
+      acc[category].push(item);
+      return acc;
+    }, {});
+
+    // Group payments by category
+    const groupedPayments = payments.reduce((acc: { [key: string]: PaymentData[] }, payment) => {
+      if (payment.package?.offering?.category) {
+        const category = payment.package.offering.category;
+        if (!acc[category]) {
+          acc[category] = [];
+        }
+        acc[category].push(payment);
+      }
+      return acc;
+    }, {});
+
+    // Combine unique categories from both items and payments
+    const allCategories = new Set([
+      ...Object.keys(groupedItems),
+      ...Object.keys(groupedPayments)
+    ]);
+
+    // Render items by category
+    return Array.from(allCategories).map((category) => (
+      <div key={category} className="mb-6">
+        {/* Category Header */}
+        <div className="bg-gray-50 px-6 py-3 rounded-t-lg border-b font-semibold text-gray-700">
+          {category}
+        </div>
+
+        {/* Category Items */}
+        <div className="space-y-2 mt-2">
+          {/* Render Budget Items */}
+          {groupedItems[category]?.map((item) => (
+            <BudgetItem
+              key={`item-${item.id}`}
+              itemId={item.id}
+              itemName={item.itemName}
+              estimatedCost={item.estimatedCost}
+              paidAmount={item.amountPaid}
+              category={item.category}
+              specialNotes={item.specialNotes}
+              onSave={(data) => handleUpdateBudgetItem(item.id, data)}
+              onDelete={() => handleDeleteBudgetItem(item.id)}
+              externalPayments={categoryPayments[item.category] || 0}
+            />
+          ))}
+
+          {/* Render Related Payments */}
+          {groupedPayments[category]?.map((payment) => (
+            <PaymentItem
+              key={`payment-${payment.id}`}
+              payment={payment}
+            />
+          ))}
+        </div>
+      </div>
+    ));
+  };
 
   return (
     <div className="bg-white rounded-lg border p-6 space-y-6">
@@ -131,29 +209,9 @@ const BudgetItemsPanel: React.FC<BudgetItemsPanelProps> = ({ budgetToolId }) => 
         <Search className="absolute left-3 top-2.5 text-gray-400" size={20} />
       </div>
 
-      {/* Table Headers */}
-      <div className="font-body grid grid-cols-[1fr,200px,200px,50px] gap-4 px-6 py-2 text-gray-600">
-        <div>Item</div>
-        <div>Estimate/Cost</div>
-        <div>Paid</div>
-        <div></div>
-      </div>
-
-      {/* Budget Items */}
-      <div className="space-y-2">
-        {filteredItems.map((item) => (
-          <BudgetItem
-            key={item.id}
-            itemId={item.id}
-            itemName={item.itemName}
-            estimatedCost={item.estimatedCost}
-            paidAmount={item.amountPaid}
-            category={item.category}
-            specialNotes={item.specialNotes}
-            onSave={(data) => handleUpdateBudgetItem(item.id, data)}
-            onDelete={() => handleDeleteBudgetItem(item.id)}
-          />
-        ))}
+      {/* Budget Items grouped by category */}
+      <div>
+        {renderBudgetItems()}
       </div>
     </div>
   );

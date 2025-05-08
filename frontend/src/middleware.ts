@@ -7,24 +7,33 @@ function getCookie(name: string, request: NextRequest) {
   return cookie ? cookie.value : null;
 }
 
+// Route definitions
+const publicRoutes = ['/about', '/contact'];
+const visitorRoutes = ['/visitor-profile', '/visitor-dashboard'];
+const vendorRoutes = ['/vendor-dashboard', '/services/edit'];
+
 // Middleware to handle role-based authentication redirection
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Public routes that anyone can access
-  const publicRoutes = ['/about', '/contact'];
-
-  // Vendor-specific routes
-  const vendorRoutes = ['/vendor-dashboard', '/vendor-dashboard/dashboard', '/vendor-dashboard/new-service', '/vendor-dashboard/settings'];
-
-  // Visitor-specific routes
-  const visitorRoutes = ['/visitor-profile', '/visitor-dashboard'];
-
-  // Check if the vendor is authenticated via cookie
+  // Get auth tokens
   const vendorToken = getCookie('access_tokenVendor', request);
-
-  // Check if the visitor is authenticated via cookie
   const visitorToken = getCookie('access_token', request);
+
+  // Check if it's a service edit route
+  const serviceEditMatch = pathname.match(/^\/services\/edit\/([^/]+)$/);
+  
+  if (serviceEditMatch) {
+    // For service edit routes, require vendor authentication
+    if (!vendorToken) {
+      return NextResponse.redirect(new URL('/login', request.url));
+    }
+    
+    // The actual authorization check for the specific vendor
+    // will need to be done in the page component since middleware
+    // can't access the full application state
+    return NextResponse.next();
+  }
 
   // Handle unauthenticated users
   if (!vendorToken && !visitorToken) {
@@ -48,7 +57,7 @@ export function middleware(request: NextRequest) {
   // Handle visitor user access
   if (visitorToken) {
     // If visitor tries to access vendor routes, redirect to visitor dashboard
-    if (vendorRoutes.includes(pathname)) {
+    if (vendorRoutes.some(route => pathname.startsWith(route))) {
       return NextResponse.redirect(new URL('/visitor-dashboard', request.url));
     }
   }
@@ -65,5 +74,6 @@ export const config = {
     '/visitor-dashboard',         // Apply middleware to visitor dashboard
     '/about',                     // Public pages can still have middleware (for logging or tracking)
     '/contact',                   // Add other public routes here
+    '/services/edit/:id*',        // Add this pattern
   ],
 };

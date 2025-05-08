@@ -1,65 +1,78 @@
-import React, { useState } from 'react';
-import { ChevronUp, Trash2 } from 'lucide-react';
+import React, { useState } from "react";
+import { ChevronUp, Trash2 } from "lucide-react";
+import {
+  BudgetItemUpdateInput,
+  UpdateBudgetItemInput,
+} from "@/types/budgeterTypes";
+import budgetCategories from "@/utils/budgetCategories"
 
-import { BudgetItemProps, BudgetItemUpdateInput, UpdateBudgetItemInput } from '@/types/budgeterTypes';
+interface BudgetItemComponentProps {
+  itemId: string;  // Add this line
+  itemName?: string;
+  estimatedCost?: number;
+  paidAmount?: number;
+  category?: string;
+  specialNotes?: string | null;
+  onSave?: (input: BudgetItemUpdateInput) => void;
+  onDelete?: (input: BudgetItemUpdateInput) => void;
+  externalPayments: number;
+}
 
-const BudgetItem: React.FC<BudgetItemProps> = (
-  {
-    itemName = "",
-    estimatedCost = 0.00,
-    paidAmount = 0.00,
-    category = "",
-    specialNotes = null,
-    onSave = () => {},
-    onDelete = () => {},
-  }) =>  {
+const BudgetItem: React.FC<BudgetItemComponentProps> = ({
+  itemName = "",
+  estimatedCost = 0.0,
+  paidAmount = 0.0,
+  category = "",
+  specialNotes = null,
+  onSave = () => {},
+  onDelete = () => {},
+}) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [editedValues, setEditedValues] = useState<UpdateBudgetItemInput>({
-    itemName: itemName || "",  // Ensure it's always a string
+    itemName: itemName || "", // Ensure it's always a string
     estimatedCost,
     paidAmount,
-    category: category || "",  // Ensure it's always a string
+    category: category || "", // Ensure it's always a string
     specialNotes: specialNotes || "", // Convert null to an empty string
   });
-  
 
-  const handleInputChange = (field: keyof UpdateBudgetItemInput, value: string | number) => {
+  const handleInputChange = (
+    field: keyof UpdateBudgetItemInput,
+    value: string | number
+  ) => {
     setEditedValues((prev) => ({
       ...prev,
       [field]: typeof value === "string" ? value || "" : value, // Ensure string fields are never undefined
     }));
   };
-  
 
   const handleSave = () => {
     // Ensure all required fields are defined before passing to onSave
     const sanitizedValues: BudgetItemUpdateInput = {
-      itemName: editedValues.itemName ?? "",  
-      category: editedValues.category ?? "",  
-      specialNotes: editedValues.specialNotes ?? "",  
-      estimatedCost: editedValues.estimatedCost ?? 0,  
-      paidAmount: editedValues.paidAmount ?? 0,  
-      isPaidInFull: (editedValues.estimatedCost ?? 0) === (editedValues.paidAmount ?? 0),
+      itemName: editedValues.itemName ?? "",
+      category: editedValues.category ?? "",
+      specialNotes: editedValues.specialNotes ?? "",
+      estimatedCost: editedValues.estimatedCost ?? 0,
+      paidAmount: editedValues.paidAmount ?? 0,
+      isPaidInFull:
+        (editedValues.estimatedCost ?? 0) === (editedValues.paidAmount ?? 0),
     };
-  
+
     onSave(sanitizedValues);
     setIsOpen(false);
   };
-  
-  
 
   const handleDelete = () => {
     onDelete({
-      itemName: editedValues.itemName ?? "",  
-      category: editedValues.category ?? "",  
-      specialNotes: editedValues.specialNotes ?? "",  
-      estimatedCost: editedValues.estimatedCost ?? 0,  
+      itemName: editedValues.itemName ?? "",
+      category: editedValues.category ?? "",
+      specialNotes: editedValues.specialNotes ?? "",
+      estimatedCost: editedValues.estimatedCost ?? 0,
       paidAmount: editedValues.paidAmount ?? 0,
       isPaidInFull: editedValues.estimatedCost === editedValues.paidAmount, // Ensure isPaidInFull is always included
     });
   };
-  
-  
+
   return (
     <div className="border rounded-lg bg-white shadow-sm">
       <div
@@ -102,12 +115,17 @@ const BudgetItem: React.FC<BudgetItemProps> = (
               <label className="block text-sm font-medium text-gray-700">
                 Category
               </label>
-              <input
-                type="text"
+              <select
                 value={editedValues.category}
                 onChange={(e) => handleInputChange("category", e.target.value)}
                 className="w-full px-3 py-2 border rounded-lg"
-              />
+              >
+                {budgetCategories.map((cat: string) => (
+                  <option key={cat} value={cat}>
+                  {cat}
+                  </option>
+                ))}
+              </select>
             </div>
 
             <div className="space-y-2">

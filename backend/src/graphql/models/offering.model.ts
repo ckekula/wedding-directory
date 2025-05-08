@@ -1,5 +1,6 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { VendorModel } from './vendor.model';
+import { ReviewModel } from './review.model';  // Add this import
 
 @ObjectType()
 export class OfferingModel {
@@ -59,6 +60,9 @@ export class OfferingModel {
 
   @Field({ nullable: true })
   updatedAt: Date;
+
+  @Field(() => [ReviewModel], { nullable: true })
+  reviews: ReviewModel[];
 
   @Field(() => VendorModel)
   vendor: VendorModel;

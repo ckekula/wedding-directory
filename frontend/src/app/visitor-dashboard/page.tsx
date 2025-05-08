@@ -1,4 +1,3 @@
-// visitor-dashboard.tsx
 "use client";
 
 import React, { Fragment, useState } from "react";
@@ -8,19 +7,42 @@ import { useAuth } from "@/contexts/VisitorAuthContext";
 import WeddingCoupleCard from "@/components/visitor-dashboard/WeddingCoupleCard";
 import WeddingPlanningGuide from "@/components/visitor-dashboard/WeddingPlanningGuide";
 import { StaticImageData } from "next/image";
-import { GET_VISITOR_BY_ID } from "@/graphql/queries";
+import {
+  GET_VISITOR_BY_ID,
+  FIND_ALL_MY_VENDORS,
+  FIND_GUESTLIST_BY_VISITOR,
+  GET_BUDGET_TOOL,
+  GET_VISITOR_CHECKLISTS,
+} from "@/graphql/queries";
 import Footer from "@/components/shared/Footer";
 import LoaderHelix from "@/components/shared/Loaders/LoaderHelix";
-import { Accordion } from "@/components/ui/accordion";
-import AccordionItemBlock from "@/components/visitor-dashboard/AccordianItemsBlock";
 import LeftSideBar from "@/components/visitor-dashboard/LeftSideBar";
-import BottomNavigationBar from '@/components/visitor-dashboard/BottomNavigationBar';
+import BottomNavigationBar from "@/components/visitor-dashboard/BottomNavigationBar";
+import DashboardWidgets from "@/components/visitor-dashboard/DashBoardWidgets";
+
+interface Guest {
+  id: string;
+  status: string;
+}
+
+
+
+interface BudgetItem {
+  amountPaid?: number;
+}
+
+interface Checklist {
+  completed: boolean;
+}
 
 const VisitorDashboard = () => {
   const { visitor } = useAuth();
-  const [profilePic, setProfilePic] = useState<string | StaticImageData>("/images/visitorProfilePic.webp");
+  const [profilePic, setProfilePic] = useState<string | StaticImageData>(
+    "/images/visitorProfilePic.webp"
+  );
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
 
+  // Get visitor profile data
   const { data, loading, error } = useQuery(GET_VISITOR_BY_ID, {
     variables: { id: visitor?.id },
     skip: !visitor?.id,
@@ -30,6 +52,69 @@ const VisitorDashboard = () => {
       }
     },
   });
+
+  // Get my vendors data
+  const { data: vendorsData } = useQuery(FIND_ALL_MY_VENDORS, {
+    variables: { visitorId: visitor?.id },
+    skip: !visitor?.id,
+  });
+
+  // Get guest list data
+  const { data: guestListData } = useQuery(FIND_GUESTLIST_BY_VISITOR, {
+    variables: { id: visitor?.id },
+    skip: !visitor?.id,
+  });
+
+  // Get budget data
+  const { data: budgetData } = useQuery(GET_BUDGET_TOOL, {
+    variables: { visitorId: visitor?.id },
+    skip: !visitor?.id,
+  });
+
+  // Get checklist data
+  const { data: checklistData } = useQuery(GET_VISITOR_CHECKLISTS, {
+    variables: { visitorId: visitor?.id },
+    skip: !visitor?.id,
+  });
+
+  // Calculate all metrics
+  const myVendors = vendorsData?.findAllMyVendors || [];
+  const guestList = guestListData?.findGuestListsByVisitor || [];
+
+  const attendingGuests = guestList.filter(
+    (g: Guest) => g.status === "Attending"
+  ).length;
+  const declinedGuests = guestList.filter(
+    (g: Guest) => g.status === "Declined"
+  ).length;
+  const invitedGuests = guestList.filter(
+    (g: Guest) => g.status === "Invited"
+  ).length;
+  const notInvitedGuests = guestList.filter(
+    (g: Guest) => g.status === "Not Invited"
+  ).length;
+
+  const budgetTool = budgetData?.budgetTool;
+  const budgetTotal = budgetTool?.totalBudget || 0;
+  const budgetItems = budgetTool?.budgetItems || [];
+
+  const budgetSpent = budgetItems.reduce(
+    (acc: number, item: BudgetItem) => acc + (item.amountPaid || 0),
+    0
+  );
+
+  const budgetPercentage =
+    budgetTotal > 0
+      ? Math.min(Math.round((budgetSpent / budgetTotal) * 100 * 100) / 100, 100)
+      : 0;
+
+  const checklists = checklistData?.getVisitorChecklists || [];
+  const completedTasks = checklists.filter(
+    (task: Checklist) => task.completed
+  ).length;
+  const totalTasks = checklists.length;
+  const checklistProgress =
+    totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
 
   if (loading) return <LoaderHelix />;
   if (error) return <p>Error loading profile information: {error.message}</p>;
@@ -42,8 +127,6 @@ const VisitorDashboard = () => {
         <Header />
       </div>
 
-
-
       <div className="bg-lightYellow min-h-screen">
         <div className="max-w-6xl mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
@@ -51,7 +134,11 @@ const VisitorDashboard = () => {
             <div
               className={`
                 hidden md:block transition-all duration-300 ease-in-out
-                ${isSidebarCollapsed ? 'md:col-span-1' : 'md:col-span-2 lg:col-span-2'}
+                ${
+                  isSidebarCollapsed
+                    ? "md:col-span-1"
+                    : "md:col-span-2 lg:col-span-2"
+                }
                 pt-10
               `}
             >
@@ -59,7 +146,9 @@ const VisitorDashboard = () => {
                 <LeftSideBar
                   visitorId={visitor?.id || null}
                   isCollapsed={isSidebarCollapsed}
-                  onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+                  onToggleCollapse={() =>
+                    setIsSidebarCollapsed(!isSidebarCollapsed)
+                  }
                 />
               </div>
             </div>
@@ -68,10 +157,11 @@ const VisitorDashboard = () => {
             <div
               className={`
                 col-span-12 transition-all duration-300 ease-in-out
-                ${isSidebarCollapsed
-                ? 'md:col-span-11'
-                : 'md:col-span-10 lg:col-span-10'
-              }
+                ${
+                  isSidebarCollapsed
+                    ? "md:col-span-11"
+                    : "md:col-span-10 lg:col-span-10"
+                }
                 pt-10
               `}
             >
@@ -85,27 +175,21 @@ const VisitorDashboard = () => {
                 />
               </div>
 
-              <Accordion
-                type="multiple"
-                className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8"
-              >
-                <AccordionItemBlock
-                  title="Vendors"
-                  description="Get in touch with photographers, DJs, florists, and more."
-                />
-                <AccordionItemBlock
-                  title="Venues"
-                  description="Find your kind of place for the celebration to go down."
-                />
-                <AccordionItemBlock
-                  title="Guest List"
-                  description="Manage your guest list for the big day."
-                />
-                <AccordionItemBlock
-                  title="Announcements"
-                  description="Start spreading the word with save the dates."
-                />
-              </Accordion>
+              <DashboardWidgets
+                myVendors={myVendors}
+                attendingGuests={attendingGuests}
+                declinedGuests={declinedGuests}
+                invitedGuests={invitedGuests}
+                notInvitedGuests={notInvitedGuests}
+                totalGuests={guestList.length}
+                budgetTotal={budgetTotal}
+                budgetSpent={budgetSpent}
+                budgetPercentage={budgetPercentage}
+                completedTasks={completedTasks}
+                totalTasks={totalTasks}
+                checklistProgress={checklistProgress}
+                visitorId={visitor?.id}
+              />
 
               <div className="pt-5 pb-10">
                 <WeddingPlanningGuide />
