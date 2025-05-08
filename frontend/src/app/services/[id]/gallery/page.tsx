@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import { useParams } from "next/navigation";
 import { FIND_SERVICE_BY_ID } from "@/graphql/queries";
 import { useQuery } from "@apollo/client";
@@ -10,6 +10,7 @@ import LoaderQuantum from "@/components/shared/Loaders/LoaderQuantum";
 import { FaArrowLeft } from "react-icons/fa";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { FaPlay, FaVideo } from "react-icons/fa";
+import Image from "next/image";
 
 const PortfolioPage: React.FC = () => {
   const params = useParams();
@@ -29,6 +30,35 @@ const PortfolioPage: React.FC = () => {
     variables: { id },
   });
 
+  const offering = data?.findOfferingById;
+
+  const allMedia = useMemo(() => [
+    ...(offering?.banner ? [{ type: "image", url: offering.banner }] : []),
+    ...(offering?.photo_showcase?.map((url: string) => ({
+      type: "image",
+      url,
+    })) || []),
+    ...(offering?.video_showcase?.map((url: string) => ({
+      type: "video",
+      url,
+    })) || []),
+  ], [offering]);
+
+  const navigateMedia = useCallback((direction: "prev" | "next") => {
+    if (!selectedMedia) return;
+
+    const newIndex =
+      direction === "next"
+        ? (selectedMedia.index + 1) % allMedia.length
+        : (selectedMedia.index - 1 + allMedia.length) % allMedia.length;
+
+    setSelectedMedia({
+      type: allMedia[newIndex].type,
+      url: allMedia[newIndex].url,
+      index: newIndex,
+    });
+  }, [selectedMedia, allMedia]);
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!selectedMedia) return;
@@ -44,7 +74,7 @@ const PortfolioPage: React.FC = () => {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [selectedMedia]);
+  }, [navigateMedia, selectedMedia]);
 
   const handleImageLoaded = (url: string) => {
     setLoadedImages((prev) => ({ ...prev, [url]: true }));
@@ -60,38 +90,8 @@ const PortfolioPage: React.FC = () => {
 
   const closeLightbox = () => setSelectedMedia(null);
 
-  const navigateMedia = (direction: "prev" | "next") => {
-    if (!selectedMedia) return;
-
-    const newIndex =
-      direction === "next"
-        ? (selectedMedia.index + 1) % allMedia.length
-        : (selectedMedia.index - 1 + allMedia.length) % allMedia.length;
-
-    setSelectedMedia({
-      type: allMedia[newIndex].type,
-      url: allMedia[newIndex].url,
-      index: newIndex,
-    });
-  };
-
   if (loading) return <LoaderQuantum />;
   if (error) return <p>Error: {error.message}</p>;
-
-  const offering = data?.findOfferingById;
-  const allMedia = [
-    ...(offering?.banner ? [{ type: "image", url: offering.banner }] : []),
-    ...(offering?.photo_showcase?.map((url: string) => ({
-      type: "image",
-      url,
-    })) || []),
-    ...(offering?.video_showcase?.map((url: string) => ({
-      type: "video",
-      url,
-    })) || []),
-  ];
-
-  // Handle keyboard navigation
 
   return (
     <div className="bg-lightYellow min-h-screen font-body ">
@@ -124,7 +124,7 @@ const PortfolioPage: React.FC = () => {
                     >
                       <div className="m-auto">Loading...</div>
                     </div>
-                    <img
+                    <Image
                       src={media.url}
                       alt={`${offering?.name} - Image ${index}`}
                       className="w-full object-cover hover:scale-105 transition-transform"
@@ -196,7 +196,7 @@ const PortfolioPage: React.FC = () => {
 
           <div className="w-full max-w-6xl max-h-[80vh]">
             {selectedMedia.type === "image" ? (
-              <img
+              <Image
                 src={selectedMedia.url}
                 alt={`${offering?.name} - Gallery`}
                 className="w-full h-full object-contain"

@@ -1,11 +1,11 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React  from 'react';
 import Header from "@/components/shared/Headers/Header";
 import { useVendorAuth } from "@/contexts/VendorAuthContext";
 import LoaderJelly from "@/components/shared/Loaders/LoaderJelly";
 import Footer from "@/components/shared/Footer";
-import { useQuery, gql } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { GET_VENDOR_PAYMENTS } from '@/graphql/queries';
 
 interface Payment {

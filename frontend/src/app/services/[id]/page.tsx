@@ -164,8 +164,7 @@ const Service: React.FC = () => {
         originalAmountLKR: amount // Send original LKR amount for reference
       });
       window.location.href = data.url;
-    } catch (error) {
-      console.error('Error:', error);
+    } catch {
       toast.error('Payment processing failed. Please try again.');
     }
   };
@@ -289,7 +288,6 @@ const Service: React.FC = () => {
                                 return;
                               }
                               const advanceAmount = pkg.pricing * 0.2; // Calculate 20% of the price
-                              const advanceAmountUSD = (advanceAmount * LKR_TO_USD_RATE).toFixed(2);
                               handlePayAdvance(advanceAmount, pkg.id);
                             }}
                             className="w-full bg-orange text-white py-2 px-4 rounded-md hover:bg-orange-600 transition-colors"
