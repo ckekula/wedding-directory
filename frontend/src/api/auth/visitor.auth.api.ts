@@ -12,7 +12,7 @@ export const loginVisitor = async (email: string, password: string) => {
 
         return response.data;
     } catch (error) {
-        console.error('Login failed:', error);
+        //console.error('Login failed:', error);
         throw error;
     }
 };

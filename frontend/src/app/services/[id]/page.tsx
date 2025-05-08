@@ -43,9 +43,11 @@ const Service: React.FC = () => {
   const { id } = params;
  // const router = useRouter();
 
-  const { loading, error, data } = useQuery(FIND_SERVICE_BY_ID, {
+  const { loading, data } = useQuery(FIND_SERVICE_BY_ID, {
     variables: { id },
   });
+
+  const queryError = useQuery(FIND_SERVICE_BY_ID, { variables: { id } }).error;
 
   const { data: packagesData } = useQuery(FIND_PACKAGES_BY_OFFERING, {
     variables: { offeringId: id },
@@ -75,7 +77,7 @@ const Service: React.FC = () => {
   }, [myVendorData]);
 
   if (loading || myVendorLoading) return <LoaderQuantum />;
-  if (error) return <p>Error: {error.message}</p>;
+  if (queryError) return <p>Error: {queryError.message}</p>;
 
   const offering = data?.findOfferingById;
   const isVendorsOffering = offering?.vendor.id === vendor?.id;
@@ -135,7 +137,6 @@ const Service: React.FC = () => {
         }
       }
     } catch {
-      // console.error("Error saving to myVendors:", error);
       toast.error("Couldn't save to your favorites");
     }
   };
@@ -164,8 +165,9 @@ const Service: React.FC = () => {
         originalAmountLKR: amount // Send original LKR amount for reference
       });
       window.location.href = data.url;
-    } catch {
-      toast.error('Payment processing failed. Please try again.');
+    } catch (error) {
+      console.log(error);
+      toast.error('An unexpected error occurred');
     }
   };
 
@@ -295,7 +297,7 @@ const Service: React.FC = () => {
                             {(() => {
                               const advanceAmount = pkg.pricing * 0.2;
                               const advanceAmountUSD = (advanceAmount * LKR_TO_USD_RATE).toFixed(2);
-                              return `Pay 20% Advance (${advanceAmount.toFixed(2)} LKR ≈ $${advanceAmountUSD} USD)`;
+                              return `Pay 20% Advance (${advanceAmount.toFixed(2)} LKR ≈ $ ${advanceAmountUSD} USD)`;
                             })()}
                           </button>
                         </div>

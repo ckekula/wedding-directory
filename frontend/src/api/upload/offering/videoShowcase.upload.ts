@@ -30,9 +30,9 @@ export const uploadOfferingVideoShowcase = async (files: File[], offeringId: str
     return response.data.uploadedUrls; // Assuming the response contains an array of uploaded video URLs
   } catch (error) {
     if (error instanceof Error) {
-      console.error("Error uploading videos:", error.message);
+      //console.error("Error uploading videos:", error.message);
     } else {
-      console.error("Error uploading videos:", error);
+      //console.error("Error uploading videos:", error);
     }
     throw error;
   }
