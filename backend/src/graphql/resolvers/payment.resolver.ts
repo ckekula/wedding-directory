@@ -1,6 +1,6 @@
 import { Resolver, Query, Args } from '@nestjs/graphql';
-import { PaymentModel } from 'src/graphql/models/payment.model';
-import { PaymentService } from 'src/modules/payment/payment.service';
+import { PaymentModel } from '../../graphql/models/payment.model';
+import { PaymentService } from '../../modules/payment/payment.service';
 
 @Resolver(() => PaymentModel)
 export class PaymentResolver {

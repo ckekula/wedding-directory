@@ -1,8 +1,8 @@
 import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { InjectModel } from '@nestjs/mongoose/dist';
 import { Model } from 'mongoose';
-import { Conversation } from 'src/database/schemas/chatbot.schema';
-import { ChatbotService } from 'src/modules/ai/chatbot.service';
+import { Conversation } from '../../database/schemas/chatbot.schema';
+import { ChatbotService } from '../../modules/ai/chatbot.service';
 import { ChatbotStatus } from '../models/chatbotStatus.model';
 import { ChatbotResponse } from '../models/chatbotResponse.model';
 

@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { PaymentEntity } from 'src/database/entities/payment.entity';
-import { VisitorEntity } from 'src/database/entities/visitor.entity';
-import { VendorEntity } from 'src/database/entities/vendor.entity';
-import { PackageEntity } from 'src/database/entities/package.entity';
+import { PaymentEntity } from '../../database/entities/payment.entity';
+import { VisitorEntity } from '../../database/entities/visitor.entity';
+import { VendorEntity } from '../../database/entities/vendor.entity';
+import { PackageEntity } from '../../database/entities/package.entity';
 
 const USD_TO_LKR_RATE = 322.58; // 1 USD = 322.58 LKR (inverse of LKR_TO_USD_RATE)
 

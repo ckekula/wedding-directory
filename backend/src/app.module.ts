@@ -22,6 +22,7 @@ import { StripeModule } from "./modules/stripe/stripe.module";
 import { PaymentModule } from "./modules/payment/payment.module";
 import { ChatbotModule } from "./modules/ai/chatbot.module";
 import { VectorSearchModule } from "./modules/ai/vector-search.module";
+import { EmbeddingsModule } from "./modules/ai/embeddings.module";
 
 @Module({
   imports: [
@@ -63,6 +64,7 @@ import { VectorSearchModule } from "./modules/ai/vector-search.module";
     PaymentModule,
     ChatbotModule,
     VectorSearchModule,
+    EmbeddingsModule
   ],
 })
 export class AppModule {}

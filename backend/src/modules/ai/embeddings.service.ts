@@ -34,10 +34,15 @@ export class EmbeddingsService {
     return response.data[0].embedding;
   }
 
+  // Helper method to format array for pgvector
+  private formatEmbeddingForPgVector(embedding: number[]): string {
+    return `[${embedding.join(',')}]`;
+  }
+
   async processVendor(vendorId: string): Promise<void> {
     const vendor = await this.vendorRepository.findOne({
       where: { id: vendorId },
-      relations: ['offerings', 'offerings.packages'],
+      relations: ['offering', 'offering.packages'],
     });
 
     if (!vendor) {
@@ -52,16 +57,20 @@ export class EmbeddingsService {
     `;
 
     const embedding = await this.generateEmbedding(vendorContent);
+    // Format the embedding array for pgvector
+    const pgVectorEmbedding = this.formatEmbeddingForPgVector(embedding);
 
     await this.vendorRepository.query(`
       INSERT INTO vendor_embeddings (id, content, embedding)
       VALUES ($1, $2, $3::vector)
       ON CONFLICT (id) DO UPDATE
       SET content = $2, embedding = $3::vector
-    `, [vendor.id, vendorContent, embedding]);
+    `, [vendor.id, vendorContent, pgVectorEmbedding]);
 
-    for (const offering of vendor.offering) {
-      await this.processOffering(offering, vendor);
+    if (vendor.offering && vendor.offering.length > 0) {
+      for (const offering of vendor.offering) {
+        await this.processOffering(offering, vendor);
+      }
     }
   }
 
@@ -71,51 +80,70 @@ export class EmbeddingsService {
       Offering: ${offering.name}
       Description: ${offering.description}
       Category: ${offering.category}
-      Website: ${offering.website}
-      Instagram: ${offering.instagram}
-      Facebook: ${offering.facebook}
-      X: ${offering.x}
+      Website: ${offering.website || ''}
+      Instagram: ${offering.instagram || ''}
+      Facebook: ${offering.facebook || ''}
+      X: ${offering.x || ''}
     `;
 
     const embedding = await this.generateEmbedding(offeringContent);
+    // Format the embedding array for pgvector
+    const pgVectorEmbedding = this.formatEmbeddingForPgVector(embedding);
 
     await this.offeringRepository.query(`
       INSERT INTO offering_embeddings (id, content, embedding)
       VALUES ($1, $2, $3::vector)
       ON CONFLICT (id) DO UPDATE
       SET content = $2, embedding = $3::vector
-    `, [offering.id, offeringContent, embedding]);
+    `, [offering.id, offeringContent, pgVectorEmbedding]);
 
-    for (const pkg of offering.packages) {
-      await this.processPackage(pkg, offering, vendor);
+    if (offering.packages && offering.packages.length > 0) {
+      for (const pkg of offering.packages) {
+        await this.processPackage(pkg, offering, vendor);
+      }
     }
   }
 
   async processPackage(pkg: PackageEntity, offering: OfferingEntity, vendor: VendorEntity): Promise<void> {
+    // Add null checks for features
+    const features = pkg.features && Array.isArray(pkg.features) ? pkg.features.join(', ') : '';
+    
     const packageContent = `
       Vendor: ${vendor.busname}
       Offering: ${offering.name}
       Package: ${pkg.name}
-      Description: ${pkg.description}
-      Features: ${pkg.features.join(', ')}
-      Pricing: ${pkg.pricing}
+      Description: ${pkg.description || ''}
+      Features: ${features}
+      Pricing: ${pkg.pricing || ''}
     `;
 
     const embedding = await this.generateEmbedding(packageContent);
+    // Format the embedding array for pgvector
+    const pgVectorEmbedding = this.formatEmbeddingForPgVector(embedding);
 
     await this.packageRepository.query(`
       INSERT INTO package_embeddings (id, content, embedding)
       VALUES ($1, $2, $3::vector)
       ON CONFLICT (id) DO UPDATE
       SET content = $2, embedding = $3::vector
-    `, [pkg.id, packageContent, embedding]);
+    `, [pkg.id, packageContent, pgVectorEmbedding]);
   }
 
   async indexAllVendors(): Promise<void> {
     const vendors = await this.vendorRepository.find();
+    console.log(`Found ${vendors.length} vendors to process`);
     
+    let count = 0;
     for (const vendor of vendors) {
-      await this.processVendor(vendor.id);
+      try {
+        await this.processVendor(vendor.id);
+        count++;
+        console.log(`Processed vendor ${count}/${vendors.length}: ${vendor.busname}`);
+      } catch (error) {
+        console.error(`Error processing vendor ${vendor.id} (${vendor.busname}):`, error.message);
+      }
     }
+    
+    console.log(`Successfully processed ${count} vendors`);
   }
 }

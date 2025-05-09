@@ -26,12 +26,15 @@ export class ChatbotService {
     // Build the system message with instructions and context
     const systemMessage = {
       role: 'system',
-      content: `You are a helpful assistant for a wedding planning platform similar to TheKnot. 
+      content: `You are a helpful assistant for a wedding planning platform called "Say I Do". 
       Answer user questions about vendors, services, and packages based on the following context.
       If you don't know the answer, say so politely and don't make up information.
       
       CONTEXT:
-      ${context}`
+      ${context}
+
+      If you find relevant vendors or services in the context, include their names and details in your response.
+      If you cannot find specific vendors in the context, let the user know they can search the marketplace on the website.`
     };
     
     // Prepare the conversation messages

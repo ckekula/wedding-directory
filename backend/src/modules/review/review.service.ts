@@ -1,12 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import { ReviewEntity } from 'src/database/entities/review.entity';
+import { ReviewEntity } from '../../database/entities/review.entity';
 import { DataSource,Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { ReviewRepository } from 'src/database/repositories/review.repository';
-import { ReviewRepositoryType } from 'src/database/types/reviewTypes';
-import { CreateReviewInput } from 'src/graphql/inputs/createReview.input';
-import { OfferingEntity } from 'src/database/entities/offering.entity';
-import { VisitorEntity } from 'src/database/entities/visitor.entity';
+import { ReviewRepository } from '../../database/repositories/review.repository';
+import { ReviewRepositoryType } from '../../database/types/reviewTypes';
+import { CreateReviewInput } from '../../graphql/inputs/createReview.input';
+import { OfferingEntity } from '../../database/entities/offering.entity';
+import { VisitorEntity } from '../../database/entities/visitor.entity';
 
 
 @Injectable()

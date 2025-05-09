@@ -1,5 +1,5 @@
 import { Args, Mutation, Resolver } from "@nestjs/graphql/dist";
-import { PackageService } from "src/modules/package/package.service";
+import { PackageService } from "../../modules/package/package.service";
 import { PackageModel } from "../models/package.model";
 import { CreatePackageInput } from "../inputs/createPackage.input";
 import { UpdatePackageInput } from "../inputs/updatePackage.input";import { PackageEntity } from "src/database/entities/package.entity";
