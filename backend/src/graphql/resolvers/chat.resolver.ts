@@ -45,7 +45,7 @@ export class ChatResolver {
   }
 
   @Mutation(() => ChatType)
-  async sendMessage(
+  async sendQuoteMessage(
     @Args("chatId") chatId: string,
     @Args("content") content: string,
     @Args("visitorSenderId", { nullable: true }) visitorSenderId?: string,
