@@ -4,6 +4,7 @@ import { VisitorService } from 'src/modules/visitor/visitor.service';
 import { VisitorEntity } from 'src/database/entities/visitor.entity';
 import { CreateVisitorInput } from 'src/graphql/inputs/createVisitor.input';
 import { UpdateVisitorInput } from 'src/graphql/inputs/updateVisitor.input';
+import { ChecklistService } from 'src/modules/checklist/checklist.service';
 
 // Mock the VisitorEntity repository
 const mockVisitorRepository = {
@@ -13,6 +14,11 @@ const mockVisitorRepository = {
   findOne: jest.fn(),
   delete: jest.fn(),
   update: jest.fn(),
+};
+
+// Mock ChecklistService
+const mockChecklistService = {
+  handleWeddingDateChange: jest.fn(),
 };
 
 // Mock bcrypt.hashSync to return a consistent hash
@@ -30,6 +36,10 @@ describe('VisitorService', () => {
         {
           provide: getRepositoryToken(VisitorEntity),
           useValue: mockVisitorRepository,
+        },
+        {
+          provide: ChecklistService,
+          useValue: mockChecklistService,
         },
       ],
     }).compile();
@@ -60,7 +70,7 @@ describe('VisitorService', () => {
       const visitor = {
         id: '1',
         ...createVisitorInput,
-        password: 'hashedpassword', // Use the mocked hash value
+        password: 'hashedpassword',
         createdAt: new Date(),
         updatedAt: new Date(),
       } as VisitorEntity;
@@ -73,7 +83,7 @@ describe('VisitorService', () => {
       expect(result).toEqual(visitor);
       expect(mockVisitorRepository.create).toHaveBeenCalledWith({
         ...createVisitorInput,
-        password: 'hashedpassword', // Use the mocked hash value
+        password: 'hashedpassword',
       });
       expect(mockVisitorRepository.save).toHaveBeenCalledWith(visitor);
     });
@@ -99,7 +109,7 @@ describe('VisitorService', () => {
       const visitor = {
         id,
         ...updateVisitorInput,
-        password: 'hashedpassword', // Use the mocked hash value
+        password: 'hashedpassword',
         createdAt: new Date(),
         updatedAt: new Date(),
       } as VisitorEntity;
@@ -112,7 +122,7 @@ describe('VisitorService', () => {
       expect(result).toEqual(visitor);
       expect(mockVisitorRepository.update).toHaveBeenCalledWith(id, {
         ...updateVisitorInput,
-        password: 'hashedpassword', // Use the mocked hash value
+        password: 'hashedpassword',
       });
       expect(mockVisitorRepository.findOne).toHaveBeenCalledWith({
         where: { id },
@@ -211,6 +221,49 @@ describe('VisitorService', () => {
       await expect(
         service.updateProfilePicture(visitorId, fileUrl),
       ).rejects.toThrow('Visitor not found');
+    });
+  });
+
+  describe('setWeddingDate', () => {
+    it('should update the wedding date and call checklist service', async () => {
+      const visitorId = '1';
+      const weddingDate = new Date('2025-12-25');
+      const visitor = {
+        id: visitorId,
+        weddingDate: null,
+      } as VisitorEntity;
+
+      mockVisitorRepository.findOne.mockResolvedValue(visitor);
+      mockVisitorRepository.save.mockResolvedValue({
+        ...visitor,
+        weddingDate,
+      });
+
+      const result = await service.setWeddingDate(visitorId, weddingDate);
+
+      expect(result.weddingDate).toEqual(weddingDate);
+      expect(mockVisitorRepository.findOne).toHaveBeenCalledWith({
+        where: { id: visitorId },
+      });
+      expect(mockVisitorRepository.save).toHaveBeenCalledWith({
+        ...visitor,
+        weddingDate,
+      });
+      expect(mockChecklistService.handleWeddingDateChange).toHaveBeenCalledWith(
+        visitorId,
+        weddingDate,
+      );
+    });
+
+    it('should throw NotFoundException if visitor is not found', async () => {
+      const visitorId = 'nonexistent';
+      const weddingDate = new Date('2025-12-25');
+
+      mockVisitorRepository.findOne.mockResolvedValue(null);
+
+      await expect(
+        service.setWeddingDate(visitorId, weddingDate),
+      ).rejects.toThrow(`Visitor with ID ${visitorId} not found`);
     });
   });
 });
