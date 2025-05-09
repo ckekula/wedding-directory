@@ -33,6 +33,7 @@ const createVendor = (): VendorEntity => ({
   createdAt: undefined,
   updatedAt: undefined,
   offering: [],
+  payments: [],
 });
 
 describe('VendorService', () => {
@@ -70,10 +71,7 @@ describe('VendorService', () => {
 
   describe('findAllVendors', () => {
     it('should return all vendors', async () => {
-      const vendors: VendorEntity[] = [
-        createVendor(),
-        createVendor(),
-      ];
+      const vendors: VendorEntity[] = [createVendor(), createVendor()];
 
       mockVendorRepository.findAllVendors.mockResolvedValue(vendors);
 
@@ -83,9 +81,13 @@ describe('VendorService', () => {
     });
 
     it('should throw an error when repository throws an error', async () => {
-      mockVendorRepository.findAllVendors.mockRejectedValue(new Error('Repository error'));
+      mockVendorRepository.findAllVendors.mockRejectedValue(
+        new Error('Repository error'),
+      );
 
-      await expect(service.findAllVendors()).rejects.toThrow('Repository error');
+      await expect(service.findAllVendors()).rejects.toThrow(
+        'Repository error',
+      );
       expect(mockVendorRepository.findAllVendors).toHaveBeenCalledTimes(1);
     });
   });
@@ -125,9 +127,13 @@ describe('VendorService', () => {
 
     it('should handle repository errors gracefully', async () => {
       const id = '123';
-      mockVendorRepository.findVendorById.mockRejectedValue(new Error('Repository error'));
+      mockVendorRepository.findVendorById.mockRejectedValue(
+        new Error('Repository error'),
+      );
 
-      await expect(service.findVendorById(id)).rejects.toThrow('Repository error');
+      await expect(service.findVendorById(id)).rejects.toThrow(
+        'Repository error',
+      );
       expect(mockVendorRepository.findVendorById).toHaveBeenCalledWith(id);
       expect(mockVendorRepository.findVendorById).toHaveBeenCalledTimes(1);
     });
@@ -146,16 +152,18 @@ describe('VendorService', () => {
       expect(mockVendorRepository.remove).toHaveBeenCalledTimes(1);
       expect(mockVendorRepository.remove).toHaveBeenCalledWith(vendor);
     });
-  
+
     it('should throw error if vendor does not exist', async () => {
       const id = '123';
       mockVendorRepository.findVendorById.mockResolvedValue(null);
-      await expect(service.deleteVendor(id)).rejects.toThrow('Vendor not found');
+      await expect(service.deleteVendor(id)).rejects.toThrow(
+        'Vendor not found',
+      );
 
       expect(mockVendorRepository.findVendorById).toHaveBeenCalledWith(id);
       expect(mockVendorRepository.findVendorById).toHaveBeenCalledTimes(1);
     });
-  
+
     it('should throw error if invalid ID input', async () => {
       const invalidIds = [undefined, null, ''];
 
@@ -164,7 +172,7 @@ describe('VendorService', () => {
         await expect(service.deleteVendor(id)).rejects.toThrow('Invalid ID');
       }
     });
-  })
+  });
 
   describe('createVendor', () => {
     it('should create a new vendor', async () => {
@@ -181,8 +189,12 @@ describe('VendorService', () => {
 
       const hashedPassword = 'hashed_password123';
       jest.spyOn(bcrypt, 'hash').mockResolvedValue(hashedPassword);
-      
-      const savedVendor = { ...createVendorInput, password: hashedPassword, id: '123' };
+
+      const savedVendor = {
+        ...createVendorInput,
+        password: hashedPassword,
+        id: '123',
+      };
       mockVendorRepository.findOne.mockResolvedValue(null); // Simulate no existing vendor
       mockVendorRepository.create.mockReturnValue(savedVendor);
       mockVendorRepository.save.mockResolvedValue(savedVendor);
@@ -190,12 +202,17 @@ describe('VendorService', () => {
       const result = await service.createVendor(createVendorInput);
 
       expect(bcrypt.hash).toHaveBeenCalledWith(createVendorInput.password, 12);
-      expect(mockVendorRepository.findOne).toHaveBeenCalledWith({ where: { email: createVendorInput.email } });
-      expect(mockVendorRepository.create).toHaveBeenCalledWith({ ...createVendorInput, password: hashedPassword });
+      expect(mockVendorRepository.findOne).toHaveBeenCalledWith({
+        where: { email: createVendorInput.email },
+      });
+      expect(mockVendorRepository.create).toHaveBeenCalledWith({
+        ...createVendorInput,
+        password: hashedPassword,
+      });
       expect(mockVendorRepository.save).toHaveBeenCalledWith(savedVendor);
       expect(result).toEqual(savedVendor);
     });
-  
+
     it('should throw an error if the email already exists', async () => {
       const createVendorInput: CreateVendorInput = {
         fname: 'John',
@@ -210,10 +227,14 @@ describe('VendorService', () => {
 
       mockVendorRepository.findOne.mockResolvedValue(createVendorInput); // Simulate existing vendor with the same email
 
-      await expect(service.createVendor(createVendorInput)).rejects.toThrow('Email already exists');
-      expect(mockVendorRepository.findOne).toHaveBeenCalledWith({ where: { email: createVendorInput.email } });
+      await expect(service.createVendor(createVendorInput)).rejects.toThrow(
+        'Email already exists',
+      );
+      expect(mockVendorRepository.findOne).toHaveBeenCalledWith({
+        where: { email: createVendorInput.email },
+      });
     });
-  
+
     it('should handle repository errors gracefully', async () => {
       const createVendorInput: CreateVendorInput = {
         fname: 'John',
@@ -227,11 +248,16 @@ describe('VendorService', () => {
       };
 
       mockVendorRepository.findOne.mockResolvedValue(null);
-      mockVendorRepository.save.mockRejectedValue(new Error('Repository error'));
+      mockVendorRepository.save.mockRejectedValue(
+        new Error('Repository error'),
+      );
 
-      await expect(service.createVendor(createVendorInput)).rejects.toThrow('Repository error');
-      expect(mockVendorRepository.save).toHaveBeenCalledWith(expect.any(Object));
+      await expect(service.createVendor(createVendorInput)).rejects.toThrow(
+        'Repository error',
+      );
+      expect(mockVendorRepository.save).toHaveBeenCalledWith(
+        expect.any(Object),
+      );
     });
-
-  })
+  });
 });
