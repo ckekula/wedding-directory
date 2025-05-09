@@ -68,6 +68,7 @@ const WeddingDetails: React.FC = () => {
           partner_fname: weddingDetails.partnerFirstName,
           partner_lname: weddingDetails.partnerLastName,
           engaged_date: weddingDetails.engagementDate,
+          wed_date: weddingDetails.weddingDate,
           wed_venue: weddingDetails.weddingVenue
         }
       },
