@@ -148,7 +148,7 @@ const Service: React.FC = () => {
   const handlePayAdvance = async (amount: number, packageId: string) => {
     try {
       if (!visitor) {
-        toast.error("Please login to pay advance");
+        toast.error("Please login as a user to pay advance");
         return;
       }
 
@@ -313,7 +313,7 @@ const Service: React.FC = () => {
                               <button
                                 onClick={() => {
                                   if (!visitor) {
-                                    toast.error("Please login to pay advance");
+                                    toast.error("Please login as a user to pay advance");
                                     return;
                                   }
                                   const advanceAmount: number =
