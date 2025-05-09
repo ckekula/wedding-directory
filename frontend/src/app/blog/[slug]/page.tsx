@@ -92,7 +92,7 @@ export default function BlogPostPage() {
         break;
       case "pinterest":
         const imageUrl = post?.CoverImage?.url
-          ? `http://51.79.145.226:5000${post.CoverImage.url}`
+          ? `http://localhost:5000${post.CoverImage.url}`
           : "";
         window.open(
           `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(
@@ -203,7 +203,7 @@ export default function BlogPostPage() {
   // Determine if we have a valid image URL
   const hasValidImage = post.CoverImage && post.CoverImage.url;
   const imageUrl = hasValidImage
-    ? `http://51.79.145.226:5000${post.CoverImage.url}`
+    ? `http://localhost:5000${post.CoverImage.url}`
     : null;
 
   // Calculate estimated reading time
