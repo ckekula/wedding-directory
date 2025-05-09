@@ -20,6 +20,8 @@ import { ChatModule } from "./modules/chat/chat.module";
 import { MongooseModule } from "@nestjs/mongoose";
 import { StripeModule } from "./modules/stripe/stripe.module";
 import { PaymentModule } from "./modules/payment/payment.module";
+import { ChatbotModule } from "./modules/ai/chatbot.module";
+import { VectorSearchModule } from "./modules/ai/vector-search.module";
 
 @Module({
   imports: [
@@ -59,6 +61,8 @@ import { PaymentModule } from "./modules/payment/payment.module";
     PackageModule,
     StripeModule,
     PaymentModule,
+    ChatbotModule,
+    VectorSearchModule,
   ],
 })
 export class AppModule {}

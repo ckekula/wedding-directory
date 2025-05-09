@@ -37,9 +37,6 @@ export class OfferingEntity {
     photo_showcase: string[];
 
     @Column({ type: 'varchar', length: 100, nullable: true })
-    pricing: string;
-
-    @Column({ type: 'varchar', length: 100, nullable: true })
     website : string;
 
     @Column({ type: 'varchar', length: 100, nullable: true })
