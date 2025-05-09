@@ -14,6 +14,12 @@ const nextConfig = {
         port: "1337",
         pathname: "/**", // all paths under this hostname are allowed
       },
+      {
+        protocol: "http",
+        hostname: "51.79.145.226",
+        port: "5000",
+        pathname: "/**",
+      },
     ],
   },
   optimizeFonts: false,
