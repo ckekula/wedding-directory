@@ -117,7 +117,7 @@ const GeneralHeader = () => {
                   <Link
                     href={link.path}
                     key={index}
-                    className={`text-lg font-title capitalize transition-all ${
+                    className={`text-lg font-title capitalize transition-all cursor-pointer ${
                       isActive
                         ? "font-bold text-black"
                         : "text-black hover:text-orange "
