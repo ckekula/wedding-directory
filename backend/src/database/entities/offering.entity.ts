@@ -24,7 +24,7 @@ export class OfferingEntity {
     @Column({ type: 'varchar', length: 50, nullable: true })
     bus_email: string;
 
-    @Column({ type: 'varchar', length: 100, nullable: true })
+    @Column({ type: 'varchar', length: 1000, nullable: true })
     description: string;
 
     @Column({ type: 'varchar', length: 300, nullable: true  })
@@ -35,9 +35,6 @@ export class OfferingEntity {
 
     @Column('text', { array: true, nullable: true })
     photo_showcase: string[];
-
-    @Column({ type: 'varchar', length: 100, nullable: true })
-    pricing: string;
 
     @Column({ type: 'varchar', length: 100, nullable: true })
     website : string;

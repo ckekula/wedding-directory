@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
-import { PackageEntity } from "src/database/entities/package.entity";
-import { PackageRepository } from "src/database/repositories/package.repository";
-import { PackageRepositoryType } from "src/database/types/packageTypes";
+import { PackageEntity } from "../../database/entities/package.entity";
+import { PackageRepository } from "../../database/repositories/package.repository";
+import { PackageRepositoryType } from "../../database/types/packageTypes";
 import { DataSource } from "typeorm";
 
 @Injectable()
