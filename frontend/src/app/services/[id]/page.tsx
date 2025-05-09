@@ -82,7 +82,7 @@ const Service: React.FC = () => {
 
   const handleHeartClick = async () => {
     if (!visitor) {
-      toast.error("Please login to save to your vendors");
+      toast.error("Please login as a user to save to your vendors");
       return;
     }
 
