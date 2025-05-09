@@ -244,13 +244,13 @@ export const CREATE_CHAT = gql`
 `;
 
 export const SEND_MESSAGE = gql`
-  mutation SendMessage(
+  mutation sendQuoteMessage(
     $chatId: String!
     $content: String!
     $visitorSenderId: String
     $vendorSenderId: String
   ) {
-    sendMessage(
+    sendQuoteMessage(
       chatId: $chatId
       content: $content
       visitorSenderId: $visitorSenderId
