@@ -42,6 +42,7 @@ const OnboardingPageTwo = () => {
              id: visitor?.id,
              input: {
                engaged_date: engageDate,
+               wed_date:weddingDate
                // Don't include wedding date here
              },
            },

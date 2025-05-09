@@ -64,10 +64,11 @@ const QuoteRequestWidget = ({ vendorId,offeringId }: QuoteRequestWidgetProps) =>
           chatId: chatId,
           content: message,
           visitorSenderId: visitor.id,
-        },
+          vendorSenderId: null  // Add this line since it's optional
+        }
       });
 
-      if (messageResponse.data?.sendMessage) {
+      if (messageResponse.data?.sendQuoteMessage) {
         toast.success("Quote request sent successfully!");
         // Reset form
         setMessage("");
