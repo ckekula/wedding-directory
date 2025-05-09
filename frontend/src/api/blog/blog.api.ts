@@ -4,7 +4,7 @@ import request from '../../utils/request';
 
 export const fetchBlogPosts = async (page = 1, pageSize = 10) => {
   try {
-    const response = await request.get('http://51.79.145.226:5000/api/posts', {
+    const response = await request.get('http://localhost:5000/api/posts', {
       params: {
         'pagination[page]': page,
         'pagination[pageSize]': pageSize,
@@ -23,7 +23,7 @@ export const fetchBlogPosts = async (page = 1, pageSize = 10) => {
 
 export const fetchBlogPostBySlug = async (slug: string) => {
   try {
-    const response = await request.get('http://51.79.145.226:5000/api/posts', {
+    const response = await request.get('http://localhost:5000/api/posts', {
       params: {
         'filters[Slug][$eq]': slug,
          'populate': 'CoverImage'
