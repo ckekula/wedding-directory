@@ -131,14 +131,12 @@ export class EmbeddingsService {
 
   async indexAllVendors(): Promise<void> {
     const vendors = await this.vendorRepository.find();
-    console.log(`Found ${vendors.length} vendors to process`);
     
     let count = 0;
     for (const vendor of vendors) {
       try {
         await this.processVendor(vendor.id);
         count++;
-        console.log(`Processed vendor ${count}/${vendors.length}: ${vendor.busname}`);
       } catch (error) {
         console.error(`Error processing vendor ${vendor.id} (${vendor.busname}):`, error.message);
       }

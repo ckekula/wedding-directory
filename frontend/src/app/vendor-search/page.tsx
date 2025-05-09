@@ -10,6 +10,7 @@ import { useLazyQuery } from "@apollo/client";
 import FilterSearchBar from "@/components/vendor-search/FilterSearchBar";
 import { Offering } from '@/types/offeringTypes';
 import LoaderJelly from "@/components/shared/Loaders/LoaderJelly";
+import Chatbot from "@/components/ai/chatbot";
 
 const VendorSearch: React.FC = () => {
   const [city, setCity] = useState<string>("");
@@ -115,10 +116,11 @@ const VendorSearch: React.FC = () => {
 
         {/* Sidebar */}
         <div className="relative hidden xl:block w-full m-3 md:w-1/4 h-full md:h-auto rounded-2xl bg-white overflow-hidden">
-          <p className="text-center my-6 font-bold">Other Vendors You might like</p>
+          <p className="text-center my-6 font-bold">Vendors You might like based on your favorites</p>
           <p className="text-center">Nothing to show yet</p>
         </div>
       </div>
+      <Chatbot/>
       <Footer />
     </div>
   );

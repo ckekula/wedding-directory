@@ -54,7 +54,6 @@ export const FIND_SERVICE_BY_ID = gql`
       description
       bus_phone
       bus_email
-      pricing
       banner
       visible
       website

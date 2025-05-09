@@ -54,7 +54,6 @@ export class VectorSearchService {
       ORDER BY similarity DESC
       LIMIT $2
     `, [formattedEmbedding, limit]);
-    console.log("Vendor results: ", vendorResults)
 
     // Search for relevant offering data
     const offeringResults = await this.offeringRepository.query(`
@@ -74,7 +73,6 @@ export class VectorSearchService {
       ORDER BY similarity DESC
       LIMIT $2
     `, [formattedEmbedding, limit]);
-    console.log("Offering results: ", offeringResults)
 
     // Search for relevant package data
     const packageResults = await this.packageRepository.query(`
@@ -98,7 +96,6 @@ export class VectorSearchService {
       ORDER BY similarity DESC
       LIMIT $2
     `, [formattedEmbedding, limit]);
-    console.log("Package results: ", packageResults)
 
     const formatResults = (results, type: 'vendor' | 'offering' | 'package'): SearchResult[] => {
       return results.map(r => ({

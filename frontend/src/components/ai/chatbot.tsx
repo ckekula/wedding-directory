@@ -76,20 +76,20 @@ const Chatbot: React.FC = () => {
       {/* Chat toggle button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="bg-indigo-600 hover:bg-indigo-700 text-white rounded-full p-4 shadow-lg"
+        className="bg-orange hover:bg-primary text-white rounded-full p-4 shadow-lg"
       >
         {isOpen ? (
           <p>Close</p>
         ) : (
-          <p>Open</p>
+          <p>Ask AI</p>
         )}
       </button>
 
       {/* Chat window */}
       {isOpen && (
-        <div className="absolute bottom-16 right-0 w-96 h-96 bg-white rounded-lg shadow-xl flex flex-col overflow-hidden">
+        <div className="absolute bottom-16 right-0 w-[448px] h-[512px] bg-white rounded-lg shadow-xl flex flex-col overflow-hidden">
           {/* Chat header */}
-          <div className="bg-indigo-600 text-white p-4">
+          <div className="bg-orange text-white p-4">
             <h3 className="font-medium">Wedding Planner Assistant</h3>
           </div>
 
@@ -105,7 +105,7 @@ const Chatbot: React.FC = () => {
                 <div
                   className={`inline-block p-3 rounded-lg ${
                     message.isUser
-                      ? 'bg-indigo-500 text-white'
+                      ? 'bg-orange text-white'
                       : 'bg-gray-200 text-gray-800'
                   }`}
                 >
@@ -129,7 +129,7 @@ const Chatbot: React.FC = () => {
               />
               <button
                 type="submit"
-                className="bg-indigo-600 hover:bg-indigo-700 text-white p-2 rounded-r-lg"
+                className="bg-orange hover:bg-primary text-white p-2 rounded-r-lg"
                 disabled={loading}
               >
                 {loading ? (
