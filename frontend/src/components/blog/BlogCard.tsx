@@ -24,7 +24,7 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
   const contentPreview = stripMarkdown(post.Content).substring(0, 120) + "...";
 
   const imageUrl = post.CoverImage?.url
-    ? `http://localhost:1337${post.CoverImage.url}`
+    ? `http://51.79.145.226:5000${post.CoverImage.url}`
     : "/images/placeholder-blog.jpg"; // Add a placeholder image
 
   return (
