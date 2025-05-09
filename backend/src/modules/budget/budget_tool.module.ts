@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { BudgetToolService } from './budget_tool.service';
 import { BudgetToolResolver } from '../../graphql/resolvers/budget_tool.resolver';
-import { BudgetToolEntity } from 'src/database/entities/budget_tool.entity';
+import { BudgetToolEntity } from '../../database/entities/budget_tool.entity';
 import { VisitorModule } from '../visitor/visitor.module';
 
 @Module({

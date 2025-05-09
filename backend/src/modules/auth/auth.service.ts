@@ -3,7 +3,7 @@ import { VisitorService } from "../visitor/visitor.service";
 import { JwtService } from "@nestjs/jwt";
 import * as bcrypt from 'bcryptjs'
 
-import { VisitorEntity } from "src/database/entities/visitor.entity";
+import { VisitorEntity } from "../../database/entities/visitor.entity";
 import { jwtSecret } from "./constants";
 import { VendorService } from '../vendor/vendor.service';
 import { VendorEntity } from '../../database/entities/vendor.entity';

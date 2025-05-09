@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { MyVendorsRepository } from 'src/database/repositories/myVendors.repository';
-import { MyVendorsRepositoryType } from 'src/database/types/myVendorsTypes';
+import { MyVendorsRepository } from '../../database/repositories/myVendors.repository';
+import { MyVendorsRepositoryType } from '../../database/types/myVendorsTypes';
 import { DataSource } from 'typeorm';
 
 @Injectable()

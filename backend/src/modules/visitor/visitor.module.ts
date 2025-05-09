@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { VisitorService } from './visitor.service';
-import { VisitorResolver } from 'src/graphql/resolvers/visitor.resolver';
-import { VisitorEntity } from 'src/database/entities/visitor.entity';
+import { VisitorResolver } from '../../graphql/resolvers/visitor.resolver';
+import { VisitorEntity } from '../../database/entities/visitor.entity';
 import { ChecklistModule } from '../checklist/checklist.module';
 
 @Module({

@@ -1,7 +1,7 @@
 import { Injectable, ExecutionContext } from '@nestjs/common';
 import { AuthGuard } from '@nestjs/passport';
 import { RequestWithVisitor } from '../request-with-visitor.interface';
-import { VisitorEntity } from 'src/database/entities/visitor.entity';
+import { VisitorEntity } from '../../../database/entities/visitor.entity';
 import { RequestWithVendor } from '../request-with-vendor.interface';
 import { VendorEntity } from '../../../database/entities/vendor.entity';
 
