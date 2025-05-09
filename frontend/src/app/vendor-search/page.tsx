@@ -116,8 +116,8 @@ const VendorSearch: React.FC = () => {
 
         {/* Sidebar */}
         <div className="relative hidden xl:block w-full m-3 md:w-1/4 h-full md:h-auto rounded-2xl bg-white overflow-hidden">
-          <p className="text-center my-6 font-bold">Vendors You might like based on your favorites</p>
-          <p className="text-center">Nothing to show yet</p>
+          <p className="text-center my-6 font-bold mx-2">Vendors you might like based on your favorites</p>
+          <p className="text-center">Nothing to show yet!</p>
         </div>
       </div>
       <Chatbot/>
