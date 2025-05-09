@@ -316,25 +316,27 @@ export const FIND_REVIEW_BY_SERVICE = gql`
 `;
 
 export const GET_CHAT = gql`
-  query GetChat($visitorId: String!, $vendorId: String!) {
-    chat(visitorId: $visitorId, vendorId: $vendorId) {
-      id
+  query GetChat($visitorId: String!, $offeringId: String!) {
+    getChat(visitorId: $visitorId, offeringId: $offeringId) {
+      chatId
+      visitorId
+      offeringId
+      vendorId
       visitor {
         id
       }
       vendor {
         id
       }
+      offering {
+        id
+      }
       messages {
         id
         content
-        createdAt
-        visitorSender {
-          id
-        }
-        vendorSender {
-          id
-        }
+        senderId
+        senderType
+        timestamp
       }
     }
   }
@@ -357,6 +359,7 @@ export const GET_VISITOR_CHATS = gql`
   query GetVisitorChats($visitorId: String!) {
     getVisitorChats(visitorId: $visitorId) {
       chatId
+      offeringId
       vendorId
       messages {
         content
@@ -383,11 +386,26 @@ export const GET_VENDOR_MESSAGES = gql`
     getVendorChats(vendorId: $vendorId) {
       chatId
       visitorId
+      offeringId
       messages {
         content
         senderId
         senderType
         timestamp
+      }
+    }
+  }
+`;
+
+export const GET_OFFERING_DETAILS = gql`
+  query GetOfferingDetails($id: String!) {
+    findOfferingById(id: $id) {
+      id
+      name
+      category
+      vendor {
+        id
+        busname
       }
     }
   }

@@ -3,58 +3,62 @@
 # Base image
 FROM node:18-alpine AS base
 
-# Install dependencies only when needed
+# Dependencies Layer
 FROM base AS deps
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-# Install dependencies using npm
 COPY package.json package-lock.json ./
 RUN npm ci
-
 RUN npm install sharp
 
-# Build the application
+# Build Layer
 FROM base AS builder
 WORKDIR /app
+
+# Reuse node_modules from deps layer
 COPY --from=deps /app/node_modules ./node_modules
+
+# Copy all project files
 COPY . .
 
-# Disable Next.js telemetry
+# Accept build-time environment variables
+ARG NEXT_PUBLIC_API_URL
+ARG NEXT_PUBLIC_GRAPHQL_URL
+ARG NEXT_PUBLIC_BASE_URL
+ARG NEXT_PUBLIC_GOOGLE_MAPS_API_KEY
+
+# Inject build-time environment variables into the build
+ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
+ENV PORT=3000
+ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+ENV NEXT_PUBLIC_GRAPHQL_URL=${NEXT_PUBLIC_GRAPHQL_URL}
+ENV NEXT_PUBLIC_BASE_URL=${NEXT_PUBLIC_BASE_URL}
+ENV NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=${NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
 
 # Build the Next.js app in standalone mode
 RUN npm run build
 
-# Production image
+# Production Layer
 FROM base AS runner
 WORKDIR /app
 
-# Set environment variables for production
-ENV NODE_ENV=production
-ENV NEXT_TELEMETRY_DISABLED=1
-ENV PORT=3000
-
-# Create a non-root user for security
+# Create a safer non-root user
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
 
-# Copy necessary files for running the app
+# Copy only the necessary build artifacts
 COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-# Copy the .env file
-COPY --chown=node:node .env.local .env.local
 
-# Switch to the non-root user
+# Copy environment file into production image (optional but not necessary if baked)
+COPY --from=builder --chown=nextjs:nodejs /app/.env.production .env
+
 USER nextjs
-
-# Expose the application port
 
 EXPOSE 3000
 ENV HOSTNAME="0.0.0.0"
 
-
-# Start the Next.js server
 CMD ["node", "server.js", "-H", "0.0.0.0"]
-
