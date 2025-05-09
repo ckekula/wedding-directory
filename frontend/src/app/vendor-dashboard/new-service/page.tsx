@@ -76,7 +76,7 @@ const AddNewService: React.FC = () => {
 
           {/* Left Image Section */}
           <div className="relative w-full md:w-6/12 h-96 md:h-auto">
-            <Image src="/images/onboard1.webp" layout="fill" objectFit="cover" alt="onboard image" />
+            <Image src="/images/onBoard1.webp" layout="fill" objectFit="cover" alt="onboard image" />
           </div>
 
           {/* Right Form Section */}
