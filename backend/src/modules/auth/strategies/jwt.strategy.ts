@@ -1,9 +1,9 @@
 import { Injectable } from "@nestjs/common";
 import { PassportStrategy } from "@nestjs/passport";
 import { ExtractJwt,Strategy } from "passport-jwt";
-import { VisitorService } from "src/modules/visitor/visitor.service";
+import { VisitorService } from "../../../modules/visitor/visitor.service";
 import { jwtSecret } from "../constants";
-import { VisitorEntity } from "src/database/entities/visitor.entity";
+import { VisitorEntity } from "../../../database/entities/visitor.entity";
 import { VendorService } from '../../vendor/vendor.service';
 import { VendorEntity } from '../../../database/entities/vendor.entity';
 

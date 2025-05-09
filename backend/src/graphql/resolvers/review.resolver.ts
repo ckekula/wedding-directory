@@ -1,7 +1,7 @@
 import { Args, Mutation, Resolver } from "@nestjs/graphql";
-import { ReviewService } from "src/modules/review/review.service";
+import { ReviewService } from "../../modules/review/review.service";
 import { ReviewModel } from "../models/review.model";
-import { ReviewEntity } from "src/database/entities/review.entity";
+import { ReviewEntity } from "../../database/entities/review.entity";
 import { Query } from "@nestjs/graphql";
 import { CreateReviewInput } from "../inputs/createReview.input";
 

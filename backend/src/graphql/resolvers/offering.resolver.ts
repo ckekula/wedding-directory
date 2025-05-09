@@ -6,7 +6,7 @@ import { CreateOfferingInput } from '../inputs/createOffering.input';
 import { OfferingFilterInput } from '../inputs/offeringFilter.input';
 import { UpdateOfferingInput } from '../inputs/updateOffering.input';
 import { ReviewModel } from '../models/review.model';
-import { ReviewService } from 'src/modules/review/review.service';
+import { ReviewService } from '../../modules/review/review.service';
 
 @Resolver(() => OfferingModel)
 export class OfferingResolver {

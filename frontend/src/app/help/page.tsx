@@ -4,6 +4,7 @@ import Header from "@/components/shared/Headers/Header";
 import Footer from "@/components/shared/Footer";
 import Link from "next/link";
 import { Metadata } from "next";
+import Chatbot from "@/components/ai/chatbot";
 
 export const metadata: Metadata = {
   title: "Help",
@@ -13,6 +14,7 @@ const Help = () => {
   return (
     <div className="bg-lightYellow font-body">
       <Header />
+      <Chatbot/>
       <div className="mx-4 md:mx-10">
         {/* Image Section */}
         <div className="hidden sm:flex relative z-10 w-full md:w-10/12 h-72 md:h-96 mx-auto justify-center items-center">

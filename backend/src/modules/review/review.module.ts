@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { ReviewResolver } from 'src/graphql/resolvers/review.resolver';
+import { ReviewResolver } from '../../graphql/resolvers/review.resolver';
 import { ReviewService } from './review.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ReviewEntity } from 'src/database/entities/review.entity';
-import { VisitorEntity } from 'src/database/entities/visitor.entity';
-import { OfferingEntity } from 'src/database/entities/offering.entity';
+import { ReviewEntity } from '../../database/entities/review.entity';
+import { VisitorEntity } from '../../database/entities/visitor.entity';
+import { OfferingEntity } from '../../database/entities/offering.entity';
 
 @Module({
   imports: [
