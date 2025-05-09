@@ -9,7 +9,8 @@ export const fetchBlogPosts = async (page = 1, pageSize = 10) => {
         'pagination[page]': page,
         'pagination[pageSize]': pageSize,
         'sort': 'publishedAt:desc',
-        'filters[Published][$eq]': true
+        'filters[Published][$eq]': true,
+        'populate': 'CoverImage',
       }
     });
     
