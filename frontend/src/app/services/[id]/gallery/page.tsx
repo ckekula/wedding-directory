@@ -131,6 +131,8 @@ const PortfolioPage: React.FC = () => {
                       loading="lazy"
                       onLoad={() => handleImageLoaded(media.url)}
                       style={{ minHeight: "150px" }}
+                      width={1000}
+                      height={1000}
                     />
                   </>
                 ) : (
@@ -200,6 +202,9 @@ const PortfolioPage: React.FC = () => {
                 src={selectedMedia.url}
                 alt={`${offering?.name} - Gallery`}
                 className="w-full h-full object-contain"
+                
+                width={1000}
+                height={1000}
               />
             ) : (
               <video
