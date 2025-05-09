@@ -4,7 +4,7 @@ import React, { useState, useCallback, useEffect } from "react";
 import Footer from "@/components/shared/Footer";
 import Header from "@/components/shared/Headers/Header";
 import OfferingCard from "@/components/vendor-search/OfferingCard";
-import { Button } from "@/components/ui/button";
+// import { Button } from "@/components/ui/button";
 import { FIND_SERVICES } from "@/graphql/queries";
 import { useLazyQuery } from "@apollo/client";
 import FilterSearchBar from "@/components/vendor-search/FilterSearchBar";
@@ -72,12 +72,12 @@ const VendorSearch: React.FC = () => {
         {/* Main Content */}
         <div className="relative w-full m-3 md:w-3/4 h-full md:h-auto rounded-2xl overflow-hidden">
           {/* Sorting Options */}
-          <div className="flex flex-row space-x-4">
+          {/* <div className="flex flex-row space-x-4">
             <Button className="bg-white text-black hover:bg-gray-300">Distance</Button>
             <Button className="bg-white text-black hover:bg-gray-300">Price</Button>
             <Button className="bg-white text-black hover:bg-gray-300">Ratings</Button>
             <Button className="bg-white text-black hover:bg-gray-300">Featured</Button>
-          </div>
+          </div> */}
 
           {/* Data Loading/Error/Result State */}
           {loading ? (

@@ -16,6 +16,7 @@
     "generate-schema": "ts-node src/scripts/generate-schema.ts",
     "generate-embeddings": "ts-node src/scripts/generate-embeddings.ts",
     "test": "jest",
+    "test:integration": "jest --testPathPattern=test/integration",
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage"
   },
