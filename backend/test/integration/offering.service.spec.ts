@@ -10,6 +10,7 @@ import { VendorEntity } from 'src/database/entities/vendor.entity';
 import { CreateOfferingInput } from 'src/graphql/inputs/createOffering.input';
 import { getEntities } from '../../src/database/entities/index';
 import { of } from 'rxjs';
+import { UpdateOfferingInput } from 'src/graphql/inputs/updateOffering.input';
 
 describe('OfferingService Integration Tests', () => {
   let app: INestApplication;
