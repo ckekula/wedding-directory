@@ -7,7 +7,6 @@ import { OfferingService } from 'src/modules/offering/offering.service';
 import { OfferingEntity } from 'src/database/entities/offering.entity';
 import { VendorEntity } from 'src/database/entities/vendor.entity';
 import { CreateOfferingInput } from 'src/graphql/inputs/createOffering.input';
-import { UpdateOfferingInput } from 'src/graphql/inputs/updateOffering.input';
 import { OfferingFilterInput } from 'src/graphql/inputs/offeringFilter.input';
 // Import function to get all entities
 import { getEntities } from 'src/database/entities';
