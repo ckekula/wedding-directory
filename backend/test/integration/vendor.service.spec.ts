@@ -124,7 +124,6 @@ describe('VendorService Integration Tests', () => {
   describe('Find Vendors', () => {
     it('should find a vendor by ID', async () => {
       expect(testVendorId).toBeDefined();
-
       const vendor = await vendorService.findVendorById(testVendorId);
       expect(vendor).toBeDefined();
       expect(vendor.id).toBe(testVendorId);
@@ -140,13 +139,12 @@ describe('VendorService Integration Tests', () => {
       const nonExistentId = '00000000-0000-0000-0000-000000000000';
       const vendor = await vendorService.findVendorById(nonExistentId);
       expect(vendor).toBeNull();
-    });
-  });
+    });  });
 
   describe('Update Vendor', () => {
     it('should update vendor information', async () => {
+      // This test depends on the create test above
       expect(testVendorId).toBeDefined();
-
       const updateVendorInput: UpdateVendorInput = {
         fname: 'Updated',
         lname: 'Name',

@@ -8,7 +8,6 @@ import { VendorService } from 'src/modules/vendor/vendor.service';
 import { OfferingEntity } from 'src/database/entities/offering.entity';
 import { VendorEntity } from 'src/database/entities/vendor.entity';
 import { CreateOfferingInput } from 'src/graphql/inputs/createOffering.input';
-import { UpdateOfferingInput } from 'src/graphql/inputs/updateOffering.input';
 import { getEntities } from '../../src/database/entities/index';
 import { of } from 'rxjs';
 
