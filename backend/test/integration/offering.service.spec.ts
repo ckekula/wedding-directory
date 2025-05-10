@@ -24,7 +24,7 @@ describe('OfferingService Integration Tests', () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [
         ConfigModule.forRoot({
-          envFilePath: '.env.test',
+          envFilePath: '.env',
         }),
         HttpModule,
         TypeOrmModule.forRootAsync({
@@ -32,7 +32,7 @@ describe('OfferingService Integration Tests', () => {
           inject: [ConfigService],
           useFactory: (configService: ConfigService) => ({
             type: 'postgres',
-            url: configService.get('DATABASE_URL'),
+            url: configService.get('TEST_DATABASE_URL'),
             entities: getEntities(),
             synchronize: true,
           }),

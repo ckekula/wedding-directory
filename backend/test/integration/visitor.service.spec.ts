@@ -19,14 +19,14 @@ describe('VisitorService Integration Tests', () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [
         ConfigModule.forRoot({
-          envFilePath: '.env.test',
+          envFilePath: '.env',
         }),
         TypeOrmModule.forRootAsync({
           imports: [ConfigModule],
           inject: [ConfigService],
           useFactory: (configService: ConfigService) => ({
             type: 'postgres',
-            url: configService.get('DATABASE_URL'),
+            url: configService.get('TEST_DATABASE_URL'),
             entities: getEntities(), // Use all entities from your application
             synchronize: true, // Only for testing
           }),
